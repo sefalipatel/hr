@@ -1,0 +1,123 @@
+.ticket-dash-page {
+    .color-cards {
+        ul li:first-child {
+            padding-left: 0;
+        }
+
+        ul li:first-child .card-box {
+            border-color: $blue;
+            background-color: $blue;
+            h5{
+                color: $blue !important;
+            }
+        }
+
+        ul li:first-child .percent {
+            color: $blue;
+        }
+
+        ul li:first-child .progress {
+            background: $blue;
+        }
+
+        ul li:nth-child(2) .card-box {
+            border-color: #1fc970;
+            background-color: #1fc970;
+            h5{
+                color: #1fc970 !important;
+            }
+        }
+
+        ul li:nth-child(2) .percent {
+            color: #1fc970;
+        }
+
+        ul li:nth-child(2) .progress {
+            background: #1fc970;
+        }
+
+        ul li:nth-child(3) .card-box {
+            border-color: #ff4365;
+            background-color: #ff4365;
+            h5{
+                color: #ff4365 !important;
+            }
+        }
+
+        ul li:nth-child(3) .percent {
+            color: #ff4365;
+        }
+
+        ul li:nth-child(3) .progress {
+            background: #ff4365;
+        }
+
+        ul li:nth-child(4) .card-box {
+            border-color: #fecd21;
+            background-color: #fecd21;
+            h5{
+                color: #fecd21 !important;
+            }
+        }
+
+        ul li:nth-child(4) .percent {
+            color: #fecd21;
+        }
+
+        ul li:nth-child(4) .progress {
+            background: #fecd21;
+        }
+
+        ul li:nth-child(4) {
+            padding-right: 0;
+        }
+
+        ul li {
+            margin: 13px 0;
+        }
+
+        ul .card-box {
+            padding: 16px 20px;
+            border: 1px solid;
+            background: #fff;
+            border-radius: 5px;
+        }
+        ul .card-box {
+           
+            .card_inner_block{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                h6{
+                    color: white;
+                    font-size: 16px;
+                }
+                .count_block{
+                    width: 60px;
+                    height: 60px;
+                    background-color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                h5{
+                    margin: 0;
+                    font-size: 20px;
+                    font-weight: 600 !important;
+                }
+            }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:1199px){
+    .ticket-dash-page .color-cards ul li:first-child {
+        padding-left: 12px;
+    }
+    .ticket-dash-page .color-cards ul li:nth-child(4) {
+        padding-right: 12px;
+    }
+}

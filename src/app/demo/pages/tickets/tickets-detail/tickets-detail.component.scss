@@ -1,0 +1,237 @@
+.chat-left {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    margin: 15px 0 15px;
+}
+
+.chat-avatar {
+    float: left;
+    margin-right: 15px;
+}
+
+.chat-avatar img {
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+}
+
+.chat-body {
+    margin: 0;
+    padding: 0 20px 0 0;
+    display: block;
+    overflow: hidden;
+    width: 190px;
+    display: flex;
+    align-items: center;
+}
+
+.chat-bubble {
+    display: block;
+    width: 280px;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.comment_box {
+    border-bottom: 1px solid #eee;
+    margin: 15px 0 15px;
+}
+
+.chat-content .chat-time {
+    color: rgba(0, 0, 0, 0.5);
+    display: block;
+    font-size: 12px;
+}
+
+.chat-content p {
+    margin: 0;
+    font-size: 13px;
+}
+
+.ticket_issue_box li {
+    list-style: disc;
+}
+
+.ticket_issue_box {
+    overflow-wrap: break-word;
+}
+
+.ticket_details .created_by {
+    background-color: #ff4365;
+}
+
+.ticket_details .ticket_priority {
+    background-color: #a986ed;
+}
+
+.ticket_details i {
+    font-size: 20px;
+}
+
+.ticket_details .pdf_icon {
+    background: #fff5ec;
+}
+
+.ticket_details .img_icon {
+    background: #feeaee;
+}
+
+.ticket_details .ticket_details_status {
+    color: #f7b84b;
+    background-color: rgba(247, 184, 75, .1);
+}
+
+
+.ticket_details .ticket_priority_status {
+    color: #f06548;
+    background-color: rgba(240, 101, 72, .1);
+}
+
+.ticket-detail-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffaf69;
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+
+.detail-info h6 {
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ticket-head-card {
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 24px 0 rgba(225, 225, 225, .2509803922);
+    border: 1px solid #d3d3d4;
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 24px;
+}
+
+.uploaded-files {
+    ul {
+        padding: 0 8px;
+        margin: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+
+            div {
+                display: -webkit-box !important;
+                max-width: 400px;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            i {
+                margin-left: 7px;
+            }
+        }
+    }
+}
+
+.icon_list {
+    display: flex;
+    align-items: center;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.chat_oter_block {
+    cursor: pointer;
+    padding: 20px;
+
+    &.table_scroll_block {
+        height: 420px;
+        overflow-y: scroll; 
+        mask-size: 100% 20000px;
+        mask-position: left bottom; 
+        -webkit-mask-size: 100% 20000px;
+        -webkit-mask-position: left bottom;
+        transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+        scrollbar-width: thin;
+        scrollbar-color: transparent white;
+
+        &:hover { 
+            -webkit-mask-position: left top;
+            scrollbar-color: #c1c1c1 transparent;
+
+        }
+
+        .chat-left {
+            display: flex;
+            align-items: center;
+            justify-content: start; 
+
+            .comment_block {
+                text-align: left;
+                overflow-wrap: break-word;
+            }
+
+            img {
+                border-radius: 100%;
+                max-width: 40px;
+            }
+
+            a {
+                overflow-wrap: break-word;
+            }
+        }
+
+        .chat-right {
+            display: flex;
+            align-items: center;
+            justify-content: end;
+
+            .comment_block {
+                text-align: left; 
+            }
+
+            img {
+                border-radius: 100%;
+                height: 50px;
+                width: 50px;
+            }
+
+            .chat-body {
+                margin: 0;
+                padding: 0 20px 0 0;
+                display: block;
+                overflow: hidden;
+                width: 190px;
+                display: flex;
+                align-items: center;
+            }
+
+        }
+    }
+
+    .chat-left { 
+        border-bottom: 1px solid #eee;
+        margin: 15px 0 15px;
+    }
+
+    .chat-right {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        margin: 15px 0 15px;
+    } 
+} 

@@ -1,0 +1,75 @@
+<div class="h-100">
+    <div class="total_expence hr-card ink-card">
+        <div class="title-dropdown p-3 border-bottom">
+            <div class="ink-title">
+                Expenses
+            </div>
+            <div class="btn-link" role="button" (click)="nav()">
+                View all
+            </div>
+        </div>
+        <div class="expence_detail" role="button" (click)="nav()">
+            <div class="row expence_list">
+                <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-sm-0 mb-3 h-100" *ngFor="let Projects of getAllexpense | slice:0:3">
+                    <div class="year_expence">
+                        <div class="inner-padding">
+                            <h6><span>Expense By: {{Projects.expenseBy}}</span></h6>
+                            <p><span>Expense Date:</span> {{Projects.expenseDate | date: dateFormat}}</p>
+                            <p><span>Amount:</span> {{Projects.amount}}</p>
+                            <p class="m-0"><span>Paid By:</span> {{Projects.paidBy ? Projects.paidBy :
+                                'N/A'}}</p>
+                        </div>
+                        <div class="{{Projects.status == 1 ? 'unpaid' : 'paid'}}">
+                            Status: {{convertPriority(Projects.status)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="job-card ink-card mt-4">
+        <div class="title-dropdown p-3 border-bottom">
+            <div class="ink-title">
+                Job Inquiry
+            </div>
+        </div>
+        <div class="job_detail" *ngFor="let Projects of getAlljobInquiry">
+            <div class="row" (click)="navi()" role="button">
+                <div class="col colsm-12 col-md-4">
+                    <div class="job_status shortlist border-end">
+                        <div class="icon">
+                            <i class="ri-list-check"></i>
+                        </div>
+                        <div class="detail">
+                            <div class="title">Shortlisted</div>
+                            <p>{{Projects.shortlist}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="job_status inpipeline">
+                        <div class="icon">
+                            <i class="ri-arrow-left-right-line"></i>
+                        </div>
+                        <div class="detail">
+                            <div class="title">In Pipeline</div>
+                            <p>{{Projects.inPipeline}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="job_status rejected border-start">
+                        <div class="icon">
+                            <i class="ri-prohibited-line"></i>
+                        </div>
+                        <div class="detail">
+                            <div class="title">Rejected</div>
+                            <p>{{Projects.reject}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

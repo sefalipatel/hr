@@ -1,0 +1,146 @@
+<div class="page-top-header mb-0">
+    <h5 class="card-subtitle mt-0">Room Booking Report</h5>
+</div>
+<div class="row px-3 roombooikng_repot">
+    <div class="col-sm-12 border rounded bg-white px-0 custom-remove pb-3 roombooikng_repot_tableview">
+      
+        <div class="p-3"> 
+            <!-- Start : Year field -->
+            <div class="row flex-wrap flex-row-reverse mb-2 align-items-center">
+                <div class="col-md-3 my-2">
+                    <!-- End : Year field -->
+                    <div class="year_select_box w-100">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Select Year</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                                (ngModelChange)="onYearSelected($event)" id="year">
+                                <mat-option class="text-muted" value="">Select Year </mat-option>
+                                <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3 my-2">
+                    <!-- Start : Month field -->
+                    <div class="year_select_box w-100">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Select Month</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                                (ngModelChange)="onMonthSelected($event)">
+                                <mat-option class="text-muted" value="">Select Month </mat-option>
+                                <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{
+                                    month.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3 my-2">
+                    <!-- End : Month field -->
+
+                    <div class="year_select_box w-100">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Meeting Room</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedroom"
+                                (ngModelChange)="onRoomSelected($event)" id="year">
+                                <mat-option class="text-muted">Select Room </mat-option>
+                                <mat-option *ngFor="let category of room" [value]="category.id">
+                                    {{category.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-3 my-2">
+                    <div class="lable-box year_select_box w-100">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Employee Name</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selecteperson"
+                                (ngModelChange)="onEmployeeName($event)" id="year">
+                                <mat-option class="text-muted">Select Employee</mat-option>
+                                <mat-option *ngFor="let category of Person" [value]="category.id">
+                                    {{category.firstName}} {{category.lastName}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field> 
+                    </div>
+                </div>
+                <div class="col-xl-4 col-xxl-3 col-lg-5 my-2">
+                    <div class="btn-box year_select_box w-100 lastbtn d-flex align-items-center justify-content-between">
+                        <div class="aplly_reset d-flex align-items-baseline flex-wrap">
+                            <button type="button" class="btn btn-primary rounded-pill px-4 py-2"
+                                (click)="getAllRoom()">Apply</button>
+                            <button type="button" class="btn btn-secondary rounded-pill px-4 py-2 mx-2"
+                                (click)="Reset()">Reset</button>
+                        </div>
+
+                        <button class="icon_three "  [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu" class="custome_menu_list">
+                            <button mat-menu-item (click)="exportJson()">
+                                <mat-icon>ios_share</mat-icon>
+                                <span>Export to Excel</span>
+                            </button>
+                        </mat-menu>
+
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+            <!-- Start : Table -->
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+            <div class=" fixTableHead   scrollbox-content">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 apply_leave ">
+                    <!-- employee ID Column -->
+                    <ng-container matColumnDef="reason">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Meeting Title</th>
+                        <td mat-cell *matCellDef="let element">{{element?.reason}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="startDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking Start</th>
+                        <td mat-cell *matCellDef="let element" (change)="onInTimeChange($event,'endDate')">
+                            {{element?.startDate | date:"M/d/yy, h:mm a"}}</td>
+                    </ng-container>
+                    <!-- employee name Column -->
+                    <ng-container matColumnDef="endDate">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Booking End</th>
+                        <td mat-cell *matCellDef="let element" (change)="onOutTimeChange($event)">{{element?.endDate |
+                            date:"M/d/yy, h:mm a"}}</td>
+                    </ng-container>
+                    <!-- employee CTC Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Room Name</th>
+                        <td mat-cell *matCellDef="let element">{{element?.meetingRoomName}}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="firstName">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                        <td mat-cell *matCellDef="let element">{{element?.personName}}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="5">
+                            <div class="text-center d-block border-bottom-0 my-3">
+                                <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                <h6 class="no-record mt-3">No Data Available</h6>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            
+            <div class="text-end d-block mb-3 mt-3">
+                <div class="pagination-format d-inline-block">
+                    <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+<ng-container *ngIf="getUserPoll?.length;else noRecordFound">
+   <ngx-slick-carousel class="carousel poll_carousel" #slickModal="slick-carousel" [config]="slideConfig">
+      <ng-container *ngFor="let poll of getUserPoll">
+         <div class="slick-carousel">
+
+            <div ngxSlickItem class="poll_block_main {{ poll?.isUserPoll? 'cursor-not-allowed':''}}">
+               <div class="poll_header">
+                  <div class="User_img">
+                     <div *ngIf="poll?.profilePicture">
+                        <img class="avtar avtar-s rounded-circle me-2" [src]="transformImagePath(poll?.profilePicture)"
+                           alt="User profile">
+                     </div>
+                     <div *ngIf="!poll?.profilePicture" class="avtar avtar-s rounded-circle ms-3"
+                        [ngStyle]="{'background': stringToColor(poll?.createdName)}">
+                        <b class="f-18">{{generateInitials(poll?.createdName)}}</b>
+                     </div>
+                  </div>
+                  <div class="user_name ms-2">
+                     <B>{{poll?.createdName}}</B> 
+                  </div>
+               </div>
+               <div>
+                  <div class="content">
+                     <p [innerHTML]="poll?.title"></p>
+                  </div>
+                  <ng-container *ngFor="let pollChoice of poll?.pollChoices">
+                     <div class="location_detail {{ !poll?.isUserPoll? 'cursor-pointer':'cursor-not-allowed'}}"
+                        (click)="userPoll(poll,pollChoice?.id)">
+                        <div class="d-flex justify-content-between aign-items-center">
+                           <p><span>{{pollChoice?.choice}}</span> </p>
+                           <p><span>{{poll.totalCount ? getLeavewidth(pollChoice?.totalVotes,poll?.totalCount) :
+                                 0}}%</span> </p>
+                        </div>
+                        <div class="progressbar">
+                           <div class="yellow"
+                              [ngStyle]="{'width.%': poll.totalCount? getLeavewidth(pollChoice.totalVotes,poll.totalCount) : 0}">
+                           </div>
+                        </div>
+                     </div>
+                  </ng-container> 
+               </div>
+            </div>
+         </div>
+      </ng-container>
+   </ngx-slick-carousel>
+</ng-container>
+
+<ng-template #noRecordFound> 
+   <div class="h-100 d-flex justify-content-center align-items-center w-100">
+      <div class="text-center d-block border-bottom-0 nodata_found_block">
+         <img src="/assets/images/dashboard/cloud-computing.png" alt="img" />
+         <p class="no-record mt-3">No Data Available</p>
+      </div> 
+   </div>
+</ng-template>

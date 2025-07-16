@@ -1,0 +1,14 @@
+@media (max-width: 991.98px) {
+    .admin_request_table .apply_leave th:last-child {
+        min-width: 200px;
+    }
+}
+
+.apply_leave .btn_hover svg {
+    stroke: inherit;
+    fill: red;
+}
+
+.dropdown-menu.show {
+    transform: translate(-64px, 30px) !important;
+}

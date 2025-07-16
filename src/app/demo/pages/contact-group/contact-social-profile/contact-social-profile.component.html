@@ -1,0 +1,67 @@
+<div class="col-sm-12 border rounded bg-white">
+    <form class="leave_form bg-white p-20 universal-form" [formGroup]="socialForm">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Facebook</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter facebook link"
+                                formControlName="facebook"  (blur)="trimNameOnBlur('facebook')">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Twitter</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter twitter link"
+                                formControlName="twitter" (blur)="trimNameOnBlur('twitter')">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Linkedin</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter linkedin link"
+                                formControlName="linkedin" (blur)="trimNameOnBlur('linkedin')">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Skype</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter skype link"
+                                formControlName="skype" (blur)="trimNameOnBlur('skype')">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Whatsapp</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter whatsapp number"
+                                formControlName="whatsapp" (blur)="trimNameOnBlur('whatsapp')">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Instagram</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter instagram"
+                                formControlName="instagram" (blur)="trimNameOnBlur('instagram')">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex my-3 mx-4 border-top justify-content-end pt-3">
+                <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+                    (click)="submit()">Save</button>
+                <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="onList()"> Cancel </button>
+            </div>
+        </div>
+    </form>
+</div>

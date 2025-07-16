@@ -1,0 +1,23 @@
+@media screen and (max-width:767px) {
+    .multi-upload .upload-box {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .multi-upload .uploaded-files {
+        width: 100%;
+        margin-top: 20px;
+        margin-left: 0;
+    }
+}
+
+.upload-box {
+    input {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        width: 200px;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

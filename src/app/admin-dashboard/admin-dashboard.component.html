@@ -1,0 +1,698 @@
+<div class="admin_main_dash">
+    <div class="admin_inner_dash">
+        <div class="row">
+            <div class="col">
+                <div class="left_side_block h-100">
+                    <div class="profile_header">
+                        <h3 class="page_title">Welcome Admin!</h3>
+                    </div>
+                    <div class="breadcum_title">
+                        <ul>
+                            <li class="breadcum_item">Dashboard</li>
+                            <li class="breadcum_item">profile</li>
+                        </ul>
+                    </div>
+                    <div class="leave_detail_block mt-4">
+                        <div class="atendance_leave mt-4">
+                            <div class="attendance_list row" *ngFor="let Projects of getALLStatistical">
+                                <div class="col-12 col-sm-6 col-md-6 col-xl-6 col-xxl-3 mb-xs-4 mb-5 mb-xl-5 mb-md-5 mb-sm-5 mb-xs-5 mb-xxl-0">
+                                    <div class="typeof_leave typeleavebg1 p-15">
+                                        <p>Project</p>
+                                        <p class="color_code1">{{Projects.totalProjects}}</p>
+                                        <div class="remaining_count_leave">
+                                            <p class="color_code1"><img class="img-fluid"
+                                                    src="/assets/images/adminimg/project-14px-fill-arrow-svgrepo-com.svg"
+                                                    alt="img"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-xl-6 col-xxl-3 mb-xs-4 mb-5 mb-xl-5 mb-md-5 mb-sm-5 mb-xs-5 mb-xxl-0">
+                                    <div class="typeof_leave typeleavebg2 p-15 ">
+                                        <p>Client</p>
+                                        <p class="color_code2">{{Projects.totalClients}}</p>
+                                        <div class="remaining_count_leave">
+                                            <p class="color_code2"><img class="img-fluid"
+                                                    src="/assets/images/adminimg/users-svgrepo-com.svg" alt="img"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-xl-6 col-xxl-3 mb-xs-4 mb-5  mb-xs-4 mb-md-0 mb-sm-0 mb-sml-0 mb-xxl-0 mb-xl-0">
+                                    <div class="typeof_leave typeleavebg3 p-15 ">
+                                        <p>Total Task</p>
+                                        <p class="color_code3">{{Projects.totalTickets}}</p>
+                                        <div class="remaining_count_leave">
+                                            <p class="color_code3"><img class="img-fluid"
+                                                    src="/assets/images/adminimg/task-complete-svgrepo-com.svg"
+                                                    alt="img">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-xl-6 col-xxl-3 mb-xs-4  mb-xs-4 mb-md-0 mb-sm-0 mb-sml-0 mb-xxl-0 mb-xl-0">
+                                    <div class="typeof_leave typeleavebg4 p-15 ">
+                                        <p>Employee</p>
+                                        <p class="color_code4">{{Projects.totalEmployees}}</p>
+                                        <div class="remaining_count_leave">
+                                            <p class="color_code4"><img class="img-fluid"
+                                                    src="/assets/images/adminimg/employee-id-svgrepo-com.svg" alt="img">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stastics_block_detail">
+                        <div class="row mt-4">
+                            <div class="col-xxl-4 col-lg-6 col-md-6 mb-lg-0 mb-4"
+                                *ngFor="let Projects of getALLgetAllStatistics">
+                                <div class="bg-white p-20 inner_block_detail">
+                                    <div class="stastic_header statstics">
+                                        <p>Statistics<span><svg viewBox="0 0 1024 1024" fill="#000000" class="icon"
+                                                    version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z" />
+                                                </svg></span></p>
+                                    </div>
+                                    <div class="stastic_detail">
+                                        <div class="today_leave">
+                                            <div class="numbering">
+                                                <div class="number_out">1</div>
+                                            </div>
+                                            <div class="pro_bar">
+                                                <p>Today Leave</p>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                    aria-valuenow="5" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                                                        [ngStyle]="{'width.%': getLeavewidth(Projects.todayOnLeave,Projects.totalEmployee)}">
+                                                    </div>
+                                                </div>
+                                                <p class="data">{{Projects.todayOnLeave}}/{{Projects.totalEmployee}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="today_leave">
+                                            <div class="numbering">
+                                                <div class="number_out">2</div>
+                                            </div>
+                                            <div class="pro_bar">
+                                                <p>Pending Invoice</p>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                                                        [ngStyle]="{'width.%': getLeavewidth(Projects.unpaidInvoice,Projects.totalInvoice)}">
+                                                    </div>
+                                                </div>
+                                                <p class="data">{{Projects.unpaidInvoice}}/{{Projects.totalInvoice}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="today_leave">
+                                            <div class="numbering">
+                                                <div class="number_out">3</div>
+                                            </div>
+                                            <div class="pro_bar">
+                                                <p>Completed Projects</p>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                                                        [ngStyle]="{'width.%': getLeavewidth(Projects.completedProjects,Projects.totalProjects)}">
+                                                    </div>
+                                                </div>
+                                                <p class="data">
+                                                    {{Projects.completedProjects}}/{{Projects.totalProjects}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="today_leave">
+                                            <div class="numbering">
+                                                <div class="number_out">4</div>
+                                            </div>
+                                            <div class="pro_bar">
+                                                <p>Open Tickets</p>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated"
+                                                        [ngStyle]="{'width.%': getLeavewidth(Projects.openTicket,Projects.totalTicket)}">
+                                                    </div>
+                                                </div>
+                                                <p class="data">{{Projects.openTicket}}/{{Projects.totalTicket}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="today_leave">
+                                            <div class="numbering">
+                                                <div class="number_out">5</div>
+                                            </div>
+                                            <div class="pro_bar">
+                                                <p>Closed Tickets</p>
+                                                <div class="progress" role="progressbar" aria-label="Success example"
+                                                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                    <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                                                        [ngStyle]="{'width.%': getLeavewidth(Projects.closedTicket,Projects.totalTicket)}">
+                                                    </div>
+                                                </div>
+                                                <p class="data">{{Projects.closedTicket}}/{{Projects.totalTicket}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-6 col-md-6 mb-lg-0 mb-4"
+                                *ngFor="let Projects of getALLgetAllTaskStatistics">
+                                <div class="bg-white p-20 inner_block_detail">
+                                    <div class="stastic_header task">
+                                        <p>Task Statistics<span><svg fill="#000000" viewBox="0 0 24 24"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M5 22h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2h-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1H5c-1.103 0-2 .897-2 2v15c0 1.103.897 2 2 2zM5 5h2v2h10V5h2v15H5V5z" />
+                                                    <path
+                                                        d="m11 13.586-1.793-1.793-1.414 1.414L11 16.414l5.207-5.207-1.414-1.414z" />
+                                                </svg></span></p>
+                                    </div>
+                                    <div class="task_Statistics_detail">
+                                        <div class="task_header">
+                                            <div class="task_outer total_task">
+                                                <p>Total Tasks</p>
+                                                <p>{{Projects.totalTask}}</p>
+                                            </div>
+                                            <div class="task_outer overdue_task">
+                                                <p>Overdue Tasks</p>
+                                                <p>{{Projects.dueTask }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="task_progress">
+                                            <div class="progress-stacked">
+                                                <div class="progress" role="progressbar" aria-label="Segment one"
+                                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"
+                                                    [ngStyle]="{'width.%': getLeavewidth(Projects.completedTask,Projects.totalTask)}">
+                                                    <div class="progress-bar bg-success">
+                                                        {{getLeavewidth(Projects.completedTask,Projects.totalTask)}}%
+                                                    </div>
+                                                </div>
+                                                <div class="progress" role="progressbar" aria-label="Segment two"
+                                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                    [ngStyle]="{'width.%': getLeavewidth(Projects.inprogressTask,Projects.totalTask)}">
+                                                    <div class="progress-bar bg-warning">
+                                                        {{getLeavewidth(Projects.inprogressTask,Projects.totalTask)}}%
+                                                    </div>
+                                                </div>
+
+                                                <div class="progress" role="progressbar" aria-label="Segment two"
+                                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"
+                                                    [ngStyle]="{'width.%': getLeavewidth(Projects.pendingTask,Projects.totalTask)}">
+                                                    <div class="progress-bar bg-danger">
+                                                        {{getLeavewidth(Projects.pendingTask,Projects.totalTask)}}%
+                                                    </div>
+                                                </div>
+                                                <div class="progress" role="progressbar" aria-label="Segment three"
+                                                    aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+                                                    [ngStyle]="{'width.%': getLeavewidth(Projects.reviewTask,Projects.totalTask)}">
+                                                    <div class="progress-bar bg-secondary">
+                                                        {{getLeavewidth(Projects.reviewTask,Projects.totalTask)}}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="task_define">
+                                            <ul>
+                                                <li>
+                                                    <div class="task_detail_define">
+                                                        <div class="detail_define_block">
+                                                            <p class="completed"> <span>
+                                                                    <svg viewBox="0 0 1024 1024" fill="#000000"
+                                                                        class="icon" version="3.5"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z" />
+                                                                    </svg>
+                                                                </span>Completed Task</p>
+                                                            <p>{{Projects.completedTask}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="task_detail_define">
+                                                        <div class="detail_define_block">
+                                                            <p class="Inprogress"> <span>
+                                                                    <svg viewBox="0 0 1024 1024" fill="#000000"
+                                                                        class="icon" version="1.1"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z" />
+                                                                    </svg>
+                                                                </span>Inprogress Tasks</p>
+                                                            <p>{{Projects.inprogressTask}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li> 
+                                                <li>
+                                                    <div class="task_detail_define">
+                                                        <div class="detail_define_block">
+                                                            <p class="pending"> <span>
+                                                                    <svg viewBox="0 0 1024 1024" fill="#000000"
+                                                                        class="icon" version="1.1"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z" />
+                                                                    </svg>
+                                                                </span>Pending Tasks</p>
+                                                            <p>{{Projects.pendingTask}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="task_detail_define">
+                                                        <div class="detail_define_block">
+                                                            <p class="review"> <span>
+                                                                    <svg viewBox="0 0 1024 1024" fill="#000000"
+                                                                        class="icon" version="1.1"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path
+                                                                            d="M521.58 516.763v-472.816c250.725 22.642 450.175 222.092 472.817 472.817h-472.816zM918.229 593.091h-435.436c-21.963 0-39.769-17.805-39.769-39.769 0 0 0 0 0 0v-435.463c-222.914 20.121-397.682 207.273-397.682 435.436 0 241.605 195.898 437.452 437.451 437.451 228.163 0 415.339-174.715 435.436-397.657z" />
+                                                                    </svg>
+                                                                </span>Review Tasks</p>
+                                                            <p>{{Projects.reviewTask}}</p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xxl-4 col-lg-12 col-md-12 mt-lg-4 mt-xxl-0">
+                                <div class="bg-white p-20 inner_block_detail">
+                                    <div class="Eployee_hr_header">
+                                        <p>Employee/Hr<span><svg version="1.1" id="Capa_1"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                    viewBox="0 0 315.377 315.377" xml:space="preserve">
+                                                    <g>
+                                                        <g>
+                                                            <path
+                                                                d="M107.712,181.769l-7.938,7.705c-1.121,1.089-1.753,2.584-1.753,4.146v3.288c0,3.191,2.588,5.779,5.78,5.779h47.4
+                                                   c3.196,0,5.782-2.588,5.782-5.779v-4.256c0-3.191-2.586-5.78-5.782-5.78h-26.19l0.722-0.664
+                                                   c17.117-16.491,29.232-29.471,29.232-46.372c0-13.513-8.782-27.148-28.409-27.148c-8.568,0-16.959,2.75-23.629,7.74
+                                                   c-2.166,1.625-2.918,4.537-1.803,7.007l1.458,3.224c0.708,1.568,2.074,2.739,3.735,3.195c1.651,0.456,3.433,0.148,4.842-0.836
+                                                   c4.289-2.995,8.704-4.515,13.127-4.515c8.608,0,12.971,4.28,12.971,12.662C137.142,152.524,127.72,162.721,107.712,181.769z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M194.107,114.096c-0.154-0.014-0.31-0.02-0.464-0.02h-1.765c-1.89,0-3.658,0.923-4.738,2.469l-35.4,50.66
+                                                   c-0.678,0.971-1.041,2.127-1.041,3.311v4.061c0,3.192,2.586,5.78,5.778,5.78h32.322v16.551c0,3.191,2.586,5.779,5.778,5.779h5.519
+                                                   c3.19,0,5.781-2.588,5.781-5.779v-16.551h5.698c3.192,0,5.781-2.588,5.781-5.78v-3.753c0-3.19-2.589-5.779-5.781-5.779h-5.698
+                                                   v-45.189c0-3.19-2.591-5.779-5.781-5.779h-5.519C194.419,114.077,194.261,114.083,194.107,114.096z M188.799,165.045h-17.453
+                                                   c4.434-6.438,12.015-17.487,17.453-25.653V165.045z" />
+                                                        </g>
+                                                        <g>
+                                                            <path
+                                                                d="M157.906,290.377c-68.023,0-123.365-55.342-123.365-123.365c0-64.412,49.625-117.443,112.647-122.895v19.665
+                                                   c0,1.397,0.771,2.681,2.003,3.337c0.558,0.298,1.169,0.444,1.778,0.444c0.737,0,1.474-0.216,2.108-0.643l44.652-30
+                                                   c1.046-0.702,1.673-1.879,1.673-3.139c0-1.259-0.627-2.437-1.673-3.139l-44.652-30c-1.159-0.779-2.654-0.857-3.887-0.198
+                                                   c-1.232,0.657-2.003,1.941-2.003,3.337v15.254C70.364,24.547,9.54,88.806,9.54,167.011c0,81.809,66.558,148.365,148.365,148.365
+                                                   c37.876,0,73.934-14.271,101.532-40.183l-17.111-18.226C219.38,278.512,189.4,290.377,157.906,290.377z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M284.552,89.689c-5.111-8.359-11.088-16.252-17.759-23.456l-18.344,16.985c5.552,5.995,10.522,12.562,14.776,19.515
+                                                   L284.552,89.689z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M280.146,150.258l24.773-3.363c-1.322-9.74-3.625-19.373-6.846-28.632l-23.612,8.211
+                                                   C277.135,134.163,279.047,142.165,280.146,150.258z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M242.999,45.459c-8.045-5.643-16.678-10.496-25.66-14.427l-10.022,22.903c7.464,3.267,14.64,7.301,21.327,11.991
+                                                   L242.999,45.459z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M253.208,245.353l19.303,15.887c6.244-7.587,11.75-15.817,16.363-24.462l-22.055-11.771
+                                                   C262.983,232.195,258.404,239.041,253.208,245.353z" />
+                                                        </g>
+                                                        <g>
+                                                            <path d="M280.908,176.552c-0.622,8.157-2.061,16.264-4.273,24.093l24.057,6.802c2.666-9.426,4.396-19.18,5.146-28.99
+                                                   L280.908,176.552z" />
+                                                        </g>
+                                                    </g>
+                                                </svg></span>
+                                        </p>
+                                    </div>
+                                    <div class="employee_hr_detail">
+                                        <div class="fixTableHead">
+                                            <table class="table " style="width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Department/Emp.</th>
+                                                        <th scope="col">Hours</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let Projects of getALLEmployeeHR">
+                                                        <th scope="row">
+                                                            <div class="depatment_emp">
+                                                                <p>{{Projects.department}}</p>
+                                                                <p>Number of Employee: {{Projects.numberOfEmployees}}
+                                                                </p>
+                                                            </div>
+                                                        </th>
+                                                        <td>{{Projects.hours}} Hr</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="revenu_client">
+                        <div class="row mt-4">
+                            <div class="col-md-6 col-xxl-6 col-xl-6 mb-lg-0 mb-4">  
+                                <app-admin-dashboard-total-revenue></app-admin-dashboard-total-revenue>
+                            </div>
+                            <div class="col-md-6 col-xxl-6 col-xl-6 mb-lg-0">
+                                <app-admin-dashboard-client></app-admin-dashboard-client>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="new_profit">
+                        <div class="row mt-4" *ngFor="let Projects of getALLStatistical">
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-4 mb-sm-0 pe-lg-0 pr-lg-0">
+                                <div class="card_total first">
+                                    <div class="card_header_top plus">
+                                        <p class="one">New Employees</p>
+                                        <p>{{Projects.totalNewEmployeesLastThreeMonth}}</p>
+                                    </div>
+                                    <div class="card_content">
+                                        <p>{{getLeavewidth(Projects.totalNewEmployeesLastThreeMonth,Projects.totalEmployees)}}%
+                                        </p>
+                                    </div>
+                                    <div class="progress_bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                [ngStyle]="{'width.%': getLeavewidth(Projects.totalNewEmployeesLastThreeMonth,Projects.totalEmployees)}">
+                                                <span class="sr-only">30% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="empdetail d-flex justify-content-between"><span>Overall Employees</span> <span>{{Projects.totalEmployees}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 pe-xl-0 col-sm-6 mb-4 mb-sm-0 ps-lg-0 pr-lg-3">
+                                <div class="card_total second">
+                                    <div class="card_header_top plus">
+                                        <p class="two">Earnings</p>
+                                        <p>{{Projects.totalEarnings}}</p>
+                                    </div>
+                                    <div class="card_content">
+                                        <p>{{getLeavewidth(Projects.totalEarnings,Projects.totalEmployees)}}%</p>
+                                    </div>
+                                    <div class="progress_bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                [ngStyle]="{'width.%': getLeavewidth(Projects.totalEarnings,Projects.totalEmployees)}">
+                                                <span class="sr-only">30% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="empdetail d-flex justify-content-between"><span>Overall Employees</span> <span>{{Projects.totalEmployees}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 ps-xl-0 col-sm-6 mb-4 mb-sm-0 pe-lg-0 pr-lg-0 mt-sm-4 mt-xl-0">
+                                <div class="card_total third">
+                                    <div class="card_header_top minus">
+                                        <p class="three">Expenses</p>
+                                        <p>{{Projects.totalExpenses | currencyPipe}}</p>
+                                    </div>
+                                    <div class="card_content">
+                                        <p>{{getLeavewidth(Projects.totalExpenses,Projects.totalEmployees)}}%</p>
+                                    </div>
+                                    <div class="progress_bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                [ngStyle]="{'width.%': getLeavewidth(Projects.totalExpenses,Projects.totalEmployee)}">
+                                                <span class="sr-only">30% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="empdetail d-flex justify-content-between"><span>Overall Employees</span><span> {{Projects.totalEmployees}}</span></p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6 mb-4 mb-sm-0 ps-lg-0 pr-lg-3 mt-sm-4 mt-xl-0">
+                                <div class="card_total fourth">
+                                    <div class="card_header_top minus">
+                                        <p class="four">Profit</p>
+                                        <p>{{Projects.totalProfit | currencyPipe}}</p>
+                                    </div>
+                                    <div class="card_content">
+                                        <p>{{getLeavewidth(Projects.totalProfit,Projects.totalEmployees)}}%</p>
+                                    </div>
+                                    <div class="progress_bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                                                aria-valuemin="0" aria-valuemax="100"
+                                                [ngStyle]="{'width.%': getLeavewidth(Projects.totalProfit,Projects.totalEmployee)}">
+                                                <span class="sr-only">30% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="empdetail d-flex justify-content-between"><span>Overall Employees</span><span> {{Projects.totalEmployees}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <app-dashboard-recent-project></app-dashboard-recent-project>
+                </div>
+            </div>
+            <div class="col-xxl-auto col-xl-12">
+                <div class="right_side_block row">
+                    <div class=" col-xxl-12 col-xl-6 col-md-6">
+                        <div class="today_absent">
+                            <div class="absent_header">
+                                <p>Absent<span class="right_header_svg abs"><svg viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g id="User / User_Close">
+                                                <path id="Vector"
+                                                    d="M15 19C15 16.7909 12.3137 15 9 15C5.68629 15 3 16.7909 3 19M17 14L19 12M19 12L21 10M19 12L17 10M19 12L21 14M9 12C6.79086 12 5 10.2091 5 8C5 5.79086 6.79086 4 9 4C11.2091 4 13 5.79086 13 8C13 10.2091 11.2091 12 9 12Z"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </g>
+                                        </svg></span></p>
+                            </div>
+                            <div class="absent_detail" role="button" (click)="navigate()">
+                                <ul class="table_scroll_block">
+                                    <li *ngFor="let Projects of getALLAbsent">
+                                        <div class="epmloyee_leave_detail">
+                                            <div class="emp_profile">
+                                                <div class="img_block">
+                                                    <div  *ngIf="Projects?.profilePicture">
+                                                        <img class="img-fluid"
+                                                            [src]="transformImagePath(Projects?.profilePicture)"
+                                                            [alt]="Projects?.employeeName">
+                                                    </div>
+                                                    <div class="without_img" *ngIf="!Projects?.profilePicture"
+                                                        [ngStyle]="{'background': stringToColor(Projects?.employeeName)}">
+                                                        <b class="f-18">{{generateInitials(Projects?.employeeName)}}</b>
+                                                    </div>
+                                                </div>
+                                                <div class="pro_detail">
+                                                    <p>{{Projects.employeeName}}</p>
+                                                    <p>{{Projects.employeeName}} / {{date | date: dateFormat}}</p>
+                                                    <p class="pend_apr"
+                                                        [ngClass]="{'text-success': Projects.leaveStatus === 'Approved' ,'text-warning': Projects.leaveStatus === 'Pending'}">
+                                                        {{Projects.leaveStatus}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=" col-xxl-12 col-xl-6 col-md-6">
+                       <div class="feedback">
+                        <div class="feedback_header">
+                            <p>Feedback & Suggestion<span class="right_header_svg feed"><svg version="1.1"
+                                        baseProfile="tiny" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;"
+                                        xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42"
+                                        xml:space="preserve">
+                                        <path d="M6.5,25.5v4c0.016,2.812,1.344,2.375,2.328,1.531L14.5,25.91v2.59c0,2.43,0.56,3,3,3h9c0,0,5.209,6.125,5.25,6.084
+                               c0.75,0.916,2.781,0.604,2.75-1.084v-5h3c2.45,0,3-0.609,3-3v-15c0-2.4-0.59-3-3-3h-10v-2c0-2.47-0.46-3-3-3h-21c-2.36,0-3,0.51-3,3
+                               v13c0,2.439,0.55,4,3,4H6.5z M31.5,28.5v4.721l-4-4.721h-9c-0.75,0-1-0.27-1-1v-13c0-0.67,0.31-1,1-1h18c0.689,0,1,0.37,1,0.94V27.5
+                               c0,0.721-0.359,1-1,1H31.5z" />
+                                    </svg></span></p>
+                        </div>
+                        <div class="feedback_detail">
+                            <div class="feedback_slider">
+                                <div *ngFor="let Projects of getALLFeedbackSuggestion;let i = index">
+                                    <div class="feedback_block">
+                                        <div *ngIf="Projects?.profilePicture" matTooltip="{{Projects?.createdByName}}"
+                                            matTooltipPosition="above">
+                                            <img *ngIf="Projects?.profilePicture"
+                                                [src]="transformImagePath(Projects?.profilePicture)"
+                                                alt="Profile Picture" class="round_circle me-2">
+                                        </div>
+                                        <div *ngIf="!Projects?.profilePicture" matTooltip="{{Projects?.createdByName}}"
+                                            matTooltipPosition="above" class="round_circle me-2"
+                                            [ngStyle]="{'background': stringToColor(Projects?.createdByName)}">
+                                            <b class="f-18">{{generateInitials(Projects?.createdByName)}}</b>
+                                        </div>
+                                        <div class="feedback_content">
+                                            <p>{{Projects.comment}}</p>
+                                            <div class="content_droper">
+                                                <p>{{Projects.department}}</p>
+                                                <p> -&nbsp;{{Projects.createdByName}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       </div>
+                    </div>
+                    <div class=" col-xxl-12 col-xl-6 col-md-6">
+                        <div class="total_expence">
+                        <div class="expences_header">
+                            <p>Expenses<span class="right_header_svg exp">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.7255 17.1019C11.6265 16.8844 11.4215 16.7257 11.1734 16.6975C10.9633 16.6735 10.7576 16.6285 10.562 16.5636C10.4743 16.5341 10.392 16.5019 10.3158 16.4674L10.4424 16.1223C10.5318 16.1622 10.6239 16.1987 10.7182 16.2317L10.7221 16.2331L10.7261 16.2344C11.0287 16.3344 11.3265 16.3851 11.611 16.3851C11.8967 16.3851 12.1038 16.3468 12.2629 16.2647L12.2724 16.2598L12.2817 16.2544C12.5227 16.1161 12.661 15.8784 12.661 15.6021C12.661 15.2955 12.4956 15.041 12.2071 14.9035C12.062 14.8329 11.8559 14.7655 11.559 14.6917C11.2545 14.6147 10.9987 14.533 10.8003 14.4493C10.6553 14.3837 10.5295 14.279 10.4161 14.1293C10.3185 13.9957 10.2691 13.7948 10.2691 13.5319C10.2691 13.2147 10.3584 12.9529 10.5422 12.7315C10.7058 12.5375 10.9381 12.4057 11.2499 12.3318C11.4812 12.277 11.6616 12.1119 11.7427 11.8987C11.8344 12.1148 12.0295 12.2755 12.2723 12.3142C12.4751 12.3465 12.6613 12.398 12.8287 12.4677L12.7122 12.8059C12.3961 12.679 12.085 12.6149 11.7841 12.6149C10.7848 12.6149 10.7342 13.3043 10.7342 13.4425C10.7342 13.7421 10.896 13.9933 11.1781 14.1318L11.186 14.1357L11.194 14.1393C11.3365 14.2029 11.5387 14.2642 11.8305 14.3322C12.1322 14.4004 12.3838 14.4785 12.5815 14.5651L12.5856 14.5669L12.5897 14.5686C12.7365 14.6297 12.8624 14.7317 12.9746 14.8805L12.9764 14.8828L12.9782 14.8852C13.0763 15.012 13.1261 15.2081 13.1261 15.4681C13.1261 15.7682 13.0392 16.0222 12.8604 16.2447C12.7053 16.4377 12.4888 16.5713 12.1983 16.6531C11.974 16.7163 11.8 16.8878 11.7255 17.1019Z" />
+                                        <path
+                                            d="M11.9785 18H11.497C11.3893 18 11.302 17.9105 11.302 17.8V17.3985C11.302 17.2929 11.2219 17.2061 11.1195 17.1944C10.8757 17.1667 10.6399 17.115 10.412 17.0394C10.1906 16.9648 9.99879 16.8764 9.83657 16.7739C9.76202 16.7268 9.7349 16.6312 9.76572 16.5472L10.096 15.6466C10.1405 15.5254 10.284 15.479 10.3945 15.5417C10.5437 15.6262 10.7041 15.6985 10.8755 15.7585C11.131 15.8429 11.3762 15.8851 11.611 15.8851C11.8129 15.8851 11.9572 15.8628 12.0437 15.8181C12.1302 15.7684 12.1735 15.6964 12.1735 15.6021C12.1735 15.4929 12.1158 15.411 12.0004 15.3564C11.8892 15.3018 11.7037 15.2422 11.4442 15.1777C11.1104 15.0933 10.8323 15.0039 10.6098 14.9096C10.3873 14.8103 10.1936 14.6514 10.0288 14.433C9.86396 14.2096 9.78156 13.9092 9.78156 13.5319C9.78156 13.095 9.91136 12.7202 10.1709 12.4074C10.4049 12.13 10.7279 11.9424 11.1401 11.8447C11.2329 11.8227 11.302 11.7401 11.302 11.6425V11.2C11.302 11.0895 11.3893 11 11.497 11H11.9785C12.0862 11 12.1735 11.0895 12.1735 11.2V11.6172C12.1735 11.7194 12.2487 11.8045 12.3471 11.8202C12.7082 11.8777 13.0255 11.9866 13.2989 12.1469C13.3765 12.1924 13.4073 12.2892 13.3775 12.3756L13.0684 13.2725C13.0275 13.3914 12.891 13.4417 12.7812 13.3849C12.433 13.2049 12.1007 13.1149 11.7841 13.1149C11.4091 13.1149 11.2216 13.2241 11.2216 13.4425C11.2216 13.5468 11.2773 13.6262 11.3885 13.6809C11.4998 13.7305 11.6831 13.7851 11.9386 13.8447C12.2682 13.9192 12.5464 14.006 12.773 14.1053C12.9996 14.1996 13.1953 14.356 13.3602 14.5745C13.5291 14.7929 13.6136 15.0908 13.6136 15.4681C13.6136 15.8851 13.4879 16.25 13.2365 16.5628C13.0176 16.8354 12.7145 17.0262 12.3274 17.1353C12.2384 17.1604 12.1735 17.2412 12.1735 17.3358V17.8C12.1735 17.9105 12.0862 18 11.9785 18Z" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M9.59235 5H13.8141C14.8954 5 14.3016 6.664 13.8638 7.679L13.3656 8.843L13.2983 9C13.7702 8.97651 14.2369 9.11054 14.6282 9.382C16.0921 10.7558 17.2802 12.4098 18.1256 14.251C18.455 14.9318 18.5857 15.6958 18.5019 16.451C18.4013 18.3759 16.8956 19.9098 15.0182 20H8.38823C6.51033 19.9125 5.0024 18.3802 4.89968 16.455C4.81587 15.6998 4.94656 14.9358 5.27603 14.255C6.12242 12.412 7.31216 10.7565 8.77823 9.382C9.1696 9.11054 9.63622 8.97651 10.1081 9L10.0301 8.819L9.54263 7.679C9.1068 6.664 8.5101 5 9.59235 5Z"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M13.2983 9.75C13.7125 9.75 14.0483 9.41421 14.0483 9C14.0483 8.58579 13.7125 8.25 13.2983 8.25V9.75ZM10.1081 8.25C9.69391 8.25 9.35812 8.58579 9.35812 9C9.35812 9.41421 9.69391 9.75 10.1081 9.75V8.25ZM15.9776 8.64988C16.3365 8.44312 16.4599 7.98455 16.2531 7.62563C16.0463 7.26671 15.5878 7.14336 15.2289 7.35012L15.9776 8.64988ZM13.3656 8.843L13.5103 9.57891L13.5125 9.57848L13.3656 8.843ZM10.0301 8.819L10.1854 8.08521L10.1786 8.08383L10.0301 8.819ZM8.166 7.34357C7.80346 7.14322 7.34715 7.27469 7.1468 7.63722C6.94644 7.99976 7.07791 8.45607 7.44045 8.65643L8.166 7.34357ZM13.2983 8.25H10.1081V9.75H13.2983V8.25ZM15.2289 7.35012C14.6019 7.71128 13.9233 7.96683 13.2187 8.10752L13.5125 9.57848C14.3778 9.40568 15.2101 9.09203 15.9776 8.64988L15.2289 7.35012ZM13.2209 8.10709C12.2175 8.30441 11.1861 8.29699 10.1854 8.08525L9.87486 9.55275C11.0732 9.80631 12.3086 9.81521 13.5103 9.57891L13.2209 8.10709ZM10.1786 8.08383C9.47587 7.94196 8.79745 7.69255 8.166 7.34357L7.44045 8.65643C8.20526 9.0791 9.02818 9.38184 9.88169 9.55417L10.1786 8.08383Z" />
+                                    </svg>
+                                </span></p>
+                        </div>
+                        <div class="expence_detail" role="button" (click)="nav()">
+                            <ul class="table_scroll_block">
+                                <li *ngFor="let Projects of getAllexpense">
+                                    <div class="year_expence"> 
+                                        <p><span>expenseBy:-{{Projects.expenseBy}}</span></p>
+                                        <p>expenseDate:-{{Projects.expenseDate | date: dateFormat}}</p>
+                                        <p>amount:-{{Projects.amount}}</p>
+                                        <p>paidBy:-{{Projects.paidBy}}</p>
+                                        <p class="{{Projects.status ==1 ? 'paid'  :'unpaid'}}">
+                                            status:-{{convertPriority(Projects.status)}}</p>
+                                    </div>
+                                </li>   
+                            </ul>
+
+
+                        </div>
+                    </div>
+                    </div>
+                    <div class=" col-xxl-12 col-xl-6 col-md-6">
+                        <div class="job_inquiry">
+                        <div class="job_header">
+                            <p>Job Inquiry<span class="right_header_svg inq">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M11.29,15.29a1.58,1.58,0,0,0-.12.15.76.76,0,0,0-.09.18.64.64,0,0,0-.06.18,1.36,1.36,0,0,0,0,.2.84.84,0,0,0,.08.38.9.9,0,0,0,.54.54.94.94,0,0,0,.76,0,.9.9,0,0,0,.54-.54A1,1,0,0,0,13,16a1,1,0,0,0-.29-.71A1,1,0,0,0,11.29,15.29ZM12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8,8,0,0,1,12,20ZM12,7A3,3,0,0,0,9.4,8.5a1,1,0,1,0,1.73,1A1,1,0,0,1,12,9a1,1,0,0,1,0,2,1,1,0,0,0-1,1v1a1,1,0,0,0,2,0v-.18A3,3,0,0,0,12,7Z" />
+                                    </svg></span></p>
+                        </div>
+                        <div role="button" (click)="navi()" class="job_detail"
+                            *ngFor="let Projects of getAlljobInquiry">
+
+                            <div class="job_status shortlist">
+                                <p>Shortlisted</p>
+                                <p>{{Projects.shortlist}}</p>
+                                <span><svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32"
+                                        xml:space="preserve">
+                                        <style type="text/css">
+                                            .linesandangles_een {
+                                                fill: #111918;
+                                            }
+                                        </style>
+                                        <g>
+                                            <g>
+                                                <path class="linesandangles_een" d="M10,20c-1.657,0-3,1.343-3,3s1.343,3,3,3s3-1.343,3-3S11.657,20,10,20z M10,24
+                                               c-0.551,0-1-0.449-1-1s0.449-1,1-1s1,0.449,1,1S10.551,24,10,24z" />
+                                                <circle class="linesandangles_een" cx="10" cy="16" r="3" />
+                                                <path class="linesandangles_een" d="M10,6C8.343,6,7,7.343,7,9s1.343,3,3,3s3-1.343,3-3S11.657,6,10,6z M10,10
+                                               c-0.551,0-1-0.449-1-1s0.449-1,1-1s1,0.449,1,1S10.551,10,10,10z" />
+                                                <rect x="15" y="8" class="linesandangles_een" width="10" height="2" />
+                                                <rect x="15" y="15" class="linesandangles_een" width="10" height="2" />
+                                                <rect x="15" y="22" class="linesandangles_een" width="10" height="2" />
+                                            </g>
+                                            <g>
+                                                <path class="linesandangles_een" d="M10,20c-1.657,0-3,1.343-3,3s1.343,3,3,3s3-1.343,3-3S11.657,20,10,20z M10,24
+                                               c-0.551,0-1-0.449-1-1s0.449-1,1-1s1,0.449,1,1S10.551,24,10,24z" />
+                                                <circle class="linesandangles_een" cx="10" cy="16" r="3" />
+                                                <path class="linesandangles_een" d="M10,6C8.343,6,7,7.343,7,9s1.343,3,3,3s3-1.343,3-3S11.657,6,10,6z M10,10
+                                               c-0.551,0-1-0.449-1-1s0.449-1,1-1s1,0.449,1,1S10.551,10,10,10z" />
+                                                <rect x="15" y="8" class="linesandangles_een" width="10" height="2" />
+                                                <rect x="15" y="15" class="linesandangles_een" width="10" height="2" />
+                                                <rect x="15" y="22" class="linesandangles_een" width="10" height="2" />
+                                            </g>
+                                        </g>
+                                    </svg></span>
+                            </div>
+                            <div class="job_status inpipeline">
+                                <p>In Pipeline</p>
+                                <p>{{Projects.inPipeline}}</p>
+                                <span> <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                        <path fill-rule="evenodd"
+                                            d="M2.75 2.5A1.75 1.75 0 001 4.25v1C1 6.216 1.784 7 2.75 7h1a1.75 1.75 0 001.732-1.5H6.5a.75.75 0 01.75.75v3.5A2.25 2.25 0 009.5 12h1.018c.121.848.85 1.5 1.732 1.5h1A1.75 1.75 0 0015 11.75v-1A1.75 1.75 0 0013.25 9h-1a1.75 1.75 0 00-1.732 1.5H9.5a.75.75 0 01-.75-.75v-3.5A2.25 2.25 0 006.5 4H5.482A1.75 1.75 0 003.75 2.5h-1zM2.5 4.25A.25.25 0 012.75 4h1a.25.25 0 01.25.25v1a.25.25 0 01-.25.25h-1a.25.25 0 01-.25-.25v-1zm9.75 6.25a.25.25 0 00-.25.25v1c0 .138.112.25.25.25h1a.25.25 0 00.25-.25v-1a.25.25 0 00-.25-.25h-1z"
+                                            clip-rule="evenodd" />
+                                    </svg></span>
+                            </div>
+                            <div class="job_status rejected">
+                                <p>Rejected</p>
+                                <p>{{Projects.reject}}</p>
+                                <span><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 329.328 329.328"
+                                        xml:space="preserve">
+                                        <path d="M164.666,0C73.871,0,0.004,73.871,0.004,164.672c0.009,90.792,73.876,164.656,164.662,164.656
+                               c90.793,0,164.658-73.865,164.658-164.658C329.324,73.871,255.459,0,164.666,0z M164.666,30c31.734,0,60.933,11.042,83.975,29.477
+                               L59.478,248.638c-18.431-23.04-29.471-52.237-29.474-83.967C30.004,90.413,90.413,30,164.666,30z M164.666,299.328
+                               c-31.733,0-60.934-11.042-83.977-29.477L269.854,80.691c18.431,23.043,29.471,52.244,29.471,83.979
+                               C299.324,238.921,238.917,299.328,164.666,299.328z" />
+                                    </svg></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class=" col-xxl-12 col-xl-12">
+                        <div class="companyshift">
+                        <!-- <app-admin-dashboard-company-shift></app-admin-dashboard-company-shift> -->
+                        <div class="company_shift_header">
+                            <p>Company shift<span class="right_header_svg cms">
+                                    <svg viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <path
+                                            d="M8 2L8 6L4 6L4 48L15 48L15 39L19 39L19 48L30 48L30 6L26 6L26 2 Z M 10 10L12 10L12 12L10 12 Z M 14 10L16 10L16 12L14 12 Z M 18 10L20 10L20 12L18 12 Z M 22 10L24 10L24 12L22 12 Z M 32 14L32 18L34 18L34 20L32 20L32 22L34 22L34 24L32 24L32 26L34 26L34 28L32 28L32 30L34 30L34 32L32 32L32 34L34 34L34 36L32 36L32 38L34 38L34 40L32 40L32 42L34 42L34 44L32 44L32 48L46 48L46 14 Z M 10 15L12 15L12 19L10 19 Z M 14 15L16 15L16 19L14 19 Z M 18 15L20 15L20 19L18 19 Z M 22 15L24 15L24 19L22 19 Z M 36 18L38 18L38 20L36 20 Z M 40 18L42 18L42 20L40 20 Z M 10 21L12 21L12 25L10 25 Z M 14 21L16 21L16 25L14 25 Z M 18 21L20 21L20 25L18 25 Z M 22 21L24 21L24 25L22 25 Z M 36 22L38 22L38 24L36 24 Z M 40 22L42 22L42 24L40 24 Z M 36 26L38 26L38 28L36 28 Z M 40 26L42 26L42 28L40 28 Z M 10 27L12 27L12 31L10 31 Z M 14 27L16 27L16 31L14 31 Z M 18 27L20 27L20 31L18 31 Z M 22 27L24 27L24 31L22 31 Z M 36 30L38 30L38 32L36 32 Z M 40 30L42 30L42 32L40 32 Z M 10 33L12 33L12 37L10 37 Z M 14 33L16 33L16 37L14 37 Z M 18 33L20 33L20 37L18 37 Z M 22 33L24 33L24 37L22 37 Z M 36 34L38 34L38 36L36 36 Z M 40 34L42 34L42 36L40 36 Z M 36 38L38 38L38 40L36 40 Z M 40 38L42 38L42 40L40 40 Z M 10 39L12 39L12 44L10 44 Z M 22 39L24 39L24 44L22 44 Z M 36 42L38 42L38 44L36 44 Z M 40 42L42 42L42 44L40 44Z" />
+                                    </svg></span></p>
+                        </div>
+                        <div class="shift_detail" style="width: 100%;">
+                            <canvas baseChart height="250" width="250" [type]="'pie'" [datasets]="pieChartDatasets"
+                                [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+                                [labels]="pieChartLabels">
+                            </canvas>
+                        </div>
+                        <div class="chat_label">
+                            <div class="shif_detail">
+                                <p class="checkbox_lab genral"></p>
+                                <p>Genral Shift</p>
+                            </div>
+                            <div class="shif_detail">
+                                <p class="checkbox_lab second"></p>
+                                <p>Second Shift</p>
+                            </div>
+                            <div class="shif_detail">
+                                <p class="checkbox_lab night"></p>
+                                <p>Night Shift</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

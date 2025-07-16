@@ -1,0 +1,194 @@
+<div class="page-top-header mb-0" *ngIf="!isProfile && !requestId">
+  <h5 class="card-subtitle mt-0">Advance</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 bg-white px-0 custom-remove remove_br">
+
+    
+    <div class="content-box loanlist_tableview insu_out">
+      <div>
+        <div class=" d-flex bd-highlight justify-content-end"> 
+
+          <div class="image_section" *ngIf=" (!isLoanAdd ) && (requestId || isProfile)" (click)="addAdvance()">
+            <svg _ngcontent-ng-c796196116="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path _ngcontent-ng-c796196116="" fill-rule="evenodd" clip-rule="evenodd"
+                d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z">
+              </path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isLoanAdd">
+        <app-advance-salary-form [isProfile]="isProfile" [employeeAdvanceId]="employeeAdvanceId"
+          (onLoanAction)="onAdvanceActionClick($event)"></app-advance-salary-form>
+      </div>
+
+      <div *ngIf="!isLoanAdd" [ngClass]="isProfile ? '' : 'card-body'">
+        <div class="table-top" *ngIf="(isLoanAdd || !isProfile) && !requestId">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="pc-h-item  pc-header bg-transparent position-static w-100">
+                <form class="header-search d-block w-100">
+                  <div class="search-btn">
+                    <i class="ti ti-search"></i>
+                  </div>
+                  <input [(ngModel)]="searchDataValue" (input)="searchData(searchDataValue)" type="search"
+                    class="form-control w-100" placeholder="Search..." />
+
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="wordset d-none">
+            <ul>
+              <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" matTooltip="pdf"><img src="assets/img/icons/pdf.svg"
+                    alt="img" /></a>
+              </li>
+              <li>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" matTooltip="excel"><img src="assets/img/icons/excel.svg"
+                    alt="img" /></a>
+              </li>
+              <li>
+                <a data-bs-toggle="tooltip" target="_blank" data-bs-placement="top" matTooltip="print"><img
+                    src="assets/img/icons/printer.svg" alt="img" /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+          <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="fixTableHead  scrollbox-content">
+
+          <table mat-table class="mat-elevation-z8  shadow-none "
+            [dataSource]="dataSource" >
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef > Employee Name </th>
+              <td mat-cell *matCellDef="let row">
+                {{ row?.personName }}
+              </td>
+            </ng-container>
+
+            <!-- Code Column -->
+            <ng-container matColumnDef="code">
+              <th mat-header-cell *matHeaderCellDef > Employee Code </th>
+              <td mat-cell *matCellDef="let row">
+                {{ row?.personCode }}
+              </td>
+            </ng-container>
+
+            <!-- Amount Column -->
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef > Amount </th>
+              <td mat-cell *matCellDef="let row"> {{row?.amount}} </td>
+            </ng-container>
+
+
+            <!-- reason Column -->
+            <ng-container matColumnDef="reason">
+              <th mat-header-cell *matHeaderCellDef > Reason </th>
+              <td mat-cell *matCellDef="let row" class=" text-truncate" [matTooltip]="row?.reason">
+                <span>{{row?.reason}}</span>
+              </td>
+            </ng-container>
+
+            <!-- remark Column -->
+            <ng-container matColumnDef="remark">
+              <th mat-header-cell *matHeaderCellDef > Remark </th>
+              <td mat-cell *matCellDef="let row" class=" text-truncate" [matTooltip]="row?.remark">
+                <span>{{row?.remark ? row?.remark : '-'}}</span>
+              </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef > Status </th>
+              <td mat-cell *matCellDef="let row" class="text-nowrap"
+                [ngClass]="{'text-success': getStatusText(row?.status) === 'Approved','text-danger': getStatusText(row?.status) === 'Rejected','text-warning': getStatusText(row?.status) === 'In Process','text-dark': getStatusText(row?.status) === 'Closed'}">
+                {{ getStatusText(row?.status) }}
+              </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef [ngClass]="{ 'd-none': !userRole[0]?.canView }" >
+                Action </th>
+              <td mat-cell *matCellDef="let row" [ngClass]="{ 'd-none': !userRole[0]?.canView }">
+                <div class="d-flex align-items-center ">
+
+                  <div class="me-3 disable_icon me-3" *ngIf="!isProfile && !requestId" matTooltip="Approve">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                      stroke="#52c41a" [attr.disabled]="row?.status === 1 || row?.status === 2 ? true : null"
+                      (click)=" row?.status === 1 || row?.status === 2 ? null : approveRejectLoan(row,1)"
+                      [attr.stroke]=" row?.status === 1 || row?.status === 2 ? '#adb5bd' : '#52c41a'"
+                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <div class="" *ngIf="!isProfile && !requestId" matTooltip="Reject">
+                    <svg height="16" viewBox="0 0 16 16" width="16"
+                      [attr.disabled]="row?.status === 1 || row?.status === 2  ? true : null"
+                      (click)="row?.status === 1 || row?.status === 2  ? null : approveRejectLoan(row,2) "
+                      xmlns="http://www.w3.org/2000/svg">
+                      <!-- [attr.stroke]="buttonDisabledState[row.id] || row?.status === 1 || row?.status === 2  ? '#adb5bd' : '#ff4d4f'" -->
+                      <path
+                        d="m9.65685425 8.28427125 2.34314575 2.34285265 2.3431458-2.34285265c.3790283-.37902833.9935546-.37902833 1.372583 0 .3790283.37902833.3790283.99355467 0 1.372583l-2.3431458 2.34285265 2.3431458 2.3434389c.3790283.3790283.3790283.9935546 0 1.372583-.3790284.3790283-.9935547.3790283-1.372583 0l-2.3431458-2.3434389-2.34314575 2.3434389c-.37902833.3790283-.99355467.3790283-1.372583 0-.37902833-.3790284-.37902833-.9935547 0-1.372583l2.34314575-2.3434389-2.34314575-2.34285265c-.37902833-.37902833-.37902833-.99355467 0-1.372583s.99355467-.37902833 1.372583 0zm1.34314575-8.28427125c1.6568542 0 3 1.34314575 3 3v3h-2v-3c0-.55228475-.4477153-1-1-1h-8c-.55228475 0-1 .44771525-1 1v8c0 .5522847.44771525 1 1 1h2v2h-2c-1.65685425 0-3-1.3431458-3-3v-8c0-1.65685425 1.34314575-3 3-3zm-4 8v2h-3v-2zm3-4v2h-6v-2z" />
+                    </svg>
+                  </div>
+                  <div class="icon_width  px-3" *ngIf="userRole[0]?.canView && (isProfile || requestId)" matTooltip="Edit">
+                    <svg viewBox="64 64 896 896" focusable="false"
+                      [attr.disabled]="row?.status === 1 || row?.status === 2  ? true : true"
+                      [ngClass]="{'disabled-svg': row?.status === 1 || row?.status === 2 }"
+                      [attr.stroke]="row?.status === 1 || row?.status === 2  ? '#adb5bd' : '#ff4d4f'"
+                      (click)="row?.status !== 1 && row?.status !== 2 ? editAdvance(row?.id) : null"
+                      data-icon="edit" width="1em" height="1em" aria-hidden="true">
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                      </path>
+                    </svg>
+                  </div>
+                  <div class="icon_width ps-3" *ngIf="userRole[0]?.canView && (isProfile || requestId)" matTooltip="Delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="row?.status !== 1 && row?.status !== 2 ? deleteBtn(row?.id) : null" height="24"
+                      [attr.disabled]="row?.status === 1 || row?.status === 2  ? true : true"
+                      [ngClass]="{'disabled-svg': row?.status === 1 || row?.status === 2 }" viewBox="0 0 24 24"
+                      fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="8">
+                <div class="text-center d-block border-bottom-0">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record mt-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+
+        </div>
+        </div>
+       
+        <div class="text-end d-block mt-3" *ngIf="!isProfile && !requestId">
+          <div class="pagination-format d-inline-block">
+            <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+              aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

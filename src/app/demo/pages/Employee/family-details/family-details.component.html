@@ -1,0 +1,270 @@
+<form class="leave_form universal-form bg-white p-20 " [formGroup]="familyForm" (ngSubmit)="Save()"
+  [ngClass]="!isForm ? 'd-none' : '' ">
+
+  <div class="card-body">
+    <div class="row g-3">
+
+      <div class="col-sm-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Relationship Type
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="relationshipType" placeholder="Select relationship type">
+              <mat-option *ngFor="let relation of relationshipTypeList" [value]="relation?.value">
+                {{relation?.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error
+            *ngIf="familyForm.get('relationshipType').hasError('required') && familyForm.get('relationshipType').touched">
+            Relationship type is required
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">First Name
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter first name" formControlName="firstName" required
+              (blur)="trimInput('firstName')">
+          </mat-form-field>
+          <mat-error
+            *ngIf="(familyFormControl['firstName'].touched) && familyFormControl['firstName'].errors?.['required'] ">
+            First name is required
+          </mat-error>
+          <mat-error class="text-danger mt-2 d-block"
+            *ngIf="familyFormControl['firstName'].dirty && familyFormControl['firstName'].errors?.['pattern']">
+            Name can only contain letters, spaces, apostrophes, periods, and hyphens.
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Middle Name
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter middle name" formControlName="middleName" required
+              (blur)="trimInput('middleName')">
+          </mat-form-field>
+          <mat-error
+            *ngIf="(familyFormControl['middleName'].touched || isSubmitted) && familyFormControl['middleName'].errors?.['required'] ">
+            Middle name is required
+          </mat-error>
+          <mat-error class="text-danger mt-2 d-block"
+            *ngIf="familyFormControl['middleName'].dirty && familyFormControl['middleName'].errors?.['pattern']">
+            Name can only contain letters, spaces, apostrophes, periods, and hyphens.
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Last Name
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter last name" formControlName="lastName" required
+              (blur)="trimInput('lastName')">
+
+          </mat-form-field>
+          <mat-error
+            *ngIf="(familyFormControl['lastName'].touched || isSubmitted) && familyFormControl['lastName'].errors?.['required'] ">
+            Last name is required
+          </mat-error>
+          <mat-error class="text-danger mt-2 d-block"
+            *ngIf="familyFormControl['lastName'].dirty && familyFormControl['lastName'].errors?.['pattern']">
+            Name can only contain letters, spaces, apostrophes, periods, and hyphens.
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Date of Birth
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput [matDatepicker]="startPicker" formControlName="dob" required
+              placeholder="Enter date of birth" />
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-error
+            *ngIf="(familyFormControl['dob'].touched || isSubmitted) && familyFormControl['dob'].errors?.['required'] ">
+            Date of birth is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Contact No
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter contact no" minlength="10" maxlength="15" (keydown)="numbersOnly($event)"
+              formControlName="contactNumber" required>
+          </mat-form-field>
+          <mat-error
+            *ngIf="familyForm.get('contactNumber').hasError('required') && familyForm.get('contactNumber').touched">
+            Contact number is required
+          </mat-error>
+          <mat-error
+            *ngIf="familyForm.get('contactNumber').hasError('minlength') && familyForm.get('contactNumber').touched">
+            Minimum 10 number is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Blood Group
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+
+            <mat-select formControlName="bloodGroup" required placeholder="Select blood group ">
+              <mat-option *ngFor="let Bloodtype of bloodGroupList" [value]="Bloodtype.value">
+                {{Bloodtype.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="familyForm.get('bloodGroup').hasError('required') && familyForm.get('bloodGroup').touched">
+            Blood group is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Gender
+            <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="gender" required>
+            <mat-radio-button *ngFor="let gender of genderTypeList" [value]="gender.value">
+              {{gender.label}}</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="familyForm.get('gender').hasError('required') && familyForm.get('gender').touched">
+            Gender is required
+          </mat-error>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex my-3 mx-4 border-top justify-content-end pt-3">
+    <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+      [ngClass]="userRole[0]?.canAdd ? 'd-block' : 'd-none' "> Save</button>
+    <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="cancle()"> Cancel </button>
+  </div>
+
+</form>
+
+
+
+<div class="familydetails_tableview" [ngClass]="isForm ? 'd-none' : '' ">
+  <div class="information_list position-relative card_height">
+    <div class="professional_data">
+      <div class="card_header">
+        <h4>Family Information<span>
+            <svg viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M513.544 65.232c-2.296-1.592-6.008-1.744-8.296-0.144l-112.912 79.592c-2.288 1.608-3.504 0.56-3.504-2.232v-55.128c0-2.792-3.544-4.272-6.344-4.272h-73.352c-2.792 0-3.928 1.48-3.928 4.272v113.696c0 2.792-2.416 6.36-4.712 7.96L23.536 403.768c-2.288 1.608-2.16 3.56 0.632 3.56h123.096c2.792 0 4.992 0.952 4.992 3.744v543.816a5.2 5.2 0 0 0 5.128 5.152h703.168c2.792 0 5.536-2.352 5.536-5.152V411.072c0-2.792 1.784-3.744 4.584-3.744h129c2.8 0 3.2-1.952 0.904-3.544L513.544 65.232z m189.312 316.512a38.256 38.256 0 1 1 0 76.512 38.256 38.256 0 0 1 0-76.512zM522.08 607.928a27.8 27.8 0 1 1 0 55.6 27.8 27.8 0 0 1 0-55.6zM336.952 381.672a38.256 38.256 0 1 1 0 76.512 38.256 38.256 0 0 1 0-76.512z m449.864 294.832a19.936 19.936 0 0 1-19.936-19.92l-0.024-121.744a2.08 2.08 0 0 0-2.072-2.072h-4.224a2.08 2.08 0 0 0-2.072 2.072v341.576a25.712 25.712 0 0 1-51.424 0V675.432c0-1.464-0.68-2.08-2.128-2.08h-4.144c-1.448 0-2.128 0.608-2.128 2.08v200.984a25.712 25.712 0 0 1-51.424 0V534.84a2.08 2.08 0 0 0-2.072-2.072h-4.224a2.08 2.08 0 0 0-2.072 2.072l-16.36 98.936c-0.592 2.24-1.36 3.688-2.28 5.336-4.368 7.8-45.264 87.64-45.264 87.64-0.56 1-1.008 3.888-1.008 3.888s-0.08 147.88-0.2 149.024c-1.304 11.68-11.88 22.472-24.76 22.472-13.632 0-23.536-11.36-23.736-23.8l-0.024-63.024a2.08 2.08 0 0 0-2.072-2.072h-3.112a2.08 2.08 0 0 0-2.072 2.072l-0.008 62.696c-0.2 12.44-12.488 24.128-26.12 24.128s-24.464-11.752-24.664-24.192V728.2c0-1.144-0.464-2.88-1.04-3.872l-45.064-84.6a30.128 30.128 0 0 1-3.2-8.248c-0.08-0.216-30.032-97.776-30.032-97.776-0.176-0.408-1.064-2.12-3.144-2.12h-4.208c-1.184-0.016-1.88 0.992-1.568 2.128l59.64 195.176c0.32 1.136 0 3.128-2.08 3.128h-41.84c-1.184 0-2.048 0.96-2.048 2.144l0.008 142.248a25.712 25.712 0 0 1-51.424 0l-0.008-142.248a2.144 2.144 0 0 0-2.144-2.144h-4.176a2.144 2.144 0 0 0-2.144 2.144l-0.008 142.248a25.712 25.712 0 0 1-51.424 0l0.008-142.248c0-1.184-0.864-2.144-2.048-2.144h-41.84c-2.08 0-2.4-1.992-2.08-3.128l59.64-195.176c0.312-1.136-0.376-2.152-1.568-2.128h-0.008-4.2a3.448 3.448 0 0 0-3.144 2.12l-29.8 97.136a19.944 19.944 0 0 1-38.12-11.696L248 521.584c4.56-15.832 15.648-51.88 46.984-51.88h84.048c33.624 0 42.32 36.048 46.872 51.88 0 0 30.184 98.696 30.304 99.272 4.944 8.664 25.92 52.032 25.92 52.032a3.96 3.96 0 0 0 3.104 1.8h69.848c2.448 0 3.76-0.784 4.92-2.784l24.368-50.544c3.512-24.488 14.608-101.936 14.608-103.312 0-27.288 20.984-48.272 47.224-48.272h113.336c26.232 0 47.224 20.984 47.232 48.272l0.008 138.52a19.976 19.976 0 0 1-19.96 19.936z" />
+            </svg></span></h4>
+
+      </div> 
+      <div class="mb-1" *ngIf="userRole[0]?.canAdd">
+
+        <div class="image_section" (click)="addFamilyDetail()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z" />
+          </svg>
+        </div>
+      </div>
+      <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="mat-elevation-z8 fixTableHead scrollbox-content  TableHead  user_request_list  shadow-none ">
+          <table mat-table [dataSource]="dataSource" class="apply_leave">
+
+            <!-- First Name Column -->
+            <ng-container matColumnDef="firstName">
+              <th mat-header-cell *matHeaderCellDef>First Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+            </ng-container>
+
+            <!-- Middle Name Column -->
+            <ng-container matColumnDef="middleName">
+              <th mat-header-cell *matHeaderCellDef>Middle Name</th>
+              <td mat-cell *matCellDef="let element"> {{element.middleName}} </td>
+            </ng-container>
+
+            <!-- Last Name Column -->
+            <ng-container matColumnDef="lastName">
+              <th mat-header-cell *matHeaderCellDef> Last Name</th>
+              <td mat-cell *matCellDef="let element">{{element.lastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="relationshipType">
+              <th mat-header-cell *matHeaderCellDef> Relation</th>
+              <td mat-cell *matCellDef="let element">{{getRelation(element?.relationshipType)}} </td>
+            </ng-container>
+            <!-- Contact Number Column -->
+            <ng-container matColumnDef="contactNumber">
+              <th mat-header-cell *matHeaderCellDef> Contact Number </th>
+              <td mat-cell *matCellDef="let element">{{element.contactNumber}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dob">
+              <th mat-header-cell *matHeaderCellDef> Date of Birth </th>
+              <td mat-cell *matCellDef="let element">{{element.dob | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+              <td mat-cell *matCellDef="let element" class="">
+                <div class="d-flex align-items-center btn_hover">
+                  <div class="icon_width me-3" *ngIf="userRole[0]?.canEdit" matTooltip="Edit">
+                    <svg viewBox="64 64 896 896" focusable="false" (click)="editFamilyDetails(element)" data-icon="edit"
+                      width="1em" height="1em" aria-hidden="true">
+                      <path
+                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                      </path>
+                    </svg>
+                  </div>
+
+                  <div *ngIf="userRole[0]?.canDelete" matTooltip="Delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteFamilyDetails(element)"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round" class="feather feather-x">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="7">
+                <div class="text-center d-block border-bottom-0">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record mt-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="text-end d-block mb-3 mt-4" *ngIf="!isProfile && !requestId">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

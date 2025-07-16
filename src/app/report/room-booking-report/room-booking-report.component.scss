@@ -1,0 +1,63 @@
+.roombooikng_repot{
+    .outer_year{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 8px;
+    .year_select_box{
+        width: 17%;
+       
+        &:last-child{
+            width: 40%;
+        }
+        .mat-mdc-form-field{
+            width: 100% !important;
+        }
+        &.lastbtn{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
+}
+
+@media screen and (max-width:1600px){
+    .roombooikng_repot .year_select_box {
+        width: 16%;
+    }
+}
+
+@media screen and (max-width:1240px){
+    .roombooikng_repot .outer_year .year_select_box {
+        width: 22%;
+    }
+    .roombooikng_repot .outer_year{
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+   
+}
+
+@media screen and (max-width:991px){
+    .roombooikng_repot .outer_year .year_select_box:last-child {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width:640px){
+    .roombooikng_repot .outer_year .year_select_box {
+        width: 100%;
+        margin: 15px !important;
+    }
+    .roombooikng_repot .outer_year .year_select_box:last-child {
+        width: 100%;
+    }
+}
+@media screen and (max-width:375px){
+    .roombooikng_repot .outer_year .year_select_box.lastbtn {
+       flex-wrap: wrap;
+       button {
+           margin-top: 10px;
+       }
+    }
+}

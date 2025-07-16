@@ -1,0 +1,344 @@
+// html,
+// body {
+//     height: 100%;
+//     margin: 0;
+//     padding: 0;
+//     border: 1px solid red;
+// }
+
+.task-dash-page {
+    .process-card-bar {
+        margin-top: 20px;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            // display: flex;
+            flex-wrap: wrap;
+
+            li {
+                width: 32%;
+                margin: 0 20px;
+                display: inline-block;
+            }
+
+            li:first-child {
+                margin-left: 0;
+
+                .card-body {
+                    background: #ffe9ed;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: #ff4365;
+                    }
+
+                    .progress-bar {
+                        background-color: #ff4365;
+                    }
+                }
+            }
+
+            li:nth-child(2) {
+                margin-left: 0;
+
+                .card-body {
+                    background: $light-blue;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: $blue;
+                    }
+
+                    .progress-bar {
+                        background-color: $blue;
+                    }
+                }
+
+            }
+
+            li:nth-child(3) {
+                margin-left: 0;
+
+                .card-body {
+                    background: #d4ffe9;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: #1fc970;
+                    }
+
+                    .progress-bar {
+                        background-color: #1fc970;
+                    }
+                }
+            }
+
+            li:nth-child(4) {
+                margin-left: 0;
+
+                .card-body {
+                    background: #fff9e2;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: #fecd21;
+                    }
+
+                    .progress-bar {
+                        background-color: #fecd21;
+                    }
+                }
+            }
+
+            li:nth-child(5) {
+                margin-left: 0;
+
+                .card-body {
+                    background: #efdbff;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: #962eee;
+                    }
+
+                    .progress-bar {
+                        background-color: #962eee;
+                    }
+                }
+            }
+
+            li:nth-child(6) {
+                margin-left: 0;
+
+                .card-body {
+                    background: #ffc8f7;
+                }
+
+                .card-style {
+                    .card-header {
+                        background-color: #ee2ed1;
+                    }
+
+                    .progress-bar {
+                        background-color: #ee2ed1;
+                    }
+                }
+            }
+
+            li:last-child {
+                margin-right: 0;
+            }
+        }
+
+        ul.scroll-set {
+            // overflow: auto;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 0;
+            flex-wrap: nowrap;
+            overflow-x: scroll;
+            mask-size: 100% 20000px;
+            mask-position: left bottom;
+            -webkit-mask-size: 100% 20000px;
+            -webkit-mask-position: left bottom;
+            transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+            scrollbar-width: thin;
+            // scrollbar-color: transparent white;
+            padding: 13px 10px;
+            // height: calc(100vh - 113px);
+            -webkit-mask-position: left top;
+            scrollbar-color: #c1c1c1 transparent;
+            cursor: pointer;
+            background: white;
+            // max-height: 710px;
+            height: calc(100vh - 100px);
+
+            // }
+
+            li:first-child {
+                margin-left: 0;
+            }
+
+            li:last-child {
+                margin-right: 0;
+            }
+
+            li {
+                min-width: 400px;
+                width: 400px;
+                margin: 0 20px;
+                align-self: flex-start;
+                // margin: 0 30px 0 0;
+            }
+        }
+
+        .card-style {
+            border: 1px solid #eee;
+        }
+
+        .card-header {
+            padding: 12px 20px;
+
+            .status-title-text {
+                color: #FFF;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .dropdown {
+                position: relative;
+            }
+
+            .dropp-action>a {
+                color: #FFF;
+                background-color: rgba(0, 0, 0, 0.3);
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: -webkit-inline-box;
+                display: -ms-inline-flexbox;
+                display: inline-flex;
+                align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                justify-content: center;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+            }
+        }
+
+        .card-body {
+            padding: 15px;
+
+            .inside-card {
+                position: relative;
+                left: 0px;
+                top: 0px;
+                background-color: #FFF;
+                border: 1px solid #E2E4E6;
+                border-radius: 2px;
+                box-shadow: unset;
+                margin: 0 0 12px;
+                margin-bottom: 0;
+            }
+
+            .inside-board-body {
+                font-size: 13px;
+                padding: 0 15px 15px;
+            }
+
+            .inside-board-header a {
+                color: #212529;
+                width: 300px;
+                display: -webkit-box;
+                max-width: 300px;
+                -webkit-line-clamp: 5;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .inside-info .progress {
+                width: 100%;
+                height: 7px;
+                margin: 0 10px 0 0;
+            }
+
+            .progress-bar {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+                color: #fff;
+                text-align: center;
+                white-space: nowrap;
+                // background-color: #FC133D;
+                transition: width 0.6s ease;
+            }
+
+            .inside-board-body .inside-info {
+                font-size: 12px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+            }
+
+            .inside-board-header {
+                font-size: 14px;
+                font-weight: 500;
+                padding: 15px 15px 5px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                justify-content: space-between;
+                -webkit-justify-content: space-between;
+                -ms-flex-pack: space-between;
+            }
+
+            .inside-board-footer {
+                .task-users {
+                    a {
+                        color: #212529;
+                    }
+                }
+            }
+
+            .inside-board-footer .inside-date {
+                display: block;
+            }
+
+            .task-avatar {
+                border-radius: 50%;
+                position: relative;
+            }
+
+            .inside-board-body .inside-board-footer {
+                font-size: 12px;
+                margin-top: 10px;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                align-items: end;
+                -webkit-box-align: end;
+                -ms-flex-align: end;
+                justify-content: space-between;
+                -webkit-justify-content: space-between;
+                -ms-flex-pack: space-between;
+            }
+
+            .color-set {
+                font-weight: 500;
+            }
+
+            .task-priority {
+                padding: 3px 6px;
+                margin-top: 3px;
+                display: block;
+                border-radius: 6px;
+            }
+
+            .color-danger {
+                background-color: rgba(242, 17, 54, 0.12);
+                color: #e63c3c;
+            }
+        }
+    }
+}
+
+.outer_team_member {
+    ul {
+        li {
+            cursor: pointer;
+        }
+    }
+}

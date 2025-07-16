@@ -1,0 +1,342 @@
+<ng-template mat-tab-label>
+  <i class="ri-list-unordered"></i>
+  <span class="ms-3">Employee Details</span>
+</ng-template>
+
+<form class="universal-form overflow-hidden border rounded p-3 mt-4" [formGroup]="form">
+  <div class="card-body d-block">
+    <div class="row g-3">
+      <div class="col-xxl-6 col-xl-12 col-lg-12 input-type-file">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Employee Picture
+          </mat-label>
+          <input #logoUploader type="file" (change)="onLogoSelect($event)" [accept]="imageFileOnly">
+          <div class="image-upload" *ngIf="!uploadedlogo">
+            <div class="image-uploads border p-3 w-100 mt-2 rounded">
+              <div class="custom-file-upload">
+                <i class="ri-upload-cloud-2-fill mb-0"></i>
+              </div>
+              <span class="fw-bold d-block">Drag and drop a file to upload</span>
+            </div>
+          </div>
+          <div class="col-md-6 preview employee-img rounded-circle" *ngIf="uploadedlogo">
+            <div class="position-relative d-inline-block border p-2 rounded rounded-circle profile_image_block">
+              <i class="ri-delete-bin-line" role="button" (click)="deleteProfilePicture()"></i>
+              <img [src]="uploadedlogo" alt="logo" class="rounded-circle" (click)="triggerFileInput()" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Employee Id <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter person code" formControlName="personCode" required
+              (blur)="trimNameOnBlur('personCode')">
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['personCode'].touched || isSubmitted) && employeeFormControl['personCode'].errors?.['required']">
+            Employee Id is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">First Name <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter first name" formControlName="firstName" required
+              (blur)="trimNameOnBlur('firstName')">
+          </mat-form-field>
+          <div>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['firstName'].touched || isSubmitted) && employeeFormControl['firstName'].errors?.['required']">
+              First name is required
+            </span>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['firstName'].dirty) && employeeFormControl['firstName'].errors?.['pattern']">
+              Name can only contain letters, spaces, apostrophes, periods, and hyphens.
+            </span>
+            <span class="text-danger mt-2 d-block" *ngIf="(employeeFormControl['firstName'].hasError('maxlength'))">
+              Only 100 characters are allowed
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Last Name <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter last name" formControlName="lastName" required
+              (blur)="trimNameOnBlur('lastName')">
+          </mat-form-field>
+          <div>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['lastName'].touched || isSubmitted) && employeeFormControl['lastName'].errors?.['required']">
+              Last name is required
+            </span>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['lastName'].dirty) && employeeFormControl['lastName'].errors?.['pattern']">
+              Name can only contain letters, spaces, apostrophes, periods, and hyphens.
+            </span>
+            <span class="text-danger mt-2 d-block" *ngIf="(employeeFormControl['lastName'].hasError('maxlength'))">
+              Only 100 characters are allowed
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Email <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter email" formControlName="email" required (blur)="trimNameOnBlur('email')">
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['email'].touched || isSubmitted) && employeeFormControl['email'].errors?.['required']">
+            Email is required
+          </span>
+          <span class="text-danger mt-2 d-block" *ngIf="employeeFormControl['email'].errors?.['pattern']">
+            Invalid email address
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Date of Birth <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput [matDatepicker]="startPicker" formControlName="dob" datePickerFormat="MMM DD YYYY" required
+              placeholder="Enter date of birth" [max]="maxDate" />
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['dob'].touched || isSubmitted) && employeeFormControl['dob'].errors?.['required']">
+            Date of birth is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Phone Number <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter phone number" formControlName="contactNumber" required>
+          </mat-form-field>
+          <div>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['contactNumber'].touched || isSubmitted) && employeeFormControl['contactNumber'].errors?.['required']">
+              Phone number is required
+            </span>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['contactNumber'].dirty) && employeeFormControl['contactNumber'].errors?.['pattern']">
+              Not a valid mobile number
+            </span>
+            <span class="text-danger mt-2 d-block" *ngIf="(employeeFormControl['contactNumber'].hasError('maxlength'))">
+              Only 15 numbers are allow
+            </span>
+            <span class="text-danger mt-2 d-block" *ngIf="(employeeFormControl['contactNumber'].hasError('minlength'))">
+              Minimum 10 number is required
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Alternative Phone Number
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter alternative phone number" formControlName="emergencyNumber">
+          </mat-form-field>
+          <div>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['emergencyNumber'].dirty) && employeeFormControl['emergencyNumber'].errors?.['pattern']">
+              Not a valid mobile number
+            </span>
+            <span class="text-danger mt-2 d-block"
+              *ngIf="(employeeFormControl['emergencyNumber'].hasError('maxlength'))">
+              Only 15 number are allow
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Marital Status <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="maritalStatus" required placeholder="Select marital status">
+              <mat-option *ngFor="let mstatus of maritalStatusenum" [value]="mstatus.value">
+                {{mstatus.lable}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['maritalStatus'].touched || isSubmitted) && employeeFormControl['maritalStatus'].errors?.['required']">
+            Marital status is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Gender
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="gender" required placeholder="Select gender">
+              <mat-option [value]="">Select gender</mat-option>
+              <mat-option *ngFor="let gender of genderList" [value]="gender.value">
+                {{gender.lable}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Date of Joining <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput [matDatepicker]="dojpicker" formControlName="doj" required
+              placeholder="Enter date of joining" />
+            <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+            <mat-datepicker #dojpicker></mat-datepicker>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['doj'].touched || isSubmitted) && employeeFormControl['doj'].errors?.['required']">
+            Date of joining is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Last Working Day</mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput [matDatepicker]="lwdpicker" formControlName="lastWorkingDay" required
+              placeholder="Enter last working day" />
+            <mat-datepicker-toggle matSuffix [for]="lwdpicker"></mat-datepicker-toggle>
+            <mat-datepicker #lwdpicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Department <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="DepartmentId" required placeholder="Select department name"
+              [(ngModel)]="deptId" (ngModelChange)="onDepartmentChange()">
+              <mat-option [value]=""> Select department name</mat-option>
+              <mat-option *ngFor="let department of Department" [value]="department.id">
+                {{department.departmentName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Designation <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="DesignationId" required [disabled]="true"
+              placeholder="Select designation name">
+              <mat-option [value]="">Select designation name</mat-option>
+              <mat-option *ngFor="let designation of Designation" [value]="designation.id">
+                {{designation.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Role <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="roleId" required placeholder="Select role name">
+              <mat-option *ngFor="let role of RoleId" [value]="role.id">
+                {{role.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['roleId'].touched || isSubmitted) && employeeFormControl['roleId'].errors?.['required']">
+            Role is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Reporting Person <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="reportingPerson" required placeholder="Select reporting person">
+              <mat-option *ngFor="let person of reportingManagerList" [value]="person?.id">
+                {{person?.firstName + " " + person?.lastName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['reportingPerson'].touched || isSubmitted) && employeeFormControl['reportingPerson'].errors?.['required']">
+            Reporting person is required
+          </span>
+        </div>
+      </div>
+
+      <div class="col-xxl-6 col-xl-12 col-lg-12">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Login Type <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-select formControlName="loginType" required placeholder="Select login type">
+              <mat-option *ngFor="let login of enumLogin" [value]="login.value">
+                {{login.lable}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['loginType'].touched || isSubmitted) && employeeFormControl['loginType'].errors?.['required']">
+            Login type is required
+          </span>
+        </div>
+      </div>
+      <div class="col-xxl-6 col-xl-12 col-lg-12" *ngIf="form.value.loginType === 3 && !requestId">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Custom Login Password <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+          </mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter password" formControlName="Password" [type]="password">
+            <span class="fas toggle-password" (click)="onPasswordClick()"
+              [ngClass]="show?'ri-eye-line' : 'ri-eye-off-line'"></span>
+          </mat-form-field>
+          <span class="text-danger mt-2 d-block"
+            *ngIf="(employeeFormControl['Password'].touched || isSubmitted) && employeeFormControl['Password'].errors?.['required']">
+            Password is required
+          </span>
+          <span class="text-danger" *ngIf="form.get('Password').hasError('pattern') && form.get('Password').touched">
+            Password length between 8 to 15 characters in length combination of upper case, lower
+            case , numbers and special character (hyphen(-),underscore( _ ) and dot (.))
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex pt-3 mt-3 justify-content-end">
+
+    <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+      (click)="isProfile ? updateUserProfile() : createEmployee()"> Save</button>
+    <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="Cancel()"> Cancel
+    </button>
+  </div>
+</form>
+
+<style>
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+</style>

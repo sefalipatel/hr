@@ -1,0 +1,266 @@
+<form class="leave_form bg-white p-20  universal-form" [formGroup]="form" (ngSubmit)="Save()"
+  [ngClass]="!isForm ? 'd-none' : '' ">
+
+  <div class="card-body">
+    <div class="row g-3">
+
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Address Type <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+
+            <mat-select formControlName="addressType" required placeholder="Select address type">
+              <mat-option *ngFor="let type of AddressTypeenum" [value]="type.value">
+                {{type.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('addressType').hasError('required') && form.get('addressType').touched">
+            Address type is required
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Street/Road/Lane <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter street/road/lane" formControlName="addressLine1" required
+              (blur)="trimNameOnBlur('addressLine1')">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('addressLine1').hasError('required') && form.get('addressLine1').touched">
+            Street/Road/Lane is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Area/Locality/Sector <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter area/locality/sector" formControlName="addressLine2" required
+              (blur)="trimNameOnBlur('addressLine2')">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('addressLine2').hasError('required') && form.get('addressLine2').touched">
+            Area/Locality/Sector is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Village/Town/City <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field class="w-100" appearance="outline">
+            <input matInput placeholder="Enter village/town/city" formControlName="addressLine3" required
+              (blur)="trimNameOnBlur('addressLine3')">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('addressLine3').hasError('required') && form.get('addressLine3').touched">
+            Village/Town/City is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">Country <span
+              [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+
+            <mat-select formControlName="countryId" required (selectionChange)="onCountrySelection($event)"
+              placeholder="Select country">
+              <mat-option *ngFor=" let countrys of country" [value]="countrys.id">
+                {{countrys?.countryName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('countryId').hasError('required') && form.get('countryId').touched">
+            Country is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">State <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+
+            <mat-select formControlName="stateId" (selectionChange)="onStateSelecetd($event)" required
+              placeholder="Select state">
+              <mat-option *ngFor="let states of state" [value]="states.id">
+                {{states.stateName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('stateId').hasError('required') && form.get('stateId').touched">
+            State is required
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group mb-0">
+          <mat-label class="label_name">City <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+
+            <mat-select formControlName="cityId" required placeholder="Select city">
+              <mat-option *ngFor="let citys of city" [value]="citys.id">
+                {{citys.cityName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('cityId').hasError('required') && form.get('cityId').touched">
+            City is required
+          </mat-error>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex my-3 mx-4 border-top justify-content-end pt-3">
+    <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+      [ngClass]="userRole[0]?.canAdd ? 'd-block' : 'd-none' "> Save</button>
+    <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="cancle()"> Cancel </button>
+  </div>
+
+</form>
+
+<div class="address_detail position-relative card_height" [ngClass]="isForm ? 'd-none' : '' ">
+  <div class="card_header address_color">
+    <h4>Address<span>
+        <svg viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M512 1012.8c-253.6 0-511.2-54.4-511.2-158.4 0-92.8 198.4-131.2 283.2-143.2h3.2c12 0 22.4 8.8 24 20.8 0.8 6.4-0.8 12.8-4.8 17.6-4 4.8-9.6 8.8-16 9.6-176.8 25.6-242.4 72-242.4 96 0 44.8 180.8 110.4 463.2 110.4s463.2-65.6 463.2-110.4c0-24-66.4-70.4-244.8-96-6.4-0.8-12-4-16-9.6-4-4.8-5.6-11.2-4.8-17.6 1.6-12 12-20.8 24-20.8h3.2c85.6 12 285.6 50.4 285.6 143.2 0.8 103.2-256 158.4-509.6 158.4z m-16.8-169.6c-12-11.2-288.8-272.8-288.8-529.6 0-168 136.8-304.8 304.8-304.8S816 145.6 816 313.6c0 249.6-276.8 517.6-288.8 528.8l-16 16-16-15.2zM512 56.8c-141.6 0-256.8 115.2-256.8 256.8 0 200.8 196 416 256.8 477.6 61.6-63.2 257.6-282.4 257.6-477.6C768.8 172.8 653.6 56.8 512 56.8z m0 392.8c-80 0-144.8-64.8-144.8-144.8S432 160 512 160c80 0 144.8 64.8 144.8 144.8 0 80-64.8 144.8-144.8 144.8zM512 208c-53.6 0-96.8 43.2-96.8 96.8S458.4 401.6 512 401.6c53.6 0 96.8-43.2 96.8-96.8S564.8 208 512 208z"
+            fill="" />
+        </svg></span></h4>
+  </div>
+  <div class="image_section" *ngIf="userRole[0]?.canAdd" (click)="addAddress()"> <svg viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z" />
+    </svg>
+  </div>
+  <div class="professional_data" *ngFor="let address of addressDetails">
+    <div class="card_header noborder_bottom d-flex align-items-center justify-content-between">
+      <h4>{{getStatusLabel(address?.addressType)}}</h4>
+      <div class="d-flex align-items-center">
+        <div class="cursor-pointer ms-2 outer_svg" *ngIf="userRole[0]?.canEdit">
+          <svg viewBox="64 64 896 896" focusable="false" (click)="editAddress(address)" data-icon="edit" width="1em"
+            height="1em" aria-hidden="true">
+            <path
+              d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+            </path>
+          </svg>
+        </div>
+        <div class="icon_width ms-2 outer_svg" *ngIf="userRole[0]?.canDelete">
+          <i class="ri-delete-bin-line" (click)="deleteAddress(address)"></i>
+        </div>
+      </div>
+    </div>
+    <div class="border_dash my-2 "></div>
+    <div class="address_detail_block address_section">
+      <div class="d-flex"><span>
+          <p class="me-2"> {{address?.addressLine1}},</p>
+        </span><span>
+          <p class="me-2"> {{address?.addressLine2}}</p>
+        </span><span>
+          <p> {{address?.addressLine3}}</p>
+        </span></div>
+      <p class="m-0 city">{{address?.city?.cityName}}</p>
+      <p class="m-0 state"> {{address?.state?.stateName}}, {{address?.country?.countryName}}</p> 
+    </div>
+
+
+
+  </div>
+</div>
+
+
+<div class="card-body mt-4 border rounded p-3 d-none" [ngClass]="isForm ? 'd-none' : '' ">
+  <h5 class="m-0 fw-bold">Address</h5>
+  <div class="pc-component">
+    <div class="mb-1" *ngIf="userRole[0]?.canAdd">
+      <div class="mb-3 d-flex bd-highlight justify-content-end">
+        <button type="button" class="btn btn-primary  px-4 py-2 rounded-pill " (click)="addAddress()">Add
+          Address</button>
+      </div>
+    </div>
+    <div class="mat-elevation-z8 table-responsive  user_request_list border rounded shadow-none ">
+      <table mat-table [dataSource]="dataSource" class="apply_leave">
+        <ng-container matColumnDef="addressLine1">
+          <th mat-header-cell *matHeaderCellDef> Street/Road/Lane </th>
+          <td mat-cell *matCellDef="let element"> {{element.addressLine1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addressLine2">
+          <th mat-header-cell *matHeaderCellDef> Area/Locality/Sector </th>
+          <td mat-cell *matCellDef="let element"> {{element.addressLine2
+            }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addressLine3">
+          <th mat-header-cell *matHeaderCellDef> Village/Town/City </th>
+          <td mat-cell *matCellDef="let element">{{element.addressLine3}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="addressType">
+          <th mat-header-cell *matHeaderCellDef class="text-nowrap"> Address Type </th>
+          <td mat-cell *matCellDef="let element">{{getStatusLabel(element.addressType)
+            }} </td>
+        </ng-container>
+        <ng-container matColumnDef="cityName">
+          <th mat-header-cell *matHeaderCellDef> City </th>
+          <td mat-cell *matCellDef="let element">{{element.city?.cityName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="stateName">
+          <th mat-header-cell *matHeaderCellDef> State </th>
+          <td mat-cell *matCellDef="let element">{{element.state?.stateName}} </td>
+        </ng-container>
+        <ng-container matColumnDef="countryName">
+          <th mat-header-cell *matHeaderCellDef> Country </th>
+          <td mat-cell *matCellDef="let element">{{element?.country?.countryName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+          <td mat-cell *matCellDef="let element" class="">
+
+            <div class="d-flex align-items-center btn_hover">
+              <div class="icon_width  me-2 pe-3" *ngIf="userRole[0]?.canEdit" matTooltip="Edit">
+                <svg viewBox="64 64 896 896" focusable="false" (click)="editAddress(element)" data-icon="edit"
+                  width="1em" height="1em" aria-hidden="true">
+                  <path
+                    d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                  </path>
+                </svg>
+              </div>
+
+              <div *ngIf="userRole[0]?.canDelete" matTooltip="Delete">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteAddress(element)" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns.length">
+            No Data Available
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="text-end d-block mb-3 mt-4" *ngIf="!isProfile && !requestId">
+      <div class="pagination-format d-inline-block">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+          aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,75 @@
+.custom-payslip-table {
+    padding: 30px;
+    background: $white;
+    border: 1px dashed $blue;
+    margin-top: 30px;
+
+    table {
+        //     tr.border{
+        //     margin-top: 30px;
+        // }
+
+        td {
+            padding: 5px 8px;
+            font-weight: 400;
+            color: #6e6e6e;
+
+            &.lablename {
+                font-weight: 500;
+                color: #333;
+            }
+        }
+    }
+
+    .first-table {
+
+        // td:first-child , td:nth-child(3)
+        td:nth-child(odd) {
+            max-width: 200px;
+            // width: 13%;
+        }
+    }
+
+    .second-table {
+        // padding: 8px 15px;
+        margin-top: 15px;
+        border: 1px solid #e6ebf1;
+
+        tbody {
+            tr {
+                td {
+                    padding: 5px 15px;
+                }
+
+                // td:nth-child(2) {
+                //     border-left: 1px solid #e6ebf1;
+                // }
+
+                td {
+                    border-left: 1px solid #e6ebf1;
+                    border-right: 1px solid #e6ebf1;
+                }
+
+                // td:nth-child(3) {
+                //     border-left: 1px solid #e6ebf1;
+                //     border-right: 1px solid #e6ebf1;
+                // }
+            }
+        }
+
+        tr {
+            border-bottom: 1px solid #e6ebf1;
+
+            th {
+                padding: 8px 15px;
+                margin-top: 15px;
+                background: #dcdcdc !important;
+                border-left: 1px solid #bfbfbf;
+            }
+        }
+    }
+
+    .logo_company {
+        max-width: 45px;
+    }
+}

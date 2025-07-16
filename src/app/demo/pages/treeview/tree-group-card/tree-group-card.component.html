@@ -1,0 +1,23 @@
+<li>
+    <div class="test main_project_name">
+      <div class="pro_border"></div>
+      <div class="outer_image">
+        <img  [src]="item?.profilePicture ? transformImage(item?.profilePicture) : 'assets/images/tree-view/5.png' " alt="employee" />
+      </div>
+      <div class="name_des_emp">
+        <span style="font-weight: 600">{{item?.employeeName ? item?.employeeName : item?.personName}} </span>
+        <span> {{item?.designationName}} </span>
+        <span> {{item?.departmentName}} </span>
+        </div>
+      </div>
+    <ul class="third_level">
+      <li *ngFor="let child of item.children">
+        <ng-container *ngIf="child?.children?.length">
+            <app-tree-group-card [item]="child"></app-tree-group-card>
+        </ng-container>
+        <ng-container *ngIf="!child?.children?.length">
+            <app-tree-item-card [item]="child"></app-tree-item-card>
+        </ng-container> 
+      </li>
+    </ul>
+  </li>

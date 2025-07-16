@@ -1,0 +1,203 @@
+<section class="skyttus-career-page">
+    <div class="container-fluid">
+        <div class="row">
+            <header>
+                <img src="assets/images/skyttus-logo-white.png" alt="">
+            </header>
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="display-side">
+                            <div class="avtar-box d-none">
+                                <img class="img-01" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-02" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-03" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-04" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-05" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-06" src="assets/images/skyttus-career/001.jpg">
+                                <img class="img-07" src="assets/images/skyttus-career/001.jpg">
+                            </div>
+                            <img src="assets/images/skyttus-career/shape-2.png" class="image-set" alt=""> 
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="field-side">
+                            <div class="all-shape-box"> 
+                                <img class="img-02" src="assets/images/skyttus-career/s-2.png">
+                                <img class="img-03 up-down" src="assets/images/skyttus-career/s-3.png">
+                                <img class="img-04" src="assets/images/skyttus-career/s-4.png">
+                                <img class="img-05" src="assets/images/skyttus-career/s-5.png">
+                            </div>
+                            <div class="" [ngClass]="ismessagedisplay==false?'height-width-box': 'hidden'">
+                                <div class="title-box">
+
+                                    <h4 class="title-name d-flex flex-wrap align-items-center">
+                                        Join for
+
+                                        <div class="content">
+                                            <div class="content__container">
+                                                <ul class="content__container__list px-3 text-primary">
+                                                    <li class="content__container__list__item">Limitless !</li>
+                                                    <li class="content__container__list__item">Infinite !</li>
+                                                    <li class="content__container__list__item">Boundless !</li>
+                                                    <li class="content__container__list__item">Endless !</li> 
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        Opportunities
+                                    </h4>
+                                    <span>Take Your Career to the Next Level with Skyttus: Where Success Meets
+                                        Opportunity!</span>
+                                </div>
+                                <div class="form-box">
+                                    <form [formGroup]="jobapplyform">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <label for="exampleInputName" class="form-label">Full Name <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" formControlName="fullName" class="form-control"
+                                                    id="exampleInputName">
+                                                <span class="text-danger mt-2 d-block"
+                                                    *ngIf="(jobapplyform.controls['fullName']).touched && jobapplyform.controls['fullName'].errors?.['required']">
+                                                    Full name is required
+                                                </span>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <label for="exampleInputEmail1" class="form-label">Email
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="email" formControlName="email" class="form-control"
+                                                    id="exampleInputEmail1">
+                                                <span class="text-danger mt-2 d-block"
+                                                    *ngIf="(jobapplyform.controls['email']).touched && jobapplyform.controls['email'].errors?.['required']">
+                                                    Email is required
+                                                </span>
+                                                <span class="text-danger mt-2 d-block" *ngIf="jobapplyform.controls['email'].errors?.['pattern']">
+                                                    Invalid email address
+                                                  </span>
+                                            </div>
+
+
+                                            <div class="col-md-6 mb-4">
+                                                <label for="exampleInputNumber" class="form-label">Phone Number
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="email" class="form-control" formControlName="phoneNumber"
+                                                    id="exampleInputNumber">
+                                                <span class="text-danger mt-2 d-block"
+                                                    *ngIf="(jobapplyform.controls['phoneNumber']).touched && jobapplyform.controls['phoneNumber'].errors?.['required']">
+                                                    Phone number is required
+                                                </span>
+                                                <span class="text-danger mt-2 d-block" *ngIf="jobapplyform.controls['phoneNumber'].errors?.['pattern']">
+                                                    Invalid phone number
+                                                  </span>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <label for="exampleInputLocation" class="form-label">Location
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control" formControlName="location"
+                                                    id="exampleInputLocation">
+                                                <span class="text-danger mt-2 d-block"
+                                                    *ngIf="(jobapplyform.controls['location']).touched && jobapplyform.controls['location'].errors?.['required']">
+                                                    Location
+                                                    is required
+                                                </span>
+                                            </div>
+
+
+                                            <div class="col-md-6 mb-4">
+                                                <label for="exampleInputInterest" class="form-label">Position of Interest
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="positionOfInterest" id="exampleInputInterest">
+                                                <span class="text-danger mt-2 d-block"
+                                                    *ngIf="(jobapplyform.controls['positionOfInterest']).touched && jobapplyform.controls['positionOfInterest'].errors?.['required']">
+                                                    Position of interest is required
+                                                </span>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <label class="form-label">Drop a CV <span
+                                                        class="text-danger">*</span></label>
+
+                                                <div class="image-upload">
+                                                    <input type="file" formControlName="cvFile"
+                                                        (change)="OnSelectedFile($event)" #fileInput
+                                                        accept=".pdf,.doc,.docx">
+
+                                                    <span *ngIf="File">{{
+                                                        this.jobapplyform.get('cvFile').value}}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <label class="form-label">Message to Hiring Manager
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="form-floating">
+                                                    <textarea class="form-control" formControlName="message"
+                                                        placeholder="Leave a comment here" id="floatingTextarea2"
+                                                        style="height: 100px"></textarea>
+                                                    <span class="text-danger mt-2 d-block"
+                                                        *ngIf="(jobapplyform.controls['message']).touched && jobapplyform.controls['message'].errors?.['required']">
+                                                        Message
+                                                        is required
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-4">
+                                                <div class="d-flex align-items-center">
+                                                    <img id="captcha" [src]="captchaImage" data-captcha="ABC123" alt="Captcha Image">
+                                                    <mat-icon role="button" class="mx-3 text-primary" (click)="generateCaptcha()"
+                                                    matTooltip="Refresh Captcha">refresh</mat-icon>
+                                                </div>
+                                            
+                                                <label class="form-label">Enter Captcha
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                            
+                                                <input type="text" formControlName="captcha" matInput class="form-control" [(ngModel)]="userInput">
+                                                <span class="text-danger mt-2"
+                                                    *ngIf="(jobapplyform.controls['captcha'].touched) && jobapplyform.controls['captcha'].errors?.['required']">
+                                                    Captcha is Required
+                                                </span>
+                                                <span class="text-danger mt-2"
+                                                    *ngIf="(jobapplyform.controls['captcha'].dirty) && (jobapplyform.controls['captcha'].value !== captchaString)">
+                                                    Captcha is not matched.
+                                                </span>
+                                            </div>
+                                            <div class="col-md-12 text-end border-set">
+                                                <button class="btn btn-primary px-5 py-3"
+                                                    (click)="Save($event)">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="success-content" [ngClass]="ismessagedisplay==true?'show':'hidden'">
+                                <app-loader *ngIf="loading"></app-loader>
+                                <div class="wrap-box">
+                                    <img src="assets/images/skyttus-career/success.png" alt="image" />
+                                    <h4 class="h4-title fw-bold">
+                                        Resume Application Received !
+                                    </h4>
+                                    <p>
+                                        <b class="text-primary">Congratulations</b> on taking the first step towards
+                                        potential opportunities with
+                                        Skytus!
+                                        Your resume submission signifies your interest in joining our dynamic team, and
+                                        we
+                                        appreciate the time and effort you've invested in applying for a position with
+                                        us.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

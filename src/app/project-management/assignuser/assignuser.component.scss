@@ -1,0 +1,24 @@
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: white !important;
+    border: 1px solid #d9d9d9;
+    line-height: 30px;
+    height: 51px;
+    border-radius: 5px;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+    display: none !important;
+}
+
+.mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    padding-top: 8px;
+    padding-bottom: 0;
+}
+
+.mdc-list-item__primary-text {
+    width: 100%;
+}
+ 
+.mat-mdc-paginator-page-size {
+    margin-top: 8px;
+}

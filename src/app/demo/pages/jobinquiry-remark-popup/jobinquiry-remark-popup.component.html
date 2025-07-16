@@ -1,0 +1,31 @@
+
+<form  [formGroup]="form">
+  <div class="w-100 d-flex justify-content-end">
+  <button type="button" #closebutton class="close btn pt-2 fs-3 px-3 btn-transparent text-danger" data-dismiss="modal"  (click)="cancle()">&times;</button>
+</div>  <div class="mb-3 leave_form mx-3 textarea-input">
+        <mat-label class="label_name ">Remarks</mat-label>
+        <span class="text-danger">*</span>
+        <textarea class="form-control form_textarea mt-2" id="exampleFormControlTextarea1" rows="3" required  formControlName="remarks" name="remark"></textarea>
+        <span class="text-danger mt-2 d-block"
+        *ngIf="(form.controls['remarks']).touched && form.controls['remarks'].errors?.['required']">
+        Remarks
+        is required
+    </span>
+        <mat-label class="label_name mt-3 d-block mb-2">Status
+          <span class="text-danger">*</span>
+        </mat-label>
+       
+        <mat-form-field class="full-width w-100" appearance="outline">
+            <mat-select formControlName="status" placeholder="Select status"
+                (selectionChange)="selectionchange($event)">
+                <mat-option *ngFor="let status of jobStatusOptions" [value]="status?.value">
+                  {{ status?.status }}
+              </mat-option>
+
+            </mat-select>
+        </mat-form-field>
+      </div>  
+      <div class="text-end regularization_btn mb-3">
+        <button type="submit" class="btn btn-primary me-3"  (click)="Submit()"> Submit</button> 
+      </div>
+    </form>

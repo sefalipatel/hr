@@ -1,0 +1,42 @@
+<!-- Include Angular Material styles and theme in your global styles or index.html -->
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="card pt-4">
+    <div class="container">
+      <div>
+        <ng-container *ngIf="getapprovalDate; else noDate">
+          <h6> Date : {{ getapprovalDate | date: 'dd-MM-YYYY' }}</h6>
+        </ng-container>
+        <ng-template #noDate>
+          <h6>Date : {{requestdate | date: 'dd-MM-YYYY'}}</h6>
+        </ng-template>
+      </div>
+      <div class="d-flex align-items-center my-3">
+        <div class="d-flex align-items-center">
+          <h6>Time In : </h6>
+          <div class="ngx-timepicker-field-example mt-2 ms-3 missing_time_clock">
+            <ngx-timepicker-field [defaultTime]="'11:00 am'" formControlName="INTIME" (timeChange)="onTimeChange($event)"></ngx-timepicker-field>
+        </div>
+        </div>
+      
+        <div class="d-flex align-items-center ms-5">
+          <h6 >Time Out : </h6>
+          <div class="ngx-timepicker-field-example mt-2 ms-3 missing_time_clock">
+            <ngx-timepicker-field [defaultTime]="'11:00 am'"  formControlName="OUTTIME" (timeChange)="onOutTimeChange($event)"></ngx-timepicker-field>
+        </div>
+         
+        </div>
+      </div>
+
+      <div class="mb-3 leave_form textarea-input">
+        <h6>Write Reason</h6>
+        <textarea class="form-control form_textarea mt-3" matInput id="exampleFormControlTextarea1" rows="3" required formControlName="REASON"></textarea>
+      </div>
+
+      <div class="d-flex my-3"> 
+        <button type="submit" class="btn btn-primary me-3 px-4" >update</button>
+        <button type="button" class="btn btn-primary me-3 px-4"  (click)="cancle()" >Cancel</button>
+      </div>
+    </div>
+  </div>
+</form>

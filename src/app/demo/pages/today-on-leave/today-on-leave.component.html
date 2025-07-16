@@ -1,0 +1,63 @@
+<div class="d-none">
+    <div class="list_people mt-4">
+        <div class="leave_people">
+            <ul class="scroller leave_today">
+                <li *ngFor="let leave of getALLDataLave">
+                    <div class="people_list">
+                        <div class="left_block">
+                            <div class="image_people">
+                                <img *ngIf="leave?.profilePicture" class="img-fluid"
+                                    [src]="attachmentURL + leave?.profilePicture?.replace('wwwroot\\', '') "
+                                    alt="images">
+                                <div *ngIf="!leave?.profilePicture" class="avtar avtar-s rounded-circle"
+                                    [ngStyle]="{'background': stringToColor(leave?.employeeName)}">
+                                    <b *ngIf="leave?.employeeName" class="f-14 text-uppercase">{{leave?.employeeName[0]+
+                                        leave?.employeeName.split(' ')[1][0] }}</b>
+                                </div>
+                            </div>
+                            <div class="name_people">
+                                <p>{{ leave?.employeeName }}</p>
+                                <p>
+                                    <span>{{ leave?.department }}</span> on leave today for
+                                    <strong>{{ leaveStatus[leave?.leaveType] }}</strong>
+                                </p> 
+                            </div>
+                        </div> 
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="ink-title mb-2">
+    Today On Leave
+</div> 
+    <div class="leave_detail_top">
+<div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+<div class="scrollbox-content">
+    <div class="leave-card" *ngFor="let leave of getALLDataLave">
+        <div class="img-text">
+            <div class="img">
+
+                <img *ngIf="leave?.profilePicture"
+                    [src]="attachmentURL + leave?.profilePicture?.replace('wwwroot\\', '') " alt="images">
+
+                <div *ngIf="!leave?.profilePicture" class="avtar"
+                    [ngStyle]="{'background': stringToColor(leave?.employeeName)}">
+                    <b *ngIf="leave?.employeeName" class="f-14 text-uppercase">{{leave?.employeeName[0]+
+                        leave?.employeeName.split(' ')[1][0] }}</b>
+                </div>
+            </div>
+            <div class="text">
+                <div class="name">{{ leave?.employeeName }}</div>
+                <div class="designation">{{ leave?.department }}</div>
+                <div class="day">{{ leaveStatus[leave?.leaveType] }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div> 

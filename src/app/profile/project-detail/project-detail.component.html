@@ -1,0 +1,66 @@
+<div class="tab_main">
+  <div class="second_tab_inner">
+    <div class="project_card row ">
+      <div class="col-lg-4 col-md-6 col-xl-4 col-xxl-4 mt-4" *ngFor="let data of projectDetails">
+        <div class="project_card_block">
+          <div class="cotent_between">
+            <h3>{{data?.name}}</h3>
+            <div class="project_detail">
+              <p>{{data?.description}}</p>
+              </div>
+            <div class="project_deadline d-flex justify-content-between">
+              <div class="startdate">
+                <p>Start Date&nbsp;:</p>
+                <p>{{data?.startDate | date: dateFormat}}</p>
+              </div>
+              <div class="deadlinedate">
+                <p>End Date&nbsp;:</p>
+                <p>{{data?.endDate | date: dateFormat}}</p>
+              </div>
+            </div>
+            <div class="project_leader mt-2">
+              <p class="me-2">Project Leader&nbsp;:</p>
+              <div [matTooltip]="data?.projectLeader?.employeeName+'('+(data?.projectLeader?.designation +')' )"
+                class="profile_image_avtar rounded-circle"
+                [ngStyle]="{'background': stringToColor(data?.projectLeader?.employeeName)}">
+                <img *ngIf="data?.projectLeader?.profilePicture" class="img-fluid"
+                  [src]="transformImage(data?.projectLeader?.profilePicture)" alt="avtar">
+                <b *ngIf="!data?.projectLeader?.profilePicture"
+                  class="f-14">{{generateInitials(data?.projectLeader?.employeeName)}}</b>
+              </div> 
+            </div>
+            <div class="teammember">
+              <p class="me-2">Team&nbsp;:</p>
+              <ul class="d-flex align-items-center p-0">
+                <li *ngFor="let member of data?.projectMember; let i = index">
+                  <div *ngIf="i<5">
+                    <div [matTooltip]="member?.employeeName+'('+(member?.designation +')' )"
+                      class=" profile_image_avtar rounded-circle"
+                      [ngStyle]="{'background': stringToColor(member?.employeeName)}">
+
+                      <img *ngIf="member?.profilePicture" class="img-fluid"
+                        [src]="transformImage(member?.profilePicture)" alt="avtar">
+                      <b *ngIf="!member?.profilePicture" class="f-14">{{generateInitials(member?.employeeName)}}</b>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="progress_bar mt-4 mb-0">
+              <p>Status</p>
+              <p class="blue">{{convertStatus(data?.status) }}</p>
+            </div>
+            <div class="technologies  mb-0">
+              <p>Technologies</p>
+              <p>{{data?.technologySpecification}}</p>
+            </div>
+            <div class="priority">
+              <p>Priority</p>
+              <p class="sky">{{getPriority(data?.priority)}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

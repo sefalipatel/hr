@@ -1,0 +1,599 @@
+<section class="project-task-page mt-3 inside-page">
+    <div class="border rounded  px-0">
+        <div class="main-row">
+            <div class="col-lg-12 col-md-6 communication-view task-view left-sidebar">
+                <div>
+                    <div class="backlog_tab bg-white">
+                        <div class="search_top mb-3 p-3">
+                            <div class="row">
+                                <div class="col-md-8 col-xl-8 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <div class="search_main">
+                                                <input type="search" [(ngModel)]="searchDataValue"
+                                                    (input)="searchData(searchDataValue)" class="form-control w-100"
+                                                    placeholder="Search..." /> 
+                                            </div>
+                                        </div>
+                                        <!-- Filter by Person Dropdown -->
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <mat-form-field appearance="outline" class="w-100"
+                                                (click)="$event.stopPropagation()">
+                                                <mat-label>Select Person</mat-label>
+                                                <mat-select [(ngModel)]="selectedPersonId"
+                                                    (selectionChange)="filterTasksByPerson($event.value)">
+                                                    <mat-option value="">All</mat-option>
+                                                    <mat-option *ngFor="let person of AssignUserByProjects"
+                                                        [value]="person.personId">
+                                                        {{ person.firstName }} {{ person.lastName }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-xl-4 col-sm-12">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 h-100">
+                                        <div class="create_button d-flex justify-content-end align-items-center h-100">
+                                            <button class="btn btn-primary" (click)="openPopup()">Create
+                                                Sprint</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordian_tab " *ngFor="let item of allSprint;  let i = index">
+                            <mat-accordion class="example-headers-align" multi>
+                                <mat-expansion-panel (opened)="item.expanded = true" (closed)="item.expanded = false">
+                                    <mat-expansion-panel-header (click)="toggleAccordion(i, item?.id, !item?.isActive)">
+                                        <mat-panel-title>
+                                            <div
+                                                class="sprint-header d-flex justify-content-between align-items-center w-100">
+
+                                                <div class="left-content d-flex align-items-center flex-wrap">
+                                                    <div *ngIf="item.expanded" (click)="$event.stopPropagation()">
+                                                        <mat-checkbox [(ngModel)]="item.selectAll"
+                                                            (change)="toggleSelectAllTasks(item)">
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <span class="sprintcode"> {{ item.sprintCode }}</span>
+                                                    <span class="sprintname">{{ item.sprintName }}</span>
+                                                    <span class="dateicon"> 
+                                                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M266.815 537.708c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.775 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zM266.815 679.347c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.775 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zM266.815 820.988c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.775 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zm182.77 0c0 22.62-18.34 40.96-40.96 40.96s-40.96-18.34-40.96-40.96 18.34-40.96 40.96-40.96 40.96 18.34 40.96 40.96zM228.18 81.918v153.6c0 11.311 9.169 20.48 20.48 20.48s20.48-9.169 20.48-20.48v-153.6c0-11.311-9.169-20.48-20.48-20.48s-20.48 9.169-20.48 20.48zm528.09 0v153.6c0 11.311 9.169 20.48 20.48 20.48s20.48-9.169 20.48-20.48v-153.6c0-11.311-9.169-20.48-20.48-20.48s-20.48 9.169-20.48 20.48z" />
+                                                            <path
+                                                                d="M890.877 137.517c33.931 0 61.44 27.509 61.44 61.44v703.375c0 33.931-27.509 61.44-61.44 61.44h-757.76c-33.931 0-61.44-27.509-61.44-61.44V198.957c0-33.931 27.509-61.44 61.44-61.44h757.76zm-757.76 40.96c-11.309 0-20.48 9.171-20.48 20.48v703.375c0 11.309 9.171 20.48 20.48 20.48h757.76c11.309 0 20.48-9.171 20.48-20.48V198.957c0-11.309-9.171-20.48-20.48-20.48h-757.76z" />
+                                                            <path
+                                                                d="M575.03 338.288c0-33.93-27.51-61.44-61.44-61.44s-61.44 27.51-61.44 61.44c0 33.93 27.51 61.44 61.44 61.44s61.44-27.51 61.44-61.44zm40.96 0c0 56.551-45.849 102.4-102.4 102.4s-102.4-45.849-102.4-102.4c0-56.551 45.849-102.4 102.4-102.4s102.4 45.849 102.4 102.4z" />
+                                                        </svg>
+
+                                                        {{
+                                                        item.startDate | date: dateFormat }} - {{ item.endDate | date:
+                                                        dateFormat }}</span>
+                                                    <span> ({{ expandedIndex === i
+                                                        ? item.filteredTasks?.length || 0
+                                                        : (item.filteredTasks?.length || 0) +
+                                                        (item.completedTasks?.length || 0)
+                                                        }} Work Items)</span>
+                                                </div>
+
+                                                <div class="status_btn">
+                                                    <button class="btn" *ngIf="item?.status !== 1 && item?.status !== 2"
+                                                        [disabled]="item?.status === 3" [ngClass]="{
+                                                                    'btn-primary': sprintType.NotStarted === item?.status,
+                                                                    'btn-complete': sprintType.Current === item?.status,
+                                                                    'btn-pending': sprintType.OnHold === item?.status,
+                                                                    'btn-danger': sprintType.Completed === item?.status
+                                                                    }"
+                                                        (click)="onSprintStatusUpdate(item.id, item?.status); $event.stopPropagation()">
+                                                        {{ getSprintStatus(item?.status) }}
+                                                    </button>
+
+                                                    <div class="d-flex align-items-center"
+                                                        (click)="$event.stopPropagation()"
+                                                        *ngIf="item?.status === 1 || item?.status === 2" [ngClass]="{
+                                                                'btn-complete': item?.status === 1,
+                                                                'btn-pending': item?.status === 2
+                                                                }">
+                                                        <div>
+                                                            <button mat-button [matMenuTriggerFor]="statusMenu"
+                                                                class="p-0 m-0">
+                                                                <p class="m-0 p-0">{{ getSprintStatus(item.status) }}
+                                                                </p>
+                                                            </button>
+                                                            <mat-menu #statusMenu="matMenu">
+                                                                <button mat-menu-item
+                                                                    *ngFor="let assign of getFilteredSprintStatus(item.status)"
+                                                                    (click)="onSprintStatusUpdate(item.id, assign.status)">
+                                                                    {{ assign.value }}
+                                                                </button>
+                                                            </mat-menu>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="action actionedit">
+                                                <a *ngIf="item?.status !== sprintType.Completed"
+                                                    (click)="onSprintEdit(item, i)"><i class="ri-edit-box-line"></i></a>
+                                              </div>
+                                        </mat-panel-title>
+
+
+
+                                        <div *ngIf="hasSelectedTasks(item)" (click)="$event.stopPropagation()">
+                                            <button mat-icon-button [matMenuTriggerFor]="sprintMenu">
+                                                <mat-icon>more_vert</mat-icon>
+                                            </button>
+                                            <mat-menu #sprintMenu="matMenu">
+                                                <ng-container *ngIf="allSprint?.length > 1; else noSprintsTemplate">
+                                                    <ng-container *ngFor="let targetSprint of allSprint">
+                                                        <button mat-menu-item
+                                                            *ngIf="targetSprint.id !== item.id && targetSprint.status !== sprintType.Completed"
+                                                            (click)="moveSelectedTasksToSprint(item.id, targetSprint.id)">
+                                                            Move to {{ targetSprint.sprintName }}
+                                                        </button>
+                                                    </ng-container>
+                                                </ng-container>
+
+                                                <ng-template #noSprintsTemplate>
+                                                    <button mat-menu-item disabled>No Sprint Available</button>
+                                                </ng-template>
+                                            </mat-menu>
+                                        </div>
+
+                                    </mat-expansion-panel-header>
+
+                                    <div class="list_of_task table-responsive">
+                                        <table class="equal-columns">
+                                            <thead>
+                                                <tr>
+                                                      <th style="position: relative; cursor: pointer; width: 200px;"
+                                                        (click)="taskTypeSelect.open()">
+                                                        <div
+                                                            style="display: flex; align-items: center; gap: 4px; height: 48px;">
+                                                            Task Id&nbsp;/&nbsp;Name
+                                                            <mat-icon
+                                                                style="font-size: 28px;">arrow_drop_down</mat-icon>
+                                                        </div>
+                                                        <mat-form-field
+                                                            style="width: 0; height: 0; overflow: hidden; position: absolute;">
+                                                            <mat-select #taskTypeSelect
+                                                                (selectionChange)="onTaskTypeChange($event.value, item)"
+                                                                panelClass="task-type-dropdown">
+
+                                                                <mat-option [value]="null">
+                                                                    <div class="dropdown-option">
+                                                                        <span class="dropdown-item-text">All</span>
+                                                                    </div>
+                                                                </mat-option>
+
+                                                                <mat-option *ngFor="let type of taskTypeList"
+                                                                    [value]="type.value">
+                                                                    <div class="dropdown-option"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <i [class]="type.image"></i>
+                                                                        <span class="dropdown-item-text ms-2">{{
+                                                                            getTaskType(type.value) }}</span>
+                                                                    </div>
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </th>
+                                                    <th>Due Date</th>
+                                                     <th style="position: relative; cursor: pointer; width: 200px;"
+                                                        (click)="prioritySelect.open()">
+                                                        <div
+                                                            style="display: flex; align-items: center; gap: 4px; height: 48px;">
+                                                            Priority
+                                                            <mat-icon
+                                                                style="font-size: 28px;">arrow_drop_down</mat-icon>
+                                                        </div>
+                                                        <mat-form-field
+                                                            style="width: 0; height: 0; overflow: hidden; position: absolute;">
+                                                            <mat-select #prioritySelect
+                                                                (selectionChange)="onPriorityChange($event.value, item)"
+                                                                panelClass="priority-dropdown">
+
+                                                                <mat-option [value]="null">
+                                                                    <div class="dropdown-option">
+                                                                        <span class="dropdown-item-text">All</span>
+                                                                    </div>
+                                                                </mat-option>
+
+                                                                <mat-option *ngFor="let priority of priorityList"
+                                                                    [value]="priority.value">
+                                                                    <div class="dropdown-option"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <span class="dropdown-item-text">{{
+                                                                            getPriority(priority.value) }}</span>
+                                                                    </div>
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </th>
+
+                                                     <th style="position: relative; cursor: pointer; width: 200px;"
+                                                        (click)="statusSelect.open()">
+                                                        <div
+                                                            style="display: flex; align-items: center; gap: 4px; height: 48px;">
+                                                            Status
+                                                            <mat-icon
+                                                                style="font-size: 28px;">arrow_drop_down</mat-icon>
+                                                        </div>
+
+                                                        <mat-form-field
+                                                            style="width: 0; height: 0; overflow: hidden; position: absolute;">
+                                                            <mat-select #statusSelect
+                                                                (selectionChange)="onStatusChange($event.value, item)"
+                                                                panelClass="status-dropdown">
+
+                                                                <mat-option [value]="null">
+                                                                    <div class="dropdown-option">
+                                                                        <span class="dropdown-item-text">All</span>
+                                                                    </div>
+                                                                </mat-option>
+
+                                                                <mat-option *ngFor="let status of taskStatusList"
+                                                                    [value]="status.key">
+                                                                    <div class="dropdown-option"
+                                                                        style="display: flex; align-items: center;">
+                                                                        <span class="dropdown-item-text"
+                                                                            [style.color]="status.color">
+                                                                            {{ status.label }}
+                                                                        </span>
+                                                                    </div>
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </th>
+
+                                                    <th>Assigned</th>
+                                                    <th>Estimate Hours</th>
+                                                    <th>Actual Hours</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody cdkDropList [id]="'sprintDropList_' + item.id"
+                                                [cdkDropListData]="item.filteredTasks"
+                                                (cdkDropListDropped)="dropTask($event, item)"
+                                                [cdkDropListConnectedTo]="connectedSprintIds"
+                                                [cdkDropListDisabled]="item.status === sprintType.Completed">
+                                                <tr *ngIf="item.filteredTasks.length === 0">
+                                                    <td colspan="12"
+                                                        style="height: 50px; text-align: center; color: #080808;">
+                                                        No Task Available
+                                                    </td>
+                                                </tr>
+                                                <tr *ngFor="let task of item.filteredTasks" cdkDrag
+                                                    [cdkDragData]="task">
+                                                     <td>
+                                                        <div class="task_lis" style="cursor: pointer;">
+                                                            <mat-checkbox [(ngModel)]="task.selected"
+                                                                (change)="updateSelectedStatus(item)">
+                                                            </mat-checkbox>
+                                                            <i [class]="getSelectedTaskType(task.taskType)?.image"></i>
+                                                            <div class="d-flex"
+                                                                (click)="getTaskById !== task.id ? navigateToTaskDetail(task.id) : $event.stopPropagation()">
+                                                                <p>{{ task.taskCode }}</p>
+                                                                <p *ngIf="getTaskById !== task.id;else editSubject "
+                                                                    class="task_list_td"
+                                                                    matTooltipClass="custom-tooltip"
+                                                                    matTooltip=" {{ task.subject}}">
+                                                                    {{ task.subject}}
+                                                                </p>
+                                                                <div *cdkDragPreview class="custom-drag-preview">
+                                                                    {{ task.taskCode }} - {{ task.subject }}
+                                                                </div>
+                                                            </div>
+                                                            <ng-template #editSubject>
+                                                                <p>
+                                                                    <input #editInput [(ngModel)]="task.subject"
+                                                                        type="text" (keydown.enter)="onEnterKey(task)"
+                                                                        (blur)="closeAddTaskForm()" class="form-control"
+                                                                        style="width: auto; display: inline-block;" />
+                                                                  </p>
+                                                            </ng-template>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d_name">
+                                                            <p>{{ task.dueDate | date: dateFormat }}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d_name">
+                                                            <p>{{ getPriorityName(task.priority) }}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="status">
+                                                            <span [ngStyle]="{ 'color': colorMap[task.status] }">
+                                                                {{ getStatusLabel(task.status)
+                                                                }}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="d_name">
+                                                            <p>{{ task.assignedName }}</p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="hr_eh">
+                                                            <p><span>{{ task.estimateHours || 0
+                                                                    }}</span></p>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="hr_ah">
+                                                            <p><span>{{task.actualHours ||
+                                                                    task.totalActualHours || 0}}</span></p>
+                                                        </div>
+                                                    </td>
+
+
+                                                    <td>
+                                                        <div class="action" *ngIf="task?.id">
+                                                            <a><i class="ri-edit-2-fill" *ngIf="getTaskById !== task.id"
+                                                                    (click)="onTaskEdit(task, item?.id)"></i></a>
+                                                            <a><i class="ri-delete-bin-2-line"
+                                                                    (click)="deleteTask(task, item.id)"
+                                                                    style="cursor: pointer;"></i></a>
+                                                            <!-- 3 dots menu icon, visible only if task.selected -->
+                                                            <ng-container *ngIf="task.selected">
+                                                                <button mat-icon-button [matMenuTriggerFor]="moveMenu"
+                                                                    style="margin-left: 8px;">
+                                                                    <mat-icon>more_vert</mat-icon>
+                                                                </button>
+                                                                <mat-menu #moveMenu="matMenu">
+                                                                    <ng-container
+                                                                        *ngIf="getValidTargetSprints(item.id)?.length > 0; else noSprintsTemplate">
+                                                                        <button mat-menu-item
+                                                                            *ngFor="let sprint of getValidTargetSprints(item.id)"
+                                                                            (click)="moveTaskToSprint(task, sprint.id)">
+                                                                            Move to {{ sprint.sprintName }}
+                                                                        </button>
+                                                                    </ng-container>
+
+                                                                    <ng-template #noSprintsTemplate>
+                                                                        <button mat-menu-item disabled>No Sprint
+                                                                            Available</button>
+                                                                    </ng-template>
+                                                                </mat-menu>
+
+                                                            </ng-container>
+
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr> 
+                                             </tbody>
+                                        </table>
+                                    </div>
+                                    <mat-accordion class="comlete_task_main">
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title class="mx-0">
+                                                    Completed Task&nbsp;<span
+                                                        style="font-weight:600;">({{item.completedTasks?.length
+                                                        }})</span>
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <div class="list_of_task table-responsive">
+                                                <table style="width:100%">
+                                                    <tbody>
+                                                        <tr *ngFor="let task of item.completedTasks">
+                                                            <td>
+                                                                <div class="task_lis">
+                                                                    <i
+                                                                        [class]="getSelectedTaskType(task.taskType)?.image"></i>
+                                                                    <div class="d-flex"
+                                                                        (click)="getTaskById !== task.id ? navigateToTaskDetail(task.id) : $event.stopPropagation()">
+                                                                        <p>{{ task.taskCode }}</p>
+                                                                        <p *ngIf="getTaskById !== task.id"
+                                                                            class="task_list_td"
+                                                                            matTooltipClass="custom-tooltip"
+                                                                            matTooltip=" {{ task.subject}}">
+                                                                            {{ task.subject}}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d_name">
+                                                                    <p>{{ task.dueDate | date: dateFormat }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d_name">
+                                                                    <p>{{ getPriorityName(task.priority) }}</p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="status">
+                                                                    <span
+                                                                        [ngStyle]="{ 'color': colorMap[task.status] }">
+                                                                        {{ getStatusLabel(task.status) }}
+                                                                    </span>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d_name">
+                                                                    <p>{{ task.assignedName }}</p>
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <div class="hr_eh">
+                                                                    <p><span>{{ task.estimateHours || 0
+                                                                            }}</span></p>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="hr_ah">
+                                                                    <p><span>{{ task.actualHours ||
+                                                                            task.totalActualHours || 0
+                                                                            }}</span></p>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                    <div>
+                                        <table style="width:100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td colspan="12" class="p-0">
+                                                        <div class="create_sprint" (click)="toggleCreateTask()">
+                                                            <p>Create Task</p>
+                                                        </div>
+                                                    </td>
+                                                </tr>     
+                                                <ng-container class="d-flex" *ngIf="isCreateTaskVisible">
+                                                    <div class="row m-0 p-0 my-3">
+                                                        <div class="col-md-2 year_select_box boxess">
+                                                            <div class="">
+                                                                <mat-form-field appearance="outline" class="w-100">
+                                                                    <mat-select [(ngModel)]="selectedTaskType">
+                                                                        <mat-select-trigger>
+                                                                            <ng-container *ngIf="selectedTaskType">
+                                                                                <i [class]="getSelectedTaskType(selectedTaskType)?.image"
+                                                                                    aria-hidden="true"></i>
+                                                                                {{ getTaskType(selectedTaskType) }}
+                                                                            </ng-container>
+                                                                        </mat-select-trigger>
+                                                                        <mat-option *ngFor="let data of taskTypeList"
+                                                                            [value]="data.value">
+                                                                            <i [class]="data.image"
+                                                                                aria-hidden="true"></i>
+                                                                            {{ data.name }}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col cretbtn">
+                                                            <button class="btn btn-primary"
+                                                                style="min-height: 46px ;display: flex; align-items: center;padding: 15px;"
+                                                                *ngIf="isDisplay || selectedTaskIndex !== i"
+                                                                (click)="addTask(i)">
+                                                                Create
+                                                                {{
+                                                                getTaskType(selectedTaskType)
+                                                                }}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </ng-container>
+                                           
+                                                <ng-container *ngIf="selectedTaskIndex==i && isAddTask">
+                                                    <li class="task add-task-input">
+                                                        <form (submit)="saveTask(item.id,item)">
+                                                            <div class="flex-box">
+                                                                <div
+                                                                    class="icon d-flex align-items-center justify-content-center">
+                                                                    <i class="ri-add-line"></i>
+                                                                </div>
+                                                                <div class="texts add-task-texts" style="width: 100%;">
+                                                                    <input [formControl]="task" type="text"
+                                                                        placeholder="Enter New {{ getTaskType(selectedTaskType) }} Here..."
+                                                                        (blur)="trimNameOnBlur()"
+                                                                        (blur)="closeAddTaskForm()" #addInput>
+                                                                    <mat-error class="mt-1"
+                                                                        *ngIf="(isSubmitted || task.touched) && task.hasError('required')">
+                                                                        Task is required
+                                                                    </mat-error>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                        </form>
+                                                    </li>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </div>
+                    </div>
+                    <div class="create_sprint_section">
+                        <div class="create_button" style="cursor: pointer;" (click)="openPopup()">
+                            <a><i class="ri-add-line"></i> &nbsp;Create Sprint</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-overlay" *ngIf="showPopup">
+                    <div class="popup-content">
+                        <div class="top_header">
+                            <h3>{{ selectedSprint ? 'Edit Sprint' : 'Create Sprint' }}</h3>
+                            <a (click)="closePopup()"><i class="ti ti-close"></i></a>
+                        </div>
+                        <p class="qoute">Sprints are technically a version in OpenProject.</p>
+                        <div class="content">
+                            <form class="sprint-form" #sprintForm="ngForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Sprint Name<span>*</span></label>
+                                    <input type="text" class="form-control" name="sprintName" [(ngModel)]="sprintName"
+                                        #sprintInput="ngModel" required [pattern]="'^(?!\\s*$).+'" />
+                                    <div class="text-danger" *ngIf="sprintInput.invalid && sprintInput.touched">
+                                        Sprint name is required.
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3">
+                                    <label class="form-label">Start Date<span>*</span></label>
+                                    <mat-form-field appearance="fill" class="form-control">
+                                        <input matInput [matDatepicker]="startPicker" [(ngModel)]="StartDate"
+                                            name="startDate" required #startDate="ngModel">
+                                        <mat-datepicker-toggle matIconSuffix
+                                            [for]="startPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #startPicker></mat-datepicker>
+                                    </mat-form-field>
+                                    <div class="text-danger" *ngIf="startDate.invalid && startDate.touched">
+                                        Start Date is required.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">End Date<span>*</span></label>
+                                    <mat-form-field appearance="fill" class="form-control">
+                                        <input matInput [matDatepicker]="endPicker" [(ngModel)]="EndDate" name="endDate"
+                                            required #endDate="ngModel">
+                                        <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #endPicker></mat-datepicker>
+                                    </mat-form-field>
+                                    <div class="text-danger" *ngIf="endDate.invalid && endDate.touched">
+                                        End Date is required.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Sprint Goal</label>
+                                    <mat-form-field class="form-control">
+                                        <mat-label>Textarea</mat-label>
+                                        <textarea matInput name="sprintGoal"></textarea>
+                                    </mat-form-field>
+                                </div>
+                            </form>
+
+                            <div class="footer text-end d-flex justify-content-end align-items-center flex-wrap">
+                                <button class="btn btn-primary rounded-pill my-2" style="cursor: pointer;"
+                                    (click)="createSprint($event)"> {{ selectedSprint ? 'Update' : 'Save' }}</button>
+                                <button class="btn btn-secondary rounded-pill ms-3 my-2 me-3"
+                                    (click)="closePopup()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

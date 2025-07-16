@@ -1,0 +1,39 @@
+<div class="invoice-card ink-card h-100">
+    <div class="title-dropdown p-3 border-bottom">
+        <div class="ink-title" (click)="navis()" role="button">
+            Invoices
+        </div>
+    </div>
+    <div class="invoice_detail_block">
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="scrollbox-content">
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Projects</th>
+                        <th>Description</th>
+                        <th>Inovice Date</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Invoice of getALLInvoice">
+             
+                        <td>{{Invoice.projectName}}</td>
+                        <td>{{Invoice.description}}</td>
+                        <td>{{Invoice.date | date: dateFormat}}</td>
+                        <td>{{Invoice.amount}}</td>
+                
+                        <td>
+                            <p
+                                class="{{Invoice.status ==1 ? 'unpaid' : Invoice.status==2 ? 'partialy' :'paid'}}" role="button">
+                                {{convertPriority(Invoice.status)}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>

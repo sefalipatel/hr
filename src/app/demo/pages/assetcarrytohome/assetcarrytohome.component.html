@@ -1,0 +1,81 @@
+<div class="full-size-card bg-white p-20 p-3 mt-4">
+  <div class="card_header">
+    <h4>{{id ? 'Update' : 'Add'}} Asset Carry Request</h4>
+  </div>
+  <div class="col-sm-12">
+    <form class="leave_form universal-form" [formGroup]="form">
+     
+        <div class="card-body p-3">
+          <div>
+            <mat-label class="label_name">Asset Name<span class="text-danger">*</span>
+            </mat-label>
+            <mat-form-field class="full-width w-100" appearance="outline">
+              <mat-select placeholder="Select asset name" (selectionChange)="selectionChange($event)"
+                formControlName="AssetsId" multiple>
+                <mat-option *ngFor="let item of assetList" [value]="item.assetId">
+                  {{item.asset.assetName +' '+ '('+ item.asset?.assetId + ')'}} 
+                </mat-option>
+
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="form.get('AssetsId').hasError('required') && form.get('AssetsId').touched ">
+              Asset is required
+            </mat-error>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 mt-3">
+              <div>
+                <mat-label class="label_name">Start Date <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput [matDatepicker]="startPicker" formControlName="startDate" required
+                    placeholder="Enter start date" />
+                  <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="form.get('startDate').hasError('required') && form.get('startDate').touched">
+                  Start date is required
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-sm-6 mt-3">
+              <div>
+                <mat-label class="label_name">End date <span class="text-danger">*</span></mat-label>
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput [matDatepicker]="EndDatePicker" formControlName="endDate" required
+                    placeholder="Enter end date" />
+                  <mat-datepicker-toggle matSuffix [for]="EndDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #EndDatePicker></mat-datepicker>
+                </mat-form-field>
+                <mat-error *ngIf="form.get('endDate').hasError('required') && form.get('endDate').touched">
+                  End date is required
+                </mat-error>
+              </div>
+            </div>
+            <div>
+
+              <div class="col-md-12 mt-3 textarea-input">
+              <mat-label class="label_name">Remark <span class="text-danger">*</span></mat-label>
+              <mat-form-field class="w-100" appearance="outline">
+                <textarea matInput placeholder="Enter remark" formControlName="reason" (blur)="trimNameOnBlur('reason')" ></textarea>
+              </mat-form-field>
+
+              <mat-error *ngIf="form.get('reason').hasError('required') && form.get('reason').touched ">
+                Remark is required
+              </mat-error>
+              
+              <mat-error class="text-danger mt-2 d-block"
+                *ngIf="form.controls['reason'].touched && form.controls['reason'].hasError('maxlength')">
+                Only 500 characters are allow
+              </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex mb-3 mx-4 border-top justify-content-end pt-3">
+          <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill" (click)="addAssetCarry()">
+            Save</button>
+          <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="onCancel()"> Cancel </button>
+      </div>
+    </form>
+  </div>
+</div>

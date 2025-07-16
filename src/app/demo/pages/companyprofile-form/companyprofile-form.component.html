@@ -1,0 +1,43 @@
+<div class="inside-page org-presentation-page universal-texteditor">
+
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6">Company Profile</h5>
+    </div>
+    <div class="row px-3">
+        <div class="col-md-12 border rounded bg-white p-3">
+
+            <form [formGroup]="CompanyprofileForm" class="pt-3  border-top-0
+                            universal-form">
+                <app-loader *ngIf="loading"></app-loader>
+                <div class="card full-size-card border-0 mb-0">
+                    <div class="">
+                        <div class="row g-3">
+                            <div class="col-md-12 "> 
+                                <mat-label class="label_name">Description<span class="text-danger">*</span></mat-label> 
+
+                                <angular-editor ngDefaultControl class="form-control border-0 p-0"
+                                    formControlName="detail">
+                                </angular-editor>
+                                <mat-error
+                                    *ngIf="CompanyprofileForm.get('detail').hasError('required') && CompanyprofileForm.get('detail').touched">
+                                    Detail is required
+                                </mat-error>
+
+                                <mat-error
+                                    *ngIf="CompanyprofileForm.get('detail').hasError('whitespace') && CompanyprofileForm.get('detail').dirty">
+                                    Detail cannot be only spaces
+                                </mat-error>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end py-3">
+                        <button type="submit" (click)="Addcompanyprofile()"
+                            class="btn btn-primary rounded-pill px-4 py-2 me-3">
+                            Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

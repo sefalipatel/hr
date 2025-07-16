@@ -1,0 +1,41 @@
+<div class="regularization">
+  <div class="d-flex align-items-center justify-content-between bg-primary  p-3 px-4 ">
+    <h6 class=" fw-bold text-white ">Remark</h6>
+  </div>
+  <div class="card border-0 mb-0">
+    <div class="card-body ">
+      <div class="bg-white p-3">
+        <form [formGroup]="remarkForm" (ngSubmit)="saveData()">
+          <div class="col-md-12 textarea-input">
+            <div class="form-group mb-0">
+              <mat-label class="label_name d-flex mb-2">Remark<span
+                  [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+              </mat-label>
+              <mat-form-field class="w-100" appearance="outline">
+                <textarea matInput placeholder="Enter remark" formControlName="remark"
+                  (blur)="trimNameOnBlur('remark')"></textarea>
+              </mat-form-field>
+              <div class="text-danger">
+                <span class="mt-2 d-block"
+                  *ngIf="remarkForm.controls['remark'].touched && remarkForm.controls['remark'].hasError('required')">
+                  Remark is required
+                </span>
+                <span class="text-danger  d-block"
+                  *ngIf="remarkForm.controls['remark'].touched && remarkForm.controls['remark'].hasError('maxlength')">
+                  Only 500 word are allow
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="text-end regularization_btn mt-3 d-flex align-items-center justify-content-end">
+            <button type="submit" class="btn btn-primary py-2 px-4 rounded-pill me-3">
+              Submit</button>
+            <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill" (click)="cancelPopup()">
+              Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #noData></ng-template>

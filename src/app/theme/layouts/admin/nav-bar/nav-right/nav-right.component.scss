@@ -1,0 +1,54 @@
+.user-avatar {
+   width: 32;
+   height: 32;
+}
+
+.logout-icon {
+   font-size: 24px;
+   /* Adjust the size as needed */
+}
+
+.cursor-pointer {
+   cursor: pointer;
+}
+
+.fs-55 {
+   font-size: 18px;
+}
+
+.avtar.avtar-s.rounded-circle.image_pro.border.ng-star-inserted {
+   width: 40px;
+   height: 40px;
+
+   img {
+      margin: 0;
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      object-position: 0 0;
+   }
+}
+
+.fs6 {
+   font-size: 16px;
+   letter-spacing: 1px;
+   line-height: 43px;
+}
+
+.fs66 {
+   font-size: 18px;
+}
+
+@media screen and (max-width:767px) {
+   .dropdown-menu.dropdown-user-profile.dropdown-menu-end.pc-h-dropdown.menu_for_mobile.show {
+      top: 63px !important;
+   }
+
+}
+
+@media screen and (max-width:475px) {
+   .dropdown-menu.dropdown-user-profile.dropdown-menu-end.pc-h-dropdown.menu_for_mobile.show {
+      top: 60px !important;
+   }
+
+}

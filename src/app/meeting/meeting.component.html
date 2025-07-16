@@ -1,0 +1,102 @@
+<div class="page-top-header mb-0">
+  <h5 class="card-subtitle mt-0">Meeting Room List</h5>
+</div>
+
+<div class="card">
+
+
+  <div class="p-3">
+    <div class=" d-flex bd-highlight justify-content-end pb-0">
+      <button type="button" class="btn btn-primary py-2 rounded-pill " (click)="addMeeting()">Add Meeting
+        Room</button>
+    </div>
+    <div class="meeting_tableview my-3"> 
+      <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="mat-elevation-z8 fixTableHead  scrollbox-content user_request_list  shadow-none ">
+          <table mat-table [dataSource]="dataSource" matSort class="apply_leave">
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+              <td mat-cell *matCellDef="let element">{{element?.name}}</td>
+            </ng-container>
+            <!-- expenseDate Column -->
+            <ng-container matColumnDef="capacity">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</th>
+              <td mat-cell *matCellDef="let element">{{element?.capacity }}</td>
+            </ng-container>
+            <!-- Amount Column -->
+            <ng-container matColumnDef="amenities">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Amenities</th>
+              <td mat-cell *matCellDef="let element">{{element?.amenities}}</td>
+            </ng-container>
+
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef>Active</th>
+              <td mat-cell *matCellDef="let element">
+                <div class="form-check form-switch">
+                  <input class="form-check-input toggle-switch cursor-pointer"
+                    (change)="switchToggle(element.id,element.isActive)" type="checkbox" role="switch"
+                    id="flexSwitchCheckChecked" [checked]="element?.isActive">
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+              <td mat-cell *matCellDef="let element" class="">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex align-items-center">
+                    <div class="icon_width  me-3 ">
+                      <svg viewBox="64 64 896 896" matTooltip="Edit" focusable="false" (click)="editMeeting(element)"
+                        data-icon="edit" width="16" height="16" aria-hidden="true">
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                        </path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="icon_width  w-50"> 
+
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                      matTooltip="Delete" (click)="delete(element?.id)">
+                      <path d="M10 12V17" stroke="red" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <path d="M14 12V17" stroke="red" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                      <path d="M4 7H20" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10" stroke="red"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="red"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-header-row" *matNoDataRow>
+              <td class="mat-cell my-3" colspan="10">
+                <div class="text-center d-block border-bottom-0">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record mt-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- start : pagination -->
+    <div class="text-end d-block mb-3">
+      <div class="pagination-format d-inline-block">
+        <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+          aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+    <!-- end : pagination -->
+  </div>
+</div>

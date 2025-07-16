@@ -1,0 +1,36 @@
+.company-policy-modal {
+  font-family: $font-family-sans-serif !important;
+  width: -webkit-fill-available !important;
+
+  .mat-mdc-dialog-surface {
+    overflow-x: hidden;
+  }
+
+  .custom-accordian .mat-accordion .mat-expansion-panel-header {
+    font-size: 16px;padding: 13px 30px;
+  }
+
+  // .mat-expansion-panel-header-title {
+  //   text-transform: capitalize;
+  // }
+
+  // .mat-expansion-panel-header {
+  //   background: #c5eefc;
+  //   font-family: $font-family-sans-serif;
+  // }
+
+  .example-section {
+    .mat-mdc-checkbox {
+      .mdc-label {
+        font-family: $font-family-sans-serif;
+      }
+    }
+  }
+
+  // .mat-expansion-panel {
+  //   margin: 20px 0 !important;
+  //   box-shadow: none !important;
+  //   border: 1px solid #ddd;
+  //   font-family: $font-family-sans-serif;
+  // }
+}

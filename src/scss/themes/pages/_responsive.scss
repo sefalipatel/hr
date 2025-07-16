@@ -1,0 +1,123 @@
+@media (max-width: 1550px) {
+
+  body,
+  .coded-navbar .coded-inner-navbar li a,
+  .btn,
+  .form-select,
+  .mat-mdc-header-row {
+    font-size: 13px !important;
+  }
+
+  // .coded-navbar .coded-inner-navbar li>a {
+  //   padding: 6px 35px;
+  // }
+
+  .page-top-header h5,
+  .page-top-header .h5 {
+    font-size: 16px;
+  }
+
+  // .page-top-header {
+  //   padding: 24px 20px 17px;
+  // }
+
+  table.mat-mdc-table {
+    thead {
+      .mat-mdc-header-row {
+        height: 51px;
+      }
+    }
+  }
+
+  h6.re-fs {
+    font-size: 15px;
+  }
+
+  h5.re-fs {
+    font-size: 16px;
+  }
+}
+
+
+
+@media screen and (max-width:1356px) {
+  .apexcharts-canvas {
+    width: 241px !important;
+  }
+}
+
+@media screen and (max-width:1199px) {
+  .leave_detail_top .scrollbox {
+    height: auto !important;
+    max-height: 400px !important;
+  }
+
+  .birthday_block .scrollbox {
+    max-height: 380px;
+    height: auto !important;
+  }
+
+  .ink-dashboard .complain-card .scrollbox {
+    max-height: 320px;
+    height: auto !important;
+  }
+
+  .ink-dashboard .feed-sug-card .scrollbox {
+    max-height: 530px;
+    height: auto !important;
+  }
+
+  .ink-dashboard .warning-card .scrollbox {
+    max-height: 320px;
+    height: auto !important;
+  }
+
+  .ink-dashboard .word-anni-card .scrollbox {
+    max-height: 300px;
+    height: auto !important;
+  }
+
+  .ink-dashboard .to-do-card .timeline-box .scrollbox {
+    max-height: 300px;
+    height: auto !important;
+  }
+
+
+}
+
+@media screen and (min-width:1025px) and (max-width:1199px) {
+  .fc .fc-daygrid-day-events {
+    margin-top: 0;
+  }
+
+  .universal-calender .fc .fc-day {
+    padding: 6px;
+  }
+
+  .fc .fc-daygrid-day-number {
+    padding: 0;
+  }
+
+  .fc .fc-daygrid-more-link {
+    margin-top: 0px;
+    padding: 1px;
+  }
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+  .fc .fc-daygrid-day-events {
+    margin-top: 0;
+  }
+
+  .universal-calender .fc .fc-day {
+    padding: 6px;
+  }
+
+  .fc .fc-daygrid-day-number {
+    padding: 0;
+  }
+
+  .fc table {
+    font-size: 0.9em;
+  }
+}

@@ -1,0 +1,121 @@
+  
+<div class="card-title custom-space d-flex align-items-center justify-content-between">
+    <div class="name"> Project</div>
+    <div class="icon text-center card-title-box" role="button" [routerLink]="'/project-dashboard'"> 
+        <!-- Project Detail -->
+        Project Outline
+        <!-- Project Scope -->
+    </div>
+</div>
+<div class="height-set project_carol_top">
+    <ngx-slick-carousel class="carousel project-carol poll_carousel" #slickModal="slick-carousel"
+        [config]="slideConfig">
+        <div ngxSlickItem class="row mt-4 d-flex" *ngFor="let data of cardData">
+            <div class="col-md-6">
+                <div class="left-part custom-space border-end">
+                    <div class="title-box">
+                        <div class="d-flex align-items-center">
+                            <div class="icon">
+                                <span class="fw-bold"> {{data?.name | slice:0:1}}</span> 
+                            </div>
+                            <div class="name ms-3" [routerLink]="['/new-project-page', data.projectId]"
+                                style="cursor: pointer;">
+                                {{data?.name}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-box">
+                        <p>
+                            {{data?.description}}
+                        </p>
+                    </div>
+                    <div class="three-box mt-4">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-6 col-12 mb-3 mb-sm-0">
+                                <div class="box custom-space color-1">
+                                    <div class="icon">
+                                        <i class="ri-calendar-2-line"></i>
+                                    </div>
+                                    <div class="title my-3">Start Date</div>
+                                    <div class="date">{{data?.startDate | date: dateFormat}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-sm-6 col-12 mb-3 mb-sm-0">
+                                <div class="box custom-space color-2">
+                                    <div class="icon">
+                                        <i class="ri-calendar-2-line"></i>
+                                    </div>
+                                    <div class="title my-3">End Date</div>
+                                    <div class="date">{{data?.endDate | date: dateFormat}}</div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="right-part pe-3 ps-3 ps-md-0 pb-3 pb-lg-0">
+                    <div class="team">
+                        <div class="d-flex align-items-center">
+                            <div class="icon"><i class="ri-group-line"></i></div>
+                            <div class="name ms-3">Our Team</div>
+                        </div>
+                        <div class="member">Team Members</div>
+                    </div>
+                    <div class="lead mt-3">
+                        <div class="d-flex align-items-center">
+                            <div class="img-box">
+
+                                <div [matTooltip]="data?.projectLeader?.employeeName+'('+(data?.projectLeader?.designation +')' )"
+                                    class="profile_image_avtar rounded-circle"
+                                    [ngStyle]="{'background': stringToColor(data?.projectLeader?.employeeName)}"
+                                    style=" display: flex;align-items: center;justify-content: center; padding: 10px;">
+                                    <img *ngIf="data?.projectLeader?.profilePicture" class="img-fluid"
+                                        [src]="transformImage(data?.projectLeader?.profilePicture)" alt="avtar">
+                                    <b *ngIf="!data?.projectLeader?.profilePicture"
+                                        class="f-14">{{generateInitials(data?.projectLeader?.employeeName)}}</b>
+                                </div> 
+                            </div>
+                            <div class="info ms-3">
+                                <div class="name">{{data?.projectLeader?.employeeName}}</div>
+                                <div class="detail">Project Leader</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-box mt-4 d-flex align-items-center">
+                        <div class="img-wrap" *ngFor="let member of data?.projectMember; let i = index">
+                            <div *ngIf="i<5">
+                                <div [matTooltip]="member?.employeeName+'('+(member?.designation +')' )"
+                                    class=" profile_image_avtar"
+                                    [ngStyle]="{'background': stringToColor(member?.employeeName)}">
+
+                                    <img *ngIf="member?.profilePicture" class="img"
+                                        [src]="transformImage(member?.profilePicture)" alt="avtar">
+                                    <b *ngIf="!member?.profilePicture">{{generateInitials(member?.employeeName)}}</b>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="plus-btn" *ngIf="getRemainingMembersCount(data?.projectMember) > 0"
+                            [routerLink]="['/project_treeView/' + data.projectId]">
+                            <span>+{{ getRemainingMembersCount(data?.projectMember) }}</span>
+                        </div>
+                    </div>
+                    <div class="priority-box mt-4">
+                        <div class="d-flex align-items-center">
+                            <span class="dark">Priority :</span>
+                            <span class="light ms-3">{{getPriority(data?.priority)}}</span>
+                        </div>
+                        <div class="d-flex align-items-center my-2">
+                            <span class="dark">Status :</span>
+                            <span class="light ms-3">{{convertStatus(data?.status) }}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="dark">Technology:</span>
+                            <span class="light ms-3">{{data?.technologySpecification}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ngx-slick-carousel>
+</div>

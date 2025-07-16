@@ -1,0 +1,81 @@
+<div class="title-dropdown p-3 border-bottom">
+    <div class="ink-title">
+        Ticket Status
+    </div>
+    <div class="drop-down">
+        <div class="dropdown">
+            <mat-form-field appearance="outline">
+                <mat-select required placeholder="Select Type" [(ngModel)]="selectedMonth"
+                    (ngModelChange)="onTypeSelected($event)">
+                    <mat-option *ngFor="let type of types" [value]="type.value">
+                        <span style="white-space: nowrap;">{{ type.viewValue }}</span>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div class="p-3">
+    <div class="top-box">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+            <div class="name">Total Tickets</div>
+            <div class="total fw-bold">{{totalTickets}}</div>
+        </div>
+    </div>
+    <div class="graph-box my-2 text-center" *ngIf="chartOptions">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+            [responsive]="chartOptions.responsive" [dataLabels]="chartOptions.dataLabels" [legend]="chartOptions.legend"
+            [tooltip]="chartOptions.tooltip" [colors]="chartOptions.colors"></apx-chart>
+    </div>
+    <div class="detail-table">
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="scrollbox-content">
+            <table>
+                <tr>
+                    <td class="border-end">
+                        <div class="d-box">
+                            <div class="d-flex align-items-center">
+                                <div class="square" style="background-color: #1E3A8A;"></div>
+                                <div class="name ms-2">New Ticket ({{newTicketPercentage}}%) </div>
+                            </div>
+                            <div class="number">{{newTicket}}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-box">
+                            <div class="d-flex align-items-center">
+                                <div class="square" style="background-color: #3B82F6;"></div>
+                                <div class="name ms-2">Solved Ticket ({{solvedTicketPercentage}}%) </div>
+                            </div>
+                            <div class="number">{{solvedTicket}}</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="border-top">
+                    <td class="border-end">
+                        <div class="d-box">
+                            <div class="d-flex align-items-center">
+                                <div class="square" style="background-color: #60A5FA;"></div>
+                                <div class="name ms-2">Open Ticket ({{openTicketPercentage}}%)</div>
+                            </div>
+                            <div class="number">{{openTicket}}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-box">
+                            <div class="d-flex align-items-center">
+                                <div class="square" style="background-color: #93C5FD;"></div>
+                                <div class="name ms-2">Pending Ticket ({{pendingTicketPercentage}}%)</div>
+                            </div>
+                            <div class="number">{{pendingTicket}}</div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+    <div class="btn btn-grey w-100 mt-3" (click)="onTicketList()">
+        View Tickets
+    </div>
+</div>

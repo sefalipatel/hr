@@ -1,0 +1,41 @@
+<div class="new-leave-balance">
+    <div class="row my-3 ">
+        <div class="col-md-12">
+            <div class="card px-3 mb-3" *ngFor="let leave of leaveTypeCardList">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <div class="d-flex align-items-center">
+                            <div class="icon_leave">
+                                <img class="img-fluid me-3"
+                                    [src]="transformImage(leave?.icon)" alt="icon">
+                            </div>
+                            <p class="fs-6">{{leave.leaveTypeName}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="d-block align-items-center mt-3">
+                                    <div class="text-secondary">Available</div>
+                                    <div class=" d-flex align-items-center leave-days"
+                                        [ngClass]="leave?.remainingLeaveDays > 0 ? 'text-success' : 'text-dark' ">{{leave?.remainingLeaveDays}} <div
+                                            class="ms-1 text-dark">
+                                            Days</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-block align-items-center mt-3">
+                                    <div class="text-secondary">Booked</div>
+                                    <div class="text-dark leave-days">{{leave?.usedLeaveDays}} Days</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      
+        </div>
+    </div>
+</div>

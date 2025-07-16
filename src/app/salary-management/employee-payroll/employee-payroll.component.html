@@ -1,0 +1,267 @@
+<section class="payroll-master">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-9">
+                <!-- one card -->
+                <div class="card one-card">
+                    <div class="d-flex align-items-center">
+                        <div class="col-lg-33">
+                            <label> Select Employee Name : </label>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="d-flex align-items-center"> 
+                                <div class="form-group w-100">
+                                    <mat-select style="font-size: 14px;"
+                                        class="select form-control" (ngModelChange)="selectCalucationType($event)"
+                                        placeholder="Select Employee">
+                                         <mat-option [value]="''" disabled="true"> Select Employee </mat-option>
+                                        <mat-option *ngFor="let person of Person" [value]="person.id">
+                                            {{person?.firstName + ' ' + person?.lastName}}
+                                        </mat-option>
+                                    </mat-select> 
+                                </div>
+                                <button type="button" class="btn btn-primary px-4 py-2
+                                 rounded-pill ms-3 mb-3" (click)="addpersondata()">
+                                    submit</button>
+                            </div>
+                        </div> 
+                        <div class="col"></div>
+                    </div>
+                </div>
+                <!-- one card end-->
+            </div>
+            <div class="col-lg-3">
+                <div class="manage-component card">
+                    <h5>Manage Component</h5>
+                    <div class="earnings">
+                        <h6>Earnings</h6>
+                        <div class="d-flex align-items-start">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-basic-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-basic" type="button" role="tab"
+                                    aria-controls="v-pills-basic" aria-selected="true" *ngFor="let EarningData of EarningData" (click)="EarningDataList(EarningData)">{{EarningData.name}}</button>
+                               </div>
+                            <div class="tab-content d-none" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-basic" role="tabpanel"
+                                    aria-labelledby="v-pills-basic-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="v-pills-hra" role="tabpanel"
+                                    aria-labelledby="v-pills-hra-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="v-pills-allowance" role="tabpanel"
+                                    aria-labelledby="v-pills-allowance-tab" tabindex="0">...</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="deduction">
+                        <h6>Deduction</h6>
+                        <div class="d-flex align-items-start">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                aria-orientation="vertical">
+                                <button class="nav-link active" id="v-pills-professional-tab" data-bs-toggle="pill"
+                                    data-bs-target="#v-pills-professional" type="button" role="tab"
+                                    aria-controls="v-pills-professional" aria-selected="true" *ngFor="let DeductionData of Deduction" (click)="DeductionList(DeductionData)">{{DeductionData.name}}</button>
+                              </div>
+                            <div class="tab-content d-none" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-professional" role="tabpanel"
+                                    aria-labelledby="v-pills-professional-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="v-pills-tds" role="tabpanel"
+                                    aria-labelledby="v-pills-tds-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="v-pills-loan" role="tabpanel"
+                                    aria-labelledby="v-pills-loan-tab" tabindex="0">...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="col-lg-9">
+                <div class="detail-content">
+                  <form   [formGroup]="variationForm"  (ngSubmit)="creatPayroll()">
+                    <!-- two card -->
+                    <div class="card two-card">
+                        <div class="row">
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <label>Employee Name : </label>
+                                    <div class="input-box">{{employeeData?.firstName + ' ' + employeeData?.lastName}}</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <label>Designation : </label>
+                                    <div class="input-box"></div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex align-items-center">
+                                    <label>Date of Joining : </label>
+                                    <div class="input-box">{{employeeData?.doj | date:'dd/MM/YYYY'}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-2 d-flex align-items-center">
+                                <label>Annual CTC : </label>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="d-flex align-items-center">
+                                    <input class="input-box" placeholder= "Annual CTC" formControlName="annualCTC"/>
+                                    <span class="ms-3">Per Year</span>
+                                </div>
+                            </div>
+                            <div class="col">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- two card end-->
+                    <!-- three card -->
+                    <div class="card three-card">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>SALARY COMPONENTS</td>
+                                    <td>CALCULATION TYPE</td>
+                                    <td>MONTHLY AMOUNT </td>
+                                    <td>ANNUAL AMOUNT</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <h6>Earning Components </h6>
+                                </tr>
+                                <tr formArrayName="earnings" *ngFor="let item of variationDetailName; let i = index" >
+                                    <td >Basic</td>
+                                    <td   [formGroupName]="i">
+                                        <div class="d-flex align-items-center">
+                                            <input class="input-box border-end-0"  formControlName="amount" placeholder="enter amount"/>
+                                            <input class="input-box" placeholder="%CTC" formControlName="percentage"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-box">
+                                            XXXX
+                                        </div>
+                                    </td>
+                                    <td>XXXX</td>
+                                    <div class="d-flex">
+                                        <ng-container >
+                                            <button (click)="removeInputField(i)" type="button"
+                                                style="padding-left: 18px;padding-right: 18px;"
+                                                class="btn btn-danger ms-3">
+                                                <span aria-hidden="true">-</span>
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </tr>
+                              
+                                <tr   >
+                                    <td >HRA</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <input class="input-box border-end-0"  placeholder="enter amount" formControlName="amount"/>
+                                            <input class="input-box" placeholder="% of Basic" formControlName="percentage"/>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-box">
+                                            XXXX
+                                        </div>
+                                    </td>
+                                    <td>XXXX</td>
+                                </tr>
+                                <tr>
+                                    <h6>Deduction Components
+                                    </h6>
+                                </tr>
+                                <tr  formArrayName="deductions" *ngFor="let item of DeductionDetails; let i = index">
+                                    <td  [formGroupName]="i"> Professional Tax</td>
+                                    <td >
+                                        Fixed amount
+                                    </td>
+                                    <td>
+                                        <div >
+                                            <input class="input-box border-end-0"  placeholder="enter amount" formControlName="amount"/>
+                                        </div>
+                                    </td>
+                                    <td>XXXX</td>
+                                    <div class="d-flex">
+                                        <ng-container >
+                                            <button (click)="removeInputFieldDeduction(i)" type="button"
+                                                style="padding-left: 18px;padding-right: 18px;"
+                                                class="btn btn-danger ms-3">
+                                                <span aria-hidden="true">-</span>
+                                            </button>
+                                        </ng-container>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <td> TDS</td>
+                                    <td>
+                                        Fixed amount
+                                    </td>
+                                    <td>
+                                        <div class="input-box">
+                                            XXXX
+                                        </div>
+                                    </td>
+                                    <td>XXXX</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- three card end-->
+                    <!-- four card -->
+                    <div class="card four-card">
+                        <div class="row">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-8">
+                                <div class="amount-final-box">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="texts">
+                                                <div class="title-name">
+                                                    Cost to Company
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="texts">
+                                                <div class="amount-name">
+                                                    ₹. 0000.00
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="texts">
+                                                <div class="amount-name">
+                                                    ₹. 0000.00
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- four card end-->
+                    <!-- btn start -->
+                    <div class="border-top w-100 mt-3 pt-3">
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary px-4 py-2
+                            rounded-pill" >save</button>
+                            <button type="button" class="btn btn-secondary px-4 py-2
+                           rounded-pill ms-3">cancel</button>
+                        </div>
+                    </div>
+                    <!-- btn end -->
+                </form>
+                </div>
+           
+            </div>
+        
+        </div>
+    </div>
+</section>

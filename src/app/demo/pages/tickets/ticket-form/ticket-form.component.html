@@ -1,0 +1,131 @@
+<div class="inside-page org-presentation-page">
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6">{{ !ticketId ? 'Add Ticket Detail' : 'Update Ticket Detail'}}</h5>
+    </div>
+
+    <div class="row px-3">
+        <div class="col-sm-12 bg-white p-3"> 
+
+
+            <form [formGroup]="ticketForm" class="pt-3 border-light-blue border-top-0
+                universal-form">
+                <div class="card full-size-card border-0 mb-0">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Ticket Subject<span
+                                            class="text-danger">*</span></mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput class="form-control" placeholder="Enter subject"
+                                            formControlName="subject" (blur)="trimNameOnBlur('subject')">
+                                    </mat-form-field>
+                                    <mat-error
+                                        *ngIf="ticketForm.get('subject').hasError('required') && ticketForm.get('subject').touched">
+                                        Subject is required
+                                    </mat-error>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Assign Staff</mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="assignedId" placeholder="Select employee">
+                                            <mat-option [value]="">Select Employee</mat-option>
+                                            <mat-option *ngFor="let person of employeeRecords" [value]="person.id">
+                                                {{person?.firstName}} {{person?.lastName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Client</mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="clientId" placeholder="Select client"
+                                            (selectionChange)=" getProjectByClient($event)">
+                                            <mat-option [value]="">Select Client</mat-option>
+                                            <mat-option *ngFor="let client of clientRecords" [value]="client.id">
+                                                {{client?.clientName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Project</mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="projectId" placeholder="Select project">
+                                            <mat-option [value]="">Select Project</mat-option>
+                                            <mat-option *ngFor="let project of projectList" [value]="project.id">
+                                                {{project?.projectName}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Priority<span class="text-danger">*</span></mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="priority" placeholder="Select priority" required>
+                                            <mat-option [value]="">Select Priority</mat-option>
+                                            <mat-option *ngFor="let priority of priorityList" [value]="priority.value">
+                                                {{priority?.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div class="text-danger">
+                                        <div
+                                            *ngIf="ticketForm.controls['priority'].touched && ticketForm.controls['priority'].hasError('required')">
+                                            Priority is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group mb-0">
+                                    <mat-label class="label_name">Due Date</mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput [matDatepicker]="ddpicker" formControlName="dueDate"
+                                            placeholder="Enter due date" />
+                                        <mat-datepicker-toggle matSuffix [for]="ddpicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #ddpicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group mb-0 textarea-input">
+                                    <mat-label class="label_name">Description<span
+                                            class="text-danger">*</span></mat-label>
+                                    <textarea matInput class="form-control w-100" formControlName="description"
+                                        name="description" placeholder="Write description"
+                                        (blur)="trimNameOnBlur('description')"></textarea>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(getTicketFormControl['description'].touched) && getTicketFormControl['description'].errors?.['required']">Description
+                                        is required
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex  justify-content-end py-3">
+                        <button type="submit" (click)="addTicket()" class="btn btn-primary rounded-pill px-4 py-2 me-3">
+                            Save</button>
+                        <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2" (click)="onList()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

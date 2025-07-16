@@ -1,0 +1,16 @@
+ 
+.joining_date_outer {
+  .mat-mdc-card-content:last-child {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+
+  .mat-mdc-card {
+    background-color: #fff4de !important;
+  }
+
+  h6 {
+    font-size: 14px;
+  }
+} 

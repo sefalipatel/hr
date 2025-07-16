@@ -1,0 +1,158 @@
+<div class="page-top-header mb-3">
+  <h5 class="card-subtitle mt-0">Feedback-Suggestions</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white custom-remove p-3">
+
+
+    <div class="bg-white">
+      <div class="row align-items-center mt-2">
+        <div class="col-md-4 mb-3 ">
+          <div class="month_year">
+            <div class="year_select_box">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Select Year</mat-label>
+                <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                  (ngModelChange)="onYearSelected($event)" id="year" placeholder="select Year">
+                  <mat-option class="text-muted">Select Year </mat-option>
+                  <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3 ">
+          <div class="month_year">
+            <div class="year_select_box">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Select Month</mat-label>
+                <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                  (ngModelChange)="onMonthSelected($event)" placeholder="select Month">
+                  <mat-option class="text-muted">Select Month </mat-option>
+                  <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{ month.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3 h-54 text-start">
+          <button class="btn btn-primary rounded-pill px-4 py-2 me-2" mat-raised-button color="primary"
+            (click)="resetButton()">Reset</button>
+        </div>
+      </div>
+    </div>
+    <div class="pc-component common_table  adminfeedbck_tableview">
+      <div class=" mb-0">
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+          <div class="mat-elevation-z8 shadow-none fixTableHead scrollbox-content holiday_table">
+            <table class="apply_leave  feedback_admin_side" mat-table [dataSource]="dataSource" matSort>
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="employeesname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
+              </ng-container>
+              <ng-container matColumnDef="subject">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="wide-column">Subject</th>
+                <td mat-cell *matCellDef="let element" class="wide-column">{{element.subject}}</td>
+              </ng-container>
+              <ng-container matColumnDef="comment">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="wide-columnn">Comment</th>
+                <td mat-cell *matCellDef="let element" class="wide-columnn">{{element.comment}} </td>
+              </ng-container>
+              <ng-container matColumnDef="suggestionType">
+                <th mat-header-cell *matHeaderCellDef>
+                  <div class="dropdown">
+                    <span class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      Type
+                    </span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item">Select Type</a>
+                      <li *ngFor="let type of suggestionTypeList">
+                        <a class="dropdown-item" (click)="selectSuggestionType(type)">{{
+                          type?.name }}</a>
+                      </li>
+                    </ul>
+                  </div>
+                </th>
+                <td mat-cell *matCellDef="let element">{{suggestionType[element?.suggestionType]}}</td>
+              </ng-container>
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                <td mat-cell *matCellDef="let element">{{convertStatus(element.status)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="isApproved">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Approved</th>
+                <td mat-cell *matCellDef="let row">
+                  <div class="form-check form-switch">
+                    <input matInput class="form-check-input toggle-switch" type="checkbox" role="switch"
+                      id="flexSwitchCheckChecked" (change)="showStatusConfirmation($event, row?.id)"
+                      [disabled]="userRole[0]?.canEdit ? false : true" [checked]="row?.isApproved">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="remark">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text_wrap">Remark
+                <td class="text_wrap" mat-cell *matCellDef="let element">{{element.remarks}}</td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                  <div matTooltip="Add Remark">
+                    <svg width="2em" height="2em" style="font-size: 10px;" class="me-2"
+                      (click)="element.status == 0 ?openPopup(element) : null"
+                      [attr.stroke]="element.status == 0 ?  '#094d95' : '#adb5bd' "
+                      [attr.disabled]="element?.status == 0 ? false : true" viewBox="0 0 24 24" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+
+                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M8.5 17.5L5.5 20V15.5H2.46154C2.07391 15.5 1.70217 15.346 1.42807 15.0719C1.15398 14.7978 1 14.4261 1 14.0385V2.46154C1 2.07391 1.15398 1.70217 1.42807 1.42807C1.70217 1.15398 2.07391 1 2.46154 1H18.5385C18.9261 1 19.2978 1.15398 19.5719 1.42807C19.846 1.70217 20 2.07391 20 2.46154V6.8119"
+                          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 5H16" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 9H10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                          d="M17 19C19.2091 19 21 17.2091 21 15C21 12.7909 19.2091 11 17 11C14.7909 11 13 12.7909 13 15C13 17.2091 14.7909 19 17 19Z"
+                          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                          d="M22 22C21.5167 21.3959 20.7962 20.8906 19.9155 20.5384C19.0348 20.1861 18.027 20 17 20C15.973 20 14.9652 20.1861 14.0845 20.5384C13.2038 20.8906 12.4833 21.3959 12 22"
+                          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </g>
+
+                    </svg>
+                  </div>
+
+                </td>
+              </ng-container>
+
+
+              <!-- Header Rows -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+              <!-- Data Rows -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns.length">
+                  No Data Available
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="text-end d-block mt-3">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<li>
+    <div class="test main_project_name">
+        <div class="pro_border"></div>
+        <div class="outer_image">
+        <img  [src]="item?.profilePicture ? transformImage(item?.profilePicture) : 'assets/images/tree-view/5.png' " alt="employee" />
+        </div>
+        <div class="name_des_emp">
+        <span style="font-weight: 600">{{item.employeeName}}</span>
+        <span> {{item.designationName}} </span>
+        <span> {{item?.departmentName}} </span>
+        </div>
+      </div>
+  </li>

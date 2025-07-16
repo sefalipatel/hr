@@ -1,0 +1,320 @@
+<div class="page-top-header mb-3"> 
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white  custom-remove p-3">
+
+
+
+    <div class="content-box adminrequestapproval_tableview">
+      <div class="row mt-2">
+        <div class="pc-h-item d-md-inline-flex position-static bg-transparent w-100"> 
+          <div class="row align-items-center">
+            <div class="col-lg-6 col-xxl col-xl-4  col-md-6 mb-3">
+              <div class="year_select_box">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Year</mat-label>
+                  <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                    (ngModelChange)="onYearSelected($event)" id="year">
+                    <mat-option class="text-muted">Select Year </mat-option>
+                    <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xxl col-xl-4  col-md-6 mb-3">
+              <div class="year_select_box">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Month</mat-label>
+                  <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                    (ngModelChange)="onMonthSelected($event)">
+                    <mat-option class="text-muted" value="">Select Month </mat-option>
+                    <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{ month.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-xxl col-xl-4  col-md-6 mb-3">
+              <div class="year_select_box">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Department</mat-label>
+                  <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="deptId"
+                    (ngModelChange)="onDepartmentChange()">
+                    <mat-option class="text-muted" [value]="">Select Department </mat-option>
+                    <mat-option class="text-muted" *ngFor="let name of departmentList" [value]="name.id">{{
+                      name.departmentName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- Designation -->
+            <div class="col-lg-6 col-xxl col-xl-4  col-md-6 mb-3">
+              <div class="year_select_box">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Select Designation</mat-label>
+                  <mat-select name="DesignationId" [(ngModel)]="designationId" (ngModelChange)="onDesignationChange()"
+                    placeholder="Select Designation">
+                    <mat-option class="text-muted">Select Designation</mat-option>
+                    <mat-option class="text-muted" *ngFor="let designation of Designation" [value]="designation.id">
+                      {{ designation.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- Employee Dropdown -->
+            <div class="col-lg-6 col-xxl col-xl-4  col-md-6 mb-3">
+              <div class="year_select_box">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select Employee</mat-label>
+                  <mat-select style="font-size: 0.875rem;" [(ngModel)]="personID">
+                    <mat-option [value]="">Select Employee </mat-option>
+                    <mat-option class="text-muted" *ngFor="let name of employeeList" [value]="name.id">
+                      {{ name?.firstName + ' ' + name?.lastName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class=" col-lg-6 col-xxl col-xl-4 h-54 col-md-6 mb-3">
+              <div class="d-flex align-items-baseline">
+                <div class="btn btn-primary px-4 py-2 rounded-pill" (click)="getAllOvertimeRequest()">
+                  Apply</div>
+                <div class="btn btn-primary px-4 py-2 rounded-pill ms-3" (click)="onReset()">Reset</div>
+              </div>
+            </div>
+
+          </div> 
+        </div>
+      </div>
+      <ng-container class="ticket-dash-page">
+        <div class="color-cards mt-3 mb-3">
+          <ul class="row p-0">
+            <li class="col-lg-6 col-xxl col-md-6 mb-3">
+              <div class="card-box back_images1 border p-3">
+                <div class="overlay1"></div>
+                <div class="d-flex justify-content-between ">
+                  <div class="card-titme d-flex align-items-center">
+                    <div class="name">
+                      <h6 class="m-0" matTooltip="Overtime Employee">Overtime Employee</h6>
+                    </div>
+                    <div class="count postin_block">
+                      <h5>{{totalEmployee ? totalEmployee : 0}}</h5>
+                    </div>
+                  </div>
+                  <div class="img_block">
+                    <span><svg width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        fill="#007dfe">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                          <g>
+                            <path fill="none" d="M0 0H24V24H0z" />
+                            <path
+                              d="M12 13c1.657 0 3 1.343 3 3 0 .85-.353 1.616-.92 2.162L12.17 20H15v2H9v-1.724l3.693-3.555c.19-.183.307-.438.307-.721 0-.552-.448-1-1-1s-1 .448-1 1H9c0-1.657 1.343-3 3-3zm6 0v4h2v-4h2v9h-2v-3h-4v-6h2zM4 12c0 2.527 1.171 4.78 3 6.246v2.416C4.011 18.933 2 15.702 2 12h2zm8-10c5.185 0 9.449 3.947 9.95 9h-2.012C19.446 7.054 16.08 4 12 4 9.25 4 6.824 5.387 5.385 7.5H8v2H2v-6h2V6c1.824-2.43 4.729-4 8-4z" />
+                          </g>
+                        </g>
+                      </svg></span>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+            <li class="col-lg-6 col-xxl col-md-6 mb-3">
+              <div class="card-box back_images2 border p-3">
+                <div class="overlay2"></div>
+                <div class="d-flex justify-content-between ">
+                  <div class="card-titme d-flex align-items-center">
+                    <div class="name">
+                      <h6 class="m-0">Overtime Hours</h6>
+                    </div>
+                    <div class="count1 postin_block">
+                      <h5>{{totalHours ? totalHours : 0}}</h5>
+                    </div>
+                  </div>
+                  <div class="img_block">
+                    <span><svg fill="#5150f1" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" width="50px" height="50px" viewBox="0 0 256 240"
+                        enable-background="new 0 0 256 240" xml:space="preserve">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                          <path
+                            d="M107.489,30.643c11.242,0,20.355,9.113,20.355,20.355s-9.113,20.355-20.355,20.355S87.135,62.24,87.135,50.998 S96.248,30.643,107.489,30.643z M32.824,153.991l-0.188-0.188l0,0c-0.844-0.563-1.595-1.032-2.251-1.782l2.251,25.795L4.309,217.963 c-4.033,5.816-2.626,13.695,3.002,17.728c5.816,4.033,13.695,2.626,17.728-3.002l30.579-44.086c1.595-2.251,2.626-5.253,2.251-8.254 l-1.032-12.475L32.824,153.991z M116.963,237.942H254v-62.254c0,0-51.209-5.376-76.629,21.639c-0.563,0.563-1.219,1.219-1.782,1.782 l-61.345-35.457c1.032-1.97,1.219-4.221,0.844-6.66L93.326,76.324c-1.782-7.879-8.817-13.882-17.072-13.882H35.638 c-3.002,0-6.003,1.595-7.692,4.221L7.686,101.838c-2.626,4.221-1.032,9.661,3.189,12.1l22.7,13.038l-3.002,5.065 c-3.658,6.003-1.595,13.695,4.596,17.072l50.934,29.36v46.525c0,7.035,5.628,12.663,12.663,12.663s12.663-5.628,12.663-12.663 v-53.091l56.374,32.643c-11.631,6.66-24.951,7.879-34.425,13.507C121.747,224.998,116.963,237.942,116.963,237.942z M37.89,119.566 l-14.914-8.63l0,0l17.728-30.579h19.886L37.89,119.566z M70.626,138.514l14.07-24.576l10.506,38.646L70.626,138.514z M237.694,39.504h1.232c2.867,6.063,4.475,12.835,4.475,19.975c0,25.85-21.03,46.88-46.88,46.88s-46.88-21.03-46.88-46.88 s21.03-46.88,46.88-46.88c7.14,0,13.912,1.607,19.975,4.475v1.232v3.903l-3.253,3.253c-5.047-2.492-10.724-3.894-16.722-3.894 c-20.904,0-37.912,17.007-37.912,37.912s17.007,37.912,37.912,37.912s37.912-17.007,37.912-37.912 c0-5.999-1.403-11.676-3.894-16.723l3.252-3.252H237.694z M215.681,59.479c0,10.565-8.595,19.16-19.16,19.16 s-19.16-8.595-19.16-19.16s8.595-19.16,19.16-19.16c0.6,0,1.193,0.031,1.779,0.086l7.481-7.481 c-2.902-1.015-6.016-1.573-9.259-1.573c-15.51,0-28.128,12.618-28.128,28.128s12.618,28.128,28.128,28.128 s28.128-12.618,28.128-28.128c0-3.244-0.558-6.358-1.573-9.259l-7.48,7.48C215.649,58.286,215.681,58.879,215.681,59.479z M237.694,31.351L254,15.045h-13.045V2l-16.306,16.306v7.279l-25.04,25.04c-0.967-0.338-2.006-0.523-3.088-0.523 c-5.178,0-9.376,4.198-9.376,9.376c0,5.178,4.198,9.376,9.376,9.376s9.376-4.198,9.376-9.376c0-1.082-0.185-2.121-0.523-3.088 l25.041-25.04H237.694z" />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+            <li class="col-lg-6 col-xxl col-md-6 mb-3">
+              <div class="card-box back_images3 border p-3">
+                <div class="overlay3"></div>
+                <div class="d-flex justify-content-between ">
+                  <div class="card-titme d-flex align-items-center">
+                    <div class="name">
+                      <h6 class="m-0">Pending Request</h6>
+                    </div>
+                    <div class="count2 postin_block">
+                      <h5>{{pendingRequestCount ? pendingRequestCount : 0}}</h5>
+                    </div>
+                  </div>
+                  <div class="img_block">
+                    <span><svg width="50px" height="50px" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                          <path
+                            d="M12 3C7.85113 3 4 5.73396 4 10C4 11.5704 4.38842 12.7289 5.08252 13.6554C5.79002 14.5998 6.87746 15.3863 8.41627 16.0908L9.23259 16.4645L8.94868 17.3162C8.54129 18.5384 7.84997 19.6611 7.15155 20.5844C8.35158 20.2074 9.73434 19.7279 11.0954 19.1583C11.2077 19.833 11.4166 20.475 11.7072 21.0697C9.69758 21.9006 7.70002 22.5276 6.29772 22.9281C5.48665 23.1597 4.84055 22.6838 4.56243 22.1881C4.28848 21.6998 4.22087 20.9454 4.74413 20.3614C5.44439 19.5798 6.21203 18.5732 6.72616 17.4871C5.40034 16.7841 4.29326 15.9376 3.48189 14.8545C2.48785 13.5277 2 11.9296 2 10C2 4.26604 7.14887 1 12 1C16.8511 1 22 4.26604 22 10C22 10.7354 21.9438 11.4357 21.7949 12.1169C21.2214 11.7463 20.5903 11.4571 19.9179 11.266C19.9754 10.8721 20 10.454 20 10C20 5.73396 16.1489 3 12 3Z"
+                            fill="#fdad00" />
+                          <path
+                            d="M18 15C17.4477 15 17 15.4477 17 16V18C17 18.0197 17.0006 18.0393 17.0017 18.0588C16.9857 18.3338 17.0828 18.6142 17.2929 18.8243L18.4659 19.9973C18.8564 20.3878 19.4896 20.3878 19.8801 19.9973C20.2706 19.6067 20.2706 18.9736 19.8801 18.583L19 17.703V16C19 15.4477 18.5523 15 18 15Z"
+                            fill="#fdad00" />
+                          <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M18 24C21.3137 24 24 21.3137 24 18C24 14.6863 21.3137 12 18 12C14.6863 12 12 14.6863 12 18C12 21.3137 14.6863 24 18 24ZM18 22.0181C15.7809 22.0181 13.9819 20.2191 13.9819 18C13.9819 15.7809 15.7809 13.9819 18 13.9819C20.2191 13.9819 22.0181 15.7809 22.0181 18C22.0181 20.2191 20.2191 22.0181 18 22.0181Z"
+                            fill="#fdad00" />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+            <li class="col-lg-6 col-xxl col-md-6 mb-3">
+              <div class="card-box back_images4 border p-3">
+                <div class="overlay4"></div>
+                <div class="d-flex justify-content-between ">
+                  <div class="card-titme d-flex align-items-center">
+                    <div class="name">
+                      <h6 class="m-0">Rejected</h6>
+                    </div>
+                    <div class="count3 postin_block">
+                      <h5>{{rejectedRequestCount ? rejectedRequestCount : 0}}</h5>
+                    </div>
+                  </div>
+                  <div class="img_block">
+                    <span><svg fill="#8e71ec" width="50px" height="50px" version="1.1" id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 329.328 329.328" xml:space="preserve">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <g id="SVGRepo_iconCarrier">
+                          <path
+                            d="M164.666,0C73.871,0,0.004,73.871,0.004,164.672c0.009,90.792,73.876,164.656,164.662,164.656 c90.793,0,164.658-73.865,164.658-164.658C329.324,73.871,255.459,0,164.666,0z M164.666,30c31.734,0,60.933,11.042,83.975,29.477 L59.478,248.638c-18.431-23.04-29.471-52.237-29.474-83.967C30.004,90.413,90.413,30,164.666,30z M164.666,299.328 c-31.733,0-60.934-11.042-83.977-29.477L269.854,80.691c18.431,23.043,29.471,52.244,29.471,83.979 C299.324,238.921,238.917,299.328,164.666,299.328z" />
+                        </g>
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+      <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="admin_request_table fixTableHead scrollbox-content"> 
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  apply_leave ">
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element?.personName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="otDate">
+              <th mat-header-cell *matHeaderCellDef> OT Date </th>
+              <td mat-cell *matCellDef="let element"> {{element?.otDate | date: dateFormat}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="otHour">
+              <th mat-header-cell *matHeaderCellDef> OT Hour </th>
+              <td mat-cell *matCellDef="let element"> {{element?.otHour}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let element"> <span mat-raised-button class="d-inline-block text-truncate"
+                  [matTooltip]="element?.description">
+                  {{ element?.description }}
+                </span> </td>
+            </ng-container>
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Status </th>
+              <td mat-cell *matCellDef="let element"
+                [ngClass]="{'text-success': getStatusLabel(element.status) === 'Approved','text-warning': getStatusLabel(element.status) === 'Pending','text-danger': getStatusLabel(element.status) === 'Rejected'}">
+                {{ getStatusLabel(element?.status) }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="approvedBy">
+              <th mat-header-cell *matHeaderCellDef> Approved By </th>
+              <td mat-cell *matCellDef="let element"> {{element?.approvedBy}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef class=""> Action </th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+
+                <div class="d-flex align-items-center">
+                  <div class="me-3  disable_icon icon_width">
+                    <svg xmlns="http://www.w3.org/2000/svg" matTooltip="Approve"
+                      [attr.stroke]="element.status===1  ? 'gray' : 'green'"
+                      [attr.disabled]="element.status===1 ? true : null" width="24" height="24" viewBox="0 0 24 24"
+                      fill="none" stroke="green" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                      (click)="element.status===1 ?null:  approval(element?.id)">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <div class="mx-2" [ngClass]="element.status === 2?'btn-disabled':''">
+                    <svg height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" matTooltip="Reject"
+                      [attr.stroke]="element.status===2   ? '#adb5bd' : '#ff4d4f'"
+                      [attr.disabled]=" element.status===2 ? true : null" width="16" xmlns="http://www.w3.org/2000/svg"
+                      (click)=" element.status===2 ?null: reject(element.id)">
+                      <path
+                        d="m9.65685425 8.28427125 2.34314575 2.34285265 2.3431458-2.34285265c.3790283-.37902833.9935546-.37902833 1.372583 0 .3790283.37902833.3790283.99355467 0 1.372583l-2.3431458 2.34285265 2.3431458 2.3434389c.3790283.3790283.3790283.9935546 0 1.372583-.3790284.3790283-.9935547.3790283-1.372583 0l-2.3431458-2.3434389-2.34314575 2.3434389c-.37902833.3790283-.99355467.3790283-1.372583 0-.37902833-.3790284-.37902833-.9935547 0-1.372583l2.34314575-2.3434389-2.34314575-2.34285265c-.37902833-.37902833-.37902833-.99355467 0-1.372583s.99355467-.37902833 1.372583 0zm1.34314575-8.28427125c1.6568542 0 3 1.34314575 3 3v3h-2v-3c0-.55228475-.4477153-1-1-1h-8c-.55228475 0-1 .44771525-1 1v8c0 .5522847.44771525 1 1 1h2v2h-2c-1.65685425 0-3-1.3431458-3-3v-8c0-1.65685425 1.34314575-3 3-3zm-4 8v2h-3v-2zm3-4v2h-6v-2z" />
+                    </svg>
+                  </div>
+
+                </div>
+              </td>
+            </ng-container>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns?.length">
+                No Data Available
+              </td>
+            </tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+        </div>
+      </div>
+      <div class="text-end d-block mt-3">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

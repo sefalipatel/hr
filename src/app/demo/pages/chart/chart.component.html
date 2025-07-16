@@ -1,0 +1,31 @@
+ 
+
+   <div class="title-dropdown">
+      <div class="ink-title">
+          Working Hours
+      </div>
+      <div class="drop-down" >
+          <div class="dropdown">
+            <mat-form-field appearance="outline" >
+               <mat-select required placeholder="Select Type" [(ngModel)]="selectedMonth"
+                  (ngModelChange)="onTypeSelected($event)">
+                  <mat-option *ngFor="let hour of workingHour" [value]="hour?.id"   
+                  >
+                  <span style="white-space: nowrap;">{{ hour?.name }}</span>
+                  </mat-option>
+               </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
+  </div> 
+
+   <div id="chart" class="graph mt-4">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [dataLabels]="chartOptions.dataLabels"
+      ></apx-chart>
+    </div>

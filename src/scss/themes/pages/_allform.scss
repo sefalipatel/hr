@@ -1,0 +1,152 @@
+// .pc-header .header-search
+
+.search-btn {
+    top: 19px !important;
+
+    i {
+        font-size: 20px;
+    }
+}
+
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined {
+    height: 54px !important;
+}
+
+.form-control {
+    line-height: 2.5;
+}
+
+.mat-mdc-select {
+    line-height: 2.2 !important;
+}
+
+button {
+
+    font-size: 16px;
+
+    .active {
+        border: none;
+    }
+}
+
+.btn svg {
+    width: 26px;
+    height: 24px;
+}
+
+.btn.rounded-pill {
+    border-radius: 8px !important;
+}
+
+.btn.btn-primary {
+    // padding: 12px 26px !important;
+    padding: 8px 26px !important;
+    text-wrap: nowrap;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    background-color: #3e4095;
+    color: white;
+    border: 1px solid #3e4095;
+    ;
+
+    &:hover {
+        background-color: #ffffff;
+        border: 1px solid #3e4095;
+        color: #3e4095;
+    }
+}
+
+.btn.btn-secondary {
+    background-color: #ffffff;
+    border: 1px solid #3e4095;
+    padding: 8px 26px !important;
+    text-wrap: nowrap;
+    height: 40px;
+    color: #3e4095;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+
+    &:hover {
+        background-color: #3e4095;
+        border: 1px solid #3e4095;
+        color: $white;
+    }
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix,
+.mat-mdc-select {
+    // display: flex !important;
+    align-items: center !important;
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 10px;
+}
+
+
+table {
+    tr {
+        td {
+            text-wrap: nowrap;
+        }
+
+        th {
+            text-wrap: nowrap;
+        }
+    }
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs>.mat-mdc-tab-header .mat-mdc-tab {
+    flex-grow: 0 !important;
+}
+
+.mdc-tab {
+    padding-left: 10px;
+}
+
+.mat-mdc-paginator-container {
+    .mdc-notched-outline {
+        height: 46px;
+    }
+
+    .mat-mdc-paginator-page-size-select {
+        // border: 1px solid red;
+        height: 48px;
+    }
+}
+
+
+@media screen and (max-width:595px) {
+    .mat-mdc-paginator-range-actions {
+        margin: 10px 0;
+    }
+
+    .mat-mdc-paginator-page-size {
+        margin-bottom: 10px;
+    }
+}
+
+.mat-mdc-paginator-page-size {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+.mat-mdc-paginator-outer-container {
+    .mat-mdc-select {
+        line-height: 3 !important;
+    }
+}
+
+.mat-mdc-paginator {
+    .mat-mdc-icon-button svg {
+        width: 23px;
+        height: 26px;
+    }
+}

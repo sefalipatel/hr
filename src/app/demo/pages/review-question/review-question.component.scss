@@ -1,0 +1,29 @@
+.self-assform {
+    background: #fff;
+
+    .title-header {
+        background: #c5eefc;
+        padding: 15px;
+    }
+
+    .content-box{
+        padding: 15px;  
+
+        .check-box{
+            .choose-btns{
+                li{
+                    margin: 0  8px;
+                }
+                li:first-child{
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+.disabled {
+    color: rgba(0, 0, 0, 0.38);  /* Change to the color you desire */
+    filter: blur(0.7px); /* Add a blur effect */
+    
+}

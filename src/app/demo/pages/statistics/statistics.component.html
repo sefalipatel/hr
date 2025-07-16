@@ -1,0 +1,80 @@
+
+
+      <div class="statistics_block p-20 mt-4">
+      <div class="statistice_header header_working_hr">
+         <p>Statistics<span><svg  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000">
+  
+           <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+           
+           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+           
+           <g id="SVGRepo_iconCarrier">
+           
+           <defs>
+           
+           </defs>
+           
+           <path class="a" d="M12,2A10,10,0,1,0,22,12H12Z"/>
+           
+           <path class="a" d="M15,9h6.54077A10.02174,10.02174,0,0,0,15,2.45923Z"/>
+           
+           </g>
+           
+           </svg></span></p>
+         <div class="drop_down">
+            <div class="dropdown" ngbDropdown> 
+               <mat-form-field class="w-100" appearance="outline">
+                  <mat-select  (selectionChange)="workingHours($event)" [value]="0" placeholder="Select Month/Week" >
+                    <mat-option *ngFor="let workingCount of WorkingHour" [value]="workingCount.value">
+                      {{workingCount.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+         </div>
+      </div> 
+      <div class="time_detail mt-4">
+         <div class="row"  >
+            <div class="col-lg-4 col-xxl-4 col-xl-4 col-md-4 col-sm-4 col-4 mb-3">
+               <div class="remaining_time">
+                  <p>work Hour
+                 </p>
+                  <p>{{totalhors?.workingHour
+                 }}</p>
+               </div>
+            </div>
+            <div class="col-lg-4 col-xxl-4 col-xl-4 col-md-4 col-sm-4 col-4 mb-3">
+               <div class="over_time">
+                  <p>Overtime</p>
+                  <p>{{totalhors?.overtime}}</p>
+               </div>
+            </div>
+            <div class="col-lg-4 col-xxl-4 col-xl-4 col-md-4 col-sm-4 col-4 mb-3">
+               <div class="brek_time">
+                  <p>Break</p>
+                  <p>{{totalhors?.breakTime}}</p>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="footer_time" >
+         <div class="btn_block">
+         <button class="btn inner_btn" (click)="viewAttendance()"><p>View Attendance</p>
+            <div class="arrow_design"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" stroke="#000000"  
+               stroke-width="0.576">
+  
+               <g id="SVGRepo_bgCarrier" stroke-width="0" />
+  
+               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+  
+               <g id="SVGRepo_iconCarrier">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                     d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z" />
+               </g>
+  
+            </svg>
+               </div>
+         </button>
+      </div>
+   </div>
+ 

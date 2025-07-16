@@ -1,0 +1,33 @@
+.time-btns {
+
+    button:disabled,
+    button[disabled] {
+        border: 1px solid #999999;
+        background-color: #cccccc;
+        color: #666666;
+    }
+}
+
+.pc-h-item {
+    a {
+        svg {
+            width: 23px;
+            height: 23px;
+        }
+    }
+}
+
+.btn-dangerrs {
+    background-color: red;
+    color: white;
+
+    span {
+        font-size: 14px;
+        font-weight: 600;
+    }
+}
+
+.checkin_pc {
+    font-size: 14px;
+    font-weight: 600;
+}

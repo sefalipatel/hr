@@ -1,0 +1,98 @@
+.fireworks{
+    // height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 9;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    background: #ffffffab;
+    h1 {
+      font-size: 3em;
+      font-family: sans-serif;
+      color: grey;
+      opacity: 0.5;
+    }
+}
+
+.container {
+    position: relative;
+    text-align: center;
+  }
+  
+  
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: red;
+    animation: confetti-fall 3s linear infinite;
+  }
+  
+  @keyframes confetti-fall {
+    0% {
+      transform: translateY(-100vh) rotate(0deg);
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg);
+    }
+  }
+  
+  .confetti:nth-child(2) {
+    left: 10%;
+    animation-delay: 0.1s;
+  }
+  
+  .confetti:nth-child(3) {
+    left: 20%;
+    animation-delay: 0.2s;
+  }
+  
+  /* Add more .confetti styles for additional confetti pieces */
+  
+
+  h1 { 
+    position: absolute; 
+    margin-top: 30vh; 
+    width: 100%; 
+    text-align: center; 
+    font-size: 333%; 
+    font-family: sans-serif; 
+    color: grey; 
+    opacity: 0.5;
+ } 
+ 
+ canvas { overflow-y: hidden; overflow-x: hidden; width: 100%; margin: 0; }
+
+ //to-do list
+ .icon-warning {
+  width: 25px;
+  height: 25px;
+  background: #f3dc0d !important;
+  border: 1px solid #f3dc0d;
+  line-height: 25px;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+      color: #fff;
+  }
+}
+.text_truncate {
+  max-width: 380px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goal_cursor_pointer{
+  cursor: pointer;
+}

@@ -1,0 +1,355 @@
+<section class="add-newcard-page add-timecard"> 
+  <div class="row">
+
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary me-3" [matMenuTriggerFor]="menu" [disabled]="status === 2">Action </button>
+
+        <button class="btn btn-primary me-3" (click)="approveButton()"
+          [disabled]="status === 2 || +totalHoursForAllEntries < 40">Submit</button>
+        <button class="btn btn-primary" (click)="onBtnClick()">Cancel</button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="saveForm()">Save and Close</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="add-cards mb-3">
+        <div class="upper-part">
+          <h6 class="title">Time Card Period</h6>
+          <i class="ri-time-zone-line"></i>
+        </div>
+        <div class="lower-part">
+          <app-loader *ngIf="loading"></app-loader>
+          <ng-template #labelTemplate>
+            <mat-form-field appearance="outline" [formGroup]="timeCardForm" class="date-picker w-100">
+              <mat-label>Select Date</mat-label>
+              <input matInput [matDatepicker]="dp1" formControlName="date" name="date" required [max]="current" />
+              <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+              <mat-datepicker #dp1></mat-datepicker>
+            </mat-form-field>
+          </ng-template>
+
+          <ng-container *ngIf="employeeTimesheetId; else labelTemplate">
+            <span class="current-date">{{ startDate }}</span>
+          </ng-container>
+          <span class="all-date"> {{ timesheetId ? startDate + '-' + endDate : timeCardPeriod }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-none">
+      <div class="card">
+        <div class="card-body d-flex bd-highlight">
+          <div class="flex-grow-1">
+            <ng-template #labelTemplate>
+              <mat-form-field appearance="outline" [formGroup]="timeCardForm" class="date-picker">
+                <mat-label>Select Date</mat-label>
+                <input matInput [matDatepicker]="dp1" formControlName="date" name="date" required [max]="current" />
+                <mat-datepicker-toggle matSuffix [for]="dp1"></mat-datepicker-toggle>
+                <mat-datepicker #dp1></mat-datepicker>
+              </mat-form-field>
+            </ng-template>
+
+            <ng-container *ngIf="employeeTimesheetId; else labelTemplate">
+              <div class="d-flex align-items-center">
+                <h6 class="card-subtitle m-2 text-muted">{{ startDate | date: dateFormat}}</h6>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="ms-3 d-flex flex-column align-items-end">
+            <h6 class="card-subtitle m-2 text-muted">Time Card Period</h6>
+            <h6 class="card-subtitle m-2 text-muted">
+              {{ timesheetId ? startDate + '-' + endDate : timeCardPeriod }}
+            </h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="add-cards">
+
+        <div class="upper-part">
+          <h6 class="title">New Status</h6>
+          <i class="ri-donut-chart-fill  "></i>
+        </div>
+        <div class="lower-part">
+          <span class="current-date">{{ totalHoursForAllEntries }} Hours</span>
+          <p class="m-0">{{ convertedTime? convertedTime?.hours : '0' }} hours and {{ convertedTime?
+            convertedTime?.minutes :'0'}}
+            minutes.</p>
+          <span class="all-date"> Reported
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container d-none">
+      <div class="card">
+        <div class="card-body d-flex bd-highlight">
+          <div class="flex-grow-1">
+            <h6 class="card-subtitle m-2 text-muted">New</h6>
+            <h6 class="card-subtitle m-2 text-muted">Status</h6>
+          </div>
+
+          <div class="ms-3 d-flex flex-column align-items-end">
+            <h6 class="card-subtitle m-2 text-muted">{{ totalHoursForAllEntries }} Hours</h6>
+            <h6 class="card-subtitle m-2 text-muted">Reported</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+
+      <div class="add-cards">
+
+        <div class="upper-part">
+          <h6 class="title">Comments</h6>
+          <i class="ri-question-answer-line"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container d-none">
+      <div class="card">
+        <div class="card-body">
+          <h6>Comments</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 mt-4">
+      <div class="add-cards">
+
+        <div class="upper-part">
+          <h6 class="title">Entries</h6>
+          <button type="button" class="btn btn-primary" (click)="toggleForm()" [disabled]="status === 2"
+            *ngIf="!showForm">
+            Add Timesheet</button>
+        </div>
+
+        <div class="lower-part">
+
+          <div *ngIf="showForm">
+            <form [formGroup]="timeCardForm" (ngSubmit)="submitForm()" class="universal-form">
+
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Project Type<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-select formControlName="regulation" placeholder="Select Regularization Reason" required>
+                        <mat-option [value]="">Select a Project Type</mat-option>
+                        <mat-option *ngFor="let reason of regularizationReasonEnum " [value]="reason.value">
+                          {{[reason.key] }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                      *ngIf="timeCardForm.get('regulation').hasError('required') && timeCardForm.get('regulation').touched">
+                      Project Type is required
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-0">
+                    <mat-label class="label_name">Date<span class="text-danger">*</span>
+                    </mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput [matDatepicker]="sdpicker" formControlName="timesheetDate" required
+                        placeholder="Enter Date" [min]="minDate" [max]="maxDate" />
+                      <mat-datepicker-toggle matSuffix [for]="sdpicker"></mat-datepicker-toggle>
+                      <mat-datepicker #sdpicker></mat-datepicker>
+                    </mat-form-field>
+                    <span class="text-danger d-block mt-2"
+                      *ngIf="(timeCardForm.controls['timesheetDate'].touched) && timeCardForm.controls['timesheetDate'].errors?.['required']">
+                      Date is required
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Time Type<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-select formControlName="timeType" placeholder="Select Timetype" required>
+                        <mat-option [value]="">Select Timetype</mat-option>
+                        <mat-option *ngFor="let time of timetypeEnum " [value]="time.value">
+                          {{[time.key] }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                      *ngIf="timeCardForm.get('timeType').hasError('required') && timeCardForm.get('timeType').touched">
+                      Timetype is required
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Total Hours<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput class="form-control" placeholder="Enter Total Hours" formControlName="totalHours">
+                    </mat-form-field>
+                    <div class="text-danger mt-2">
+                      <div
+                        *ngIf="timeCardForm.controls['totalHours'].touched && timeCardForm.controls['totalHours'].hasError('required')">
+                        Total hours is required.
+                      </div>
+                      <div
+                        *ngIf="timeCardForm.controls['totalHours'].dirty && timeCardForm.controls['totalHours'].errors?.['pattern']">
+                        Total hours must be a number.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group textarea-input">
+                    <mat-label class="label_name">Comment<span class="text-danger">*</span></mat-label>
+                    <textarea class="form-control" id="comments" rows="3" formControlName="comments"
+                      required></textarea>
+                    <div class="text-danger mt-2">
+                      <div
+                        *ngIf="timeCardForm.controls['comments'].touched && timeCardForm.controls['comments'].hasError('required')">
+                        Comment is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 me-3"> Submit</button>
+                <button type="button" class="btn btn-secondary rounded-pill px-4 py-2" (click)="toggleForm()">
+                  Cancel
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+          <div class="card_time_block" *ngIf="!showForm">
+            <ul>
+              <li class="card border rounded p-3 pointer" *ngFor="let data of timeSheetRecords">
+                <div class="main_date_card" (click)="timesheetDateWiseData(data)">
+                  <div class="date_timesheet">
+                    <span><svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;"
+                        xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42"
+                        xml:space="preserve">
+                        <g>
+                          <path d="M37.499,5.5H35.5v5.52c0,1.23-0.234,1.48-1.484,1.48h-6.017c-1.25,0-1.499-0.271-1.499-1.5V5.5h-11v5.52
+                   c0,1.23-0.25,1.48-1.5,1.48H8c-1.25,0-1.5-0.271-1.5-1.5V5.5h-2c-2.58,0-3,0.561-3,3v28.998c-0.01,2.43,0.6,3.002,3,3.002h32.999
+                   c2.55,0,3.001-0.531,3.001-3.002V8.5C40.5,6.15,40.119,5.5,37.499,5.5z M35.5,35.5h-29v-20h29V35.5z" />
+                          <path d="M10,10.5h2c1.25,0,1.5-0.25,1.5-1.48v-5c0-1.25-0.27-1.5-1.5-1.5L10,2.5C8.811,2.5,8.5,2.78,8.5,4v5
+                   C8.5,10.229,8.75,10.5,10,10.5z" />
+                          <path d="M29.999,10.5h2c1.25,0,1.501-0.25,1.501-1.48v-5c0-1.25-0.27-1.5-1.5-1.5L30,2.5c-1.189,0-1.5,0.28-1.5,1.5v5
+                   C28.5,10.229,28.749,10.5,29.999,10.5z" />
+                          <rect x="10.5" y="19.5" width="5" height="5" />
+                          <rect x="18.5" y="19.5" width="5" height="5" />
+                          <rect x="26.5" y="19.5" width="5" height="5" />
+                          <rect x="10.5" y="27.5" width="5" height="5" />
+                          <rect x="18.5" y="27.5" width="5" height="5" />
+                          <rect x="26.5" y="27.5" width="5" height="5" />
+                        </g>
+                      </svg></span>
+                    {{ data.timesheetDate | date: dateFormat}}
+                  </div>
+                  <div class="time_timsheet">
+                    <div class="hrs">
+                      {{ roundHours(data?.totalHours) }}
+                    </div>
+                    <p> Hours</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <ng-container *ngIf="!timeSheetRecords?.length">
+              <div class="text-center d-block border-bottom-0 nodata_found_block">
+                <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                <p class="no-record mt-3">No Data Available</p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="pc-component common_table d-none" *ngIf="!showForm" style="position: relative; z-index: 1;">
+            <div class="card mb-0">
+              <div class="mat-elevation-z8 shadow-none table-responsive holiday_table">
+                <table class="apply_leave " mat-table [dataSource]="dataSource">
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.date | date: dateFormat}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="comments">
+                    <th mat-header-cell *matHeaderCellDef>Comments</th>
+                    <td mat-cell *matCellDef="let element"> <span mat-raised-button
+                        class="d-inline-block reason pointer" [matTooltip]="element.comments"
+                        aria-label="Button that displays a tooltip when focused or hovered over">
+                        {{ element.comments }}
+                      </span> </td>
+                  </ng-container>
+                  <ng-container matColumnDef="totalHours">
+                    <th mat-header-cell *matHeaderCellDef>Total Hours</th>
+                    <td mat-cell *matCellDef="let element"> {{ element.totalHours }} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+                    <td mat-cell *matCellDef="let element" class="">
+
+
+                      <div class="d-flex align-items-center"> 
+
+                        <div>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="red" stroke-width="2" stroke-linecap="round" (click)="delete(element.id)"
+                            stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                  <!-- Data Rows -->
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                  <!-- No Record Found -->
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell p-2 text-center" [attr.colspan]="displayedColumns.length">
+                      No Data Available
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="text-end d-block mt-3 d-none" *ngIf="!showForm">
+            <div class="pagination-format d-inline-block">
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of data"></mat-paginator>
+            </div>
+          </div>
+
+          <div class="w-100 text-end">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

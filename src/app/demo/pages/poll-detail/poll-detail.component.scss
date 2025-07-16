@@ -1,0 +1,12 @@
+.truncate {
+    // display: -webkit-box;
+    max-width: 160px;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.blue_clr {
+    color: #1890ff;
+}

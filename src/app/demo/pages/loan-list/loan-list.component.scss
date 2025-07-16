@@ -1,0 +1,150 @@
+.text-truncate {
+  max-width: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disabled-svg {
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* Style for the expanded row container */
+.expanded-row td {
+  padding: 0 !important;
+  border: none;
+}
+
+/* Wrapper div for the expanded content */
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  justify-content: start;
+  background: #f9f9f9;
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Optional animation class for smoother transitions */
+.example-element-detail.ng-animating {
+  transition: all 0.3s ease;
+}
+
+/* Styling for the inner table (installment table) */
+.table.table-bordered {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table.table-bordered th,
+.table.table-bordered td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table.table-bordered thead {
+  background-color: #f0f0f0;
+}
+
+.text-muted {
+  color: #888;
+  font-style: italic;
+  padding: 8px;
+} 
+
+.expanded-active {
+  width: 100%;
+}
+
+.full-width-table {
+  width: 100%;
+  table-layout: fixed;
+  /* Optional: forces columns to divide space evenly */
+}
+
+.full-width-table mat-row,
+.full-width-table tr {
+  width: 100%;
+  display: table-row;
+}
+
+.full-width-table mat-cell,
+.full-width-table mat-header-cell {
+  flex: 1;
+  width: 100%;
+}
+
+.expanded-active {
+  width: 100%;
+  padding: 20px;
+}
+
+table.inner_table {
+  th {
+    background-color: #eaf5ff !important;
+  }
+}
+
+.accordian_table {
+  table {
+    tr {
+      &:hover {
+        background-color: #3e4095ab;
+        cursor: pointer;
+
+        td {
+
+          color: white !important;
+
+          &.text-success {
+
+            color: rgb(82 196 26) !important;
+          }
+
+          svg {
+            stroke: white !important;
+          }
+        }
+      }
+
+
+    }
+  }
+
+
+}
+
+.custom-tooltip .mat-tooltip {
+  color: #f8f9fa;
+  padding: 8px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: #00afef !important;
+}
+
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.example-detail-row.ng-star-inserted.expanded-active {
+  background-color: #ededed4a !important;
+}
+
+tr.mat-mdc-row.mdc-data-table__row.cdk-row.example-detail-row.ng-star-inserted.expanded-active {
+  &:hover {
+
+    td {
+      color: black !important;
+    }
+  }
+
+  tr {
+    &:hover {
+      background-color: rgb(192 193 210 / 67%) !important;
+    }
+  }
+
+
+
+}

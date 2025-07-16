@@ -1,0 +1,54 @@
+.pointer {
+    cursor: pointer;
+}
+
+.status .border-right {
+    border-right: 1px solid #adb5bd;
+    height: 4px;
+}
+
+.status .border-left {
+    border-left: 1px solid #adb5bd;
+    height: 4px;
+}
+
+.total-leave-balance .title {
+    margin-right: 19px;
+}
+
+.total-leave-balance .count { 
+    display: flex;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+}
+
+.total-leave-balance {
+    padding: 10px 10px;
+}
+
+@media screen and (max-width:767px) {
+    .total-leave-balance {
+        width: 100%;
+    }
+
+    .status_overflow {
+
+        overflow-x: scroll;
+        mask-size: 100% 20000px;
+        mask-position: left bottom;
+        -webkit-mask-size: 100% 20000px;
+        -webkit-mask-position: left bottom;
+        transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+        scrollbar-width: thin;
+        scrollbar-color: transparent white;
+        padding: 13px 10px;
+
+        &:hover {
+            -webkit-mask-position: left top;
+            scrollbar-color: #c1c1c1 transparent;
+        }
+    }
+
+}

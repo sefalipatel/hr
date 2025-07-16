@@ -1,0 +1,34 @@
+.p-10 {
+    padding: 10px 0;
+}
+
+.designation-form-btn {
+    margin-bottom: 15px;
+    display: block;
+    font-weight: 600;
+}
+
+.org-img {
+    border-radius: 5px;
+    margin: 45px 0 0 0;
+
+    img {
+        height: 250px;
+        width: 300px;
+        object-fit: cover;
+    }
+
+    i {
+        position: absolute;
+        right: -10px;
+        top: -8px;
+        font-size: 16px;
+        background: #ff0000;
+        width: 26px;
+        height: 26px;
+        line-height: 24px;
+        text-align: center;
+        border-radius: 100%;
+        color: #fff;
+    }
+}

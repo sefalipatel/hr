@@ -1,0 +1,162 @@
+<div class="main_facedetection">
+    <div class="header_top">
+        <div class="container">
+            <div class="logo">
+                <img src="../../../../assets/images/horizantal_logo .svg" alt="logo" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="facemain_detection">
+        <div class="facemain_two">
+            <div class="container position-relative ">
+                <mat-tab-group [(selectedIndex)]="selectedTabIndex" (selectedIndexChange)="onTabChange($event)">
+                    <mat-tab class="comon_face" label="2FA">
+                        <div class="container">
+
+                            <div class="face_detection_main">
+
+                                <div class="row">
+                                    <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100">
+                                        <div class="d-flex align-items-center justify-content-center h-100">
+                                            <div class="face_detection_left">
+                                                <div class="face_block">
+                                                    <div class="image_block box position-relative">
+                                                        <video #videoElement autoplay></video>
+                                                        <canvas #canvasElement style="display: none;"></canvas>
+                                                    </div>
+                                                </div>
+                                                <div class="camera_icon">
+                                                    <button (click)="captureImage()" [disabled]="showSpinner">
+                                                        <span *ngIf="!showSpinner">
+                                                            <img src="../../../../assets/images/camera.png"
+                                                                alt="camera icon" />
+                                                        </span>
+                                                        <span *ngIf="showSpinner">
+                                                            <i class="fa fa-spinner fa-spin"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100 mt-3 mt-lg-0">
+
+                                        <div class="face_detection_right">
+                                            <h3>Enhancing 2FA with Real-Time Image Capture.</h3>
+                                            <p>Add an extra layer of security to your authentication process
+                                                by capturing real-time
+                                                images during login. Our advanced
+                                                2FA system ensures user identity verification through visual
+                                                confirmation, making
+                                                unauthorized access nearly impossible. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </mat-tab>
+                    <mat-tab class="comon_face" label="Authenticator">
+
+                        <div class="face_detection_main">
+
+                            <div class="row">
+                                <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100">
+                                    <div *ngIf="showQR" class="qr_code">
+                                        <div class="position-relative">
+                                            <img class="position-relative images_rq"
+                                                src="../../../../assets/images/auth/1.png" alt="QR Code" />
+                                            <img class="qr_code_br" [src]="qrCodeUrl" alt="Code not generated"
+                                                style=" ">
+                                        </div>
+
+                                    </div>
+                                    <div *ngIf="!showQR" class="qr_code">
+                                        <img class="" src="../../../../assets/images/auth/3.png" alt="QR Code" />
+                                    </div>
+                                </div>
+                                <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100">
+                                    <mat-stepper #stepper [selectedIndex]="isVerified ? 1 : 0">
+                                        <mat-step label="Link Authenticator App" state="phone" [editable]="!isVerified"
+                                            [completed]="isVerified">
+                                            <div class="content_authenticate">
+                                                <div class="step">
+                                                    <h4>Step 1: Scan QR Code</h4>
+                                                    <p>
+                                                        A QR code will be presented on your screen. Open your
+                                                        preferred
+                                                        authentication app (e.g., Google Authenticator,
+                                                        Microsoft Authenticator, or Authy) on your mobile device.
+                                                    </p>
+                                                </div>
+                                                <div class="step">
+                                                    <h4>Step 2: Add Account</h4>
+                                                    <p>
+                                                        Use the app to scan the QR code. This will add your account
+                                                        to the
+                                                        app and start generating 6-digit One-Time Passwords
+                                                        (OTPs) at regular intervals.
+                                                    </p>
+                                                </div>
+                                                <div class="step">
+                                                    <h4>Step 3: Enter OTP</h4>
+                                                    <p>
+                                                        Enter the currently displayed OTP from the app into the
+                                                        provided
+                                                        input field to complete your authentication setup or
+                                                        login process.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-primary mt-3" matStepperNext>Enter OTP</button>
+                                            </div>
+                                        </mat-step>
+                                        <mat-step label="Confirm with OTP" state="chat">
+
+                                            <div class="otp_screen mt-4">
+                                                <p>A One-Time Password (OTP) has been sent to your registered
+                                                    authentication app. </p>
+                                                <p>Please enter the 6-digit OTP below to verify your identity and
+                                                    continue.</p>
+                                                <div class="otp-container">
+
+                                                    <mat-form-field appearance="outline" class="otp-box">
+                                                        <mat-label>Enter the OTP</mat-label>
+                                                        <input matInput type="text" [(ngModel)]="otpCode"
+                                                            maxlength="6" />
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <button class="btn btn-primary" (click)="OTPverify()"
+                                                        matStepperNext>Submit</button>
+                                                </div>
+                                            </div>
+                                        </mat-step>
+
+
+                                        <!-- Icon overrides. -->
+                                        <ng-template matStepperIcon="phone">
+                                            <mat-icon>call_end</mat-icon>
+                                        </ng-template>
+                                        <ng-template matStepperIcon="chat">
+                                            <mat-icon>forum</mat-icon>
+                                        </ng-template>
+                                    </mat-stepper>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+        <!-- <div class="vector_img">
+        <img src="../../../../assets/images/124.png" alt="face detection vector" />
+    </div> -->
+    </div>
+</div>

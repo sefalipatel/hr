@@ -1,0 +1,49 @@
+<section class="timesheet-page">
+
+  <div class="main-header d-flex align-items-center">
+    <h5 class="card-subtitle mt-0">
+      <div class="d-flex align-items-center">
+        <div class="outside-circle">
+          <div class="avtar avtar-s rounded-circle" [ngStyle]="{'background': stringToColor(userInfo?.name)}">
+            <b class="f-18 text-dark">{{userInfo?.name[0]}}</b>
+          </div>
+        </div>
+        <span>{{ msg }},</span>
+        <span class="name">{{name}}</span>
+      </div>
+    </h5>
+    <i class="fa fa-smile-o" aria-hidden="true"></i>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="tab-me-card"  (click)="btnClick()">
+        <mat-card class="select-card card-remove-style">
+          <mat-card-content class="text-center">
+
+            <div class="d-flex align-items-center">
+              <div class="icon">
+                <i class="ri-time-zone-line"></i>
+              </div>
+              <div class="text text-start">
+                <h6>Time Sheet</h6>
+                <span>Streamline your time tracking </span>
+              </div>
+            </div>
+
+          </mat-card-content>
+        </mat-card>
+
+        <img class="bg-icon" src="assets/images/schedule.png" alt="">
+      </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <div class="tab-me-card p-0 resignation">
+        <mat-card class="select-card card-remove-style resignation"><app-resignation-form></app-resignation-form></mat-card>
+      </div>
+    </div>
+
+  </div>
+</section>

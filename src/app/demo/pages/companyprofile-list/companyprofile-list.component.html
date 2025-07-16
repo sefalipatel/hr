@@ -1,0 +1,13 @@
+<div class="page-top-header mb-0">
+  <app-loader *ngIf="loading"></app-loader>
+  <h5 class="card-subtitle mt-0">Company Profile</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove">
+
+    <div class="card m-3 border rounded p-3">
+      <h6>title text</h6>
+      <div class="details mt-2" [innerHTML]="companyprofile?.detail"></div>
+    </div>
+  </div>
+</div>

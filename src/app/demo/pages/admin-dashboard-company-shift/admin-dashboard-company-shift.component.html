@@ -1,0 +1,23 @@
+<div class="company_shift_header">
+    <p>Company shift</p>
+</div>
+<div class="shift_detail" style="width: 100%;">
+    <canvas baseChart height="250" width="250" [type]="'pie'" [datasets]="pieChartDatasets"
+        [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend"
+        [labels]="pieChartLabels">
+    </canvas>
+</div>
+<div class="chat_label">
+    <div class="shif_detail">
+        <p class="checkbox_lab genral"></p>
+        <p>Genral Shift</p>
+    </div>
+    <div class="shif_detail">
+        <p class="checkbox_lab second"></p>
+        <p>Second Shift</p>
+    </div>
+    <div class="shif_detail">
+        <p class="checkbox_lab night"></p>
+        <p>Night Shift</p>
+    </div>
+</div>

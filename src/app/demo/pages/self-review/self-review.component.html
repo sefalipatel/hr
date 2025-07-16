@@ -1,0 +1,90 @@
+<div class="page-top-header mb-0">
+  <h5 class="card-subtitle mt-0">User Review</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white p-3 custom-remove"> 
+    <div class="card-body selfreview_tableview"> 
+      <div class="scrollbox scrollbox_delayed" tabindex="0">
+        <div class="fixTableHead scrollbox-content ">
+          <table mat-table class="mat-elevation-z8  shadow-none mb-0" [dataSource]="dataSource" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+              <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="reviewDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Review Date </th>
+              <td mat-cell *matCellDef="let element">{{element.reviewDate | date: dateFormat}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dueDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Due Date</th>
+              <td mat-cell *matCellDef="let element">{{element?.dueDate ? (element?.dueDate | date: dateFormat) :
+                '-'}}</td>
+            </ng-container> 
+            <ng-container matColumnDef="reviewType">
+              <th mat-header-cell *matHeaderCellDef>
+                <!-- Designation -->
+                <div class="dropdown">
+                  <span class=" dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Review Type
+                  </span>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"> 
+                    <li *ngFor="let designation of reviewTypeList">
+                      <a class="dropdown-item"
+                        (click)="selectReviewType(designation)">{{getOptionLabel(designation?.name)}}</a>
+                    </li>
+                  </ul>
+                </div>
+
+              </th>
+              <td mat-cell *matCellDef="let element">{{ getReviewTypeName(element?.type) }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
+              <td mat-cell *matCellDef="let element">{{element.departmentName}}</td>
+            </ng-container> 
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+              <td mat-cell *matCellDef="let element" class="">
+
+
+                <div class="d-flex align-items-center btn_hover">
+                  <div class="icon_width m-10" matTooltip="Review">
+                    <i class="ri-user-line" (click)="viewReview(element)"></i>
+                  </div> 
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="6">
+                <div class="text-center d-block border-bottom-0">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record mt-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+
+        </div>
+      </div>
+      <div class="text-end d-block mt-3">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

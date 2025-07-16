@@ -1,0 +1,33 @@
+<div class="row px-3">
+    <div class="col-sm-12 border rounded bg-white px-0 custom-remove pb-3">
+        <div class="page-top-header mb-0">
+            <h5 class="card-subtitle mt-0">Bonus Details</h5>
+        </div>
+        <!-- Start : Table -->
+        <div class="border rounded mt-3">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 apply_leave" matSort>
+                <!-- employee ID Column -->
+                <ng-container matColumnDef="employeeCode">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+                    <td mat-cell *matCellDef="let element">{{element?.employeeCode}}</td>
+                </ng-container>
+                <!-- employee ID Column -->
+                <ng-container matColumnDef="employeeName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                    <td mat-cell *matCellDef="let element">{{element?.name}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">
+                        <div class="text-center d-block border-bottom-0">
+                            <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                            <h6 class="no-record mt-3">No Data Available</h6>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <!-- End : Table -->
+    </div>
+</div>

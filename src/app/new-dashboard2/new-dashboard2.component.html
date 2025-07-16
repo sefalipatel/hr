@@ -1,0 +1,486 @@
+<div class="fireworks {{ isBirthday || isWorkAnniversary ? 'd-flex' : 'd-none' }}">
+  <h1>Happy {{ isBirthday ? 'Birthday!' : 'Work Anniversary!' }}</h1>
+  <canvas #canvas></canvas>
+</div>
+<section class="ink-dashboard">
+  <div>
+    <app-dashboard-notification></app-dashboard-notification>
+  </div>
+  <div class="row">
+    <div class="col-xxl-8 col-xl-8 col-lg-12 mt-4 mt-xl-0 mt-xl-0">
+      <div class="morning-card custom-space">
+        <div class="d-flex justify-content-between">
+          <div class="text-side">
+            <div class="title">
+              <h6> <span> {{ greeting }}!</span></h6>
+            </div>
+            <div class="designation" *ngFor="let user of profileData"> {{user?.employeeName}}</div>
+          </div>
+          <div class="img-side">
+            <img src="assets/images/dashboard-2/d-1.png" alt="img" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-xl-4 col-lg-12">
+      <div class="row company-policy">
+        <div class="col-6 ">
+          <div class="btn btn-1 w-100 mt-3" [routerLink]="'/company-policy'"> Company HR Policy </div>
+        </div>
+        <div class="col-6 ">
+          <div class="btn btn-2 w-100 mt-3" [routerLink]="'/companyprofile'"> Company Profile </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-lg-12 mt-4">
+      <div class="profile-card custom-space ink-card">
+        <app-dashboard-profile></app-dashboard-profile>
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-lg-12 mt-4">
+      <div class="working-hr-card custom-space ink-card h-100">
+        <app-chart></app-chart>
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-lg-12 mt-4">
+      <div class="punch-card custom-space ink-card h-100">
+        <div class="top-text">
+          <div class="text-1">Attendance</div>
+          {{ totalhors?.punchTime | date: dateFormat + ' ' + timeFormat }}
+        </div>
+        <div class="round-graph mt-4"> 
+          <app-dashboard-attendance-view></app-dashboard-attendance-view>
+
+        </div>
+
+        <div class="btn btn-2 mb-4"> Productivity Hours :{{ totalhors?.workingHour}}</div>
+
+        <div class="timing">
+          <img src="assets/images/dashboard-2/d-4.png" alt="img" />
+          <span>
+            Punch In at <span style="font-weight: 600;">{{ totalhors?.punchTime | date: 'mediumTime' }}</span>
+          </span>
+        </div>
+
+        <div class="btn btn-1 w-100" [routerLink]="'/attendance'"> View Attendance </div>
+ 
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-md-12 mt-4">
+      <div class="attendance-card custom-space ink-card h-100">
+        <app-dashboard-attendance-and-leave></app-dashboard-attendance-and-leave>
+      </div>
+    </div>
+
+    <div class="col-xxl-8 col-xl-8 col-md-12">
+      <div class="row">
+        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-12 mt-4">
+          <div class="four-box custom-space ink-card">
+            <div class="icon color-1">
+              <i class="ri-settings-5-line"></i>
+            </div>
+            <div class="digit">{{ totalhors?.workingHour }} / 8 </div>
+            <p> Total Hours Today </p>
+            <hr />
+            <div class="flex-box">
+              <div class="icon-up">
+                <i class="ri-arrow-up-line"></i>
+              </div>
+              <span> {{ TodayPercentage }}% Today </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-12 mt-4">
+          <div class="four-box custom-space ink-card">
+            <div class="icon color-2">
+              <i class="ri-settings-5-line"></i>
+            </div>
+            <div class="digit"> {{ TotalWeek}} / 40 </div>
+            <p> Total Hours Week </p>
+            <hr />
+            <div class="flex-box">
+              <div class="icon-up">
+                <i class="ri-arrow-up-line"></i>
+              </div>
+              <span>{{ WeeklyPercentage}}% This Week </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-12 mt-4">
+          <div class="four-box custom-space ink-card">
+            <div class="icon color-3">
+              <i class="ri-settings-5-line"></i>
+            </div>
+            <div class="digit">{{TotalMonth}}/ 176 </div>
+            <p> Total Hours Month </p>
+            <hr />
+            <div class="flex-box">
+              <div class="icon-up">
+                <i class="ri-arrow-up-line"></i>
+              </div>
+              <span> {{ MonthPercentage }}% Last Month</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-12 mt-4">
+          <div class="four-box custom-space ink-card">
+            <div class="icon color-4">
+              <i class="ri-settings-5-line"></i>
+            </div>
+            <div class="digit"> {{ TotalOvertimeMonth }} / 176 </div>
+            <p> Overtime This Month </p>
+            <hr />
+            <div class="flex-box">
+              <div class="icon-up">
+                <i class="ri-arrow-up-line"></i>
+              </div>
+              <span> {{ OvertimePercentage }}% Last Month </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="horizontal-graph ink-card mt-4">
+        <div class="top-text">
+          <div class="row">
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-2">
+              <div class="total-hour color-4">
+                <div class="text"> Working Hours </div>
+                <div class="hr"> {{ totalhors?.workingHour }} </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-2">
+              <div class="total-hour color-4">
+                <div class="text"> Productivity Hours </div>
+                <div class="hr"> {{ totalhors?.workingHour }} </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-2">
+              <div class="total-hour color-2">
+                <div class="text"> Break Hours </div>
+                <div class="hr"> {{totalhors?.breakTime }} </div>
+              </div>
+            </div>
+            <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-6 mb-2">
+              <div class="total-hour color-1">
+                <div class="text"> Overtime </div>
+                <div class="hr"> {{totalhors?.overtime }} </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="graph-box pt-4 pb-3 px-3 text-center">
+          <app-dashboard-attendance-timeline></app-dashboard-attendance-timeline>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-lg-12  col-sm-12 mt-4">
+      <div class="today-leave-card custom-space ink-card h-100">
+        <app-today-on-leave></app-today-on-leave>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-xl-4 col-lg-12  col-sm-12 mt-4 d-grid">
+      <div class="vertical-box blue-1">
+        <div class="flex-wrap">
+           <div>
+            <div class="text">
+              <div class="ink-title">Time Sheet</div>
+              <div class="small-text">Streamline your time tracking</div>
+            </div>
+            <div class="btn-box">
+              <div class="btn" [routerLink]="['/home/time-card']"> add </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-box blue-2 mt-4">
+        <div class="overlay"></div>
+        <app-upcomeing-holiday></app-upcomeing-holiday>
+      </div>
+      <div class="vertical-box blue-3 mt-4">
+        <app-resignation-form></app-resignation-form>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-xl-4 col-lg-12  col-sm-12 mt-4">
+      <div class="bday-card ink-card h-100">
+        <app-birthday></app-birthday>
+      </div>
+    </div>
+
+    <div class="col-xxl-8 col-xl-8 col-md-12 mt-4">
+      <div class="project-card ink-card">
+        <app-dashboard-projects></app-dashboard-projects>
+      </div>
+    </div>
+
+    <div class="col-xxl-4 col-xl-4 col-md-12 h-100">
+      <div class="announcement-box custom-space ink-card mt-4">
+        <div class="ink-title">Announcement</div>
+        <div class="height-set">
+          <div class="">
+            <ngx-slick-carousel class="carousel poll_carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <ng-container *ngFor="let announcement of announcementList">
+                <div class="slick-carousel announcement-slide" ngxSlickItem>
+                  <div class="inside-box">
+                    <div class="img-info d-flex align-items-center">
+                      <div class="img" *ngIf="announcement?.profilePicture">
+                        <img [src]="transformImagePath(announcement?.profilePicture)" alt="img" />
+                      </div>
+                      <div *ngIf="!announcement?.profilePicture" class="avtar avtar-s rounded-circle me-2"
+                        [ngStyle]="{'background': stringToColor(announcement?.createdBy)}">
+                        <b class="f-14">{{generateInitials(announcement?.createdBy)}}</b>
+                      </div>
+                      <div class="info ms-3">
+                        <div class="dark">{{ announcement?.createdBy }}</div>
+                        <div class="light">{{ announcement?.createdOn | timeAgo }}</div>
+                      </div>
+                    </div>
+                    <div class="content">
+                      <div class="dark">{{ announcement?.subject }}</div>
+                      <p>{{ announcement?.comment }}</p>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ngx-slick-carousel>
+            <ng-template #noRecordFound>
+              <div class="text-center d-block border-bottom-0 nodata_found_block">
+                <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                <p class="no-record mt-3">No Data Available</p>
+              </div>
+            </ng-template>
+          </div>
+          <div class="position-img">
+            <img src="assets/images/dashboard-2/d-8.png" alt="img" />
+          </div>
+        </div>
+      </div>
+      <div class="goal-box custom-space ink-card mt-4">
+        <div class="ink-title" role="button" (click)="onGoalList()"> Goal </div>
+        <div class="position-icon" (click)="onGoalList()">
+          <div class="icon">
+            <i class="ri-focus-2-line"></i>
+          </div>
+        </div>
+
+        <ngx-slick-carousel class="carousel poll_carousel" #slickModal="slick-carousel" [config]="slideConfig1">
+          <ng-container *ngFor="let list of goalList">
+            <div class="slick-carousel goal_list_detail" ngxSlickItem>
+              <div class="goal_description">
+                <p class="goal_type">{{list?.subject}}</p> 
+                <p class="goal_description">{{list?.description}}</p>
+              </div>
+            </div>
+          </ng-container>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+
+    <div class="col-xxl-8 col-xl-8 col-md-12">
+      <div class="row">
+        <div class="col-md-6 mt-4">
+          <div class="to-do-card custom-space ink-card">
+            <div class="height-set">
+              <div class="ink-title" (click)="onToDoList()" role="button">Todo</div>
+              <div class="timeline-box">
+                <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                  <ul class="timeline scrollbox-content p-0 m-0">
+                    <li class="timeline-item" *ngFor="let data of toDoList">
+                      <span class="dot"></span>
+                      <div class="content">{{ data?.title }}
+                        <span class="text-end" *ngIf="data.isImportant === true">
+                          <i class="ri-star-line fs- icon-warning"></i>
+                        </span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div *ngIf="!toDoList?.length" class="no_data_found_imge">
+                <div class="h-100 d-flex justify-content-between align-items-center w-100">
+                  <div class="text-center d-block border-bottom-0 nodata_found_block w-100">
+                    <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                    <p class="no-record mt-3">No Data Available</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-4">
+          <div class="word-anni-card custom-space ink-card h-100">
+            <app-work-anniversary></app-work-anniversary>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="show-hands-card custom-space ink-card mt-4">
+            <div class="ink-title mb-3"> Show of Hands </div>
+            <div class="row">
+              <div class="height-set">
+                <app-dashboard-poll></app-dashboard-poll>
+              </div>
+            </div>
+          </div>
+          <div class="warning-card custom-space ink-card mt-4 ps-4">
+            <div class="ink-title mb-4" [routerLink]="'/user/warning-details'" role="button"> Warning </div>
+            <div class=" d-flex align-items-center">
+              <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                <ul class="warning-list scrollbox-content">
+                  <li class="text" *ngFor="let warning of getAllUserWarning">
+                    {{ warning?.comment }}
+                  </li>
+                </ul>
+              </div> 
+              <div *ngIf="!getAllUserWarning?.length" class="no_data_found_imge">
+                <div class="h-100 d-flex justify-content-between align-items-center w-100">
+                  <div class="text-center d-block border-bottom-0 nodata_found_block w-100">
+                    <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                    <p class="no-record mt-3">No Data Available</p>
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-4">
+          <div class="feed-sug-card custom-space ink-card">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+                  type="button" role="tab" aria-controls="pills-home" aria-selected="true"
+                  [ngClass]="{'active': activeTab === 'suggestion'}"
+                  (click)="activeTab = 'suggestion'">Suggestion</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+                  type="button" role="tab" aria-controls="pills-profile" aria-selected="false"
+                  [ngClass]="{'active': activeTab === 'feedback'}" (click)="activeTab = 'feedback'">Feedback</button>
+              </li>
+            </ul>
+            <div class="route_icon" [routerLink]="['/feedback-suggestions']">
+              <i class="ri-arrow-right-line"></i>
+            </div>
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+              <div class="tab-content height-set scrollbox-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"
+                  tabindex="0" *ngIf="activeTab === 'suggestion'">
+                  <div class="suggestion-body" *ngFor="let item of suggestions">
+                    <div *ngIf="item?.suggestionType == 0">
+                      <div class="icon-name d-flex align-items-center">
+                        <div class="icon">
+                          <i class="ri-lightbulb-line"></i>
+                        </div>
+                        <div class="name fw-bold ms-3">
+                          {{ item.createPerson }} - {{ item.subject }}
+                        </div>
+                      </div>
+                      <div class="light-text">
+                        <p>
+                          {{ item?.comment }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="img-box w-100 text-end">
+                    <div *ngIf="!suggestions?.length" class="no_data_found_imge">
+                      <div class="h-100 d-flex justify-content-between align-items-center w-100">
+                        <div class="text-center d-block border-bottom-0 nodata_found_block w-100">
+                          <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                          <p class="no-record mt-3">No Data Available</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pills-profile" class="" role="tabpanel"
+                  aria-labelledby="pills-profile-tab" tabindex="0" *ngIf="activeTab === 'feedback'">
+                  <div class="feedback-body" *ngFor="let item of getFeedbackData">
+                    <div *ngIf="item?.suggestionType == 1">
+                      <div class="icon-name d-flex align-items-center">
+                        <div class="icon">
+                          <i class="ri-lightbulb-line"></i>
+                        </div>
+                        <div class="name fw-bold ms-3">
+                          {{ item.createPerson }} - {{ item.subject }}
+                        </div>
+                      </div>
+                      <div class="light-text">
+                        <p>
+                          {{ item?.comment }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="img-box w-100 text-end">
+                    <div *ngIf="!getFeedbackData?.length" class="no_data_found_imge">
+                      <div class="h-100 d-flex justify-content-between align-items-center w-100">
+                        <div class="text-center d-block border-bottom-0 nodata_found_block w-100">
+                          <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                          <p class="no-record mt-3">No Data Available</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xxl-4 col-xl-4 col-md-12">
+      <div class="ticket-status-card mt-4 ink-card">
+        <app-dashboard-ticket-widget></app-dashboard-ticket-widget>
+      </div>
+      <div class="complain-card mt-4 custom-space ink-card">
+        <div class="ink-title" [routerLink]="['/feedback-suggestions']"> Complain </div>
+        <div class="content height-set">
+          <div class="row"> 
+            <div class="col-md-12">
+              <div class="bg-text">
+                <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                  <ul class="scrollbox-content">
+                    <li *ngFor="let item of complainRecords">
+                      <div class="recent_notification" *ngIf="item?.suggestionType == 2">
+                        {{ item?.subject }} - {{ item?.comment }}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="right-images">
+              <div *ngIf="!complainRecords?.length" class="no_data_found_imge">
+                <div class="h-100 d-flex justify-content-between align-items-center w-100">
+                  <div class="text-center d-block border-bottom-0 nodata_found_block w-100">
+                    <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                    <p class="no-record mt-3">No Data Available</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="img-box">
+                <img src="../../assets/images/dashboard-2/d-13-removebg-preview.png" alt="img" />
+              </div>
+            </div>
+            <div class="col-md-6"></div>
+          </div>
+          <div class="position-img">
+            <img class="img-1" src="assets/images/dashboard-2/d-13-1.png" alt="img" />
+            <img class="img-2" src="assets/images/dashboard-2/d-13-2.png" alt="img" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

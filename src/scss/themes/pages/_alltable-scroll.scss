@@ -1,0 +1,144 @@
+.employee_list_tableview,
+.meeting_tableview,
+.shift_schedule_tableview,
+.usershift_tableview,
+.timesheet_tableview,
+.expencetype_tableview,
+.clientlist_tableview,
+.asignuser_tableview,
+.project_tableview,
+.ticketlist_tableview,
+.assetshistory_tableview,
+.invoicelist_tableview,
+.eployee_insurance_list_tableview,
+.userleave_tableview,
+.adminattendance_tableview,
+.adminrequestapproval_tableview,
+.userrequestlist_tableview,
+.assetscomponent_tableview,
+.assignmentcategory_tableview,
+.assetcategory_tableview,
+.rolelist_tableview,
+.designation_tableview,
+.orglist_tableview,
+.tampletlist_tableview,
+.emailsetting_tableview,
+.expenselist_tableview,
+.payroll_earning_tableview,
+.payroll_tableview,
+.employee_salary_tableview,
+.insurancelist_tableview,
+.gratuity_tableview,
+.loanlist_tableview,
+.appraisal_tableview,
+.bonusmaster_tableview,
+.companypolicy_tableview,
+.broadcastlist_tableview,
+.questiontype_tableview,
+.reviewmaster_tableview,
+.jobinquiery_tableview,
+.adminfeedbck_tableview,
+.polldetail_tableview,
+.warning_tableview,
+.promotionlist_tableview,
+.terminationlist_tableview,
+.selfreview_tableview,
+.resignationlist_tableview,
+.feedbacksuggestions_tableview,
+.userleavedetail_tableview,
+.attendance_tableview,
+.dashboarduserwarning_tableview,
+.roombooikng_repot_tableview,
+.person_checkinout,
+.bank_information_finance,
+.subscription_tableview,
+.familydetails_tableview,
+.salarytab_tableview,
+.documentdetail_viewtable,
+.bulkdocument_viewtable,
+.emloyeeensurance_viewtable {
+    background-color: white;
+
+    .fixTableHead thead th {
+        position: sticky;
+        top: -1px;
+    }
+
+    .scrollbox {
+        max-height: 650px;
+        overflow: auto;
+        visibility: hidden;
+        min-height: auto;
+        padding: 0 3px 0 0;
+    }
+
+    .scrollbox-content,
+    .scrollbox:hover,
+    .scrollbox:focus {
+        visibility: visible;
+        // padding: 0 2px 0 0;
+    }
+
+    .scrollbox_delayed {
+        transition: visibility 0.2s;
+    }
+
+    .scrollbox_delayed:hover {
+        transition: visibility 0s 0.2s;
+    }
+
+
+
+    .table_scroll_block {
+        max-height: 650px;
+        overflow: hidden;
+        min-height: 320px;
+        height: auto;
+
+        &:hover {
+            overflow: auto;
+            transition: opacity 0.3s ease;
+        }
+
+
+    }
+
+    table {
+        th {
+            tr {
+                z-index: 99;
+            }
+        }
+
+        thead {
+            th {
+                z-index: 9;
+            }
+        }
+    }
+
+
+    ::-webkit-scrollbar {
+        width: 5px !important;
+        height: 5px !important;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f0f0f0 !important;
+        border-radius: 10px !important;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #ccccd7 !important;
+        border-radius: 10px !important;
+        transition: background 0.3s !important;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #ccccd7 !important;
+    }
+}
+
+.mat-mdc-paginator-range-label {
+    margin: 0 9px 0 9px !important;
+}

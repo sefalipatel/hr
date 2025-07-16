@@ -1,0 +1,57 @@
+<div class="col-sm-12 border rounded bg-white">
+    <form class="leave_form bg-white p-20  universal-form" [formGroup]="addressForm">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Country</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter county name"
+                                formControlName="country">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">State</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter state name"
+                                formControlName="state">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">City</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter city name"
+                                formControlName="city">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Address</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter county name"
+                                formControlName="address">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-0">
+                        <mat-label class="label_name">Zip Code</mat-label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput class="form-control shadow-none" placeholder="Enter county name"
+                                formControlName="zipCode">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex my-3 mx-4 border-top justify-content-end pt-3">
+            <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill" (click)="submit()">Save</button>
+            <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="onList()">Cancel</button>
+        </div>
+    </form>
+</div>

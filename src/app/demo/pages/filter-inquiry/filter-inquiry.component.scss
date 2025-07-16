@@ -1,0 +1,151 @@
+.mat-mdc-form-field:hover .mat-mdc-form-field-focus-overlay {
+    border: 1px solid gray;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background: white !important;
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 3px;
+}
+
+.mdc-line-ripple {
+    display: none;
+}
+
+.mat-mdc-form-field-focus-overlay {
+    background-color: white;
+}
+
+.header_job {
+    h4 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+}
+
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.btn_section {
+    .btn {
+        svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            margin-right: 10px;
+        }
+
+        &:hover {
+            svg {
+                fill: #3e4095;
+            }
+        }
+    }
+}
+
+.mat-expansion-panel {
+    padding: 0 10px;
+}
+
+.mat-expansion-indicator::after {
+    display: none !important;
+}
+
+.mat-expansion-panel-header-title {
+    display: block !important;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        text-wrap: nowrap;
+
+        span {
+            font-weight: 600;
+        }
+    }
+}
+
+.mat-expansion-panel-header-description {
+    justify-content: end;
+}
+
+.mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none !important;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ebebeb;
+}
+
+.mat-expansion-panel-header-description a {
+    color: #1890ff !important;
+    border: 1px solid #1890ff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover {
+    background: white !important;
+}
+
+.mat-expansion-panel-header:not([aria-disabled=true]) {
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+    flex-grow: 4 !important;
+}
+
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description {
+    margin-right: 0px !important;
+}
+
+.mat-expansion-panel-body {
+    padding: 0 10px 10px !important;
+}
+
+.content {
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 23px;
+
+        span {
+            font-weight: 600;
+        }
+    }
+} 
+
+.back_btn {
+    position: relative;
+    left: auto;
+    top: 5px;
+
+    .btn {
+        height: 34px;
+        width: 34px;
+        border-radius: 100%;
+        line-height: 19px;
+        background: #d5ecff;
+        color: #000;
+        margin-bottom: 18px;
+        box-shadow: none;
+        border: 1px solid #1890ff;
+    }
+
+    svg {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 20px;
+        fill: #3e4095;
+    }
+}

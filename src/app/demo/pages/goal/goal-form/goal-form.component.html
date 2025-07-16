@@ -1,0 +1,121 @@
+<div class="inside-page org-presentation-page">
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6"> {{id ? 'Update' : 'Add'}} Goal </h5>
+    </div>
+    <div class="row px-3">
+        <div class="col-md-12 p-3   bg-white border-top-0 universal-form">
+            <form [formGroup]="goalForm" class="">
+                <div class="card full-size-card border-0 mb-0">
+                    <div class="pb-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Goal Type<span
+                                            class="text-danger">*</span></mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="goalTypeId" required
+                                            placeholder="Select goal type">
+                                            <mat-option *ngFor="let type of goalTypeList" [value]="type.id">
+                                                {{type?.type}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['goalTypeId'].touched) && goalFormControl['goalTypeId'].errors?.['required']">Goal
+                                        type
+                                        is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Subject<span class="text-danger">*</span></mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input type="text" matInput formControlName="subject"
+                                            placeholder="Enter subject" class="form-control"
+                                            (blur)="trimNameOnBlur('subject')" appTrimOnBlur>
+                                    </mat-form-field>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['subject'].touched) && goalFormControl['subject'].errors?.['required']">Subject
+                                        is required
+                                    </span>
+                                </div>
+                            </div> 
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Start Date<span class="text-danger">*</span>
+                                    </mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput [matDatepicker]="sdpicker" formControlName="startDate"
+                                            placeholder="Enter start date" />
+                                        <mat-datepicker-toggle matSuffix [for]="sdpicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #sdpicker></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['startDate'].touched) && goalFormControl['startDate'].errors?.['required']">Start
+                                        date
+                                        is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <mat-label class="label_name">End Date<span class="text-danger">*</span>
+                                    </mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <input matInput [matDatepicker]="edpicker" formControlName="endDate" required
+                                            placeholder="Enter end date" />
+                                        <mat-datepicker-toggle matSuffix [for]="edpicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #edpicker></mat-datepicker>
+                                    </mat-form-field>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['endDate'].touched) && goalFormControl['endDate'].errors?.['required']">End
+                                        date is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Status<span class="text-danger">*</span></mat-label>
+                                    <mat-form-field class="w-100" appearance="outline">
+                                        <mat-select formControlName="status" required placeholder="Select status">
+                                            <mat-option *ngFor="let goalStatus of status" [value]="goalStatus.id">
+                                                {{goalStatus?.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['status'].touched) && goalFormControl['status'].errors?.['required']">Status
+                                        is required
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group textarea-input">
+                                    <mat-label class="label_name">Description<span
+                                            class="text-danger">*</span></mat-label>
+                                    <textarea matInput class="form-control w-100" formControlName="description"
+                                        name="Description" (blur)="trimNameOnBlur('description')"></textarea>
+                                    <span class="text-danger mt-2 d-block"
+                                        *ngIf="(goalFormControl['description'].touched) && goalFormControl['description'].errors?.['required']">Description
+                                        is required
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end py-3">
+                        <button type="submit" (click)="addgoal()"
+                            class="btn btn-primary rounded-pill px-4 py-2 me-3">save</button>
+                        <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2" (click)="onList()">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</div>

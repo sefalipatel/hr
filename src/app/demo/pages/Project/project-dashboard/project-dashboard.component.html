@@ -1,0 +1,171 @@
+<div class="page-top-header mb-0">
+    <h5 class="card-subtitle mt-0">Project</h5>
+</div>
+<section class="project-dash-page bg-white">
+    <div class="border-bg-set">
+
+        <div class="row px-3">
+            <div class="col-xl-4 col-lg-4 col-md-4 mt-3">
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 mt-3">
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 mt-3">
+                <div class="d-flex justify-content-end align-items-center mt-2 project_detail_top">
+                    <div class="nav-icons d-flex align-items-center">
+                        <i role="button" class="ri-grid-line {{view==='card'?'btn-primary':'btn-secondary'}}"
+                            (click)="view = 'card';projectByUser()"></i>
+                        <i role="button" class="ri-menu-line ms-3 {{view==='list'?'btn-primary':'btn-secondary'}}"
+                            (click)="view = 'list'"></i>
+                    </div>
+                    <div class="btn-box ms-3" *ngIf="userRole[0]?.canAdd">
+                        <button type="button" class="btn btn-primary rounded-pill px-4 py-2"
+                            (click)="onBtnClick()">Create
+                            Project</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="row row-flex px-3 mb-3" *ngIf="view == 'card'">
+            <!-- cards -->
+            <div class="employee_detail_main ">
+                <div class="inner_employee_detail">
+                    <div class="tab_main">
+                        <div class="second_tab_inner">
+                            <div class="project_card row">
+                                <div class="col-lg-6 col-md-6 col-xl-4 col-xxl-4 mt-3" *ngFor="let card of cardData">
+                                    <div class="project_card_block">
+                                        <div class="cotent_between">
+                                            <div class="d-flex justify-content-between">
+                                                <h3>{{card?.projectName ? card?.projectName : card?.name}}</h3> 
+                                                <div class="wrap-set">
+
+
+                                                    
+                                                    <div (click)="assignUser(card.id)" *ngIf="userRole[0]?.canEdit">
+                                                        <i class="ri-shield-user-line " role="button"
+                                                            matTooltip="Assign User"></i> 
+                                                    </div>
+                                                    <div matTooltip="Edit" role="button" (click)="editProject(card.id)"
+                                                        *ngIf="userRole[0]?.canEdit">
+                                                        <i class="ri-edit-box-line"></i>
+                                                    </div>
+                                                    <div matTooltip="Delete" role="button" (click)="deleteProject(card)"
+                                                        *ngIf="userRole[0]?.canDelete">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </div>
+                                                    
+                                                    <div matTooltip="Project Details" role="button"
+                                                        (click)="projectSprintTask(card?.id ?? card?.projectId)">
+                                                        <i class="ri-list-view"></i>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            <div class="project_detail">
+                                                <p>{{card?.description}}</p>
+                                            </div>
+                                            <div class="project_deadline d-flex justify-content-between">
+                                                <div class="startdate">
+                                                    <p>Start Date&nbsp;:</p>
+                                                    <p>{{card?.startDate | date: dateFormat}}</p>
+                                                </div>
+                                                <div class="deadlinedate">
+                                                    <p>End Date&nbsp;:</p>
+                                                    <p>{{card?.endDate | date: dateFormat}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="project_leader mt-2">
+                                                <p class="me-2">Project Leader&nbsp;:</p>
+                                                <ng-container *ngIf="card?.projectManager?.employeeName; else manager">
+
+                                                    <div [matTooltip]="card?.projectManager?.employeeName+'('+(card?.projectManager?.designation +')' )"
+                                                        class="profile_image_avtar rounded-circle"
+                                                        [ngStyle]="{'background': stringToColor(card?.projectManager?.employeeName)}">
+                                                        <img *ngIf="card?.projectManager?.profilePicture"
+                                                            class="img-fluid"
+                                                            [src]="transformImage(card?.projectManager?.profilePicture)"
+                                                            alt="avtar">
+                                                        <b *ngIf="!card?.projectManager?.profilePicture"
+                                                            class="f-14">{{generateInitials(card?.projectManager?.employeeName)}}</b>
+                                                    </div>
+                                                </ng-container>
+                                                <ng-template #manager>
+
+                                                    <div [matTooltip]="card?.projectLeader?.employeeName+'('+(card?.projectLeader?.designation +')' )"
+                                                        class="profile_image_avtar rounded-circle"
+                                                        [ngStyle]="{'background': stringToColor(card?.projectLeader?.employeeName)}">
+                                                        <img *ngIf="card?.projectLeader?.profilePicture"
+                                                            class="img-fluid"
+                                                            [src]="transformImage(card?.projectLeader?.profilePicture)"
+                                                            alt="avtar">
+                                                        <b *ngIf="!card?.projectLeader?.profilePicture"
+                                                            class="f-14">{{generateInitials(card?.projectLeader?.employeeName)}}</b>
+                                                    </div>
+                                                </ng-template>
+
+                                            </div>
+                                            <div class="teammember">
+                                                <p class="me-2">Team&nbsp;:</p>
+                                                <ul class="d-flex align-items-center p-0">
+                                                    <ng-container *ngIf="card?.projectMembers; else members">
+
+                                                        <li *ngFor="let member of card?.projectMembers; let i = index">
+                                                            <div *ngIf="i<5">
+                                                                <div [matTooltip]="member?.employeeName+'('+(member?.designation +')' )"
+                                                                    class=" profile_image_avtar rounded-circle"
+                                                                    [ngStyle]="{'background': stringToColor(member?.employeeName)}">
+
+                                                                    <img *ngIf="member?.profilePicture"
+                                                                        class="img-fluid"
+                                                                        [src]="transformImage(member?.profilePicture)"
+                                                                        alt="avtar">
+                                                                    <b *ngIf="!member?.profilePicture"
+                                                                        class="f-14">{{generateInitials(member?.employeeName)}}</b>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-container>
+
+                                                    <ng-template #members>
+                                                        <li *ngFor="let member of card?.projectMember; let i = index">
+                                                            <div *ngIf="i<5">
+                                                                <div [matTooltip]="member?.employeeName+'('+(member?.designation +')' )"
+                                                                    class="profile_image_avtar rounded-circle"
+                                                                    [ngStyle]="{'background': stringToColor(member?.employeeName)}">
+
+                                                                    <img *ngIf="member?.profilePicture"
+                                                                        class="img-fluid"
+                                                                        [src]="transformImage(member?.profilePicture)"
+                                                                        alt="avtar">
+                                                                    <b *ngIf="!member?.profilePicture"
+                                                                        class="f-14">{{generateInitials(member?.employeeName)}}</b>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-template>
+                                                </ul>
+                                            </div>
+                                            <div class="progress_bar mt-4 mb-0">
+                                                <p>Status</p>
+                                                <p class="blue">{{convertStatus(card?.status) }}</p>
+                                            </div>
+                                            <div class="technologies  mb-0">
+                                                <p>Technologies</p>
+                                                <p>{{card?.technologySpecification}}</p>
+                                            </div>
+                                            <div class="priority">
+                                                <p>Priority</p>
+                                                <p class="sky">{{convertPriority(card?.priority)}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- table-list call -->
+        <app-project *ngIf="view == 'list'"></app-project>
+    </div>
+</section>

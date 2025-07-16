@@ -1,0 +1,91 @@
+<div class="inside-page org-presentation-page row px-3">
+
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6">{{id ? 'Update' : 'Add'}} Poll</h5>
+    </div>
+    <!-- Start : Form -->
+    <div class="card p-3">
+        <form [formGroup]="pollForm" class="border-light-blue border-top-0 universal-form" (ngSubmit)="onSubmit()">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="label_name mb-2">Department</label>
+                    <mat-select formControlName="departmentId" placeholder="Select department" class="form-control">
+                        <mat-option [value]="allDepartmentValue">All Department</mat-option>
+                        <mat-option *ngFor="let department of departmentList"
+                            [value]="department?.id">{{department?.departmentName}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-0">
+                        <label class="label_name required mb-2">End Date<span class="text-danger">*</span>
+                        </label>
+                        <mat-form-field class="w-100" appearance="outline">
+                            <input matInput [matDatepicker]="sdpicker" formControlName="endDate"
+                                placeholder="Enter Date" [matDatepickerFilter]="dateFilter" />
+                            <mat-datepicker-toggle matSuffix [for]="sdpicker"></mat-datepicker-toggle>
+                            <mat-datepicker #sdpicker></mat-datepicker>
+                        </mat-form-field>
+                        <div *ngIf="pollForm.controls['endDate'].touched && pollForm.controls['endDate'].hasError('required')"
+                            class="text-danger"> End date is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"> 
+                    <label class="label_name">Title<span class="text-danger">*</span></label> 
+                    <angular-editor ngDefaultControl class="form-control border-0 p-0" formControlName="title">
+                    </angular-editor>
+                    <mat-error *ngIf="pollForm.get('title').hasError('required') && pollForm.get('title').touched">
+                        Title is required
+                    </mat-error>
+
+                    <mat-error *ngIf="pollForm.get('title').hasError('whitespace') && pollForm.get('title').dirty">
+                        Title cannot be only spaces
+                    </mat-error>
+
+                    <!-- </div> -->
+                </div>
+                <!-- Start : Choice field -->
+                <div class="col-md-12">
+                    <div formArrayName="pollChoices" class="col-md-12 mt-0">
+                        <div class="my-2" *ngFor="let choice of pollChoices.controls; let i=index">
+                            <div [formGroupName]="i">
+                                <label class="label_name" (blur)="trimNameOnBlur('choice')">Choice {{i + 1}}:<span
+                                        class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="choice">
+
+                                <mat-error
+                                    *ngIf="choice.get('choice').hasError('whitespace') && choice.get('choice').dirty">
+                                    Choice cannot be only spaces
+                                </mat-error>
+                            </div>
+                            <div class="d-flex mt-2 mb-3" *ngIf="i>0">
+                                <div *ngIf="pollChoices.length < 5">
+                                    <button class="btn btn-primary mt-2" (click)="addChoice()">
+                                        <span aria-hidden="true">+</span>
+                                    </button>
+                                </div>
+                                <div *ngIf="pollChoices.length > 2">
+                                    <button type="button" style="padding-left: 18px;padding-right: 18px;"
+                                        class="btn btn-danger mt-2 ms-3" (click)="removeChoice(i)">
+                                        <span aria-hidden="true">-</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End : Choice field -->
+                <div class="d-flex justify-content-end py-3">
+                    <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 me-3">Submit</button>
+                    <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2"
+                        (click)="onList()">Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+        <!-- End : Form -->
+
+    </div>
+</div>

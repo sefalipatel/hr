@@ -1,0 +1,203 @@
+<div class="page-top-header mb-3">
+  <h5 class="card-subtitle mt-0">Attendance</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove pb-3">
+
+    <div class="bg-white p-3">
+      <div class="row align-items-center">
+        <div class="col-md-4 mb-3">
+          <div class="month_year">
+            <div class="year_select_box">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                  (ngModelChange)="onYearSelected($event)" id="year" placeholder="select Year">
+                  <mat-option class="text-muted">Select Year </mat-option>
+                  <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="month_year">
+            <div class="year_select_box">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                  (ngModelChange)="onMonthSelected($event)" placeholder="select Month">
+                  <mat-option class="text-muted">Select Month </mat-option>
+                  <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{ month.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-start mb-3 d-flex align-items-center">
+          <button class="btn btn-primary rounded-pill px-4 py-2 me-2" mat-raised-button color="primary"
+            (click)="applyButton()">Apply</button>
+          <button class="btn btn-secondary rounded-pill px-4 py-2 me-2" mat-raised-button color="primary"
+            (click)="resetButton()">Reset</button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end my-3">
+        <button class="btn btn-primary rounded-pill px-4 py-2" (click)="exportJson()">Export to Excel</button>
+      </div>
+      <div class="row mt-3">
+        <div class="col-md-4">
+          <div class="attendance-box one">
+            <div class="icon">
+              <i class="ri-pie-chart-2-fill"></i>
+            </div>
+            <div class="texts">
+              <h5>Days Present</h5>
+              <h6>{{totalnumberPresant}}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="attendance-box two">
+            <div class="icon">
+              <i class="ri-calendar-schedule-fill"></i>
+            </div>
+            <div class="texts">
+              <h5>Leave</h5>
+              <h6>{{totalnumberAbsent}}</h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 ">
+          <div class="attendance-box three">
+            <div class="icon">
+              <i class="ri-wallet-2-fill"></i>
+            </div>
+            <div class="texts">
+              <h5>Leave Without Pay</h5>
+              <h6>0</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pc-component common_table px-3 pb-3 ">
+      <div class=" mb-0 attendance_tableview">
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+          <div class="mat-elevation-z8 shadow-none fixTableHead scrollbox-content   holiday_table">
+            <table class="apply_leave " mat-table [dataSource]="dataSource">
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <td mat-cell *matCellDef="let element"> {{ element.date | date: dateFormat}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"
+                  [ngClass]="{'text-danger': (element.status) === 'Absent','text-success': (element.status) === 'Present','text-warning ':(element.status) === 'WeeklyOff','text-primary ':(element.status) === 'Holiday'}">
+                  <div class="attendance-status">
+                    <i class="ri-stop-circle-line"
+                      [ngClass]="{' ri-close-circle-line': (element.status) === 'Absent','ri-checkbox-circle-fill': (element.status) === 'Present','ri-time-fill':(element.status) === 'WeeklyOff'}"></i>
+                    <span>{{ element.status}}</span>
+                  </div>
+                </td>
+              </ng-container>
+              <!-- Date Column -->
+              <ng-container matColumnDef="InTime">
+                <th mat-header-cell *matHeaderCellDef>In Time</th>
+                <td mat-cell *matCellDef="let element"> {{ transform(element.checkin_time)}}</td>
+              </ng-container>
+              <!-- Date Column -->
+              <ng-container matColumnDef="OutTime">
+                <th mat-header-cell *matHeaderCellDef>Out Time</th>
+                <td mat-cell *matCellDef="let element"> {{ transform(element.checkout_time)}} </td>
+              </ng-container>
+              <ng-container matColumnDef="WorkDurection">
+                <th mat-header-cell *matHeaderCellDef>Work Duration</th>
+                <td mat-cell *matCellDef="let element"> {{ transform(element.work_duration)}} </td>
+              </ng-container>
+              <ng-container matColumnDef="BreakDurection">
+                <th mat-header-cell *matHeaderCellDef>Break Duration</th>
+                <td mat-cell *matCellDef="let element"> {{ transform(element.break_duration) }} </td>
+              </ng-container>
+              <ng-container matColumnDef="TotalDurection">
+                <th mat-header-cell *matHeaderCellDef>Total Duration</th>
+                <td mat-cell *matCellDef="let element"> {{ transform(element.totalDuration) }} </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="Break">
+                <th mat-header-cell *matHeaderCellDef>Break</th>
+                <td mat-cell *matCellDef="let element"> {{ element.number_of_breaks }} </td>
+              </ng-container>
+              <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+                <td mat-cell *matCellDef="let element" class="text-center">
+                  <div>
+                    <svg matTooltip="Regularization Request" width="16px" height="16px" class="me-3"
+                      (click)="openPopup(element)" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                      <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                      <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          d="M8.5 17.5L5.5 20V15.5H2.46154C2.07391 15.5 1.70217 15.346 1.42807 15.0719C1.15398 14.7978 1 14.4261 1 14.0385V2.46154C1 2.07391 1.15398 1.70217 1.42807 1.42807C1.70217 1.15398 2.07391 1 2.46154 1H18.5385C18.9261 1 19.2978 1.15398 19.5719 1.42807C19.846 1.70217 20 2.07391 20 2.46154V6.8119"
+                          stroke="#094d95" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 5H16" stroke="#094d95" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path d="M5 9H10" stroke="#094d95" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path
+                          d="M17 19C19.2091 19 21 17.2091 21 15C21 12.7909 19.2091 11 17 11C14.7909 11 13 12.7909 13 15C13 17.2091 14.7909 19 17 19Z"
+                          stroke="#094d95" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                          d="M22 22C21.5167 21.3959 20.7962 20.8906 19.9155 20.5384C19.0348 20.1861 18.027 20 17 20C15.973 20 14.9652 20.1861 14.0845 20.5384C13.2038 20.8906 12.4833 21.3959 12 22"
+                          stroke="#094d95" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      </g>
+                    </svg>
+
+                    <svg class="me-3" matTooltip="IN/Out Time" (click)="viewAttendanceLog(element.id)" width="16px"
+                      height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path opacity="0.5" d="M20 6L3 6" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                      <path opacity="0.5" d="M10 11L3 11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                      <path opacity="0.5" d="M10 16H3" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                      <path d="M14 13.5L16.1 16L20 11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                    <img class="me-3" src="assets/images/overTime.png" matTooltip="Add Overtime"
+                      style="cursor: pointer;" width="16" height="16" (click)="overTimePopup(element)"
+                      alt="Over time icon">
+                    <span class="me-3">
+                      <i *ngIf="element?.status=='Absent'" class="ri-user-5-fill" matTooltip="Absent Request"
+                        style="cursor: pointer;font-size: 16px;" (click)="absentToPresentForm(element?.date)"></i>
+                    </span>
+                    <!-- Work From Home Icon -->
+                    <span class="me-3">
+                      <i class="ri-home-wifi-fill" matTooltip="Apply Work From Home"
+                        style="cursor: pointer;font-size: 16px;" (click)="WfhCompoffForm(element)"></i>
+                    </span>
+
+                    <!-- Comp Off Icon -->
+                    <span class="me-3">
+                      <i class="ri-briefcase-2-fill" matTooltip="Apply Comp Off"
+                        style="cursor: pointer;font-size: 16px;" (click)="CompOffForm(element)"></i>
+                    </span>
+                  </div>
+                </td>
+              </ng-container>
+              <!-- Header Rows -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <!-- Data Rows -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns.length">
+                  No Data Available
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

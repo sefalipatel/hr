@@ -1,0 +1,11 @@
+<mat-card class="confirmation-card delete_popup">
+  <mat-card-content>
+    <h6 class="confirmation-message fw-bold m-0">Are you sure you want to delete?</h6>
+  </mat-card-content>
+  <mat-card-actions class="confirmation-actions ">
+    <div class="button-container delete_popup_btn pt-1">
+      <button mat-button class="confirmation-button green" (click)="confirmDelete()">Yes</button>
+      <button mat-button class="confirmation-button red " (click)="cancelDelete()">No</button>
+    </div>
+  </mat-card-actions>
+</mat-card>

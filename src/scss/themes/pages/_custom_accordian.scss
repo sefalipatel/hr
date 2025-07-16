@@ -1,0 +1,150 @@
+.custom-accordian {
+  font-family: $font-family-sans-serif !important;
+
+  .mat-expansion-panel-header {
+    font-family: $font-family-sans-serif !important;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+
+    div,
+    .mat-expansion-panel-header-title {
+      font-family: $font-family-sans-serif !important;
+    }
+
+    li {
+      padding: 12px 50px;
+      position: relative;
+      border-bottom: 1px solid #eee;
+
+      span {
+        line-height: 24px;
+      }
+
+      ol {
+        li {
+          padding: 12px 15px;
+        }
+
+        li::after {
+          display: none;
+        }
+      }
+
+      h6 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        margin: 5px 0 0 0;
+        font-size: 14px;
+        color: #666;
+      }
+
+      &::after {
+        left: 25px;
+        top: 19px;
+        background: #3e4095;
+        border-radius: 100%;
+        width: 7px;
+        height: 7px;
+        position: absolute;
+        content: "";
+      }
+    }
+
+    li:last-child {
+      border-bottom: 0px solid #eee;
+    }
+
+    ::marker {
+      color: #3e4095;
+    }
+  }
+
+  blockquote {
+    margin: 0;
+  }
+
+  // .accordion-flush .accordion-item {
+  //   background: #fff !important;
+  //   border: 1px solid #eee;
+  //   margin-bottom: 30px;
+  // }
+
+  // h2.accordion-header {
+  //   margin: 0;
+  //   background: #d9f1ff;
+  // }
+
+  // .accordion-flush .accordion-collapse {
+  //   padding: 0;
+  // }
+
+  .mat-accordion .mat-expansion-panel-header {
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #262626;
+    background: #f2f2ff;
+    border-bottom: 0;
+    margin-bottom: 0px;
+    padding: 16px 30px;
+    height: auto;
+  }
+
+  .mat-expansion-panel:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+  }
+
+  .mat-expansion-panel-header.mat-expanded:focus,
+  .mat-expansion-panel-header.mat-expanded:hover {
+    background: #3e4095;
+    border-bottom: 1px solid #e8e8e8;
+
+    mat-panel-title,
+    .mat-expansion-indicator::after {
+      color: $white;
+    }
+  }
+
+  .mat-accordion .mat-expansion-panel:first-of-type {
+    margin-top: 0;
+  }
+
+  .mat-accordion .mat-expansion-panel:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 0;
+  }
+
+  .mat-expansion-panel {
+    margin: 20px 0;
+    border: 1px solid #e8e8e8 !important;
+  }
+
+
+  // new-mark
+  span.mat-content {
+    overflow: visible;
+  }
+
+  .new-mark {
+    img.shape-1 {
+      width: 70px;
+      position: absolute;
+      right: 10px;
+      top: -20px;
+    }
+
+    img {
+      width: 70px;
+    }
+  }
+
+}

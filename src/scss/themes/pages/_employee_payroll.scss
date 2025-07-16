@@ -1,0 +1,117 @@
+.payroll-master {
+    .card {
+        border: 1px solid #ddd;
+        background: $white;
+        padding: 15px;
+    }
+
+    label {
+        font-weight: 600;
+        width: -webkit-fill-available;
+        max-width: max-content;
+        margin-right: 15px;
+    }
+
+    .input-box {
+        height: 46px;
+        width: 100%;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        padding: 10px;
+    }
+
+    span {
+        width: 100%;
+        max-width: fit-content;
+    }
+
+    .manage-component {
+        h5 {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        h6 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 30px;
+        }
+
+        button {
+            position: relative;
+            padding: 12px;
+            text-align: start;
+            padding-left: 25px;
+
+            &.nav-link.active {
+                background: transparent;
+                color: #000;
+            }
+
+            &::after{
+                background: $blue;
+                position: absolute;
+                height: 7px;
+                width: 7px;
+                border-radius: 7px;
+                line-height: 7px;
+                content: "";
+                left: 5px;
+                top: 18px;
+            }
+        }
+    }
+
+    table {
+        thead {
+            td {
+                background: #eee;
+                font-weight: 600;
+            }
+        }
+
+        tr {
+            border: 1px solid #ddd;
+
+            h6 {
+                font-size: 16px;
+                color: red;
+                font-weight: 600;
+                padding: 10px 15px;
+            }
+
+            td {
+                max-width: -webkit-fill-available;
+                width: fit-content;
+                padding: 10px 15px;
+            }
+        }
+
+        tbody {
+            tr {
+                td {
+                    &:first-child {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+
+    .amount-final-box {
+        background: #eee;
+        padding: 10px 15px;
+
+        .texts {
+            font-weight: 600;
+
+            .title-name {
+                font-size: 14px;
+            }
+
+            .amount-name {
+                font-size: 16px;
+            }
+        }
+    }
+}

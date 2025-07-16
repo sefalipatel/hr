@@ -1,0 +1,100 @@
+$black: #000000;
+$white: #ffffff;
+$text-color: #909294;
+$primary: #1890ff;
+$light-primary: #bcdfff;
+$green: green;
+$orange: orange;
+$light_sky: #0088ff3d;
+$br_radius: 5px;
+$box_shadow: 0 2px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+$box-shadow_outer: 0 1px 4px #80808042;
+$color1: #faad14;
+$color2: #ff4d4f;
+$color3: #13c2c2;
+$color4: #52c41a;
+
+.pointer {
+    cursor: pointer;
+}
+
+.card_time_block {
+    ul {
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+        li {
+            width: 90%;
+            margin: 0 auto 30px;
+            box-shadow: 0 2px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+            background-color: #d9f1ff;
+        }
+    }
+}
+
+.mat-mdc-dialog-surface.mdc-dialog__surface {
+    width: 900px !important;
+}
+
+.top_three {
+    .lower-part {
+        height: 130px;
+
+        p {
+            margin: 0;
+        }
+    }
+}
+
+
+.main_date_card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .date_timesheet {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 18px;
+
+        span {
+
+            svg {
+                width: 34px;
+                height: 34px;
+                fill: $primary;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .time_timsheet {
+        text-align: center;
+
+        .hrs {
+            width: 80px;
+            height: 80px;
+            border: 3px solid $primary;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 6px;
+            background-color: white;
+        }
+
+        p {
+            margin: 0;
+            font-weight: 600;
+        }
+    }
+}
+
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 10px;
+}

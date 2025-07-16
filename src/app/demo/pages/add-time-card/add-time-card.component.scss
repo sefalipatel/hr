@@ -1,0 +1,60 @@
+.pointer {cursor: pointer;}
+.card_time_block{
+    ul{
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+
+            li {
+                width: 90%;
+                margin: 0 auto 32px;
+            }
+    }
+}
+
+
+.main_date_card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .date_timesheet {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 18px;
+
+        span {
+
+            svg {
+                width: 34px;
+                height: 34px;
+                fill: #1890ff;
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .time_timsheet {
+        text-align: center;
+        .hrs {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #1890ff;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 6px;
+            background-color: white;
+        }
+
+        p {
+            margin: 0;
+            font-weight: 600;
+        }
+    }
+}

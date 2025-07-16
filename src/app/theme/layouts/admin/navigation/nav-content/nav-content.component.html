@@ -1,0 +1,43 @@
+<ng-scrollbar class="main_sidebar_component" style="height: 99vh" id="nav-ps-skyttus-hrs" visibility="hover">
+
+
+  <div class="navbar-content">
+    <ul class="nav coded-inner-navbar scroll-container" (clickOutside)="fireOutClick()" (mouseleave)="navMob()">
+      <div class="app_nav_sidebar">
+        <ng-container *ngFor="let item of navigation">
+          <ng-container *ngIf="item">
+            <app-nav-group *ngIf="item.type === 'group'" [item]="item"></app-nav-group>
+            <app-nav-collapse *ngIf="item.type === 'collapse'" [item]="item"></app-nav-collapse>
+            <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+          </ng-container>
+
+        </ng-container>
+
+      </div>
+    </ul> 
+    <div class="bottom_block_section">
+      <div class="top_name_section">
+        <div class="image_sec">
+          <img class="img-fluid" src="../../../../../../assets/images/employeee.jpg" alt="image">
+        </div>
+        <div class="name_deg">
+          <p *ngFor="let user of profileData">{{user?.employeeName}}</p>
+          <p *ngFor="let user of profileData"> {{user?.department}}</p>
+        </div>
+        <div class="logout_btn">
+          <a class="btn" (click)="logout()"><span><svg width="30" height="30" viewBox="0 0 30 30" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.1429 8.73169H12.4286C12.0497 8.73169 11.6863 8.87849 11.4184 9.13979C11.1505 9.40109 11 9.75549 11 10.125V19.8784C11 20.2479 11.1505 20.6023 11.4184 20.8636C11.6863 21.1249 12.0497 21.2717 12.4286 21.2717H18.1429M21 15.0017L18.1429 12.215M21 15.0017L18.1429 17.7884M21 15.0017H13.8571"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="15" cy="15" r="14.5" stroke="white" />
+              </svg></span>Logout</a>
+        </div>
+      </div>
+      <div class="bottom_image">
+        <img class="img-fluid" src="../../../../../../assets/images/dashboard-2/sidebar.png" alt="images">
+      </div>
+    </div>
+  </div>
+
+</ng-scrollbar>

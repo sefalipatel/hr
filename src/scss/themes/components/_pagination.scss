@@ -1,0 +1,36 @@
+.pagination-format {
+  // border: 1px solid $blue;
+  // border: 1px solid #3e4095;
+  border-radius: 3px;
+
+  .mat-mdc-text-field-wrapper.mdc-text-field--outlined {
+    height: 35px !important;
+  }
+
+  // .mat-mdc-paginator {
+  //   background: #fbfbfb;
+  // }
+  .pagination-format .mat-mdc-paginator {
+    background: white;
+  }
+
+  .mat-mdc-form-field-flex {
+    height: 36px;
+    line-height: 13px;
+  }
+
+  .mat-mdc-paginator .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 0px;
+    padding-bottom: 5px;
+  }
+
+  .mat-mdc-icon-button.mat-mdc-button-base {
+    padding: 0;
+    height: 34px;
+    border: 1px solid #3e4095;
+    background: #f3f3ff;
+    width: 34px;
+    border-radius: 100%;
+    margin: 0 5px;
+  }
+}

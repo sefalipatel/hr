@@ -1,0 +1,77 @@
+<div class="page-top-header mb-3">
+    <h5 class="card-subtitle mt-0">Skytus Self-Assessment Form</h5>
+</div>
+<section class="self-assform bg-white ">
+
+    <div class="col-sm-12 p-3 custom-remove">
+
+
+        <form class="" action="" [formGroup]="userReviewForm">
+
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="e-card d-flex align-items-center">
+                        <label class="" style="font-size:16px;text-transform: capitalize;"
+                            for="">Title&nbsp;:&nbsp;</label>
+                        <h6 class="" style="font-size:16px;text-transform: capitalize;">
+                            {{reviewDetail?.title}}
+                        </h6>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <div class="e-card d-flex align-items-center">
+                        <label class="" style="font-size:16px;text-transform: capitalize;" for="">Review
+                            Type&nbsp;:&nbsp;</label>
+                        <h6 class="" style="font-size:16px;text-transform: capitalize;">
+                            {{ getReviewTypeName(reviewDetail?.type)}}
+                        </h6>
+                    </div>
+                </div>
+                <h6>
+                    {{reviewDetail?.departmentName}}
+                </h6>
+            </div>
+            <div class="row">
+
+                <ng-container *ngFor="let q of quetions; let i = index">
+                    <div class="col-md-6 mb-3">
+                        <div class="check-box border-0 p-0">
+                            <h6>{{q?.question}} *</h6>
+                            <ng-container *ngIf="q?.questionType == 1">
+                                <mat-button-toggle-group [formControlName]="'answer'+i" aria-label="Font Style"
+                                    class="border-0">
+                                    <mat-button-toggle class="btn btn-outline mx-2 border-left-0"
+                                        value="1">1</mat-button-toggle>
+                                    <mat-button-toggle class="btn btn-outline mx-2 border-left-0"
+                                        value="2">2</mat-button-toggle>
+                                    <mat-button-toggle class="btn btn-outline mx-2 border-left-0"
+                                        value="3">3</mat-button-toggle>
+                                    <mat-button-toggle class="btn btn-outline mx-2 border-left-0"
+                                        value="4">4</mat-button-toggle>
+                                    <mat-button-toggle class="btn btn-outline mx-2 border-left-0"
+                                        value="5">5</mat-button-toggle>
+                                </mat-button-toggle-group>
+                            </ng-container>
+                            <ng-container *ngIf="q?.questionType == 0">
+                                <input placeholder="Enter your review" [formControlName]="'answer'+i" type="email"
+                                    class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+
+
+            <div class="form-box"> 
+
+                <div class="d-flex btn-box justify-content-end mt-3"> 
+                    <div class="btn btn-primary rounded-pill " (click)="submit()">submit</div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</section>

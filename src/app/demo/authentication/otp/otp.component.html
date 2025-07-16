@@ -1,0 +1,33 @@
+<div class="auth-main login-page">
+    <div class="auth-wrapper v3">
+        <div class="auth-form">
+            <div class="card my-5 py-4 d-flex align-items-center">
+                <div class="card-body">
+                    <div class="d-flex align-items-end mb-3 justify-content-center">
+                        <img style="width: 28px;" [src]="favIcon" alt="">
+                        <h4 class="mb-0 fw-bold ms-3 mt-0" style="font-size: 36px;">{{orgTitle}}</h4>
+                    </div>
+                    <h6 class="w-100 text-center d-block">OTP</h6>
+                    <span class="w-100 text-center d-block mt-1">Enter OTP to continue</span>
+                    <form class="universal-form overflow-hidden mt-2" [formGroup]="verifyOTPForm" (ngSubmit)="submit()">
+                        <div class="d-flex justify-content-center my-3">
+                            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent"
+                                [config]="config" formControlName="otp"></ng-otp-input>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3" type="submit">Verify OTP</button>
+                        
+                    </form>
+
+                    <div class="text-center">
+                        <button class="btn btn-primary justify-content-center my-3"  [disabled]="resendDisabled" (click)="resendOTP()">
+                            Resend OTP
+                         </button>
+                         <div *ngIf="resendDisabled" class="mb-2">
+                             <span>Resend available in <b>00:{{ timer }}s</b> </span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

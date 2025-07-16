@@ -1,0 +1,107 @@
+.text-primary {
+  .attendance-status {
+    border: 1px solid #add7ff;
+    background-color: #cff2ff;
+  }
+}
+
+.text-danger {
+  .attendance-status {
+    border: 1px solid #ffbebf;
+    background-color: #fde2e2;
+  }
+}
+
+.text-warning {
+  .attendance-status {
+    border: 1px solid #ffe09f;
+    background-color: #ffedca;
+  }
+}
+
+.text-success {
+  .attendance-status {
+    border: 1px solid #51c44596;
+    background-color: #d5f9d1;
+  }
+}
+
+.attendance-status {
+  border: 1px solid transparent;
+
+  span {
+    color: #666666;
+  }
+
+  i {
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 992px) {
+
+  .attedance_table .apply_leave th:nth-child(3),
+  .attedance_table .apply_leave th:nth-child(4),
+  .attedance_table .apply_leave th:nth-child(5),
+  .attedance_table .apply_leave th:nth-child(6) {
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 575.98px) {
+
+  .attedance_table .apply_leave th:nth-child(3),
+  .attedance_table .apply_leave th:nth-child(4),
+  .attedance_table .apply_leave th:nth-child(5),
+  .attedance_table .apply_leave th:nth-child(6) {
+    min-width: 200px;
+  }
+}
+
+.mat-table {
+  width: 100%;
+}
+
+.mat-row.example-detail-row {
+  min-height: 0;
+}
+
+.mat-row.example-element-row:not(.example-expanded-row):hover {
+  background: #777;
+}
+
+.mat-row.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row .mat-cell {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}

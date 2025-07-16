@@ -1,0 +1,39 @@
+.add-meeting-modal {
+    .modal-header {
+        padding: 0;
+        position: relative;
+    }
+
+    .form-group label {
+        width: 30%;
+    }
+
+    .bi-trash3 {
+        position: absolute;
+        right: 42px;
+        top: 15px;
+        font-size: 11px;
+        color: red;
+    }
+}
+
+.fc-button-group {
+    flex-wrap: wrap !important;
+
+    button {
+        width: 100px;
+        margin: 10px 5px !important;
+    }
+}
+
+.fc .fc-button-group>.fc-button {
+    flex: none;
+}
+
+.fc-timegrid-axis-frame {
+    text-transform: capitalize;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none;
+}

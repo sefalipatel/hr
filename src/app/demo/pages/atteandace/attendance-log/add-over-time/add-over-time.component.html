@@ -1,0 +1,41 @@
+<div class="regularization overtime">
+    <div class="header d-flex align-items-center justify-content-between  p-3 px-4 ">
+        <h6 class="  text-white ">Overtime Request</h6>
+    </div>
+    <div class="card border-0 mb-0">
+        <div class="card-body ">
+            <div class="bg-white p-3">
+                <form [formGroup]="overtimeForm" class="mx-3">
+                    <div class="regularization_time">
+                        <h6>Overtime Hour<span class="text-danger">*</span></h6>
+                        <input type="text" class="form-control w-100 mt-2" formControlName="otHour">
+                        <span class="text-danger"
+                            *ngIf="overtimeForm.get('otHour').hasError('required') && overtimeForm.get('otHour').touched">
+                            Time is required
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="overtimeForm.get('otHour').dirty && overtimeForm.get('otHour').hasError('pattern')">
+                            Only numbers are allowed
+                        </span>
+                    </div>
+                    <div class="leave_form textarea-input mt-4">
+                        <h6>Reason<span class="text-danger">*</span></h6>
+                        <textarea class="form-control form_textarea mt-2" id="exampleFormControlTextarea1" rows="3"
+                            required formControlName="description" (blur)="trimNameOnBlur()"></textarea>
+                        <span class="text-danger"
+                            *ngIf="overtimeForm.get('description').hasError('required') && overtimeForm.get('description').touched">
+                            Reason is required
+                        </span>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-end text-end regularization_btn mt-4 border-top pt-4">
+                        <button class="btn btn-primary py-2 px-4 rounded-pill me-3" (click)="submit()">
+                            Submit</button>
+                        <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill" (click)="cancelPopup()">
+                            Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

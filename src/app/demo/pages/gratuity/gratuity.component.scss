@@ -1,0 +1,42 @@
+ul.status {
+    padding: 0;
+    margin: 0; 
+    flex-wrap: nowrap;
+    text-wrap: nowrap;
+
+
+
+    li {
+        padding: 12px 16px;
+          width: 100%;
+        .label_name {
+            color: #262626;
+            font-weight: 500;
+        }
+    }
+
+    li:first-child {
+        background: rgba(255, 205, 240, 0.25);
+        border: 1px solid #ff84da;
+    }
+
+    li:nth-child(2) { 
+
+        border-left: 0 !important;
+        border-right: 0 !important;
+        background: rgba(203, 239, 211, 0.44);
+        border: 1px solid #59be87;
+    }
+
+    li:last-child {
+        background: rgba(201, 198, 245, 0.26);
+        border: 1px solid #9b95ff;
+    }
+}
+
+@media screen and (max-width:575px){
+    ul.status.employee_block_list {
+        overflow: scroll;
+
+    }
+}

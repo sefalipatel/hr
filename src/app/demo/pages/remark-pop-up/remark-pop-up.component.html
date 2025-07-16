@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+    <div class="my-3 leave_form mx-3">
+        <mat-label class="label_name ">Remark </mat-label>
+        <textarea class="form-control form_textarea mt-3" id="exampleFormControlTextarea1" rows="3" required
+            formControlName="reason" name="reason"></textarea>
+    </div> 
+    <div class="text-end regularization_btn mb-3 d-flex align-items-center mx-3">
+        <button type="submit" class="btn btn-primary me-3" (click)="Reject()"> Submit</button>
+        <button type="button" class="btn btn-secondary me-3" (click)="cancle()"> Cancel</button>
+    </div>
+</form>

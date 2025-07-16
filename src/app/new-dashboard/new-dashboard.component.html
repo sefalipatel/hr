@@ -1,0 +1,422 @@
+<div class="fireworks {{isBirthday || isWorkAnniversary ? 'd-flex':'d-none'}}">
+   <h1>Happy {{ isBirthday ? 'Birthday!' : 'Work Anniversary!' }}</h1>
+   <canvas #canvas></canvas>
+</div>
+<div class="employee_dashboard">
+   <div class="main_employee_dash">
+      <div class="employee_main_section">
+
+         <div class="row ">
+            <div class="col-xxl-8 col-xl-8 col-lg-12 order-2 order-xl-1  mt-4 mt-xl-0 mt-xl-0">
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="leave_detail_block p-20">
+                        <app-dashboard-attendance-and-leave></app-dashboard-attendance-and-leave>
+                     </div>
+
+                     <div class="time_sheet p-20  mt-4" [routerLink]="['/home/time-card']">
+                        <div class="time_clock">
+                           <img alt="File:Alarm Clock GIF Animation High Res.gif"
+                              src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Alarm_Clock_GIF_Animation_High_Res.gif?20180920132247"
+                              decoding="async" data-file-width="400" data-file-height="317">
+                          </div>
+                        <div class="time_block">
+                           <p>Time Sheet</p>
+                           <p>Streamline your time tracking</p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-6 mt-4 mt-md-0 mt-lg-0 mt-xl-0 mt-xxl-0">
+                     <div class="todo_list  p-20">
+                        <div class="card_header_top">
+                           <div class="head_title">
+                              <h4>To List<span><svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+                                       xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 297 297"
+                                       xml:space="preserve">
+                                       <g>
+                                          <path d="M237.333,33h-50.14c-2.558-18.613-18.556-33-37.86-33s-35.303,14.387-37.86,33h-51.14C50.408,33,42,41.075,42,51v228
+                                   c0,9.925,8.408,18,18.333,18h177c9.925,0,17.667-8.075,17.667-18V51C255,41.075,247.258,33,237.333,33z M93.052,48
+                                   c3.432,18.033,19.084,31,38.092,31h36.379c19.008,0,34.66-12.967,38.092-31H223v216H75V48H93.052z M149.333,16
+                                   c10.456,0,19.242,7.259,21.601,17h-43.201C130.091,23.259,138.877,16,149.333,16z" />
+                                          <rect x="99" y="109" width="50" height="15" />
+                                          <polygon
+                                             points="200.689,105.076 189.645,94.924 175.427,110.39 169.237,105.347 159.763,116.976 176.907,130.944 	" />
+                                          <rect x="99" y="157" width="50" height="15" />
+                                          <polygon
+                                             points="200.689,153.076 189.645,142.924 175.427,158.39 169.237,153.347 159.763,164.976 176.907,178.944 	" />
+                                          <rect x="99" y="205" width="50" height="15" />
+                                          <polygon
+                                             points="200.689,201.076 189.645,190.924 175.427,206.39 169.237,201.347 159.763,212.976 176.907,226.944 	" />
+                                       </g>
+                                    </svg></span></h4>
+                           </div>
+
+                        </div>
+                        <div class="main_todo scroller">
+                           <ul>
+                              <li *ngFor="let data of toDoList">
+                                 <div class="todo_content">
+                                    <span class="text_truncate" [matTooltip]="data?.title">{{data?.title}}</span>
+                                    <span class="text-end " *ngIf="data.isImportant === true">
+                                       <i class="ri-star-line fs- icon-warning"></i>
+                                    </span>
+                                 </div>
+                                 <hr>
+                              </li>
+                           </ul>
+                        </div>
+                        <div class="footer_block">
+                           <div class="btn_block">
+                              <button class="btn inner_btn" (click)="onToDoList()">
+                                 <p>More Todo</p>
+                                 <div class="arrow_design">
+                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                                       <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                       <g id="SVGRepo_iconCarrier">
+                                          <path fill-rule="evenodd" clip-rule="evenodd"
+                                             d="M12.2929 4.29289C12.6834 3.90237 13.3166 3.90237 13.7071 4.29289L20.7071 11.2929C21.0976 11.6834 21.0976 12.3166 20.7071 12.7071L13.7071 19.7071C13.3166 20.0976 12.6834 20.0976 12.2929 19.7071C11.9024 19.3166 11.9024 18.6834 12.2929 18.2929L17.5858 13H4C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11H17.5858L12.2929 5.70711C11.9024 5.31658 11.9024 4.68342 12.2929 4.29289Z"
+                                             fill="#148eff" />
+                                       </g>
+
+                                    </svg>
+                                 </div>
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="joining_date p-20 mt-4">
+                        <app-resignation-form></app-resignation-form>
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-xxl-4 col-xl-4 col-lg-12 mt-4 mt-xl-0 mt-xl-0 order-1 order-xl-2">
+               <div class="profile_detail p-20">
+                  <app-dashboard-profile></app-dashboard-profile>
+               </div>
+               <div class="row">
+                  <div class="col-xx-12 col-xl-12 col-md-6">
+                     <app-statistics></app-statistics>
+                  </div>
+                  <div class="col-xx-12 col-xl-12 col-md-6">
+                     <div class="holidays_list p-20 mt-4">
+                        <div class="holiday_name">
+                           <p>Upcoming Holidays <span>
+                                 <svg viewBox="-21.53 0 122.88 122.88" version="1.1" id="Layer_1"
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    style="enable-background:new 0 0 79.82 122.88" xml:space="preserve">
+                                    <g>
+                                       <path class="st0"
+                                          d="M9.53,27h2.18c0,0.15,0.02,0.3,0.06,0.45l2.39,9.09c0.68,2.6,1.84,5.05,3.58,6.78 c1.59,1.59,3.63,2.58,6.18,2.58h9.56v5.11c0,0.81,0.66,1.47,1.46,1.47h11.1c0.81,0,1.46-0.66,1.46-1.46V45.9h10.02 c2.58,0,4.69-1.01,6.32-2.64c1.74-1.74,2.89-4.19,3.45-6.81l1.91-8.98c0.04-0.15,0.06-0.31,0.06-0.47h1.03 c5.24,0,9.53,4.29,9.53,9.53v69.02c0,5.21-4.24,9.48-9.43,9.53v3.77c0,2.22-1.81,4.03-4.03,4.03l0,0c-2.22,0-4.03-1.81-4.03-4.03 v-3.77H17.49v3.77c0,2.22-1.81,4.03-4.03,4.03l0,0c-2.22,0-4.03-1.81-4.03-4.03v-3.77c-5.2-0.05-9.43-4.32-9.43-9.53V36.53 C0,31.29,4.29,27,9.53,27L9.53,27z M16.57,100.41c-0.97,0-1.76-0.79-1.76-1.76c0-0.97,0.79-1.76,1.76-1.76h46.94 c0.97,0,1.76,0.79,1.76,1.76c0,0.97-0.79,1.76-1.76,1.76H16.57L16.57,100.41z M16.57,83.37c-0.97,0-1.76-0.79-1.76-1.76 s0.79-1.76,1.76-1.76h46.94c0.97,0,1.76,0.79,1.76,1.76s-0.79,1.76-1.76,1.76H16.57L16.57,83.37z M16.57,66.33 c-0.97,0-1.76-0.79-1.76-1.76c0-0.97,0.79-1.76,1.76-1.76h46.94c0.97,0,1.76,0.79,1.76,1.76c0,0.97-0.79,1.76-1.76,1.76H16.57 L16.57,66.33z M65.32,28.77H15.75l1.81,6.87c0.54,2.04,1.4,3.92,2.67,5.18c0.95,0.95,2.17,1.55,3.68,1.55h33.61 c1.56,0,2.84-0.62,3.83-1.61c1.24-1.24,2.08-3.06,2.5-5.04L65.32,28.77L65.32,28.77z M15.87,0h48.44c0.56,0,1.02,0.46,1.02,1.02 v6.56c0,0.56-0.46,1.02-1.02,1.02h-7.28v16.48h-4.28V8.59H27.89v16.48h-4.28V8.59h-7.74c-0.56,0-1.02-0.46-1.02-1.02V1.02 C14.85,0.46,15.31,0,15.87,0L15.87,0z" />
+                                    </g>
+                                 </svg>
+                              </span></p>
+                        </div>
+                        <app-upcomeing-holiday></app-upcomeing-holiday>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-6  mt-4 mt-xl-4 mt-xl-4">
+               <div class="off_today birthday p-20">
+                  <div class="card_header_top">
+                     <div class="head_title">
+                        <h4>Today on Leave <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"
+                                 enable-background="new 0 0 52 52" xml:space="preserve">
+                                 <path d="M21.9,37c0-2.7,0.9-5.8,2.3-8.2c1.7-3,3.6-4.2,5.1-6.4c2.5-3.7,3-9,1.4-13c-1.6-4.1-5.4-6.5-9.8-6.4
+                          s-8,2.8-9.4,6.9c-1.6,4.5-0.9,9.9,2.7,13.3c1.5,1.4,2.9,3.6,2.1,5.7c-0.7,2-3.1,2.9-4.8,3.7c-3.9,1.7-8.6,4.1-9.4,8.7
+                          C1.3,45.1,3.9,49,8,49h17c0.8,0,1.3-1,0.8-1.6C23.3,44.5,21.9,40.8,21.9,37z" />
+                                 <path
+                                    d="M46.4,28.5c-4.7-4.7-12.3-4.7-17,0c-4.7,4.7-4.7,12.3,0,17c4.7,4.7,12.3,4.7,17,0
+                          C51.1,40.8,51.1,33.2,46.4,28.5z M42.9,39.1c0.4,0.4,0.4,1.1-0.1,1.5l-1.4,1.4c-0.4,0.4-0.9,0.4-1.3-0.1L38,39.8l-2.2,2.2
+                          c-0.4,0.4-0.9,0.4-1.3-0.1L33,40.5c-0.4-0.4-0.5-0.9-0.1-1.3l2.2-2.2L33,34.8c-0.4-0.4-0.5-0.9-0.1-1.3l1.4-1.4
+                          c0.4-0.4,1.1-0.5,1.5-0.1l2.1,2.1l2.1-2.1c0.4-0.4,1.1-0.5,1.5-0.1l1.4,1.4c0.4,0.4,0.4,1.1-0.1,1.5l-2.1,2.1L42.9,39.1z" />
+                              </svg></span></h4>
+                     </div>
+
+                  </div>
+                  <app-today-on-leave></app-today-on-leave>
+
+               </div>
+
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-12 col-md-6  mt-4 mt-xl-4 mt-xl-4">
+               <div class="birthday p-20">
+                  <app-birthday></app-birthday>
+               </div>
+               <div class="notification_header_block mt-4 p-20">
+                  <div class="card_header_top">
+                     <div class="head_title">
+                        <h4>Announcement<span><svg viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+
+                                 <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                 <g id="SVGRepo_iconCarrier">
+                                    <path
+                                       d="M959.342 1355.283c4.287.007 20.897.18 45.834 4.517l-3.388 55.341c-1.13 29.365-25.976 53.083-55.34 53.083-65.507 0-110.683 19.2-141.177 57.6-68.895 88.094-45.177 263.153-30.495 324.14 4.518 16.942 0 35.013-10.164 48.566-11.294 13.553-27.106 21.458-44.047 21.458h-212.33c-31.623 0-56.47-24.847-56.47-56.47v-508.235Zm627.82-1324.044c11.633-23.492 37.61-35.576 63.473-29.816 25.525 6.099 43.483 28.8 43.483 55.002V570.42C1822.87 596.623 1920 710.693 1920 847.013c0 136.32-97.13 250.504-225.882 276.706v513.883c0 26.202-17.958 49.016-43.483 55.002a57.279 57.279 0 0 1-12.988 1.468c-21.12 0-40.772-11.746-50.485-31.172C1379.238 1247.164 964.18 1242.307 960 1242.307H395.294c-155.746 0-282.353-126.607-282.353-282.352v-56.471h-56.47C25.299 903.484 0 878.298 0 847.014c0-31.172 25.299-56.471 56.47-56.471h56.471v-56.47c0-155.634 126.607-282.354 282.353-282.354h564.593c16.941-.113 420.48-7.002 627.275-420.48Z"
+                                       fill-rule="evenodd" />
+                                 </g>
+
+                              </svg></span></h4>
+                     </div>
+                  </div>
+
+                  <div class="slick_anoucement mt-4">
+                     <ng-container *ngIf="announcementList?.length;else noRecordFound">
+                        <ngx-slick-carousel #slickModal="slick-carousel" [config]="slideConfig">
+                           <div ngxSlickItem *ngFor="let announcement of announcementList" class="slide-item">
+                              <div class="header_blk">
+                                 <div *ngIf="announcement?.profilePicture">
+                                    <img [src]="transformImagePath(announcement?.profilePicture)" alt="Profile Picture"
+                                       class="img-fluid">
+                                 </div>
+                                 <div *ngIf="!announcement?.profilePicture" class="avtar avtar-s rounded-circle me-2"
+                                    [ngStyle]="{'background': stringToColor(announcement?.createdBy)}">
+                                    <b class="f-14">{{generateInitials(announcement?.createdBy)}}</b>
+                                 </div>
+                                 <div>
+                                    <p> {{announcement?.createdBy}} <span>Made an announcement</span></p>
+                                    <P>{{announcement?.createdOn | timeAgo}}</P>
+                                 </div>
+                              </div>
+                              <div class="content_blc">
+                                 <b>{{announcement?.subject}}</b>
+                                 <p> {{announcement?.comment}} </p>
+                              </div>
+                           </div>
+                        </ngx-slick-carousel>
+                     </ng-container>
+
+                     <ng-template #noRecordFound>
+                        <div class="text-center d-block border-bottom-0 nodata_found_block">
+                           <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                           <p class="no-record mt-3">No Data Available</p>
+                        </div>
+                     </ng-template>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-md-6">
+               <div class="off_today ticket_widget mt-4 p-20" style="cursor: pointer;" (click)="onTicketList()">
+                  <div class="card_header_top">
+                     <div class="head_title">
+                        <h4>Ticket Widget<span><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                 <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M2 6.63415C2 4.07478 4.07478 2 6.63415 2C9.19351 2 11.2683 4.07478 11.2683 6.63415C11.2683 9.19351 9.19351 11.2683 6.63415 11.2683C4.07478 11.2683 2 9.19351 2 6.63415Z"
+                                    fill="#1C274C" />
+                                 <path opacity="0.5" fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M12.7324 17.3658C12.7324 14.8065 14.8072 12.7317 17.3666 12.7317C19.9259 12.7317 22.0007 14.8065 22.0007 17.3658C22.0007 19.9252 19.9259 22 17.3666 22C14.8072 22 12.7324 19.9252 12.7324 17.3658Z" />
+                                 <path
+                                    d="M2 17.5C2 15.3787 2 14.318 2.65901 13.659C3.31802 13 4.37868 13 6.5 13C8.62132 13 9.68198 13 10.341 13.659C11 14.318 11 15.3787 11 17.5C11 19.6213 11 20.682 10.341 21.341C9.68198 22 8.62132 22 6.5 22C4.37868 22 3.31802 22 2.65901 21.341C2 20.682 2 19.6213 2 17.5Z" />
+                                 <path opacity="0.5"
+                                    d="M13 6.5C13 4.37868 13 3.31802 13.659 2.65901C14.318 2 15.3787 2 17.5 2C19.6213 2 20.682 2 21.341 2.65901C22 3.31802 22 4.37868 22 6.5C22 8.62132 22 9.68198 21.341 10.341C20.682 11 19.6213 11 17.5 11C15.3787 11 14.318 11 13.659 10.341C13 9.68198 13 8.62132 13 6.5Z" />
+                              </svg></span></h4>
+                     </div>
+                  </div>
+                  <div class="outer_widget mt-4 scroller">
+                     <div class="widget_detail">
+
+                        <div class="right module-border-wrap one">
+                           <div class="round_block module">
+                              <p><span>{{newTicket}}</span></p>
+                           </div>
+                        </div>
+                        <div class="left">
+                           <p> New Ticket</p>
+                        </div>
+                     </div>
+                     <div class="widget_detail">
+
+                        <div class="right module-border-wrap two">
+                           <div class="round_block module">
+                              <p><span>{{solvedTicket}}</span></p>
+                           </div>
+                        </div>
+                        <div class="left">
+                           <p> Solved Ticket</p>
+                        </div>
+                     </div>
+                     <div class="widget_detail">
+
+                        <div class="right module-border-wrap three">
+                           <div class="round_block module">
+                              <p><span>{{openTicket}}</span></p>
+                           </div>
+                        </div>
+                        <div class="left">
+                           <p> Open Ticket</p>
+                        </div>
+                     </div>
+                     <div class="widget_detail">
+
+                        <div class="right module-border-wrap four">
+                           <div class="round_block module">
+                              <p><span>{{pendingTicket}}</span></p>
+                           </div>
+                        </div>
+                        <div class="left">
+                           <p> Pending Ticket</p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-6 goal_cursor_pointer">
+               <div class="off_today goal mt-4 p-20" (click)="onGoalList()">
+                  <div class="card_header_top">
+                     <div class="head_title">
+                        <h4>Goal<span><svg fill="#000000" viewBox="0 0 24 24" id="goal" data-name="Flat Color"
+                                 xmlns="http://www.w3.org/2000/svg" class="icon flat-color">
+
+                                 <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                 <g id="SVGRepo_iconCarrier">
+
+                                    <path id="secondary"
+                                       d="M21.92,5.62A1,1,0,0,0,21,5H19V3a1,1,0,0,0-.62-.92,1,1,0,0,0-1.09.21l-3,3A1,1,0,0,0,14,6V8.59l-2.21,2.2a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L15.41,10H18a1,1,0,0,0,.71-.29l3-3A1,1,0,0,0,21.92,5.62Z"
+                                       style="fill: #52c41a;" />
+
+                                    <path id="primary"
+                                       d="M12,22A10,10,0,0,1,12,2h.42a1,1,0,1,1-.18,2H12a8,8,0,1,0,8,8,1.93,1.93,0,0,0,0-.24,1,1,0,0,1,.91-1.09,1,1,0,0,1,1.09.91c0,.14,0,.28,0,.42A10,10,0,0,1,12,22Zm5.88-8.8a1,1,0,0,0-2-.4A4,4,0,1,1,11.2,8.08a1,1,0,1,0-.4-2,6,6,0,1,0,7.08,7.08Z"
+                                       style="fill: #ffa500;" />
+
+                                 </g>
+
+                              </svg></span></h4>
+                     </div>
+                  </div>
+                  <ngx-slick-carousel class="carousel poll_carousel" #slickModal="slick-carousel"
+                     [config]="slideConfig">
+                     <ng-container *ngFor="let list of goalList">
+                        <div class="slick-carousel goal_list_detail" ngxSlickItem>
+                           <div class="goal_description">
+                              <p class="goal_type">{{list?.subject}}</p>
+                               <div class="progress" style="height: 15px">
+                                 <div class="progress-bar bg-warning" role="progressbar" style="width: 25%"
+                                    aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                    25%
+                                 </div>
+                              </div>
+                              <p class="goal_description">{{list?.description}}</p>
+                           </div>
+                        </div>
+                     </ng-container>
+                  </ngx-slick-carousel>
+               </div>
+            </div>
+         </div>
+
+         <div class="row">
+            <div class="col-xxl-6 col-md-6 col-xl-6 col-lg-12 mt-4 mt-xl-4 mt-xl-4">
+               <app-dashboard-projects></app-dashboard-projects>
+            </div>
+            <div class="col-xxl-6 col-md-6 col-xl-6 col-lg-12 mt-4 mt-xl-4 mt-xl-4">
+               <div class="birthday_block p-20">
+                  <div class="card_heade_top">
+                     <div class="head_title">
+                        <h4>Work Anniversary<span><svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
+                                 <g>
+                                    <path class="st0"
+                                       d="M335.133,142.84c22.712-7.458,41.462-19.608,54.862-34.26c6.69-7.338,12.061-15.307,15.812-23.737
+                              c3.744-8.422,5.876-17.334,5.876-26.342c0.007-5.989-0.957-12-2.953-17.77c-2.23-6.441-5.469-12.286-9.477-17.349
+                              c-6.004-7.616-13.695-13.476-22.2-17.416C368.55,2.034,359.209,0,349.68,0c-6.983,0-14.057,1.1-20.942,3.367
+                              c-10.335,3.39-20.249,9.468-28.603,18.207c-8.368,8.745-15.148,20.113-19.6,33.853c-5.816,17.868-23.232,58.411-23.714,59.405
+                              h-1.657c-0.49-0.994-17.899-41.537-23.714-59.405c-2.975-9.167-6.96-17.273-11.789-24.24
+                              c-7.232-10.464-16.339-18.366-26.268-23.533C183.465,2.471,172.768-0.008,162.305,0c-12.693,0.008-25.093,3.616-35.578,10.546
+                              c-5.235,3.457-9.996,7.766-13.989,12.836c-4.015,5.062-7.254,10.908-9.484,17.349c-2.004,5.778-2.953,11.789-2.945,17.77
+                              c0,5.996,0.941,11.969,2.681,17.77c3.051,10.154,8.482,19.789,15.759,28.587c10.938,13.198,26.064,24.565,44.436,32.723
+                              c18.366,8.151,40.015,13.07,63.925,13.07c13.544-0.008,28.362,0.112,28.882,0c0.52,0.112,15.33-0.008,28.889,0
+                              C303.088,150.652,319.999,147.804,335.133,142.84z M315.209,46.998c4.783-6.908,10.358-11.608,16.241-14.682
+                              c5.891-3.073,12.128-4.497,18.23-4.512c7.397,0,14.523,2.139,20.233,5.936c2.878,1.898,5.401,4.196,7.511,6.87
+                              c2.109,2.674,3.811,5.725,5.024,9.213c0.95,2.734,1.408,5.604,1.416,8.67c0,3.073-0.482,6.35-1.514,9.785
+                              c-1.793,6.019-5.296,12.52-10.546,18.848c-7.834,9.484-19.533,18.494-34.282,25.032c-14.765,6.554-32.55,10.674-52.64,10.674
+                              c-1.078,0-2.124-0.014-3.134-0.044c7.307-12.249,16.136-30.795,25.236-58.773C309.197,57.213,312.015,51.616,315.209,46.998z
+                               M131.601,73.551c-2.388-5.363-3.48-10.455-3.48-15.05c0-3.074,0.467-5.937,1.416-8.664l0.008-0.014
+                              c1.205-3.488,2.908-6.539,5.025-9.213c3.156-4.008,7.269-7.186,12.038-9.393c4.761-2.208,10.154-3.412,15.699-3.412
+                              c4.068,0,8.196,0.64,12.241,1.981c6.072,2.004,11.94,5.537,17.205,11.028c5.251,5.491,9.936,13.001,13.258,23.209
+                              c9.092,27.97,17.928,46.516,25.236,58.772c-1.017,0.023-2.056,0.038-3.134,0.038c-15.306,0-29.281-2.388-41.596-6.425
+                              c-18.471-6.042-33.206-15.857-42.991-26.584C137.619,84.459,133.965,78.892,131.601,73.551z" />
+                                    <polygon class="st0" points="271.427,172.595 271.427,265.152 448.844,265.152 448.844,263.774 448.844,233.379 448.844,172.595 	
+                              " />
+                                    <polygon class="st0"
+                                       points="63.156,233.379 63.156,263.774 63.156,265.152 240.573,265.152 240.573,172.595 63.156,172.595 	" />
+                                    <rect x="271.427" y="296.007" class="st0" width="177.416" height="215.993" />
+                                    <rect x="63.156" y="296.007" class="st0" width="177.416" height="215.993" />
+                                 </g>
+                              </svg></span></h4>
+                     </div>
+
+                  </div>
+                  <app-work-anniversary></app-work-anniversary>
+               </div>
+            </div>
+         </div>
+
+
+
+         <div class="row">
+            <div class="col-xl-6 col-xxl-6 col-md-6 col-lg-12 mt-4 mt-xl-4 mt-xl-4">
+               <div class="poll_block">
+                  <div class="poll_block_head p-20 h-100">
+                     <div class="poll_header slider_header">
+                        <div class="head_title ">
+                           <h4>Show of Hands<span><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"
+                                    xml:space="preserve">
+
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0" />
+
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
+
+                                    <g id="SVGRepo_iconCarrier">
+                                       <g>
+                                          <g>
+                                             <g>
+                                                <path
+                                                   d="M501.333,0c-25.109,0-57.024,16.128-66.475,21.205L298.667,0.363c-19.136,0-65.323,1.237-80.299,12.267L133.035,65.6 c-4.053,2.517-5.931,7.403-4.629,11.989c1.323,4.587,5.504,7.744,10.261,7.744h96c0.853,0,1.685-0.107,2.517-0.256l14.293-3.52 c9.237-1.344,18.453,1.408,25.472,7.488c7.04,6.08,11.051,14.891,11.051,24.192c0,7.403-2.304,14.464-6.677,20.459 l-33.557,46.101c-9.365,14.037-7.509,32.896,4.437,44.843c6.933,6.912,16.021,10.389,25.131,10.389s18.197-3.477,25.131-10.411 l54.08-54.08c20.203-1.131,38.677-9.856,52.373-23.936c18.944,17.557,79.573,23.125,91.584,24.043 c0.277,0.021,0.555,0.021,0.832,0.021c2.667,0,5.269-1.003,7.232-2.837c2.197-2.027,3.435-4.864,3.435-7.829V10.667 C512,4.779,507.221,0,501.333,0z M416.043,71.296l-12.309,46.699c-10.112,19.349-29.845,31.339-51.733,31.339 c-2.837,0-5.547,1.109-7.552,3.115l-57.088,57.088c-5.355,5.355-14.72,5.355-20.075,0c-4.779-4.757-5.525-12.309-2.027-17.557 l33.323-45.739c7.04-9.664,10.752-21.099,10.752-33.045c0-15.467-6.699-30.165-18.389-40.299 c-9.664-8.363-21.888-12.928-35.029-12.928c-2.773,0-5.611,0.213-8.448,0.619L233.408,64h-57.344l54.251-33.707 c6.677-4.907,36.053-8.597,66.731-8.725l126.528,19.477C421.504,48.448,418.816,58.901,416.043,71.296z M490.667,148.267 c-23.061-2.603-51.392-7.915-63.467-14.635c2.133-20.736,5.888-40.832,9.6-57.429l9.771-37.077 c9.856-5.184,28.224-13.611,44.096-16.661V148.267z" />
+                                                <path
+                                                   d="M405.163,392.917l-21.333-128c-0.853-5.141-5.291-8.917-10.517-8.917H320c0-5.888-4.779-10.667-10.667-10.667 s-10.667,4.779-10.667,10.667v10.56c0,0.043-0.021,0.064-0.021,0.107s0.021,0.064,0.021,0.107V320h-192V128H256 c5.888,0,10.667-4.779,10.667-10.667s-4.779-10.667-10.667-10.667H96c-5.888,0-10.667,4.779-10.667,10.667V256H32 c-5.205,0-9.664,3.776-10.517,8.917l-21.333,128c-0.043,0.277,0.064,0.533,0.043,0.789C0.171,394.048,0,394.325,0,394.667 v106.667C0,507.221,4.779,512,10.667,512h384c5.888,0,10.667-4.779,10.667-10.667V394.667c0-0.363-0.171-0.683-0.213-1.024 C405.099,393.387,405.205,393.152,405.163,392.917z M41.024,277.333h44.309V320H74.667C68.779,320,64,324.779,64,330.667 s4.779,10.667,10.667,10.667h256c5.888,0,10.667-4.779,10.667-10.667S336.555,320,330.667,320H320v-42.667h44.288L382.059,384 H23.253L41.024,277.333z M384,490.667H21.333v-85.333H384V490.667z" />
+                                             </g>
+                                          </g>
+                                       </g>
+                                    </g>
+
+                                 </svg></span></h4>
+                        </div>
+
+                     </div>
+                     <app-dashboard-poll></app-dashboard-poll>
+                  </div>
+               </div>
+
+            </div>
+            <div class="col-xl-6 col-xxl-6 col-md-6 col-lg-12 mt-4 mt-xl-4 mt-xl-4">
+               <div>
+                  <app-chart></app-chart>
+               </div>
+            </div>
+         </div>
+
+         <div class="policy_block_outer">
+            <app-dashboard-company-hr-policy></app-dashboard-company-hr-policy>
+
+         </div>
+      </div>
+   </div>
+</div>

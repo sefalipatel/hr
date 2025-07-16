@@ -1,0 +1,56 @@
+<div class="inside-page org-presentation-page px-3">
+    <div class="row">
+        <div class="page-top-header mb-0">
+            <h5 class="card-subtitle m-0 text-muted fs-6">{{id ? 'Update' : 'Add'}} Payroll</h5>
+        </div>
+        <form [formGroup]="addPayRollForm" class="border-light-blue border-top-0 universal-form">
+            <div class="card border-light-blue p-3">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="font-weight: 600;" class="required mb-2">Employee Name<span
+                                    class="text-danger">*</span></label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-select formControlName="employeeId" required placeholder="Select employee name">
+                                    <mat-option *ngFor="let employeeName of getAllEmployeeList"
+                                        [value]="employeeName.id">
+                                        {{employeeName?.firstName + ' ' + employeeName?.lastName}}
+                                    </mat-option>
+                                </mat-select>
+                                <span class="text-danger mt-2 d-block"
+                                    *ngIf="(addPayRollFormControl['employeeId'].touched) && addPayRollFormControl['employeeId'].errors?.['required']">Employee
+                                    Name is required
+                                </span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <mat-label class="label_name">CTC (Annual)<span class="text-danger">*</span></mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control" placeholder="Enter CTC" formControlName="AnualCTC">
+                            </mat-form-field>
+                            <div class="text-danger">
+                                <div
+                                    *ngIf="addPayRollForm.controls['AnualCTC'].touched && addPayRollForm.controls['AnualCTC'].hasError('required')">
+                                    CTC is required.
+                                </div>
+                                <div
+                                    *ngIf="addPayRollFormControl['AnualCTC'].dirty && addPayRollFormControl['AnualCTC'].errors?.['pattern']">
+                                    CTC must be a number.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end py-3">
+                    <button type="Save" (click)="save()"
+                        class="btn btn-primary rounded-pill px-4 py-2 me-3">Save</button>
+                    <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2"
+                        (click)="onList()">Cancel
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

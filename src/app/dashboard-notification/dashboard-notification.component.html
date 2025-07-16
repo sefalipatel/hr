@@ -1,0 +1,8 @@
+<div  class="top-toast mb-4" *ngFor="let data of notificationData | slice:0:5">
+    <div class="msg">
+       {{data?.title}}
+    </div>
+    <div class="icon" (click)="readNotification(data)">
+        <i class="ri-close-line"></i>
+    </div>
+</div>

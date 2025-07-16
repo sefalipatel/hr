@@ -1,0 +1,240 @@
+<section class="add-newcard-page inside-page"> 
+  <div class="row">
+    <div class="back_btn cursor-pointer">
+      <app-loader *ngIf="loading"></app-loader>
+      <span (click)="goBack()"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z" />
+        </svg></span>
+    </div>
+    <div class="col-sm-12">
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary me-3" [matMenuTriggerFor]="menu" [disabled]="status == 2">Action </button>
+
+        <button class="btn btn-primary me-3" (click)="approveButton()"
+          [disabled]="status == 2 || +totalHoursForAllEntries < 40">Submit</button>
+        <button class="btn btn-primary" (click)="onBtnClick()">Cancel</button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="saveForm()">Save and Close</button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4 col-lg-6 mt-2">
+      <div class="add-cards top_three">
+        <div class="upper-part">
+          <h6 class="title">Time Card Period</h6>
+          <i class="ri-time-zone-line"></i>
+        </div>
+        <div class="lower-part">
+          <span class="current-date">{{ currentDate | date:dateFormat}}</span>
+          <span class="all-date"> {{ timesheetId ? startDate + '-' + endDate : timeCardPeriod }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4 col-lg-6 mt-2">
+      <div class="add-cards top_three">
+
+        <div class="upper-part">
+          <h6 class="title">New Status</h6>
+          <i class="ri-donut-chart-fill  "></i>
+        </div>
+        <div class="lower-part">
+          <span class="current-date">{{ totalHoursForAllEntries }} Hours</span>
+          <p class="m-0">{{ convertedTime? convertedTime?.hours : '0' }} hours and {{ convertedTime?
+            convertedTime?.minutes :'0'}}
+            minutes.</p>
+          <span class="all-date"> Reported
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-4 col-xl-4 col-lg-6 mt-2">
+
+      <div class="add-cards top_three">
+
+        <div class="upper-part">
+          <h6 class="title">Comments</h6>
+          <i class="ri-question-answer-line"></i>
+        </div>
+        <div class="lower-part">
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 ">
+      <div class="add-cards">
+
+        <div class="upper-part">
+          <h6 class="title">Entries</h6>
+          <button type="button" class="btn btn-primary" (click)="toggleForm()" [disabled]="status == 2"
+            *ngIf="!showForm">
+            Add Timesheet</button>
+        </div>
+        <div class="lower-part mb-3">
+          <div *ngIf="showForm">
+            <form [formGroup]="timeCardForm" (ngSubmit)="submitForm()" class="universal-form">
+
+              <div class="row g-3">
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Project Type<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-select formControlName="regulation" placeholder="Select Regularization Reason" required>
+                        <mat-option [value]="">Select a Project Type</mat-option>
+                        <mat-option *ngFor="let reason of regularizationReasonEnum " [value]="reason.value">
+                          {{[reason.key] }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                      *ngIf="timeCardForm.get('regulation').hasError('required') && timeCardForm.get('regulation').touched">
+                      Project Type is required
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-0">
+                    <mat-label class="label_name">Date<span class="text-danger">*</span>
+                    </mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput [matDatepicker]="sdpicker" formControlName="timesheetDate" required
+                        placeholder="Enter Date" [min]="minDate" [max]="maxDate" />
+                      <mat-datepicker-toggle matSuffix [for]="sdpicker"></mat-datepicker-toggle>
+                      <mat-datepicker #sdpicker></mat-datepicker>
+                    </mat-form-field>
+                    <span class="text-danger d-block mt-2"
+                      *ngIf="(timeCardForm.controls['timesheetDate'].touched) && timeCardForm.controls['timesheetDate'].errors?.['required']">
+                      Date is required
+                    </span> 
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Time Type<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <mat-select formControlName="timeType" placeholder="Select Timetype" required>
+                        <mat-option [value]="">Select Timetype</mat-option>
+                        <mat-option *ngFor="let time of timetypeEnum " [value]="time.value">
+                          {{[time.key] }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error
+                      *ngIf="timeCardForm.get('timeType').hasError('required') && timeCardForm.get('timeType').touched">
+                      Timetype is required
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <mat-label class="label_name">Total Hours<span class="text-danger">*</span></mat-label>
+                    <mat-form-field class="w-100" appearance="outline">
+                      <input matInput class="form-control" placeholder="Enter Total Hours" formControlName="totalHours">
+                    </mat-form-field>
+                    <div class="text-danger mt-2">
+                      <div
+                        *ngIf="timeCardForm.controls['totalHours'].touched && timeCardForm.controls['totalHours'].hasError('required')">
+                        Total hours is required.
+                      </div>
+                      <div
+                        *ngIf="timeCardForm.controls['totalHours'].dirty && timeCardForm.controls['totalHours'].errors?.['pattern']">
+                        Total hours must be a number.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12">
+                  <div class="form-group textarea-input">
+                    <mat-label class="label_name">Comment<span class="text-danger">*</span></mat-label>
+                    <textarea class="form-control" id="comments" rows="3" (input)="onInput()" formControlName="comments"
+                      (blur)="trimNameOnBlur()" required></textarea>
+                    <div class="text-danger mt-2">
+                      <div
+                        *ngIf="timeCardForm.controls['comments'].touched && timeCardForm.controls['comments'].hasError('required')">
+                        Comment is required.
+                      </div>
+                      <div *ngIf="charCountError">
+                        {{ charCountError }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end mt-2">
+                <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 me-3"> Submit</button>
+                <button type="button" class="btn btn-secondary rounded-pill px-4 py-2" (click)="toggleForm()">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>  
+          <div class="card_time_block" *ngIf="!showForm">
+            <ul>
+              <li class="card border rounded p-4 pointer" *ngFor="let data of timeSheetRecords">
+                <div class="main_date_card" (click)="timesheetDateWiseData(data)">
+                  <div class="date_timesheet">
+                    <span><svg version="1.1" baseProfile="tiny" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;"
+                        xmlns:graph="&ns_graphs;" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" viewBox="0 0 42 42"
+                        xml:space="preserve">
+                        <g>
+                          <path
+                            d="M37.499,5.5H35.5v5.52c0,1.23-0.234,1.48-1.484,1.48h-6.017c-1.25,0-1.499-0.271-1.499-1.5V5.5h-11v5.52
+                     c0,1.23-0.25,1.48-1.5,1.48H8c-1.25,0-1.5-0.271-1.5-1.5V5.5h-2c-2.58,0-3,0.561-3,3v28.998c-0.01,2.43,0.6,3.002,3,3.002h32.999
+                     c2.55,0,3.001-0.531,3.001-3.002V8.5C40.5,6.15,40.119,5.5,37.499,5.5z M35.5,35.5h-29v-20h29V35.5z" />
+                          <path d="M10,10.5h2c1.25,0,1.5-0.25,1.5-1.48v-5c0-1.25-0.27-1.5-1.5-1.5L10,2.5C8.811,2.5,8.5,2.78,8.5,4v5
+                     C8.5,10.229,8.75,10.5,10,10.5z" />
+                          <path d="M29.999,10.5h2c1.25,0,1.501-0.25,1.501-1.48v-5c0-1.25-0.27-1.5-1.5-1.5L30,2.5c-1.189,0-1.5,0.28-1.5,1.5v5
+                     C28.5,10.229,28.749,10.5,29.999,10.5z" />
+                          <rect x="10.5" y="19.5" width="5" height="5" />
+                          <rect x="18.5" y="19.5" width="5" height="5" />
+                          <rect x="26.5" y="19.5" width="5" height="5" />
+                          <rect x="10.5" y="27.5" width="5" height="5" />
+                          <rect x="18.5" y="27.5" width="5" height="5" />
+                          <rect x="26.5" y="27.5" width="5" height="5" />
+                        </g>
+                      </svg></span>
+                    {{ data.timesheetDate | date: dateFormat}}
+                  </div>
+                  <div class="time_timsheet">
+                    <div class="hrs">
+                      {{ roundHours(data?.totalHours) }}
+                    </div>
+                    <p> Hours</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+            <ng-container *ngIf="!timeSheetRecords?.length">
+              <div class="text-center d-block border-bottom-0 nodata_found_block">
+                <img src="assets/images/dashboard/cloud-computing.png" alt="img" />
+                <p class="no-record mt-3">No Data Available</p>
+              </div>
+            </ng-container>
+
+          </div> 
+
+          <div class="w-100 text-end">
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

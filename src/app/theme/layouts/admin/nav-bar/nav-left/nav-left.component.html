@@ -1,0 +1,113 @@
+<div class="d-flex justify-content-between align-items-center">
+
+  <ul class="list-unstyled position-relative">
+    <!-- ======= Menu collapse Icon ===== -->
+    <!-- title="click to menu Collapse" -->
+    <li class="pc-h-item pc-sidebar-collapse menubar">
+      <a href="javascript:" class="pc-head-link ms-0 baricon collaps_icon" id="sidebar-hide"
+        [ngClass]="{ on: navCollapsed }" id="sidebar-hide mobile-collapse" (click)="navCollapse()">
+        <i class="ti ti-menu-2"></i> 
+      </a>
+    </li>
+
+    <li class="pc-h-item pc-sidebar-popup custome_search">
+      <a href="javascript:" title="click to menu open" class="pc-head-link ms-0" id="mobile-collapse1"
+        (click)="this.NavCollapsedMob.emit()">
+        <i class="ti ti-menu-2"></i>
+      </a>
+    </li>
+
+    <li class="dropdown pc-h-item d-inline-flex d-none" ngbDropdown>
+      <a class="pc-head-link dropdown-toggle arrow-none m-0" ngbDropdownToggle>
+        <i class="ti ti-search"></i>
+      </a>
+
+      <div class="dropdown-menu dropdowm-menu-end pc-h-dropdown drp-search" ngbDropdownMenu>
+        <form class="px-3">
+          <div class="form-group mb-0 d-flex align-items-center">
+            <i class="ti ti-search"></i>
+            <input type="search" class="form-control border-0 shadow-none" placeholder="Search here. . ." />
+          </div>
+        </form>
+      </div>
+    </li>
+    <li class="pc-h-item d-none d-md-inline-flex"> 
+    </li>
+  </ul>
+  <div class="outer_right_main d-flex align-items-center flex-wrap">
+    <div class="d-none d-md-block ">
+      <div class="d-flex align-items-center">
+        <div class="stickynote">
+          <app-sticky-note></app-sticky-note>
+        </div>
+        <div class="notification">
+          <app-notification></app-notification>
+        </div>
+      </div>
+    </div>
+    <div class="universal-timer"> 
+
+      <!-- Change done by Ami for work hours timer -->
+      <!-- Start -->
+      <div *ngIf="Organization && TotalWorkingHours">
+        <div class="time-texts me-3">
+          <span class="card-box hh"><strong>{{ hours < 10 ? "0" + hours : hours }}</strong></span>
+          <span class="dots">:</span>
+          <span class="card-box mm"><strong>{{ minutes < 10 ? "0" + minutes : minutes }}</strong></span>
+          <span class="dots">:</span>
+          <span class="card-box ss"><strong>{{ seconds < 10 ? "0" + seconds : seconds }}</strong></span>
+        </div>
+      </div>
+      <!-- End  -->
+
+
+      <div class="time-btn time-btns">
+        <button [disabled]="!buttonVisible" class="check-in p-1 p-sm-2" (click)="startCountdown()"
+          *ngIf=" !LastcheKInOutTime"><span class="checkin_pc ">Check-In</span> 
+        </button>
+      </div>
+      <div ngbDropdown class="d-flex check-out-box">
+        <button [disabled]="!buttonVisible" type="button"
+          class="btn btn-dangerrs check-out d-flex align-items-center p-1 p-sm-2" id="dropdown1"
+          *ngIf="LastcheKInOutTime" ngbDropdownToggle>
+          <span class="checkout_pc ">Check-Out</span> 
+        </button>
+
+
+        <div class="dropdown pc-h-item d-inline-flex d-block d-md-none ms-3" ngbDropdown>
+          <a class="pc-head-link dropdown-toggle arrow-none m-0" ngbDropdownToggle>
+            <span><svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4ZM15 5C15 6.65685 13.6569 8 12 8C10.3431 8 9 6.65685 9 5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5ZM12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11ZM15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12ZM11 19C11 18.4477 11.4477 18 12 18C12.5523 18 13 18.4477 13 19C13 19.5523 12.5523 20 12 20C11.4477 20 11 19.5523 11 19ZM12 22C13.6569 22 15 20.6569 15 19C15 17.3431 13.6569 16 12 16C10.3431 16 9 17.3431 9 19C9 20.6569 10.3431 22 12 22Z"
+                  fill="#ffffff" />
+              </svg></span>
+          </a>
+
+          <div class="dropdown-menu dropdowm-menu-end pc-h-dropdown stickynoti" ngbDropdownMenu>
+            <div class="sticky_notification p-3 d-flex justify-content-around">
+              <div class="stickynote mb-3">
+                <app-sticky-note matTooltip="Sticky note"></app-sticky-note>
+              </div>
+              <div class=" notification mb-3">
+                <app-notification matTooltip="Notification"></app-notification>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div ngbDropdownMenu aria-labelledby="dropdown1">
+          <!-- items as buttons -->
+          <ng-container *ngFor="let checkOut of checkOutStatus">
+            <button (click)="OncheckOutStatus(checkOut)" ngbDropdownItem>{{checkOut.name}}</button>
+          </ng-container>
+        </div>
+      </div>
+
+      <video id="video" autoplay playsinline width="320" height="240" style="display: none;"></video>
+      <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+    </div>
+  </div>
+
+</div>

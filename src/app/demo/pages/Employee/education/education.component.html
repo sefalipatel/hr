@@ -1,0 +1,204 @@
+<div [ngClass]="isProffesionalTab == true ? 'd-none' : '' "> 
+  <div class="card-body p-0">
+    <div class="row">
+      <div class="col-sm-12" [ngClass]="!isForm ? 'd-none' : '' ">
+        <form class="leave_form universal-form bg-white p-20" [formGroup]="form" (ngSubmit)="Save()">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="form-group mb-3">
+                <mat-label class="label_name">University/Institute Name <span
+                    [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput placeholder="Enter university/institute name" formControlName="institution" required
+                    (blur)="trimNameOnBlur('institution')">
+                </mat-form-field>
+                <mat-error *ngIf="form.get('institution').hasError('required') && form.get('institution').touched ">
+                  University/Institute name is required
+                </mat-error>
+              </div>
+              <div class="form-group mb-3">
+                <mat-label class="label_name">Course <span
+                    [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput placeholder="Enter course" formControlName="degree" required
+                    (blur)="trimNameOnBlur('degree')">
+                </mat-form-field>
+                <mat-error *ngIf="form.get('degree').hasError('required') && form.get('degree').touched ">
+                  Course is required
+                </mat-error>
+              </div>
+
+              <div class="row g-3">
+
+                <div class="col-sm-6">
+                  <div class="form-group mb-0">
+                    <mat-label class="label_name">Passing Year <span
+                        [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select [(value)]="selectedYear" formControlName="passingYear"
+                        placeholder="Select passing year">
+                        <mat-option *ngFor="let year of years" [value]="year">
+                          {{ year }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="form.get('passingYear').hasError('required') && form.get('passingYear').touched ">
+                      Passing year is required
+                    </mat-error>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group mb-0">
+                    <mat-label class="label_name">Grade <span
+                        [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span></mat-label>
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select formControlName="selectedGrade" formControlName="grade" required
+                        placeholder="Select grade">
+                        <mat-option *ngFor="let Gread of Grades" [value]="Gread.value">
+                          {{Gread.label}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <mat-error *ngIf="form.get('grade').hasError('required') && form.get('grade').touched ">
+                      Grade is required
+                    </mat-error>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex mb-3 mx-4 border-top justify-content-end pt-3">
+              <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+                [ngClass]="userRole[0]?.canAdd ? 'd-block' : 'd-none' "> Save</button>
+              <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="cancle()"> Cancel
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+      <div class="col-sm-12 d-none" [ngClass]="isForm ? 'd-none' : '' ">
+        <div class="card mb-0 border-0">
+          <div class="pc-component">
+            <div class="mb-1" *ngIf="userRole[0]?.canAdd">
+              <div class="d-flex bd-highlight justify-content-end mb-3">
+                <button type="button" class="btn btn-primary  px-4 py-2 rounded-pill " (click)="addEducation()">Add
+                  Education</button>
+              </div>
+            </div>
+          </div>
+          <div class="mat-elevation-z8 table-responsive user_request_list shadow-none ">
+            <table mat-table [dataSource]="dataSource" class="apply_leave border">
+
+              <ng-container matColumnDef="institution">
+                <th mat-header-cell *matHeaderCellDef> Institution </th>
+                <td mat-cell *matCellDef="let element"> {{element.institution}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Course">
+                <th mat-header-cell *matHeaderCellDef> Course </th>
+                <td mat-cell *matCellDef="let element"> {{element.degree
+                  }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="passingYear">
+                <th mat-header-cell *matHeaderCellDef> Passing Year </th>
+                <td mat-cell *matCellDef="let element">{{element.passingYear }} </td>
+              </ng-container>
+              <ng-container matColumnDef="Grade">
+                <th mat-header-cell *matHeaderCellDef> Grade </th>
+                <td mat-cell *matCellDef="let element">{{getStatusLabel(element.grade) }} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+                <td mat-cell *matCellDef="let element" class="">
+                  <div class="d-flex align-items-center btn_hover">
+                    <div class="icon_width me-2" *ngIf="userRole[0]?.canEdit">
+                      <svg viewBox="64 64 896 896" focusable="false" (click)="editEducation(element)" data-icon="edit"
+                        width="1em" height="1em" aria-hidden="true">
+                        <path
+                          d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                        </path>
+                      </svg>
+                    </div>
+
+                    <div *ngIf="userRole[0]?.canDelete">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteEducation(element)" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns.length">
+                  No Data Available
+                </td>
+              </tr>
+            </table>
+
+          </div>
+          <div class="text-end d-block mb-3 mt-4" *ngIf="!isProfile && !requestId">
+            <div class="pagination-format d-inline-block">
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="professional_detail education_block position-relative card_height" [ngClass]="isForm ? 'd-none' : '' ">
+  <div class="professional_data">
+    <div class="card_header education_color">
+      <h4>Education<span>
+          <svg viewBox="0 0 14 14" role="img" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="m 12.499079,12.25525 c 0.0968,0 0.188377,-0.0436 0.249339,-0.11884 0.06096,-0.0752 0.08473,-0.17385 0.06473,-0.26853 l -0.202146,-0.95662 c 0.115125,-0.11137 0.187491,-0.26686 0.187491,-0.43975 0,-0.182 -0.08106,-0.34343 -0.206876,-0.45558 l 0,-3.32202 -0.810333,0.50146 0,2.82056 c -0.125815,0.11215 -0.2069,0.27358 -0.2069,0.45558 0,0.17291 0.07239,0.32841 0.187515,0.43975 l -0.20217,0.95662 c -0.02,0.0947 0.0038,0.19335 0.06473,0.26853 0.06096,0.0752 0.152539,0.11884 0.249339,0.11884 l 0.625281,0 z M 12.773741,4.75539 7.5021019,1.49209 C 7.3477151,1.39699 7.1736728,1.34925 6.9996305,1.34925 c -0.1740423,0 -0.3482077,0.0477 -0.5016586,0.14284 l -5.271713,3.2633 C 1.0854931,4.84249 0.99999905,4.99633 0.99999905,5.1619 c 0,0.1656 0.085494,0.31949 0.22625985,0.40673 l 5.2716883,3.26333 c 0.153451,0.0952 0.3276163,0.14284 0.5016586,0.14284 0.1740423,0 0.3481092,-0.0477 0.5024714,-0.14284 L 12.773741,5.56863 c 0.140766,-0.0872 0.22626,-0.24113 0.22626,-0.40673 0,-0.16557 -0.08549,-0.31946 -0.22626,-0.40651 z M 6.9996059,9.78508 c -0.3283798,0 -0.6488777,-0.0912 -0.928242,-0.26411 l -3.0750017,-1.90368 0,3.27796 c 0,0.97016 1.7931578,1.7555 4.0032436,1.7555 2.2108742,0 4.0038842,-0.78536 4.0038842,-1.7555 l 0,-3.27796 -3.0748786,1.90368 C 7.6492472,9.69388 7.3279857,9.78508 6.9996059,9.78508 Z" />
+          </svg></span></h4>
+    </div>
+    <div class="image_section" (click)="addEducation()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z" />
+      </svg>
+    </div>
+    <ul class="mt-4">
+      <li class="" *ngFor="let data of educationDetail">
+        <div class="edu_institute d-flex justify-content-between">
+          {{data?.institution}}
+          <div class="outer_edit d-flex">
+            <div class="cursor-pointer ms-2 outer_svg" *ngIf="userRole[0]?.canEdit">
+              <svg viewBox="64 64 896 896" focusable="false" (click)="editEducation(data)" data-icon="edit" width="1em"
+                height="1em" aria-hidden="true">
+                <path
+                  d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                </path>
+              </svg>
+            </div>
+            <div class="icon_width ms-2 outer_svg" *ngIf="userRole[0]?.canDelete">
+              <i class="ri-delete-bin-line" (click)="deleteEducation(data)"></i>
+            </div>
+          </div>
+        </div>
+        <div class="edu_course"><b>{{data?.degree}}</b></div>
+        <div class="edu_year">{{data?.passingYear }}</div>
+        <div class="edu_grad"><b>{{getStatusLabel(data?.grade) }}</b></div> 
+      </li>
+
+    </ul>
+  </div>
+</div>

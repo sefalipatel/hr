@@ -1,0 +1,79 @@
+<div class="main_facedetection">
+    <div class="header_top">
+        <div class="container">
+            <div class="logo">
+                <img src="../../../../assets/images/horizantal_logo .svg" alt="logo" />
+            </div>
+        </div>
+    </div>
+    <div class="content_section">
+        <div class="container">
+            <div class="container_slider">
+                <div class="face_detection_main">
+                    <div class="face_detection_inner">
+                        <div class=""> 
+                            <div class="screen screen-1" [class.slide-out]="showSecondScreen">
+
+
+                                <div class="container">
+
+                                    <div class="row">
+                                        <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100">
+                                            <div class="d-flex align-items-center justify-content-center h-100">
+                                                <div class="face_detection_left">
+                                                    <div class="face_block">
+                                                        <div class="image_block box">
+                                                            <img class="img-fluid"
+                                                                src="../../../../assets/images/63459.png"
+                                                                alt="face detection" />
+                                                            </div>
+                                                    </div>
+                                                    <div class="camera_icon">
+                                                        <button>
+                                                            <span>
+                                                                <img src="../../../../assets/images/camera.png"
+                                                                    alt="camera icon" />
+                                                            </span>
+                                                            <span>
+                                                                <i class="fa fa-spinner fa-spin"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-xxl-6 col-xl-6 col-lg-12 h-100 mt-3 mt-lg-0">
+                                            <div class="two_factor_btn">
+                                                <a class="comon_face" [ngClass]="{'active': !showSecondScreen}">2FA
+                                                </a>
+                                                <a class="comon_face" (click)="toggleScreen()">Authenticator</a>
+                                            </div>
+                                            <div class="face_detection_right">
+                                                <h3>Enhancing 2FA with Real-Time Image Capture.</h3>
+                                                <p>Add an extra layer of security to your authentication process
+                                                    by capturing real-time
+                                                    images during login. Our advanced
+                                                    2FA system ensures user identity verification through visual
+                                                    confirmation, making
+                                                    unauthorized access nearly impossible. </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="screen screen-2" [class.slide-in]="showSecondScreen">
+                                <h2>Screen 2</h2>
+                                <button (click)="toggleScreen()">FACE DETECTION
+                                </button>
+                                <button [ngClass]="{'active': showSecondScreen}">AUTHENTICATION
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

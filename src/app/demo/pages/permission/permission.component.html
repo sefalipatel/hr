@@ -1,0 +1,156 @@
+<div class="page-top-header mb-3">
+    <h5 class="card-subtitle mt-0">Permission</h5>
+    <span class="mt-2 text-secondary d-block">Manage Permissions</span>
+</div>
+
+<div class="row px-3 permission-page">
+    <div class="col-sm-12 border rounded bg-white p-3">
+
+        <div class=" mb-3">
+
+            <div class="row">
+                <!-- Start : Role dropdown -->
+                <div class="col-xl-4 col-lg-4 col-md-3  col-sm-12  mb-3">
+                    <div class="form-group mb-0">
+                        <label for="roleId" style="font-weight: 600;" class="required mb-2">Role</label>
+                        <mat-select style="font-size: 14px;" class="select form-control" placeholder="Choose Role"
+                            [(ngModel)]="roleId" [ngModelOptions]="{standalone:true}"
+                            (selectionChange)="roleChange($event)">
+                            <mat-option value="">
+                                Select Role
+                            </mat-option>
+                            <mat-option *ngFor="let item of roles" [value]="item.id">
+                                {{ item.name }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- End : Role dropdown -->
+                <!-- Start : user dropdown -->
+                <div class="col-xl-4 col-lg-4 col-md-3  col-sm-12 mb-3">
+                    <div class="form-group mb-0">
+                        <label for="userId" style="font-weight: 600;" class="required mb-2">User</label>
+                        <mat-select style="font-size: 14px;" class="select form-control" placeholder="Choose User"
+                            [(ngModel)]="userId" [ngModelOptions]="{standalone:true}"
+                            (selectionChange)="userChange($event)">
+                            <mat-option value="">
+                                Select User
+                            </mat-option>
+                            <mat-option *ngFor="let item of userList" [value]="item.id">
+                                {{ item.employeeName }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+                <!-- End : user dropdown -->
+                <div class="col-xl-4 col-lg-4 col-md-3  col-sm-12 mb-3 h-54" *ngIf="personId">
+                    <div class="btn-box d-flex align-items-baseline">
+                        <button type="button" class="btn btn-primary rounded-pill py-2 mt-0 mt-md-4"
+                            (click)="clearUserPermission()">Clear
+                            Permission</button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-container *ngIf="roleId && permission?.length"> 
+                <!-- New UI With type -->
+                <div class="text-end d-flex align-items-center justify-content-end border-top "
+                    *ngIf="userRole[0]?.canView">
+                    <button type="submit" class="btn btn-primary py-2 mt-3 rounded-pill"
+                        (click)="savePermission()">Save</button>
+                </div>
+                <div class=" pb-3">
+                    <div class="productdetails product-respon">
+                        <div class="row">
+                            <div class="col-12 my-3">
+                                <div class="input-checkset">
+                                    <ul class="">
+                                        <li>
+                                            <mat-checkbox class="example-margin" [(ngModel)]="allComplete"
+                                                [indeterminate]="someCompleteNew()" [ngModelOptions]="{standalone:true}"
+                                                (ngModelChange)="selectAllNew($event)">
+                                                Select All
+                                            </mat-checkbox>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> 
+                            <ng-container *ngFor="let type of permission; let  i = index ">
+                                <ng-container *ngIf="type.typeName == 'Functional';else otherModuleType">
+                                    <div class="col-md-4 mb-3"
+                                        *ngFor="let editpermission of type?.permissions; let  mainindex = index ">
+                                        <div class="border rounded">
+                                            <h6 class="title bg-light p-3">{{editpermission?.moduleName}}</h6>
+                                            <div class="input-checkset p-3">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <mat-checkbox class="example-margin"
+                                                            [(ngModel)]="editpermission.canView"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                            (ngModelChange)="permissionUpdate('canView')">
+                                                            View
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div class="col">
+                                                        <mat-checkbox class="example-margin"
+                                                            [(ngModel)]="editpermission.canAdd"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                            (ngModelChange)="permissionUpdate('canAdd')">
+                                                            Create
+                                                        </mat-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <mat-checkbox class="example-margin"
+                                                            [(ngModel)]="editpermission.canEdit"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                            (ngModelChange)="permissionUpdate('canEdit')">
+                                                            Edit
+                                                        </mat-checkbox>
+                                                    </div>
+                                                    <div class="col">
+                                                        <mat-checkbox class="example-margin"
+                                                            [(ngModel)]="editpermission.canDelete"
+                                                            [ngModelOptions]="{standalone:true}"
+                                                            (ngModelChange)="permissionUpdate('canDelete')">
+                                                            Delete
+                                                        </mat-checkbox>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #otherModuleType>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="border rounded">
+                                            <h6 class="title bg-light p-3">{{type.typeName}}</h6>
+                                            <div class="input-checkset p-3">
+                                                <div class="row">
+                                                    <ng-container
+                                                        *ngFor="let editpermission of type?.permissions; let  mainindex = index ">
+                                                        <div class="col-12">
+                                                            <mat-checkbox class="example-margin"
+                                                                [(ngModel)]="editpermission.canView"
+                                                                [ngModelOptions]="{standalone:true}"
+                                                                (ngModelChange)="permissionUpdate('canView')">
+                                                                {{editpermission?.moduleName}}
+                                                            </mat-checkbox>
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+            </ng-container>
+        </div>
+        <!-- /product list -->
+    </div>
+</div>

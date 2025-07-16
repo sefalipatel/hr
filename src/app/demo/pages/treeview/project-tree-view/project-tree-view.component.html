@@ -1,0 +1,69 @@
+<div class="row inside-page tree_view_page">
+  <div class="col-sm-12  p-3 bg-white time-card mt-3"> 
+    <div class="tree-view">
+      <div id="list">
+
+
+        <ul class="fist_level">
+          <li>
+            <div class="test main_project_name">
+              <div class="pro_border"></div>
+              <div class="outer_image">
+                <img [src]="favIcon" alt="Organization" />
+                <div class="backimage"></div>
+              </div>
+              <div class="name_des_emp">
+                <span style="font-weight: 600">Project</span>
+                <span> {{ ProjectList.projectName }} </span>
+              </div>
+            </div>
+
+
+
+            <ul class="second_level">
+              <li>
+                <div class="test main_project_name">
+                  <div class="pro_border"></div>
+                  <div class="outer_image">
+                    <img *ngIf="ProjectList?.projectManager?.profilePicture"
+                      [src]="transformImage(ProjectList?.projectManager?.profilePicture)" alt="father.png" />
+
+                    <img *ngIf="!ProjectList?.projectManager?.profilePicture" src="assets/images/tree-view/5.png"
+                      alt="child_4.png" />
+                    <div class="backimage"></div>
+                  </div>
+                  <div class="name_des_emp">
+                    <span style="font-weight: 600">{{ProjectList?.projectManager?.employeeName}}</span>
+                    <span> {{ProjectList?.projectManager?.designationName}} </span>
+                  </div>
+                </div>
+
+
+
+                <ul class="third_level"> 
+                  <li *ngFor="let item of ProjectList.projectMembers">
+                    <div class="test main_project_name">
+                      <div class="pro_border"></div>
+                      <div class="outer_image">
+                        <div *ngIf="item?.profilePicture">
+                          <img [src]="transformImage(item?.profilePicture)" alt="child_4.png" />
+                        </div>
+                        <img *ngIf="!item?.profilePicture" src="assets/images/tree-view/5.png" alt="child_4.png" />
+                        <div class="backimage"></div>
+                      </div> 
+
+                      <div class="name_des_emp">
+                        <span style="font-weight: 600">{{item?.employeeName}}</span>
+                        <span> {{item?.designationName}} </span>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

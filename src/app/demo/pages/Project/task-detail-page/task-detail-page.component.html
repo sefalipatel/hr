@@ -1,0 +1,571 @@
+<!-- <p>task-detail-page works!</p> -->
+<section class="project-task-page mt-3 inside-page">
+    <div class="border rounded  px-0">
+        <div class="main-row">
+            <div class="row px-3">
+                <div class="col-md-12 p-3 bg-white border rounded">
+                    <div class="col-lg-12 col-md-6 communication-view task-view left-sidebar">
+                        <div class=" communication-view chat-view right-sidebar">
+                            <div class="communication-window">
+                                <div class="communication-header">
+                                    <div class="page-top-header">
+                                        <div class="d-flex align-items-center w-100 justify-content-between close_butn">
+                                            <div class="d-flex">
+                                                <div class="btn border d-flex align-items-center me-3"
+                                                    *ngIf="getAllTaskData?.status!=5"
+                                                    [ngClass]="getAllTaskData?.status===5 ? 'btn-complete' : 'btn-pending'"
+                                                    [ngStyle]="{'background-color': colorMap[getAllTaskData?.status]}"
+                                                    (click)="changeTaskStatus(getAllTaskData)">
+                                                    {{ getStatus(getAllTaskData) }}
+                                                </div>
+                                                <div class="overflow-visible btn border"
+                                                    *ngIf="getAllTaskData?.status==5"
+                                                    [ngClass]="getAllTaskData?.status===5 ?'btn-complete ':'btn-pending'">
+                                                    <div class="dropdown">
+                                                        <span class="dropdown-toggle" type="button"
+                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            Completed
+                                                        </span>
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <li *ngFor="let assign of completedStatus">
+                                                                <a class="dropdown-item"
+                                                                    (click)="changeTaskStatus(getAllTaskData)">{{
+                                                                    assign?.value
+                                                                    }}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="btn d-flex align-items-center"
+                                                    *ngIf="getAllTaskData?.status==3 && getAllTaskData.createdBy===personId"
+                                                    [ngClass]="getAllTaskData?.status===5?'btn-complete ':'btn-pending'"
+                                                    (click)="changeRejectedStatus(getAllTaskData)"><i
+                                                        class="ri-check-line me-2"
+                                                        style="font-size:20px !important;"></i>{{getAllTaskData?.status==3?'Reject'
+                                                    :''}}
+                                                </div>
+                                            </div>
+                                            <i class="ri-close-circle-fill  fs-6 close_icon" style="cursor: pointer;"
+                                                (click)="closedsidemanu()"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="p-3">
+                                    <div class="row d-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="col-xxl-8 col-xl-6 col-lg-12">
+                                            <div class="d-flex justify-content-between header_top">
+                                                <div class="d-flex align-items-center flex-wrap mb-2">
+                                                    <h5 class="m-0 me-2" style="color: #2196f3 !important;">
+                                                        {{getAllTaskData?.taskCode}}
+                                                    </h5>
+                                                    <h5 class=" m-0">
+                                                        {{getAllTaskData?.subject}}</h5>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xxl-4 col-xl-6 col-lg-12">
+                                            <div class="task-bar mb-2 ">
+                                                <div class="flex-box justify-content-start justify-content-xl-end">
+                                                    <div class="user">
+                                                        {{getAllTaskData?.personName}}
+                                                    </div>
+                                                    <div class="texts">
+                                                        created task
+                                                    </div>
+                                                    <div class="date">
+                                                        {{getAllTaskData?.createdDate
+                                                        | date: dateFormat}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-12 col-xxl-12 col-lg-12 order-xxl-0 order-xl-0 mt-3 mt-xl-0">
+                                            <div class="boxshadow">
+                                                <div class="details">
+                                                    <div class="row">
+                                                        <div class="col-md-4 col-sm-12 h-54 mb-3">
+
+                                                            <div class="icon-text-delete assign_person ms-0 w-100">
+                                                                <div
+                                                                    class="dropdown assign_name_list border cursor-pointer">
+
+                                                                    <!-- If Status === 5, No Dropdown -->
+                                                                    <span *ngIf="getAllTaskData?.status === 5"
+                                                                        class="d-flex align-items-center w-100">
+                                                                        <div
+                                                                            class="d-flex me-3 align-items-center w-100">
+                                                                            <div class="icon" *ngIf="getAllTaskData">
+                                                                                <img *ngIf="getAllTaskData?.profilePicture"
+                                                                                    [src]="attachmentURL + getAllTaskData?.profilePicture?.replace('wwwroot\\', '')">
+                                                                                <div *ngIf="!getAllTaskData?.profilePicture && getAllTaskData?.taskAssignmentName"
+                                                                                    class="avtar avtar-s"
+                                                                                    [ngStyle]="{'background': stringToColor(getAllTaskData?.taskAssignmentName)}">
+                                                                                    <b class="f-18">
+                                                                                        {{
+                                                                                        getAllTaskData?.taskAssignmentName[0]?.toUpperCase()
+                                                                                        +
+                                                                                        (getAllTaskData?.taskAssignmentName.split('
+                                                                                        ')[1][0]?.toUpperCase()
+                                                                                        ||
+                                                                                        '') }}
+                                                                                    </b>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text ms-2">
+                                                                                <div class="text-lightt">
+                                                                                    Assigned To
+                                                                                </div>
+                                                                                <div class="text-darkd">
+                                                                                    {{
+                                                                                    getAllTaskData?.taskAssignmentName
+                                                                                    || 'Not
+                                                                                    Assigned' }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </span>
+
+                                                                    <span *ngIf="getAllTaskData?.status !== 5"
+                                                                        class="dropdown-toggle d-flex align-items-center w-100 h-100"
+                                                                        type="button" id="dropdownMenuButton"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <div
+                                                                            class="d-flex me-3 align-items-center w-100 h-100">
+                                                                            <div class="icon" *ngIf="getAllTaskData">
+                                                                                <img *ngIf="getAllTaskData?.profilePicture"
+                                                                                    [src]="attachmentURL + getAllTaskData?.profilePicture?.replace('wwwroot\\', '')">
+                                                                                <div *ngIf="!getAllTaskData?.profilePicture && getAllTaskData?.taskAssignmentName"
+                                                                                    class="avtar avtar-s "
+                                                                                    [ngStyle]="{'background': stringToColor(getAllTaskData?.taskAssignmentName)}">
+                                                                                    <b class="f-18">
+                                                                                        {{
+                                                                                        getAllTaskData?.taskAssignmentName[0]?.toUpperCase()
+                                                                                        +
+                                                                                        (getAllTaskData?.taskAssignmentName.split('
+                                                                                        ')[1][0]?.toUpperCase()
+                                                                                        ||
+                                                                                        '') }}
+                                                                                    </b>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="text ms-3">
+                                                                                <div class="text-lightt">
+                                                                                    Assigned To
+                                                                                </div>
+                                                                                <div class="text-darkd">
+                                                                                    {{
+                                                                                    getAllTaskData?.taskAssignmentName
+                                                                                    || 'Not
+                                                                                    Assigned' }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </span>
+
+                                                                    <ul class="dropdown-menu pt-3"
+                                                                        *ngIf="getAllTaskData?.status !== 5"
+                                                                        aria-labelledby="dropdownMenuButton">
+                                                                        <li class="px-2">
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="Search..."
+                                                                                [(ngModel)]="searchText" />
+                                                                        </li>
+                                                                        <a class="dropdown-item"
+                                                                            (click)="onAssignSelected('')">Select
+                                                                            Assign </a>
+                                                                        <li
+                                                                            *ngFor="let assigns of filteredAssignUsers()">
+                                                                            <a class="dropdown-item"
+                                                                                (click)="onAssignSelected(assigns)">
+                                                                                {{
+                                                                                assigns?.firstName
+                                                                                + ' ' +
+                                                                                assigns?.lastName
+                                                                                }}
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-12">
+                                                            <div class="row "
+                                                                [class.disabled]="getAllTaskData?.status === 5"
+                                                                role="button"
+                                                                (click)="getAllTaskData?.status !== 5 && sdpicker.open()">
+                                                                <div class="col-md-6 mb-3">
+                                                                    <div class="">
+                                                                        <mat-form-field class="w-100"
+                                                                            appearance="outline">
+                                                                            <input matInput [matDatepicker]="sdpicker"
+                                                                                required [formControl]="assignDueDate"
+                                                                                [value]="assignDueDate "
+                                                                                [disabled]="getAllTaskData?.status === 5"
+                                                                                (dateChange)="updateDueDate($event.value)"
+                                                                                placeholder="Select Due Date" />
+                                                                            <mat-datepicker-toggle matSuffix
+                                                                                [for]="sdpicker"
+                                                                                [disabled]="getAllTaskData?.status === 5"></mat-datepicker-toggle>
+                                                                            <mat-datepicker #sdpicker></mat-datepicker>
+                                                                        </mat-form-field>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 mb-3">
+                                                                    <div
+                                                                        class="border h-54 d-flex align-items-center rounded">
+                                                                        <div class="d-flex align-items-center ps-3">
+                                                                            <div class="text-lightt due-title ">
+                                                                                Due
+                                                                                Date&nbsp;:&nbsp;
+                                                                            </div>
+                                                                            <div class="due-date fw-bold">
+                                                                                {{getAllTaskData?.dueDate
+                                                                                ?(
+                                                                                getAllTaskData?.dueDate
+                                                                                | date: dateFormat)
+                                                                                :'-'}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 flex-wrapp mb-3">
+                                                            <div class="form-group mb-0 w-100">
+                                                                <mat-label class="label_name">
+                                                                    Priotity</mat-label>
+
+                                                                <div class="mt-2"
+                                                                    [class.disabled]="getAllTaskData?.status === 5">
+
+                                                                    <div
+                                                                        class="dropdown icon-text-delete  w-100 priority_section">
+                                                                        <span
+                                                                            class="dropdown-toggle d-flex align-items-center  justify-content-between w-100"
+                                                                            type="button" id="dropdownMenuButton"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false"
+                                                                            [attr.data-bs-toggle]="getAllTaskData?.status === 5 ? null : 'dropdown'"
+                                                                            (click)="getAllTaskData?.status === 5 ? $event.stopPropagation() : null">
+                                                                            <div class="text">
+
+                                                                                <div class="text-darkd">
+                                                                                    {{getPriority(getAllTaskData?.priority)
+                                                                                    }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </span>
+                                                                        <ul class="dropdown-menu"
+                                                                            aria-labelledby="dropdownMenuButton">
+                                                                            <li *ngFor="let priority of priorityList">
+                                                                                <a class="dropdown-item cursor-pointer"
+                                                                                    (click)="getAllTaskData?.status !== 5 && updatePriority(getAllTaskData?.id, priority?.value)">{{
+                                                                                    priority?.name
+                                                                                    }}</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 flex-wrapp mb-3">
+
+                                                            <div class="form-group mb-0 w-100">
+                                                                <mat-label class="label_name">Estimated
+                                                                    Hours</mat-label>
+                                                                <mat-form-field class="w-100 mt-2" appearance="outline">
+                                                                    <div class="d-flex">
+                                                                        <input matInput
+                                                                            placeholder="Enter estimated hours"
+                                                                            [formControl]="estimatedHrs"
+                                                                            (keydown.enter)="onEstimateEnter($event)"
+                                                                            (blur)="trimOnBlur(estimatedHrs)">
+                                                                        <!-- <span class="ms-5">Hours</span> -->
+                                                                    </div>
+                                                                    <span class="text-danger" style="margin-top: 10px;"
+                                                                        *ngIf="estimatedHrs.invalid && (estimatedHrs.touched || estimatedHrs.dirty)">
+                                                                        <ng-container
+                                                                            *ngIf="estimatedHrs.errors?.['pattern']">
+                                                                            Only numeric values are allowed.
+                                                                        </ng-container>
+                                                                        <ng-container
+                                                                            *ngIf="estimatedHrs.errors?.['required']">
+                                                                            Estimated hours is required.
+                                                                        </ng-container>
+                                                                    </span>
+                                                                </mat-form-field>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-4 col-sm-12 flex-wrapp mb-3">
+                                                            <div class="form-group mb-0 w-100">
+                                                                <mat-label class="label_name">Actual
+                                                                    Hours</mat-label>
+                                                                <mat-form-field class="w-100 mt-2" appearance="outline">
+                                                                    <div class="d-flex">
+                                                                        <input matInput placeholder="Enter actual hours"
+                                                                            [formControl]="actualHrs"
+                                                                            (keydown.enter)="onActualEnter($event)"
+                                                                            (blur)="trimOnBlur(actualHrs)">
+                                                                        <!-- <span class="ms-5">Hours</span> -->
+                                                                    </div>
+                                                                    <span class="text-danger"
+                                                                        *ngIf="actualHrs.invalid && (actualHrs.touched || actualHrs.dirty)">
+                                                                        <ng-container
+                                                                            *ngIf="actualHrs.errors?.['pattern']">
+                                                                            Only numeric values are allowed.
+                                                                        </ng-container>
+                                                                        <ng-container
+                                                                            *ngIf="actualHrs.errors?.['required']">
+                                                                            Actual hours is required.
+                                                                        </ng-container>
+                                                                    </span>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 flex-wrapp mt-3">
+                                                            <div *ngIf="actualHourList.length" class=" w-100 ">
+                                                                <mat-label class="label_name">Actual
+                                                                    Hours</mat-label>
+                                                                <ul class=" mt-3 task_detail_section border-0">
+                                                                    <li class="mb-3 "
+                                                                        *ngFor="let data of actualHourList ">
+
+                                                                        <p
+                                                                            class="m-0 border  rounded  bg-light p-1 text-center">
+                                                                            <span>{{data.date | date:
+                                                                                dateFormat}}</span>
+                                                                            <span class="ms-3">{{data.actualHours}}
+                                                                                Hour</span>
+                                                                        </p>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row mx-0 boxshadow ">
+                                        <div class="col-md-12">
+                                            <p class="mb-0">Description</p>
+                                            <div class="chat_block px-0">
+                                                <div class="w-100" [formGroup]="form">
+                                                    <div>
+                                                        <angular-editor [formControl]="description"
+                                                            [config]="descriptionEditorConfig"
+                                                            (keyup.enter)="saveDescription()" (blur)="saveDescription()"
+                                                            (focus)="onEditorFocus()"
+                                                            (ngModelChange)="onEditorChange()"></angular-editor>
+                                                    </div>
+                                                </div>
+                                                <div class="send_button">
+                                                    <a>
+                                                        <i class="ri-send-plane-fill"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="bg-white boxshadow mt-3">
+                                        <div class="row">
+                                            <mat-tab-group>
+                                                <div class="col-md-12">
+                                                    <mat-tab label="Comments">
+                                                        <div
+                                                            class="col-xl-12 col-xxl-12 col-lg-12 order-xxl-1 order-xl-2 mt-xl-3 mt-3 mt-xxl-0">
+                                                            <div class="chat_middle_box">
+                                                                <div class="row m-0 p-0">
+                                                                    <div class="col-md-7">
+                                                                        <div class="chat_block">
+                                                                            <div class="w-100" [formGroup]="form">
+                                                                                <div>
+                                                                                    <angular-editor
+                                                                                        formControlName="Comment"
+                                                                                        [config]="editorConfig"
+                                                                                        (focus)="onEditorFocus()"
+                                                                                        (ngModelChange)="onEditorChange()">
+                                                                                    </angular-editor>
+                                                                                </div>
+                                                                                <div class="icon border rounded cursor-pointer"
+                                                                                    (click)="openImageInput.click()"
+                                                                                    matTooltip="Attach File"
+                                                                                    style="width:fit-content;margin-top:15px;padding:10px;">
+                                                                                    <i
+                                                                                        class="ri-attachment-2 text-primary ">
+                                                                                        <input type="file" name="file"
+                                                                                            id="fileInput"
+                                                                                            class="d-none"
+                                                                                            (change)="onFileSelected($event)"
+                                                                                            #openImageInput>
+                                                                                    </i> Upload File
+                                                                                </div>
+                                                                                <div
+                                                                                    class="text-end d-flex justify-content-end">
+                                                                                    <button
+                                                                                        class="btn btn-primary mt -3"
+                                                                                        (click)="sendData()">
+                                                                                        Send
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-5">
+                                                                        <div class="multi-upload">
+                                                                            <div class="uploaded-files mt-3 p-3 m-0 w-100"
+                                                                                *ngIf="selectedFiles.length > 0">
+                                                                                <h6>Selected Files:</h6>
+                                                                                <ul class="border-0">
+                                                                                    <li
+                                                                                        *ngFor="let file of selectedFiles; let i = index">
+                                                                                        <div
+                                                                                            class="d-flex align-items-center justify-content-between">
+                                                                                            <div
+                                                                                                style="text-decoration: underline;color: blue;">
+                                                                                                {{file.name
+                                                                                                }}
+                                                                                            </div>
+
+                                                                                            <i style="font-size:28px;"
+                                                                                                class="ri-close-circle-fill text-danger"
+                                                                                                (click)="deleteFile(i)"></i>
+                                                                                        </div>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div
+                                                                            class="chat_list_main scrollbox scrollbox_delayed ">
+                                                                            <div class="scrollbox-content">
+                                                                                <div class="chat_list m-0"
+                                                                                    *ngFor="let conv of taskConversion">
+                                                                                    <div class="image_blc">
+                                                                                        <p *ngIf="!conv.profilePicture"
+                                                                                            style="background-color: orange; border-radius: 50%; display: flex; align-items: center;justify-content: center; margin-right: 20px; padding: 8px 12px;height: 38px;   width: 38px;">
+                                                                                            {{
+                                                                                            conv.personName
+                                                                                            ?
+                                                                                            (conv.personName[0]
+                                                                                            +
+                                                                                            (conv.personName.split('
+                                                                                            ')[1]?.[0] ||
+                                                                                            '')).toUpperCase()
+                                                                                            :
+                                                                                            'NA' }}
+                                                                                        </p>
+                                                                                        <img *ngIf="conv.profilePicture"
+                                                                                            [src]="attachmentURL + conv.profilePicture.replace('wwwroot\\', '')"
+                                                                                            alt="{{conv.personName}}"
+                                                                                            style=" border-radius: 50%; display: flex; align-items: center;justify-content: center; margin-right: 20px; height: 38px;   width: 38px;border:1px solid gray;">
+                                                                                    </div>
+                                                                                    <div class="w-100 chatinghst">
+                                                                                        <p
+                                                                                            class="name d-flex align-items-center">
+                                                                                            {{conv.personName}}<span
+                                                                                                class="d-flex align-items-center">
+                                                                                                Commented on
+                                                                                                /
+                                                                                                <p class="ms-1 text-decoration-none "
+                                                                                                    style="color: #2196f3;font-weight:600;">
+                                                                                                    {{conv?.createdDate
+                                                                                                    |
+                                                                                                    date:
+                                                                                                    dateFormat}},
+
+                                                                                                    <span class="ms-0"
+                                                                                                        style="font-size:14px;color:green;">{{conv?.createdDate
+                                                                                                        |
+                                                                                                        date:
+                                                                                                        timeFormat
+                                                                                                        }}</span>
+                                                                                                </p>
+
+
+                                                                                            </span></p>
+                                                                                        <p class="text"
+                                                                                            [innerHTML]="conv.comment">
+                                                                                        </p>
+                                                                                        <p
+                                                                                            *ngFor="let attechment of conv.attachments">
+                                                                                            <a [href]="attachmentURL + attechment?.filePath.replace('wwwroot\\', '')"
+                                                                                                target="_blank">
+                                                                                                {{attechment?.filePath.split('\\').pop()}}</a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </mat-tab>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <mat-tab label="History">
+                                                        <div class="col-xxl-12 col-xl-12 ">
+                                                            <div class=" historybx ">
+                                                                <div class="scrollbox scrollbox_delayed">
+                                                                    <div
+                                                                        class="timeline time_list_detail p-3 my-3 scrollbox-content">
+                                                                        <ul>
+                                                                            <li *ngFor="let time of timeLineData">
+                                                                                <div
+                                                                                    class="date_time d-flex align-items-center">
+                                                                                    <div class="timecreate-date">
+                                                                                        <p>{{time?.createdDate
+                                                                                            |
+                                                                                            date:
+                                                                                            dateFormat}}</p>
+                                                                                    </div>
+                                                                                    <p>{{time?.createdDate |
+                                                                                        date:
+                                                                                        timeFormat}}</p>
+                                                                                </div>
+                                                                                <p class="">
+                                                                                    {{time?.comment}}
+                                                                                </p>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </mat-tab>
+                                                </div>
+                                            </mat-tab-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

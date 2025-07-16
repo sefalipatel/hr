@@ -1,0 +1,37 @@
+<button mat-mini-fab class="btn btn-primary" (click)="navigate()">
+  <i class="fa fa-chevron-left" aria-hidden="true"></i>
+</button>
+<div class="regularization">
+
+  <div class="d-flex align-items-center justify-content-between bg-primary  p-3 px-4 ">
+    <h6 class=" fw-bold text-white ">Add Task</h6>
+
+  </div>
+  <div class="card border-0 mb-0">
+    <div class="card-body ">
+      <div class="bg-white p-3">
+        <form [formGroup]="addTaskForm" class="mx-3  example-form">
+
+          <ng-container>
+            <div class="regularization_time">
+
+            </div>
+
+            <mat-form-field class="example-full-width">
+              <mat-label>Task</mat-label>
+              <input matInput placeholder="Entar a Task" formControlName="Subject">
+            </mat-form-field>
+
+
+          </ng-container>
+
+          <div class="text-end regularization_btn mt-4 border-top pt-4">
+            <button type="submit" class="btn btn-primary py-2 px-4 rounded-pill me-3" (click)="createTask()">
+              Submit</button>
+            <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill" (click)="cancelPopup()">
+              Cancel</button>
+          </div>
+        </form>
+
+      </div>
+      <ng-template #noData></ng-template>

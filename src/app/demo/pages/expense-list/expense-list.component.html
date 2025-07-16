@@ -1,0 +1,198 @@
+<div class="d-flex align-items-center justify-content-between">
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle mt-0">Expense </h5>
+    </div>
+
+</div>
+
+<div *ngIf="isForm">
+    <app-expense-type-list (onAction)="isForm = $event"></app-expense-type-list>
+</div>
+
+<div class="card p-3" *ngIf="!isForm">
+    <div class="d-flex justify-content-end">
+        <button type="submit" (click)="ExpenseType()" *ngIf="!isForm && userRole[0]?.canEdit"
+            class="btn btn-primary rounded-pill px-4 py-2 ms-3">Expense Type</button>
+        <button type="submit" (click)="CancelExpanse()" *ngIf="isForm"
+            class="btn btn-primary rounded-pill px-4 py-2 ms-3">Cancel</button>
+    </div>
+    <div class="">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="month_year">
+                    <div class="year_select_box">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                                (ngModelChange)="onYearSelected($event)" id="year" placeholder="select Year">
+                                <mat-option class="text-muted" value="">Select Year </mat-option>
+                                <mat-option class="text-muted" *ngFor="let year of years" [value]="year">
+                                    {{year}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="month_year">
+                    <div class="year_select_box">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                                placeholder="select Month">
+                                <mat-option class="text-muted" value="">Select Month </mat-option>
+                                <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{
+                                    month.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-start d-flex flex-wrap align-items-baseline">
+                <button class="btn btn-primary rounded-pill  me-2"
+                    (click)="onMonthSelected(selectedMonth)">Apply</button>
+                <button class="btn btn-secondary rounded-pill " (click)="resetButton()">Reset</button>
+            </div>
+        </div> 
+        <div class="row mt-2">
+            <div class="col-md-4">
+                <div class="pc-h-item bg-transparent position-static w-100">
+                    <form class="header-search d-block w-100"> 
+                        <input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)" type="search"
+                            class="form-control w-100" placeholder="Search..." />
+                    </form>
+                </div>
+            </div> 
+
+
+
+
+
+            <div class="col-md-8 d-flex align-items-center justify-content-end">
+                <button class="icon_three mt-2" [matMenuTriggerFor]="menu"
+                    aria-label="Example icon-button with a menu ">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" class="custome_menu_list">
+                    <button mat-menu-item *ngIf="userRole[0]?.canEdit" (click)="exportJson()">
+                        <mat-icon>ios_share</mat-icon>
+                        <span>Export to Excel</span>
+                    </button>
+                    <button mat-menu-item *ngIf="userRole[0]?.canAdd" (click)="addExpense()">
+                        <mat-icon>person_add</mat-icon>
+                        <span>Add Expense</span>
+                    </button>
+                </mat-menu> 
+            </div>
+        </div>
+        <div class="expenselist_tableview mt-3">
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                <div class="mat-elevation-z8 fixTableHead scrollbox-content  user_request_list  shadow-none "> 
+                    <table mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)" class="apply_leave "
+                        matSort>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="typeName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expense Name</th>
+                            <td mat-cell *matCellDef="let element">{{element?.expenseName ? element?.expenseName : ''}}
+                            </td>
+                        </ng-container>
+                        <!-- expensePersonName Column -->
+                        <ng-container matColumnDef="expensePersonName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                            <td mat-cell *matCellDef="let element">{{element?.expensePersonName}}</td>
+                        </ng-container>
+                        <!-- paidPersonName Column -->
+                        <ng-container matColumnDef="paidPersonName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Paid By</th>
+                            <td mat-cell *matCellDef="let element">{{element?.paidPersonName}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="expenseDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expense Date</th>
+                            <td mat-cell *matCellDef="let element">{{element?.expenseDate | date: dateFormat}}</td>
+                        </ng-container>
+                        <!-- Amount Column -->
+                        <ng-container matColumnDef="amount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+                            <td mat-cell *matCellDef="let element">{{element?.amount}}</td>
+                        </ng-container>
+                        <!-- expenseDate Column -->
+
+                        <!-- Next Renewal Date Column -->
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                            <td class="text_wrap" mat-cell *matCellDef="let element">{{element?.description}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="form-check form-switch ps-0 my-2 d-flex">
+                                    <mat-slide-toggle (change)="activeStatusChange($event,element?.id)"
+                                        [checked]="element?.status == 0? false :true"
+                                        [disabled]="!userRole[0]?.canEdit"></mat-slide-toggle>
+                                    <div [ngClass]="element?.status?'text-success fw-bold':'text-danger fw-bold'">
+                                        {{element?.status ? 'Paid' : 'Unpaid'}}</div>
+                                </div>
+                            </td> 
+                        </ng-container>
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="">Action
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="d-flex align-items-center" *ngIf="element?.status == 0? true :false"
+                                    [ngClass]="{ 'd-none': !userRole[0]?.canEdit && !userRole[0]?.canDelete}">
+                                    <div class="icon_width btn_hover px-3 me-3 mt-2" *ngIf="element?.bill">
+                                        <span mat-raised-button class="d-inline-block reason"
+                                            aria-label="Button that displays a tooltip when focused or hovered over">
+                                            <div class="ri-file-download-fill icon_width btn_hover me-2"
+                                                (click)="downloadFile(element)">
+                                            </div>
+
+                                        </span>
+                                    </div>
+                                    <div class="icon_width btn_hover px-3 me-3" *ngIf="userRole[0]?.canEdit">
+                                        <svg viewBox="64 64 896 896" focusable="false" (click)="editExpense(element)"
+                                            matTooltip="Edit" data-icon="edit" width="16" height="16"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="icon_width btn_hover" *ngIf="userRole[0]?.canDelete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteBtn(element)"
+                                            matTooltip="Delete" height="24" viewBox="0 0 24 24" fill="none" stroke="red"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="8">
+                                <div class="text-center d-block border-bottom-0 my-3">
+                                    <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                    <h6 class="no-record mt-3">No Data Available</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- start : pagination -->
+        <div class="text-end d-block mb-3" *ngIf="expenseList?.length > 20">
+            <div class="pagination-format d-inline-block me-3">
+                <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+        <!-- end : pagination -->
+    </div>
+</div>

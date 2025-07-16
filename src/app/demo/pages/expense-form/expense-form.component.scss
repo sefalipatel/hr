@@ -1,0 +1,31 @@
+.preview img {
+    height: 110px;
+    width: 200px;
+    object-fit: scale-down;
+}
+.org-img { 
+    border-radius: 5px; 
+    margin: 45px 0 0 0;
+
+    img {
+        height: 135px;
+        width: 240px;
+    }
+
+    i {
+        position: absolute;
+        right: -10px;
+        top: -8px;
+        font-size: 16px;
+        background: #ff4e4e;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        border-radius: 100%;
+        color: #fff;
+    }
+}
+.mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix, .mat-mdc-select {
+    display: block !important;
+} 

@@ -1,0 +1,146 @@
+<div class="page-top-header mb-0">
+  <h5 class="card-subtitle mt-0">Leave Report</h5>
+</div>
+
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white  custom-remove p-3 userleave_tableview">
+    <div class=" d-flex bd-highlight justify-content-end">
+      <button type="button" class="btn btn-primary rounded-pill mb-4" (click)="exportJson()">Export to
+        Excel</button>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="year_select_box">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Year</mat-label>
+            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+              (ngModelChange)="onYearSelected($event)" id="year">
+              <mat-option class="text-muted" value="">Select Year </mat-option>
+              <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="year_select_box">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Month</mat-label>
+            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+              (ngModelChange)="onMonthSelected($event)">
+              <mat-option class="text-muted" value="">Select Month </mat-option>
+              <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{ month.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="year_select_box">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Department</mat-label>
+            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="deptId"
+              (ngModelChange)="onDepartmentChange()">
+              <mat-option class="text-muted" value="">Select Deparment </mat-option>
+              <mat-option class="text-muted" *ngFor="let dept  of departmentList" [value]="dept.id">{{
+                dept .departmentName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="year_select_box">
+          <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Select Designation</mat-label>
+            <mat-select style="font-size: 0.875rem;" [(ngModel)]="designationId" placeholder="Select designation"
+              (ngModelChange)="onDesignationChange()">
+              <mat-option class="text-muted" value="">Select Designation</mat-option>
+              <mat-option class="text-muted" *ngFor="let designation of Designation" [value]="designation.id">
+                {{ designation.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="year_select_box">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Employee</mat-label>
+            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="personID">
+              <mat-option class="text-muted" value="">Select Employee </mat-option>
+              <mat-option class="text-muted" *ngFor="let name of employeeList" [value]="name.id">{{ name?.firstName +
+                ' ' + name?.lastName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 col-xxl mb-3">
+        <div class="d-flex justify-lg-content-end justify-content-start align-items-baseline">
+          <div class="btn btn-primary px-4  rounded-pill" (click)="getAllLeaveReport()">Apply</div>
+          <div class="btn btn-secondary px-4  rounded-pill ms-3" (click)="onReset()">Reset</div>
+        </div>
+      </div>
+    </div>
+    <div class="scrollbox scrollbox_delayed" tabindex="0">
+      <div class="admin_request_table  mt-2 fixTableHead  scrollbox-content">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8  apply_leave ">
+
+          <ng-container matColumnDef="employeeName">
+            <th mat-header-cell *matHeaderCellDef>Employee </th>
+            <td mat-cell *matCellDef="let element"> {{element?.employeeName}} ({{element?.employeeCode}}) </td>
+          </ng-container>
+
+          <ng-container matColumnDef="month">
+            <th mat-header-cell *matHeaderCellDef>Month </th>
+            <td mat-cell *matCellDef="let element"> {{monthList[element?.month]}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="departmentName">
+            <th mat-header-cell *matHeaderCellDef>Department</th>
+            <td mat-cell *matCellDef="let element"> {{element?.departmentName}} </td>
+          </ng-container> 
+
+          <ng-container matColumnDef="carryforwardLeave">
+            <th mat-header-cell *matHeaderCellDef>Remaining Leave </th>
+            <td mat-cell *matCellDef="let element">{{ element?.carryforwardLeave }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalLeave">
+            <th mat-header-cell *matHeaderCellDef>Total Leave </th>
+            <td mat-cell *matCellDef="let element">{{ element?.totalLeave }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="takenLeave">
+            <th mat-header-cell *matHeaderCellDef>Total Leave Taken</th>
+            <td mat-cell *matCellDef="let element">{{ element?.takenLeave }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="pendingLeave">
+            <th mat-header-cell *matHeaderCellDef> Pending Leave </th>
+            <td mat-cell *matCellDef="let element"> {{element?.pendingLeave}} </td>
+          </ng-container>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns?.length">
+              No Data Available
+            </td>
+          </tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+      </div>
+    </div>
+    <div class="text-end d-block mt-3">
+      <div class="pagination-format d-inline-block">
+        <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+          aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

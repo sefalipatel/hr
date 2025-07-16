@@ -1,0 +1,244 @@
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    /* Lighter than default */
+}
+
+.sprint_carete {
+    .model_body {
+        .project_select {
+            .form-label {
+                span {
+                    color: red;
+                }
+            }
+        }
+    }
+}
+
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+
+}
+
+.popup-content {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    width: 600px !important;
+    height: 720px !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .content {
+        padding: 20px 30px;
+    }
+
+    .top_header {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+
+        h3 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        a {
+            background-color: #1890ff;
+            padding: 22px 23px 10px 10px;
+            border-radius: 50%;
+            position: absolute;
+            right: -18px;
+            top: -18px;
+            z-index: 9999;
+            cursor: pointer;
+
+            i {
+                font-size: 16px;
+                font-family: "themify-icons" !important;
+                content: "\e646";
+                color: white;
+                height: 34px;
+                width: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+            }
+        }
+
+    }
+
+    .qoute {
+        padding: 0 20px;
+        margin: 0;
+    }
+
+    .sprint-form {
+        .form-label {
+            color: #857f7f;
+
+            span {
+                color: red;
+            }
+        }
+    }
+
+    .mdc-line-ripple {
+        display: none;
+    }
+
+    .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+    }
+
+    .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+
+    .mat-mdc-form-field {
+        padding: 0;
+    }
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        background-color: white;
+    }
+
+    .mat-mdc-form-field-focus-overlay {
+        background-color: white;
+    }
+}
+
+.cdk-overlay-container {
+    z-index: 1100 !important;
+    /* Ensure Angular Material dropdowns go above modal */
+}
+
+@media screen and (max-width:475px) {
+    // .new_project_detail_page .inner_page .tabing_section .backlog_tab .accordian_tab .mat-expansion-panel-header span:nth-child(3) {
+    //     display: none;
+    // }
+
+    // .new_project_detail_page .inner_page .tabing_section .backlog_tab .accordian_tab .mat-expansion-panel-header span {
+    //     margin-left: 8px;
+    // }
+
+    // .new_project_detail_page .inner_page .tabing_section .backlog_tab .accordian_tab .mat-expansion-panel-header-title,
+    // .new_project_detail_page .inner_page .tabing_section .backlog_tab .accordian_tab .mat-expansion-panel-header-description {
+    //     margin-left: 9px;
+    // }
+}
+
+.attachment-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 10px;
+}
+
+.attachment-item {
+    width: 160px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    transition: box-shadow 0.2s;
+    word-break: break-word;
+}
+
+.attachment-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.attachment-item mat-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 60px;
+    display: block;
+    margin: 0 auto 8px;
+    object-fit: contain;
+    color: #666;
+}
+
+.attachment-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.attachment-item mat-icon.text-danger {
+    color: #d32f2f;
+}
+
+.attachment-item mat-icon.text-primary {
+    color: #1976d2;
+}
+
+.attachment-item mat-icon.text-success {
+    color: #388e3c;
+}
+
+.attachment-item p {
+    font-size: 12px;
+    color: #333;
+    margin: 0;
+    word-break: break-word;
+}
+
+
+.image_leader {
+    width: 44px !important;
+    height: 44px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.mat-expansion-panel-header {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.back_btn {
+    position: absolute;
+    left: auto;
+    top: 20px;
+
+    .btn {
+        height: 34px;
+        width: 34px;
+        border-radius: 100%;
+        line-height: 19px;
+        background: #d5ecff;
+        color: #000;
+        margin-bottom: 18px;
+        box-shadow: none;
+        border: 1px solid #3e4095;
+    }
+
+    svg {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 20px;
+        fill: #3e4095;
+    }
+}
+
+.new_project_detail_page .inner_page .tabing_section .mat-mdc-tab-header {
+    padding: 0;
+}

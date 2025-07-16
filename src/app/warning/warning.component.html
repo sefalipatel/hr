@@ -1,0 +1,128 @@
+<div class="page-top-header mb-0">
+  <h5 class="card-subtitle mt-0">Warning</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove pb-3  warning_tableview">
+
+    <div class="p-3">
+      <div class="d-flex align-items-center justify-content-end flex-wrap gap-3">
+
+
+        <div class="total-leave-balance p-2">
+          <div class="d-flex  align-items-left  justify-content-end">
+            <div class="title">
+
+              <span> Total Warning</span>
+            </div>
+            <div class="count">
+              <span>{{totalwarning}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="btn-box ">
+          <button type="button" class="btn btn-primary rounded-pill px-4 py-2" (click)="addbroadcast()">Add
+            Warning</button>
+        </div>
+
+      </div> 
+      <!-- Start : Year field -->
+      <div class="row my-3 align-items-center">
+        <div class="col-lg-4 col-xl col-md-4 my-2">
+          <div class="year_select_box w-100">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Year</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                (ngModelChange)="onYearSelected($event)" id="year">
+                <mat-option class="text-muted">Select Year </mat-option>
+                <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- End : Year field -->
+        <!-- Start : Month field -->
+        <div class="col-lg-4 col-xl col-md-4 my-2">
+          <div class="year_select_box w-100">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Month</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                (ngModelChange)="onMonthSelected($event)">
+                <mat-option class="text-muted">Select Month </mat-option>
+                <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{
+                  month.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- End : Month field -->
+        <div class="col-lg-4 col-xl col-md-4 my-2">
+          <div class="btn-box w-100 d-flex flex-wrap align-items-center">
+            <button type="button" class="btn btn-primary rounded-pill px-4 py-2 me-3"
+              (click)="getAllwarning()">Apply</button>
+            <button type="button" class="btn btn-secondary rounded-pill px-4 py-2 " (click)="Reset()">Reset</button> 
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
+      <!-- Start : Table -->
+      <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="fixTableHead  scrollbox-content">
+          <table mat-table class="mat-elevation-z8 apply_leave  " [dataSource]="dataSource" matSort>
+            <!-- Position Column -->
+            <ng-container matColumnDef="comment">
+              <th mat-header-cell *matHeaderCellDef>Warning</th>
+              <td mat-cell *matCellDef="let element"><span mat-raised-button class="d-inline-block reason pointer"
+                  [matTooltip]="element.comment"
+                  aria-label="Button that displays a tooltip when focused or hovered over">
+                  {{element.comment}}
+                </span></td>
+            </ng-container>
+            <ng-container matColumnDef="companyPolicyName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Company Policy</th>
+              <td mat-cell *matCellDef="let element">{{element?.companyPolicyName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="employeeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee</th>
+              <td mat-cell *matCellDef="let element">{{element?.employeeName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="employeeCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code</th>
+              <td mat-cell *matCellDef="let element">{{element?.employeeCode}}</td>
+            </ng-container>
+            <ng-container matColumnDef="department">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
+              <td mat-cell *matCellDef="let element">{{element?.department}}</td>
+            </ng-container>
+            <ng-container matColumnDef="createdByName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Warned By</th>
+              <td mat-cell *matCellDef="let element">{{element?.createdByName}}</td>
+            </ng-container>
+            <ng-container matColumnDef="createdAt">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Warned On</th>
+              <td mat-cell *matCellDef="let element">{{element?.createdAt | date: dateFormat}}</td>
+            </ng-container> 
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="7">
+                <div class="text-center d-block border-bottom-0">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record mt-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="text-end d-block mb-3 mt-3">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

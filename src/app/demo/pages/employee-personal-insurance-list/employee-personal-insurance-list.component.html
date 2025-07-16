@@ -1,0 +1,118 @@
+<div class="page-top-header mb-0" *ngIf="!isProfile && !requestId">
+    <h5 class="card-subtitle mt-0">Employee's Insurance</h5>
+</div>
+<div class="row px-3">
+    <div class="col-sm-12 border rounded bg-white p-3 custom-remove">
+        <div class="card-body bd-highlight">
+            <div class=" emloyeeensurance_viewtable ">
+                <div class="row" *ngIf="!isProfile && !requestId">
+                    <div class="col-md-4 mb-3">
+                        <div class="pc-h-item  pc-header position-static bg-transparent w-100">
+                            <form class="header-search d-block w-100">
+                                <div class="search-btn">
+                                    <i class="ti ti-search"> </i>
+                                </div>
+                                <input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)"
+                                    type="search" class="form-control w-100 " placeholder="Search..." />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="image_section d-flex bd-highlight justify-content-end"
+                    *ngIf=" (!isInsuranceAdd ) && (requestId || isProfile)" (click)="addEmployeeInsurance()">
+                    <svg _ngcontent-ng-c796196116="" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path _ngcontent-ng-c796196116="" fill-rule="evenodd" clip-rule="evenodd"
+                            d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z">
+                        </path>
+                    </svg>
+                </div>
+
+
+                <div *ngIf="isInsuranceAdd">
+                    <app-employee-personal-insurance-form (onInsuranceList)="onActionClick($event)">
+                    </app-employee-personal-insurance-form>
+                </div>
+                <div class="">
+                    <div *ngIf="!isInsuranceAdd">
+
+                        <div class="scrollbox scrollbox_delayed" tabindex="0">
+                            <div class="fixTableHead scrollbox-content "> 
+                                <table mat-table [dataSource]="dataSource"
+                                    class="apply_leave mat-elevation-z8  shadow-none" matSort>
+
+                                    <ng-container matColumnDef="employeeName">
+                                        <th mat-header-cell *matHeaderCellDef>Employee Name </th>
+                                        <td mat-cell *matCellDef="let element">{{element?.employeeName}}</td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="companyName">
+                                        <th mat-header-cell *matHeaderCellDef>Company Name </th>
+                                        <td mat-cell *matCellDef="let element">{{element?.companyName}}</td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="planName">
+                                        <th mat-header-cell *matHeaderCellDef>Plan Name</th>
+                                        <td mat-cell *matCellDef="let element">{{element?.planName}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="coverAmount">
+                                        <th mat-header-cell *matHeaderCellDef>Cover Amount</th>
+                                        <td mat-cell *matCellDef="let element">{{element?.coverAmount}}</td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="insuranceType">
+                                        <th mat-header-cell *matHeaderCellDef>Insurance Type</th>
+                                        <td mat-cell *matCellDef="let element">
+                                            {{getStatusLabel(element?.insuranceType)}}
+                                        </td>
+                                    </ng-container>
+                                    <!-- Action Column -->
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef class="">
+                                            Action
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <div class="d-flex align-items-center">
+
+                                                <div class="icon_width btn_hover me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        (click)="deleteBtn(element)" matTooltip="Delete" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-x">
+                                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    <tr class="mat-row" *matNoDataRow>
+                                        <td class="mat-cell" colspan="4">
+                                            <div class="text-center d-block border-bottom-0">
+                                                <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                                <h6 class="no-record mt-3">No Data Available</h6>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- start : pagination -->
+
+                        <!-- end : pagination -->
+                    </div>
+                    <div class="text-end d-block mb-3 mt-3" *ngIf="!isProfile && !requestId">
+                        <div class="pagination-format d-inline-block">
+                            <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                                aria-label="Select page of periodic elements">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div *ngFor="let user of profileData" [routerLink]="['/user-profile']" class="d-none">
+    <div class="profile_images">
+        <div *ngIf="profilePicture">
+            <img class="img-fluid" [src]="profilePicture" alt="profile">
+        </div>
+        <div *ngIf="!profilePicture">
+            <img class="img-fluid" src="assets/images/dashboard/profilePicture.png" alt="profile">
+        </div>
+    </div>
+    <div class="emp_name">
+        <h4>{{user?.employeeName}}</h4>
+    </div>
+    <div class="designation">
+        <p>{{user?.department}} /<span> {{user?.employeeCode}}</span></p>
+    </div>
+    <div class="employee_info_detail">
+        <p><span>Email:&nbsp;</span>{{user?.email}}</p>
+        <p><span>Mobile No.&nbsp;</span>:<span> {{user?.mobile}}</span></p>
+        <p><span>Shift&nbsp;</span>: {{user?.shiftName}}</p>
+    </div> 
+</div>
+
+
+
+<div *ngFor="let user of profileData">
+    <div class="img-name text-center">
+        <div class="img-box" *ngIf="profilePicture">
+            <img [src]="profilePicture" alt="img" />
+        </div>
+        <div *ngIf="!profilePicture">
+            <img class="img-fluid" src="assets/images/dashboard/profilePicture.png" alt="profile">
+        </div>
+        <div class="name-designation">
+            <div class="name">
+                {{user?.employeeName}}
+            </div>
+            <div class="designation">
+                {{user?.department}}
+            </div>
+        </div>
+    </div>
+
+    <div class="box-blue box-1">
+        <div class="icon-name">
+            <i class="ri-mail-send-line"></i>
+            <span>{{user?.email}}</span>
+        </div>
+        <div class="icon-name">
+            <i class="ri-smartphone-line"></i>
+            <span>{{user?.mobile}}</span>
+        </div>
+    </div>
+    <div class="box-blue box-2">
+        <div class="name-answer">
+            <div class="name">
+                Employee Id
+            </div>
+            <div class="answer">
+                {{user?.employeeCode}}
+            </div>
+        </div>
+        <div class="name-answer">
+            <div class="name">
+                Shift
+            </div>
+            <div class="answer">
+                {{user?.shiftName}}
+            </div>
+        </div>
+    </div>
+<div class="join-box">
+    <div class="join-link-box d-flex flex-wrap align-items-center justify-content-between">
+        <div class="join-text">
+            Joined at <span class="fw-bold">{{user.joiningDate | date: dateFormat}}</span>
+        </div>
+        <div class="btn-link" [routerLink]="['/user-profile']" role="button">
+            View Details <i class="ri-arrow-right-s-line"></i>
+        </div>
+    </div>
+    </div>
+</div>

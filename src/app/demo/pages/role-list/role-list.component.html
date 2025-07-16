@@ -1,0 +1,145 @@
+<div class="page-top-header mb-3">
+    <h5 class="card-subtitle mt-0">Role</h5>
+    <span class="mt-1 text-secondary d-block">Manage your role</span>
+</div>
+
+<div class="row px-3">
+    <div class="col-sm-12 border rounded bg-white p-3">
+
+
+
+        <div class="content-box ">
+            <!-- /product Form -->
+            <div class="page-btn mb-3" *ngIf="userRole[0]?.canView">
+                <div class="">
+                    <div class="card-body d-flex bd-highlight justify-content-end">
+                        <button (click)="roleAdd()"
+                            class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-pill"> 
+                            <span class="me-2">+</span>
+                            <span>Add New Role</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="inside-page" *ngIf="isRoleAdd || roleId"> 
+                <div class=" mb-3 page-top-header">
+                    <h5 class="card-subtitle m-0 text-muted fs-6">
+                        {{isRoleAdd ? 'Add':'Update'}} Role</h5>
+                </div>
+                <div class="">
+                    <form [formGroup]="roleForm">
+                        <div
+                            class=" {{!(roleForm.get('name')?.touched && roleForm.get('name')?.invalid) ? 'align-items-align-items-center': 'align-items-start'}} ">
+                            <div class="row">
+                                <div class="col-md-6 col-xxl-4 col-lg-6 mb-3">
+                                    <div class="dataTables_filter">
+                                        <label class="w-100">
+                                            <input formControlName="name" type="text" class="form-control me-3"
+                                                placeholder="Enter Role Name*"
+                                                [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }"
+                                                appTrimOnBlur (blur)="trimNameOnBlur('name')" />
+                                            <div *ngIf="f['name']?.touched && f['name']?.invalid"
+                                                class="invalid-feedback mt-2">
+                                                <div *ngIf="f['name']?.errors && f['name']?.errors?.['required']">
+                                                    Role Name is required.
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-xxl-4 col-lg-6 mb-3">
+                                    <div class="d-flex align-items-baseline">
+                                        <button type="submit" (click)="saveRole()"
+                                            class="btn btn-primary px-4 py-2 me-3 rounded-pill">Save</button>
+                                        <button type="reset" (click)="reset()"
+                                            class="btn btn-secondary px-4 py-2 rounded-pill">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /product Form -->
+
+            <!-- /product list -->
+            <div class="card mb-3 border-0 rolelist_tableview">
+                <div class="table-top">
+                    <div class="row">
+                        <div class="col-md-6 col-xxl-4 col-lg-4 mb-3">
+                            <div class="pc-h-item  pc-header bg-transparent position-static w-100 ">
+                                <form class="header-search d-block w-100">
+                                    <div class="search-btn">
+                                        <i class="ti ti-search"></i>
+                                    </div>
+                                    <input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)"
+                                        type="search" class="form-control w-100" placeholder="Search..." />
+                                </form>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                    <div class="fixTableHead scrollbox-content border-bottom-0"> 
+                        <table class="table mb-0" (matSortChange)="sortData($event)" matSort>
+                            <thead>
+                                <tr>
+                                    <th mat-sort-header="name">Name</th>
+                                    <th [ngClass]="{ 'd-none': !userRole[0]?.canView }">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border border-end-0 border-start-0"
+                                    *ngFor="let org of tableData; let i = index">
+                                    <td>{{ org?.name }}</td>
+                                    <td [ngClass]="{ 'd-none': !userRole[0]?.canView }">
+                                        <div class="d-flex w-50 align-items-center gap-4">
+                                            <div class="icon_width" *ngIf="userRole[0]?.canView">
+                                                <svg viewBox="64 64 896 896" focusable="false"
+                                                    (click)="editRole(org?.id)" matTooltip="Edit" data-icon="edit"
+                                                    width="16" height="16" aria-hidden="true">
+                                                    <path
+                                                        d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="icon_width" *ngIf="userRole[0]?.canView"> 
+
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg" matTooltip="Delete"
+                                                    (click)="deleteBtn(org?.id)">
+                                                    <path d="M10 12V17" stroke="red" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M14 12V17" stroke="red" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M4 7H20" stroke="red" stroke-width="2"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path
+                                                        d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
+                                                        stroke="red" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                    <path
+                                                        d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                                        stroke="red" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="tableData.length === 0">
+                                    <td class="text-center pb-0 d-block border-bottom-0" colspan="12">
+                                        <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                        <h6 class="no-record mt-3">No Data Available</h6>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+            <!-- /product list -->
+        </div>
+
+    </div>
+</div>

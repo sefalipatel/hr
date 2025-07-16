@@ -1,0 +1,42 @@
+.fireworks {
+  // height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 9;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  background: #ffffffab;
+
+  h1 {
+    font-size: 3em;
+    font-family: sans-serif;
+    color: grey;
+    opacity: 0.5;
+  }
+}
+
+canvas {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+}
+
+#chart {
+  max-width: 650px;
+  margin: 35px auto;
+}
+
+
+
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: inherit !important;
+}

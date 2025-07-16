@@ -1,0 +1,86 @@
+<div class="tab_main">
+  <div class="assets_block position-relative mt-4 mb-4">
+    <div class="main_header_assets">
+      <div class="card_header">
+        <h4>Asset<span>
+            <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M942.933 554.667H81.066c-34.133 0-59.733 25.6-59.733 59.733V1024c0 12.8 8.533 21.333 21.333 21.333S63.999 1036.8 63.999 1024V614.4c0-8.533 8.533-17.067 17.067-17.067h861.867c8.533 0 17.067 8.533 17.067 17.067V1024c0 12.8 8.533 21.333 21.333 21.333s21.333-8.533 21.333-21.333V614.4c0-34.133-25.6-59.733-59.733-59.733zm-657.066-115.2h204.8V473.6h-46.933c-12.8 0-21.333 8.533-21.333 21.333s8.533 21.333 21.333 21.333h136.533c12.8 0 21.333-8.533 21.333-21.333s-8.533-21.333-21.333-21.333h-46.933v-34.133h204.8c34.133 0 59.733-25.6 59.733-59.733v-256c0-34.133-25.6-59.733-59.733-59.733H285.867c-34.133 0-59.733 25.6-59.733 59.733v256c0 34.133 25.6 59.733 59.733 59.733zM268.8 123.733c0-8.533 8.533-17.067 17.067-17.067h448c8.533 0 17.067 8.533 17.067 17.067v256c0 8.533-8.533 17.067-17.067 17.067h-448c-8.533 0-17.067-8.533-17.067-17.067v-256z" />
+              <path
+                d="M277.333 631.467H140.8c-21.333 0-42.667 17.067-42.667 42.667v332.8c0 21.333 17.067 42.667 42.667 42.667h136.533c21.333 0 42.667-17.067 42.667-42.667v-332.8c0-25.6-21.333-42.667-42.667-42.667zm0 371.2H145.066V674.134h136.533v328.533z" />
+            </svg></span></h4>
+      </div>
+      <div class=" d-flex bd-highlight justify-content-end assets_carry_btn"> 
+        <button class="btn btn-primary" (click)="onClick()">
+          Asset carry to Home
+        </button>
+      </div>
+    </div>
+    <div class="card-body p-0">
+      <div class="row">
+        <div class="col-sm-12 bg-white px-0 custom-remove">
+          <div class="content-box">
+            <div class=""> 
+              <div class="mat-elevation-z8 table-responsive  user_request_list rounded shadow-none ">
+                <table mat-table [dataSource]="dataSource" matSort class="apply_leave">
+                  <!-- Category Column -->
+                  <ng-container matColumnDef="categoryName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.asset?.category?.categoryName}}
+                    </td>
+                  </ng-container>
+                  <!-- AssetId Column -->
+                  <ng-container matColumnDef="assetId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.asset?.assetId}}
+                    </td>
+                  </ng-container>
+                  <!-- Remark Column -->
+                  <ng-container matColumnDef="remark">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Remark</th>
+                    <td class="text_wrap" mat-cell *matCellDef="let element">
+                      {{element.remark }} </td>
+                  </ng-container>
+                  <!-- Assignment Date Column -->
+                  <ng-container matColumnDef="assignmentDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Assignment Date</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.assignmentDate | date:dateFormat}} </td>
+                  </ng-container>
+                  <!-- Return Date Column -->
+                  <ng-container matColumnDef="returnDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Return Date</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{element.returnDate | date:dateFormat}} </td>
+                  </ng-container>
+                  <!-- Asset Column -->
+                  <ng-container matColumnDef="assetName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset</th>
+                    <td mat-cell *matCellDef="let element">{{element.asset?.assetName}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell text-center py-4" colspan="6">
+                      <img class="w-25 d-inline-block" src="assets/images/no-data.png" alt="img" />
+                      <h6 class="no-record mt-3">No Data Available</h6>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+            <div class="text-end d-block mb-3" *ngIf="(!isProfile) && !requestId">
+              <div class="pagination-format d-inline-block">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                  aria-label="Select page of periodic elements">
+                </mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

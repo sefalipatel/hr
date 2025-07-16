@@ -1,0 +1,16 @@
+.blur-background {
+    backdrop-filter: blur(5px);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+    z-index: 1000;
+}
+
+@media (min-width: 320px) {
+    .custom-accordian .mat-accordion .mat-expansion-panel-header {
+    font-size: 14px;
+    padding: 16px 12px;
+}
+ }
+  

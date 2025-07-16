@@ -1,0 +1,7 @@
+.brodcast-table{
+    tr{
+        th:nth-child(2),th:nth-child(3){
+            min-width: 200px;
+        }
+    }
+}

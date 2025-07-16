@@ -1,0 +1,124 @@
+<div class="page-top-header mb-0 d-flex justify-content-between">
+    <h5 class="card-subtitle mt-0">Goal Type</h5>
+</div>
+<div class="row px-3">
+    <div class="col-md-12 p-3   bg-white border rounded">
+        <div *ngIf="isDisplay" class="bd-highlight  p-3 pb-0">
+            <div class="pc-h-item  pc-header bg-transparent position-static">
+                <form class="header-search d-block w-100" [formGroup]="goalTypeForm">
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3"> 
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Goal type</mat-label>
+                                <input matInput type="text" class=" w-100 me-3" formControlName="type"
+                                    placeholder="Add goal type"
+                                    (blur)="goalTypeForm.controls['type'].setValue(goalTypeForm.controls['type'].value.trim())" />
+                                <div ngClass="mt-2"
+                                    *ngIf="goalTypeForm.controls['type'].invalid && goalTypeForm.controls['type'].touched"
+                                    class="text-danger">
+                                    Goal type is required.
+                                </div>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Select Goal type</mat-label>
+                                <mat-select formControlName="status" required placeholder="Select goal Type"
+                                    class=" w-100">
+                                    <mat-option *ngFor="let goalStatus of statusType" [value]="goalStatus.id">
+                                        {{goalStatus?.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-baseline">
+                                <button class="btn btn-primary rounded-pill px-4 py-2 me-3" color="primary"
+                                    (click)="saveGoalType()">Save</button>
+                                <button class="btn btn-secondary rounded-pill px-4 py-2" color="primary"
+                                    (click)="cancel()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class=" expencetype_tableview">
+
+            <div class="addgolbtn d-flex justify-content-end ">
+                <div class="add_gol_btn">
+                    <button class="btn btn-primary rounded-pill py-2 me-3" color="primary"
+                        (click)="addGoalType()">Add</button>
+                </div>
+                <div class="cancel_bttn">
+                    <button type="submit" class="btn btn-secondary rounded-pill py-2"
+                        [routerLink]="'/goal-details'">Cancel</button>
+                </div>
+            </div>
+
+
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                <div
+                    class="mat-elevation-z8 fixTableHead border rounded scrollbox-content user_request_list  shadow-none ">
+                    <table mat-table [dataSource]="dataSource" class="apply_leave rounded border" matSort>
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="goalType">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+                            <td mat-cell *matCellDef="let element">{{element?.type}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                            <td mat-cell *matCellDef="let element">{{getStatusName(element?.status)}}</td>
+                        </ng-container>
+                        <!-- Action Column -->
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef class="">Action
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon_width " matTooltip="Edit">
+                                        <svg viewBox="64 64 896 896" focusable="false"
+                                            (click)="getFormValue(element.id)" data-icon="edit" width="16" height="16"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="icon_width " matTooltip="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteBtn(element)"
+                                            height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">
+                                <div class="text-center d-block border-bottom-0">
+                                    <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                    <h6 class="no-record mt-3">No Data Available</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="text-end d-block mb-3 mt-3">
+                <div class="pagination-format d-inline-block">
+                    <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+        <!-- start : pagination -->
+    </div>
+    <!-- end : pagination -->
+</div>

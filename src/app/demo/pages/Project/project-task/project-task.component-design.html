@@ -1,0 +1,144 @@
+<section class="project-task-page">
+    <div class="row px-3">
+        
+        <div class="col-sm-12">
+            <div class="back_btn cursor-pointer"> 
+                <span (click)="navigate()"><svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z"/>
+                    </svg></span>
+            </div>
+        </div>
+        <div class="border rounded bg-white px-0">
+            <div class="row">
+                <div class="col-md-6 pe-0">
+                    <div class="page-top-header">
+                        <h5 class="card-subtitle text-muted fs-6">Add Tasks</h5>
+                    </div>
+                    <div class="content-box p-3">
+                        <ul>
+                            <li class="task">
+                                <div class="flex-box">
+                                    <div class="icon">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <div class="texts">
+                                        <span>Patient appointment booking</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task">
+                                <div class="flex-box">
+                                    <div class="icon">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <div class="texts">
+                                        <span>Appointment booking with payment gateway</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="task completed">
+                                <div class="flex-box">
+                                    <div class="icon">
+                                        <i class="ri-check-line"></i>
+                                    </div>
+                                    <div class="texts">
+                                        <span>Appointment booking with payment gateway</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 ps-0 border-start">
+                    <div class="page-top-header">
+                        <div class="btn btn-complete"><i class="ri-check-line me-2"></i>Mark Complete</div>
+                    </div>
+                    <div class="content-box p-3">
+                        <div class="header-bar">
+                            <h5>Hospital Administration Phase 1</h5>
+                            <div class="details">
+                                <div class="flex-wrapp">
+                                    <div class="icon-text-delete ms-0">
+                                        <div class="icon">
+                                            <img src="assets/images/project/avatar-02.jpg">
+                                        </div>
+                                        <div class="text">
+                                            <div class="text-lightt">
+                                                Assigned To
+                                            </div>
+                                            <div class="text-dark">
+                                                John Doe
+                                            </div>
+                                        </div>
+                                        <div class="delete-btn">
+                                            <i class="ri-close-circle-fill"></i>
+                                        </div>
+                                    </div>
+                                    <div class="icon-text-delete due-box">
+                                        <div class="icon">
+                                            <i class="ri-calendar-2-line"></i>
+                                        </div>
+                                        <div class="text">
+                                            <div class="text-lightt due-title">
+                                                Due Date
+                                            </div>
+                                            <div class="text-dark due-date">
+                                                Mar 26, 2019
+                                            </div>
+                                        </div>
+                                        <div class="delete-btn">
+                                            <i class="ri-close-circle-fill"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="description-bar">
+                            <div class="flex-box">
+                                <i class="ri-list-indefinite"></i>
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here"
+                                        id="floatingTextarea"></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="task-bar">
+                            <div class="flex-box">
+                                <div class="user">
+                                    Lesley Grauer
+                                </div>
+                                <div class="texts">
+                                    created task
+                                </div>
+                                <div class="date">
+                                    Jan 20, 2019
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-input-bar">
+                            <div class="message-bar">
+                                <div class="flex-box">
+                                    <div class="icon">
+                                        <i class="ri-attachment-2"></i>
+                                    </div>
+                                    <div class="user-input">
+                                        <div class="input-group">
+                                            <textarea class="form-control" placeholder="Type message..."
+                                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <div class="send-btn-box">
+                                                <div class="btn btn-send">
+                                                    <i class="ri-send-plane-fill"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,63 @@
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.existing-timecard {
+  border: 0 !important;
+
+  .header-box {
+    background: #e9eaff;
+    padding: 13px 22px;
+    border: 1px solid #3e4095;
+
+    i {
+      font-weight: 900;
+      color: #3e4095;
+    }
+
+    .card-subtitle {
+      margin: 0;
+      font-weight: 700 !important;
+      font-size: 16px;
+    }
+  }
+
+  .detail-box {
+    border-radius: 0 0px 8px 8px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+
+    .icon {
+      height: 46px;
+      width: 46px;
+      border-radius: 100%;
+      background: #e7f4ff;
+      line-height: 46px;
+      border: 1px solid #3e4095;
+
+      i {
+        color: #3e4095;
+        font-size: 18px;
+        font-weight: 600;
+      }
+    }
+
+    .texts {
+      text-align: start;
+
+      .title-text {
+        font-size: 16px;
+        color: #747474;
+        font-weight: 500;
+      }
+
+      .number {
+        font-size: 22px;
+        font-weight: 600;
+        margin-top: 5px;
+        display: block;
+      }
+    }
+  } 
+}

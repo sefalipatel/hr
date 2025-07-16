@@ -1,0 +1,120 @@
+<div class="page-top-header mb-0">
+    <h5 class="card-subtitle mt-0">Termination </h5>
+</div>
+<div class="row px-3 ">
+    <div class="col-sm-12 border rounded p-3 bg-white">
+        <div class="d-flex bd-highlight justify-content-end pb-0">
+
+            <div>
+                <button type="button" class="btn btn-primary py-2 rounded-pill" [routerLink]="['/termination-form']">Add
+                    Termination</button>
+            </div>
+        </div>
+
+
+        <div class="row my-3">
+            <div class="col-md-4">
+                <div class="pc-h-item  pc-header bg-transparent position-static w-100">
+                    <form class="header-search d-block w-100">
+                        <div class="search-btn">
+                            <i class="ti ti-search"></i>
+                        </div>
+                        <input [(ngModel)]="searchDataValue" (ngModelChange)="searchData(searchDataValue)" type="search"
+                            class="form-control w-100" placeholder="Search..." />
+                    </form>
+                </div>
+            </div>
+        </div> 
+
+
+        <div class="terminationlist_tableview">
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                <div class="mat-elevation-z8 fixTableHead  scrollbox-content user_request_list shadow-none "> 
+                    <table mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)" class="apply_leave "
+                        matSort>
+                        <!-- Employee name column -->
+                        <ng-container matColumnDef="employeeName">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                            <td mat-cell *matCellDef="let element">{{element?.employeeName}}</td>
+                        </ng-container>
+                        <!-- Department column -->
+                        <ng-container matColumnDef="department">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <div class="dropdown">
+                                    <span class=" dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Department
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" (click)="selectDepartment(null)">Select Department</a>
+                                        <li *ngFor="let department of departmentList">
+                                            <a class="dropdown-item" (click)="selectDepartment(department)">{{
+                                                department?.departmentName }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{element?.department}}</td>
+                        </ng-container>
+                        <!-- Termination Type column -->
+                        <ng-container matColumnDef="terminationType">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <div class="dropdown">
+                                    <span class=" dropdown-toggle" type="button" id="dropdownMenuButton"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Termination Type
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" (click)="selectTerminationType(null)">Select
+                                            Termination Type</a>
+                                        <li *ngFor="let type of terminatedType">
+                                            <a class="dropdown-item" (click)="selectTerminationType(type)">{{
+                                                type?.name }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </th>
+                            <td mat-cell *matCellDef="let element">{{terminationType[element?.terminationType] }} </td>
+                        </ng-container>
+                        <!-- Termination Date column -->
+                        <ng-container matColumnDef="terminationDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Termination Date</th>
+                            <td mat-cell *matCellDef="let element">{{element?.terminationDate | date: dateFormat}}</td>
+                        </ng-container>
+                        <!-- Reason column -->
+                        <ng-container matColumnDef="reason">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Reason</th>
+                            <td class="text_wrap" mat-cell *matCellDef="let element">
+                                {{element?.reason}}
+                            </td>
+                        </ng-container>
+                        <!-- Notice Date column -->
+                        <ng-container matColumnDef="noticeDate">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Notice Date</th>
+                            <td mat-cell *matCellDef="let element">{{element?.noticeDate | date: dateFormat}}</td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="6">
+                                <div class="text-center d-block border-bottom-0 my-3">
+                                    <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                    <h6 class="no-record mt-3">No Data Available</h6>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- start : pagination -->
+        <div class="text-end d-block mb-3 mt-3">
+            <div class="pagination-format d-inline-block">
+                <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </div>
+        </div>
+        <!-- end : pagination -->
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="regularization timesheet-pop">
+
+  <div class="text-end regularization_btn">
+    <button type="button" class="close-btn" (click)="cancelPopup()"> 
+      <!-- X -->
+      <i class="ri-close-circle-line"></i>
+    </button>
+  </div>
+  <div class="card border-0 mb-0">
+    <div class="card-body p-0"> 
+
+      <div class="main-description px-3 py-4">
+        <h6 class="text-primary d-flex align-items-center">
+          <b> {{details?.name}} </b>
+          <i class="ri-star-half-s-line ms-2"></i>
+        </h6>
+        <p> {{details?.description}}</p> 
+      </div>
+    </div>
+  </div>
+</div>

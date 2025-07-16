@@ -1,0 +1,103 @@
+<div class="row px-3 inside-page">
+
+  <div class="col-sm-12 border rounded px-0 bg-white time-card tree_view_page">
+    <div class="back_btn cursor-pointer">
+      <span (click)="onList()"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z" />
+        </svg></span>
+    </div>
+    <div class="tree-view">
+      <div id="list">
+        <ul class="d-none" *ngIf="false">
+          <li>
+            <div class="test"><span style="font-weight: 600">Parent</span>
+              <img src="assets/images/tree-view/1.png" alt="father.png" />
+              <span> {{ dataOld.Parent.name }} </span>
+              <span style="font-weight: 800"> {{ dataOld.Parent.age }} </span>
+            </div>
+            <ul>
+              <li *ngFor="let item1 of dataOld.Parent.children">
+                <div class="test"><span style="font-weight: 600">child</span>
+                  <img src="assets/images/tree-view/5.png" alt="child_4.png" />
+                  <span> {{item1.name}} </span>
+                  <span style="font-weight: 800">{{item1.age}} </span>
+                </div>
+                <ul *ngIf="item1.grandChild.length">
+                  <li *ngFor="let item2 of item1.grandChild">
+                    <div class="test"><span style="font-weight: 600">grandChild</span>
+                      <img src="assets/images/tree-view/6.png" alt="child_5.png" />
+                      <span> {{item2.name}}</span>
+                      <span style="font-weight: 800"> {{item2.age}} </span>
+                    </div>
+                    <ul>
+                      <li *ngFor="let item3 of item2.grandgrandChild">
+                        <div class="test"><span style="font-weight: 600">grandgrandChild</span>
+                          <img src="assets/images/tree-view/5.png" alt="child_4.png" />
+                          <span> {{item3.name}} </span>
+                          <span style="font-weight: 800">{{item3.age}} </span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="d-none">
+          <li *ngFor="let level1 of orgEmployeeList">
+            <div *ngIf="level1?.designation?.level == 1">
+              <div class="test"><span style="font-weight: 600">{{level1?.firstName}}</span>
+                <img src="assets/images/tree-view/5.png" alt="child_4.png" /> 
+                <span style="font-weight: 800">{{level1?.designationName}} </span>
+              </div>
+            </div>
+            <ul *ngIf="level1?.children?.length">
+              <li *ngFor="let level2 of level1?.children">
+                <div>
+                  <div class="test"><span style="font-weight: 600">{{level2?.firstName}}</span>
+                    <img src="assets/images/tree-view/5.png" alt="child_4.png" />
+
+                    <span style="font-weight: 800">{{level2?.designationName}} </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+
+        <!-- START: newTree -->
+
+        <ul class="fist_level">
+          <li>
+            <div class="test main_project_name">
+              <div class="pro_border"></div>
+              <div class="outer_image">
+                <img [src]="favIcon" alt="Organization" />
+              </div>
+              <div class="name_des_emp">
+                <span style="font-weight: 600">{{orgTitle}}</span>
+                <span> {{ data.Org.name }} </span>
+              </div>
+            </div>
+            <ul class="second_level">
+              <li *ngFor="let item1 of data.Org.children">
+                <ng-container *ngIf="item1?.children?.length">
+                  <app-tree-group-card [item]="item1"></app-tree-group-card>
+                </ng-container>
+                <ng-container *ngIf="!item1?.children?.length">
+                  <app-tree-item-card [item]="item1"></app-tree-item-card>
+                </ng-container>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- END: newTree -->
+      </div>
+    </div>
+  </div>
+</div>

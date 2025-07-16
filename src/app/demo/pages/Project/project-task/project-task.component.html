@@ -1,0 +1,447 @@
+<section class="project-task-page mt-3 inside-page">
+    <div class="row px-3">
+        
+        <div class="col-sm-12">
+            <div class="back_btn cursor-pointer">
+               
+                <span (click)="navigate()"><svg viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z"/>
+                    </svg></span>
+            </div>
+        </div>
+        <div class="border rounded bg-white px-0">
+            <div class="main-row">
+                <div class="col-xxl-7 col-xl-6 col-lg-12 col-md-6 communication-view task-view left-sidebar">
+                    <div class="page-top-header d-flex justify-content-between align-items-center">
+
+                        <button class="btn btn-primary" (click)="addtask()">
+                            Add Task
+                        </button>
+                        <div class="title">
+                            <h5>{{projectName}}</h5>
+                        </div>
+                    </div>
+                    <div class="content-box p-3">
+                          <div class="row mb-3">
+                            <div class="col-md-4">
+                                <select class="form-control w-100" (change)="filterData($event)">
+                                    <option>Select All</option>
+                                    <option value="0">Available</option>
+                                    <option value="5">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <ul class="task_tbing table_scroll_block">
+                            <ng-container *ngIf="projectWiseTask?.length">
+                                <ng-container *ngFor="let projectTasklist of projectWiseTask;let i = index">
+                                    <li class="task pointer">
+                                        <form (submit)="saveTask()">
+                                            <div class=" row">
+                                                <div class="col-sm-8">
+                                                    <div class="d-flex align-items-center w-100"
+                                                    (click)="selectedTaskIndex != i ? getByIdtaskWiseDetails(projectTasklist):$event.stopPropagation();">
+                                                    <div
+                                                        [ngClass]="projectTasklist.status==5 ? 'icon-success' :'icon' ">
+                                                        <i
+                                                            class="{{selectedTaskIndex == i ? 'ri-pencil-line ' : 'ri-check-line '}}"></i>
+                                                    </div>
+                                                    <div
+                                                        class="texts {{selectedTaskIndex == i ? 'add-task-texts' : ''}}">
+                                                        <ng-container *ngIf="selectedTaskIndex != i">
+                                                            <span>{{projectTasklist.subject}} </span>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="selectedTaskIndex == i">
+                                                            <input [formControl]="task" type="text"
+                                                                placeholder="Enter New Task Here..."
+                                                                (blur)="closeAddTaskForm()" #editInput>
+                                                            <mat-error class="mt-1"
+                                                            *ngIf="(isSubmitted || task.touched) && task.hasError('required')">
+                                                                Task is required
+                                                            </mat-error>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                                   </div>
+                                                  <div class="col-sm-4">
+                                                      <div class="d-flex justify-content-end align-item-center">
+                                                        <div>
+                                                            <span class="me-3 assignname">{{projectTasklist?.taskAssignmentName}}</span>
+                                                        </div>
+                                                        <div class="action-icon" *ngIf="selectedTaskIndex != i">
+                                                            <i class="ri-delete-bin-line i-delete me-3"
+                                                                (click)="deleteTask(projectTasklist)"></i>
+        
+                                                            <i class="ri-pencil-line i-edit" (click)="onTaskEdit(i)"></i>
+                                                        </div>
+                                                      </div>
+                                                  </div>
+                                                
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="isAddTask">
+                                <li class="task add-task-input">
+                                    <form (submit)="saveTask()">
+                                        <div class="flex-box">
+                                            <div class="icon d-flex align-items-center justify-content-center">
+                                                <i class="ri-add-line"></i>
+                                            </div>
+                                            <div class="texts add-task-texts">
+                                                <input [formControl]="task" type="text"
+                                                    placeholder="Enter New Task Here..." (blur)="closeAddTaskForm()"
+                                                    (blur)="trimNameOnBlur()"
+                                                    #addInput>
+                                                <mat-error class="mt-1"
+                                                *ngIf="(isSubmitted || task.touched) && task.hasError('required')">
+                                                    Task is required
+                                                </mat-error>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        
+                                    </form>
+                                </li>
+                            </ng-container>
+                        </ul>
+                        <ng-container *ngIf="!projectWiseTask?.length">
+                            <div class="text-center d-block border-bottom-0">
+                                <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                <h6 class="no-record mt-3">No Data Available</h6>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="col-xxl-5 col-xl-6 col-lg-12 col-md-6 communication-view chat-view right-sidebar"
+                    *ngIf="isTaskSetailsDisable">
+                    <div class="communication-window">
+                        <div class="communication-header">
+                            <div class="page-top-header">
+                                <div class="d-flex align-items-center w-100 justify-content-between close_butn">
+                                    <div class="btn border" *ngIf="getAllTaskData?.status!=5"
+                                        [ngClass]="getAllTaskData?.status===5?'btn-complete ':'btn-pending'"
+                                        (click)="changeTaskStatus(getAllTaskData)"><i
+                                            class="ri-check-line me-2"></i>{{getStatus(getAllTaskData)}}</div>
+                                    <div class="overflow-visible btn border" *ngIf="getAllTaskData?.status==5"
+                                        [ngClass]="getAllTaskData?.status===5 ?'btn-complete ':'btn-pending'">
+                                        <div class="dropdown">
+                                            <span class="dropdown-toggle" type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                Completed
+                                            </span>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li *ngFor="let assign of completedStatus">
+                                                    <a class="dropdown-item"
+                                                        (click)="changeTaskStatus(getAllTaskData)">{{ assign?.value
+                                                        }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="btn"
+                                        *ngIf="getAllTaskData?.status==3 && getAllTaskData.createdBy===personId"
+                                        [ngClass]="getAllTaskData?.status===5?'btn-complete ':'btn-pending'"
+                                        (click)="cahngeRejectedStatus(getAllTaskData)"><i
+                                            class="ri-check-line me-2"></i>{{getAllTaskData?.status==3?'Reject' :''}}
+                                    </div>
+                                     <i class="ri-close-circle-fill text-danger fs-6" (click)="closedsidemanu()"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="communication-chat">
+                            <div class="chat-content-wrap">
+                                <div class="chat-wrap-inner table_scroll_block">
+                                    <div class="chat-box">
+                                        <div class="chats">
+                                            <div class="header-bar">
+                                                <div class="d-flex justify-content-between">
+
+                                                    <h5>{{getAllTaskData?.subject}}</h5>
+                                                    <i class="ri-timeline-view cursor-pointer"
+                                                        (click)="onTimeLineChange()"></i>
+                                                </div>
+
+                                                <div class="timeline border time_list_detail rounded p-3 my-3"
+                                                    *ngIf="isTimeLine">
+                                                    <ul>
+                                                        <li *ngFor="let time of timeLineData">
+                                                            <div class="date_time">
+                                                                <p>{{time?.createdDate | date: dateFormat}}</p>
+                                                                <p>{{time?.createdDate | date: timeFormat}}</p>
+                                                            </div>
+                                                            <p class="">{{time?.comment}} </p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div *ngIf="!isTimeLine">
+                                                    <div class="details">
+                                                        <div class="row">
+                                                            <div class="col-md-12 col-xxl-6 col-xl-6 col-lg-12 mt-3 drop-btn d-flex">
+                                                                <div class="icon-text-delete assign_person ms-0 w-100 border px-2" type="button"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false">
+                                                                    <div class="dropdown assign_name_list">
+                                                                        <span
+                                                                            class="dropdown-toggle d-flex align-items-center w-100"
+                                                                            type="button" id="dropdownMenuButton"
+                                                                            data-bs-toggle="dropdown"
+                                                                            aria-expanded="false">
+                                                                            <div class="d-flex me-3 align-items-center w-100">
+                                                                                <div class="icon"
+                                                                                    *ngIf="getAllTaskData">
+                                                                                    <img *ngIf="getAllTaskData?.profilePicture"
+                                                                                        [src]="attachmentURL+ getAllTaskData?.profilePicture?.replace('wwwroot\\', '') ">
+                                                                                    <div *ngIf="!getAllTaskData?.profilePicture && getAllTaskData?.taskAssignmentName                                                                                                                                  "
+                                                                                        class="avtar avtar-s rounded-circle"
+                                                                                        [ngStyle]="{'background': stringToColor(getAllTaskData?.taskAssignmentName)}">
+                                                                                        <b class="f-18">{{getAllTaskData?.taskAssignmentName[0]?.toUpperCase()
+                                                                                            +
+                                                                                            getAllTaskData?.taskAssignmentName.split('
+                                                                                            ')[1][0]?.toUpperCase()}}</b>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="text ms-4">
+                                                                                    <div class="text-lightt">
+                                                                                        Assigned To
+                                                                                    </div>
+                                                                                    <div class="text-darkd">
+                                                                                        {{getAllTaskData?.taskAssignmentName
+                                                                                        ?
+                                                                                        getAllTaskData?.taskAssignmentName
+                                                                                        : '-'}}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <!-- select  Assign -->
+                                                                        </span>
+                                                                        <ul class="dropdown-menu"
+                                                                            aria-labelledby="dropdownMenuButton">
+                                                                            <a class="dropdown-item">Select Assign</a>
+                                                                            <li
+                                                                                *ngFor="let assigns of AssignUserByProjects">
+                                                                                <a class="dropdown-item"
+                                                                                    (click)="onAssignSelected(assigns)">
+                                                                                    {{assigns?.firstName +'
+                                                                                    '+assigns?.lastName}}</a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                 </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-xxl-6 col-xl-6 col-lg-12 mt-3 icon-text-delete due-box " role="button"
+                                                                (click)="sdpicker.open()">
+                                                               <div class="date_blc">
+                                                                <div class="icon assign_date_blc">
+                                                                     <mat-form-field class="w-100" appearance="outline">
+                                                                        <input matInput [matDatepicker]="sdpicker"
+                                                                            required [formControl]="assignDueDate"
+                                                                            [value]="assignDueDate "
+                                                                            (dateChange)="updateDueDate($event.value)"
+                                                                            placeholder="Enter Start Date" />
+                                                                        <mat-datepicker-toggle matSuffix
+                                                                            [for]="sdpicker"></mat-datepicker-toggle>
+                                                                        <mat-datepicker #sdpicker></mat-datepicker>
+                                                                    </mat-form-field>
+                                                                </div>
+                                                                <div class="text right">
+                                                                    <div class="text-lightt due-title">
+                                                                        Due Date
+                                                                    </div>
+                                                                    <div class="text-dark due-date">
+                                                                        {{getAllTaskData?.dueDate ?(
+                                                                        getAllTaskData?.dueDate
+                                                                        | date:'MMM d,y') :'-'}}
+                                                                    </div>
+                                                                </div>
+                                                               </div>
+                                                              </div>
+                                                            <div class="col-md-12 col-xxl-6 col-xl-6 col-lg-12 flex-wrapp mt-3">
+                                                                <div class="dropdown icon-text-delete w-100 priority_section">
+                                                                    <span class="dropdown-toggle d-flex align-items-center justify-content-between w-100"
+                                                                        type="button" id="dropdownMenuButton"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+    
+                                                                        <div class="text">
+                                                                            <div class="text-lightt">
+                                                                                Priotity
+                                                                            </div>
+                                                                            <div class="text-darkd">
+                                                                                {{getPriority(getAllTaskData?.priority) }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </span>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton">
+                                                                        <li *ngFor="let priority of priorityList">
+                                                                            <a class="dropdown-item"
+                                                                                (click)="updatePriority(getAllTaskData?.id, priority?.value)">{{
+                                                                                priority?.name }}</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                       
+                                                    </div>
+
+                                                    <div class="description-bar">
+                                                        <div class="flex-box">
+                                                             <div class="form-floating">
+                                                                <textarea class="form-control"
+                                                                    placeholder="Leave a comment here..."
+                                                                    id="floatingTextarea" [(ngModel)]="comment"
+                                                                    (focus)="isDecFocus = true"
+                                                                    (blur)="saveTask()"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="task-bar">
+                                                        <div class="flex-box">
+                                                            <div class="user">
+                                                                {{getAllTaskData?.personName}}
+                                                            </div>
+                                                            <div class="texts">
+                                                                created task
+                                                            </div>
+                                                            <div class="date">
+                                                                {{getAllTaskData?.createdDate | date:'MMM d, y'}}
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+
+                                                     <div class="task_message_block">
+                                                        <div class="comment-bar" *ngFor="let taskC of taskConversion">
+                                                            <div
+                                                                [ngClass]="personId==taskC?.createdBy ? 'chat-right' : 'chat-left'">
+                                                                <div class="chat-avatar">
+                                                                    <img *ngIf="taskC?.profilePicture"
+                                                                        [src]="attachmentURL+ taskC?.profilePicture?.replace('wwwroot\\', '') ">
+                                                                    <div *ngIf="!taskC?.profilePicture"
+                                                                        class="avtar avtar-s rounded-circle"
+                                                                        [ngStyle]="{'background': stringToColor(taskC?.personName)}">
+                                                                        <b class="f-18">{{taskC?.personName[0].toUpperCase()+
+                                                                            taskC?.personName.split('')[1][0].toUpperCase()}}</b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="chat-body">
+                                                                    <div class="chat-bubble">
+                                                                        <div class="chat-content">
+                                                                            <span
+                                                                                class="task-chat-user">{{taskC?.personName}}</span>
+                                                                            <span class="chat-time">{{taskC?.createdDate |
+                                                                                date:'h:mm a'}}
+                                                                            </span>
+                                                                            <p>{{taskC?.comment}} </p>
+                                                                            <p *ngFor="let attechment of taskC.attachments">
+                                                                                <a [href]="attachmentURL + attechment?.filePath.replace('wwwroot\\', '')"
+                                                                                    target="_blank">
+                                                                                    {{attechment?.filePath.split('\\').pop()}}</a>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                     </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="communication-footer" *ngIf="!isTimeLine">
+                                <div class="user-input-bar" [formGroup]="form">
+                                     <div class="flex-box">
+                                        <div class="icon">
+                                            <i class="ri-attachment-2"> <input type="file" #fileInput
+                                                    (blur)="closeAddTaskForm()" (change)="onFileSelected($event)"
+                                                    multiple="multiple" /></i>
+                                        </div>
+                                        <div class="user-input">
+                                            <div class="input-group">
+                                                <textarea class="form-control" formControlName="Comment"
+                                                    placeholder="Type message..." id="exampleFormControlTextarea1"
+                                                    rows="4" (keypress.enter)="sendData()"></textarea>
+                                                <button [disabled]="!selectedFiles.length && !form.get('Comment').value"
+                                                    class="btn send-btn-box px-2 py-0 border-0" (click)="sendData()">
+                                                    <div class="btn btn-send">
+                                                        <i class="ri-send-plane-fill"></i>
+                                                    </div>
+                                                </button>
+                                            </div>
+                                            <div class="multi-upload">
+                                                <div class="uploaded-files mt-3 p-3 m-0 w-100"
+                                                    *ngIf="selectedFiles.length > 0">
+                                                    <h6>Selected Files:</h6>
+                                                    <ul class="border-0">
+                                                        <li *ngFor="let file of selectedFiles; let i = index">
+                                                            <div class="d-flex"> {{ file.name }}
+                                                                <i class="ri-close-circle-fill text-danger"
+                                                                    (click)="deleteFile(i)"></i>
+                                                            </div>
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                   <div class="d-flex align-items-center mt-3">
+                                    <div class="custom-image-wrap">
+                                        <div class="d-flex align-items-center">
+                                            <div class="title fw-bold me-2">Followers:</div>
+                                            <ul class="border-0">
+                                                <li *ngFor="let img of uploadedlogo">
+                                                    <img [matTooltip]="img?.employee?.firstName+' '+ img?.employee?.lastName"
+                                                        *ngIf="img?.employee?.profilePicture"
+                                                        [src]=" attachmentURL+img.employee?.profilePicture?.replace('wwwroot\\', '') "
+                                                        alt="logo">
+                                                    <div [matTooltip]="img?.employee?.firstName+' '+ img?.employee?.lastName"
+                                                        *ngIf="!img?.employee?.profilePicture"
+                                                        class="avtar avtar-s rounded-circle"
+                                                        [ngStyle]="{'background': stringToColor(img?.employee?.firstName +' '+ img?.employee?.lastName)}">
+                                                        <b class="f-18">{{img?.employee?.firstName[0].toUpperCase() +
+                                                            img?.employee?.lastName[0].toUpperCase() }}</b>
+                                                    </div>
+
+                                                </li>
+
+
+                                            </ul>
+                                            <div class="add-on ms-3">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="drop-btn">
+                                        <div class="dropdown">
+                                            <span class="ri-add-circle-fill" type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+
+                                            </span>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" (click)="follower()"></a>
+                                                <li *ngFor="let assigns of AssignUserByProjects">
+                                                    <a class="dropdown-item" (click)="follower(assigns)">
+                                                        {{assigns?.firstName +''+assigns?.lastName}}</a>
+
+                                                </li>
+                                            </ul>
+                                        </div> 
+                                    </div>
+                                   </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

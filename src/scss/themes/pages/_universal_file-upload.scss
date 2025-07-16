@@ -1,0 +1,37 @@
+.multi-upload {
+    img {
+        width: 300px;
+    }
+
+    .upload-box {
+        //   border: 2px dashed #1890ff;
+        border: 2px dashed #3e4095;
+        padding: 30px;
+        background: #fff;
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        margin-right: 8px;
+    }
+
+    .uploaded-files {
+        border: 2px dashed #1890ff;
+        padding: 30px;
+        background: #fff;
+        display: inline-block;
+        width: 50%;
+        margin-left: 8px;
+
+        ul {
+            padding: 0;
+            margin: 0;
+
+            li {
+                margin: 15px 0;
+                border: 1px solid #e5e5e5;
+                padding: 12px 18px;
+                border-radius: 4px;
+            }
+        }
+    }
+}

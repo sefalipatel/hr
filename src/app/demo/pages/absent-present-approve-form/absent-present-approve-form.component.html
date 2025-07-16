@@ -1,0 +1,65 @@
+<div class="regularization absentreq">
+    <div class="header d-flex align-items-center justify-content-between  p-3 px-4 ">
+        <h6 class="  text-white">Absent Request</h6>
+        <h6 class="text-white"> {{data.date | date:'dd-MM-yyyy'}}</h6> 
+    </div>
+    <div class="card border-0 mb-0">
+        <div class="card-body ">
+            <div class="bg-white p-3">
+                <form [formGroup]="absentForm" class="mx-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex justify-content-between">
+                                <div class="colss d-flex align-items-center justify-content-between">
+                                    <label class="required mb-2" style="font-weight: 600;">In Time:<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <ngx-timepicker-field formControlName="inTime"
+                                        (timeChange)="onTimeChange($event)"></ngx-timepicker-field>
+                                </div>
+                            </div>
+                            <div *ngIf="absentForm.get('inTime').touched && absentForm.get('inTime').errors?.['required']"
+                                class="text-danger mt-2">
+                                In time is required.
+                            </div>
+                        </div>
+                        <div class="col-md-12 my-3">
+                            <div class="d-flex justify-content-between">
+                                <div class="colss d-flex align-items-center justify-content-between">
+                                    <label class="required mb-2" style="font-weight: 600;">Out Time:<span
+                                            class="text-danger">*</span>
+                                    </label>
+                                    <ngx-timepicker-field formControlName="outTime"
+                                        (timeChange)="onTimeChange($event)"></ngx-timepicker-field>
+                                </div>
+                            </div>
+                            <div *ngIf="absentForm.get('outTime').touched && absentForm.get('outTime').errors?.['required']"
+                                class="text-danger mt-2">
+                                Out time is required.
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-0">
+                                <label class="required mb-2" style="font-weight: 600;">Reason<span
+                                        class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control form_textarea" placeholder="Write your reason . . ."
+                                    id="exampleFormControlTextarea1" rows="2" formControlName="reason"></textarea>
+                                <div class="text-danger"
+                                    *ngIf="absentForm.get('reason').hasError('required') && absentForm.get('reason').touched">
+                                    Reason is required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end regularization_btn mt-4  pt-4 d-flex align-items-center justify-content-end">
+                        <button type="submit" class="btn btn-primary py-2 px-4 rounded-pill me-3" (click)="submit()">
+                            Submit</button>
+                        <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill" (click)="cancelPopup()">
+                            Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

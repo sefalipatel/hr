@@ -1,0 +1,68 @@
+
+$black: #000000;
+$white: #ffffff;
+$text-color: #909294;
+$primary: #1890ff;
+$light-primary: #bcdfff;
+$green: green;
+$orange: orange;
+$light_sky: #0088ff3d;
+$br_radius: 5px;
+$box_shadow: 0 2px 6px -1px rgba(0, 0, 0, .1), 0 2px 4px -1px rgba(0, 0, 0, .06);
+
+.profile_images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    img {
+        border-radius: 50%;
+        position: absolute;
+        top: -77px;
+        left: auto;
+        right: 35px;
+        max-width: 130px;
+        object-fit: cover;
+    }
+}
+
+.emp_name {
+    h4 {
+        font-weight: 500;
+        font-size: 20px;
+        margin-bottom: 10px;
+        margin-top: 0;
+        line-height: 20px;
+    }
+}
+
+.designation {
+    p {
+        margin-bottom: 10px;
+        font-size: 18px;
+        margin-top: 0;
+        font-weight: 500;
+    }
+}
+
+.employee_info_detail {
+    p {
+        margin-bottom: 10px;
+        font-size: 16px;
+        margin-top: 0;
+
+        &:nth-child(1) {
+            span { 
+            }
+        }
+
+        span {
+            font-weight: 500;
+
+            &:nth-child(2) {
+                color: $primary;
+            }
+        }
+    }
+}

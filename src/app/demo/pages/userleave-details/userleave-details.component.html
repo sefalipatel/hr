@@ -1,0 +1,240 @@
+<div class="row px-3 userleavedetail_tableview">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove pb-3">
+
+    <div class="page-top-header mb-0">
+      <h5 class="card-subtitle mt-0">Apply For Leave </h5>
+    </div> 
+
+    <div class="row d-flex flex-wrap py-4 mb-4 align-items-center mx-3 border-bottom"
+      *ngFor="let leaves of LeaveDetail">
+      <div class="col-md-6 col-xl-3 col-lg-6  my-2">
+        <div class="d-flex total-leave-balance justify-content-between align-items-center">
+          <div class="title">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            <span>Remaining Leave</span>
+          </div>
+          <div class="count">
+            <span>{{leaves?.pendingLeave}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3 col-lg-6  my-2">
+        <div class="d-flex total-leave-balance justify-content-between align-items-center">
+          <div class="title">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            <span>Total Leaves</span>
+          </div>
+          <div class="count">
+            <span>{{leaves?.totalLeave}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3 col-lg-6  my-2">
+        <div class="d-flex total-leave-balance justify-content-between align-items-center">
+          <div class="title">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            <span>Total Leave Taken</span>
+          </div>
+          <div class="count">
+            <span>{{leaves?.takenLeave}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xl-3 col-lg-6  my-2">
+        <div class="d-flex total-leave-balance justify-content-between align-items-center">
+          <div class="title">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+            <span> Total Leave Balance</span>
+          </div>
+          <div class="count">
+            <span>{{totalLeaveBlance}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-block align-items-center justify-content-between m-3"> 
+      <div class="row">
+        <div class="col-md-4 my-2">
+          <div class="pc-h-item d-md-inline-flex pc-header position-static bg-transparent apply_leave_serach w-100">
+            <form class="header-search d-block w-100">
+              <div class="search-btn">
+                <i class="ti ti-search"></i>
+              </div>
+              <input type="search" class="form-control w-100 rounded" placeholder="Search here. . ."
+                (input)="applyFilter($event)" />
+            </form>
+          </div>
+        </div>
+
+        <div class="col-md-4 my-2">
+          <div class="year_select_box">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Year</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                (ngModelChange)="onYearSelected($event)" id="year">
+                <mat-option class="text-muted">Select Year </mat-option>
+                <mat-option class="text-muted" *ngFor="let year of years" [value]="year"> {{year}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="col-md-4 my-2">
+          <div class="year_select_box">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Month</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                (ngModelChange)="onMonthSelected($event)">
+                <mat-option class="text-muted">Select Month </mat-option>
+                <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{ month.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div> 
+    </div>
+
+    
+    <div class="d-flex justify-content-between pointer mx-3">
+      <div class="col-md-6 col-xl-3 col-lg-6 btn-box my-2">
+        <button type="button" class="btn btn-primary rounded-pill px-4 py-2" (click)="LeaveDetailsAddd()">Apply for
+          Leave</button>
+      </div>
+
+      <div class="status_overflow d-flex align-items-center status border bg-white  pointer p-2">
+        <div class="d-flex align-items-center border-right pe-3 ps-3 p-2" (click)="AllLeave()">
+          <mat-label class="label_name fw-bold ">All</mat-label>
+          </div>
+        <div class="d-flex align-items-center border-right pe-3 ps-3 p-2 pointer" (click)="pendingLeave()">
+          <mat-label class="label_name fw-bold ">Pending:</mat-label>
+          <h6 class="rounded-circle bg-warning border text-white ms-2 text-center fs-6">{{totalPending}}</h6>
+        </div>
+        <div class=" px-3">
+          <div class="d-flex align-items-center " (click)="RejectLeave()">
+            <mat-label class="label_name  fw-bold">Rejected:</mat-label>
+            <h6 class="rounded-circle bg-danger border text-white ms-2 text-center fs-6">{{totalRejected}}</h6>
+          </div>
+        </div>
+        <div class="d-flex align-items-center border-left ps-3 pe-3 p-2 " (click)="ApproveLeave()">
+          <mat-label class="label_name fw-bold">Approved:</mat-label>
+          <h6 class="rounded-circle bg-success border text-white ms-2 text-center fs-6">{{totalApprove}}</h6>
+        </div>
+        <div class="d-flex align-items-center border-left ps-3 pe-3 p-2 " (click)="WorkFromHome()">
+          <mat-label class="label_name fw-bold">WFH</mat-label>
+          <h6 class="rounded-circle bg-primary border text-white ms-2 text-center fs-6">{{totalwfh}}</h6>
+        </div>
+      </div>
+    </div>
+  <div class="p-3">
+    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+      <div class="fixTableHead  scrollbox-content">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 apply_leave ">
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{ element.serialNumber }} </td>
+          </ng-container>
+          <ng-container matColumnDef="Leave">
+            <th mat-header-cell *matHeaderCellDef>Leave Date</th>
+            <td mat-cell *matCellDef="let element" class="">{{ element.startDate | date: dateFormat }}--{{
+              element.endDate |
+              date: dateFormat }} </td>
+          </ng-container>
+          <ng-container matColumnDef="RequestDate">
+            <th mat-header-cell *matHeaderCellDef>Request Date</th>
+            <td mat-cell *matCellDef="let element" class="">{{ element.leaveRequestDate ? (element.leaveRequestDate |
+              date: dateFormat):"-" }} </td>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let element"
+              [ngClass]="{'text-success': getStatusLabel(element.approval) === 'Approved','text-warning': getStatusLabel(element.approval) === 'Pending','text-danger': getStatusLabel(element.approval) === 'Rejected'}">
+              {{ getStatusLabel(element.approval) }} </td>
+          </ng-container>
+          <ng-container matColumnDef="LeaveType">
+            <th mat-header-cell *matHeaderCellDef> Leave Type </th>
+            <td mat-cell *matCellDef="let element" class=""> {{element.name ? element.name : '-' }} </td>
+          </ng-container>
+          <ng-container matColumnDef="Reason">
+            <th mat-header-cell *matHeaderCellDef> Reason </th>
+            <td mat-cell *matCellDef="let element" class="reason  bg-transparent"> <span mat-raised-button
+                class="d-inline-block reason" [matTooltip]="element.reason"
+                aria-label="Button that displays a tooltip when focused or hovered over">
+                {{ element.reason }}
+              </span> </td>
+          </ng-container>
+          <ng-container matColumnDef="WFH">
+            <th mat-header-cell *matHeaderCellDef> WFH </th>
+            <td mat-cell *matCellDef="let element">
+              <a [href]="attachmentURL + element.leaveFile.replace('wwwroot\\', '')" target="_blank"
+                *ngIf="element.leaveType===1">
+                <div style="height:100%;width:100%">
+                  <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+                </div>
+              </a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Remark">
+            <th mat-header-cell *matHeaderCellDef> Remark </th>
+            <td mat-cell *matCellDef="let element" class="reason bg-transparent">
+              <span mat-raised-button class="d-inline-block reason" [matTooltip]="element.rejectionReason"
+                aria-label="Button that displays a tooltip when focused or hovered over">
+                {{ element.rejectionReason }}
+              </span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class=""> Action </th>
+            <td mat-cell *matCellDef="let element" class="text-center">
+              <div class="d-flex align-items-center">
+                <div class="icon_width me-3">
+                  <svg viewBox="64 64 896 896" focusable="false"
+                    [attr.fill]="isButtonDisabled(element) ||element.approval === 2|| element.approval === 1 ||element.approval===3?'#adb5bd' : '#1890ff'"
+                    stroke="#1890ff"
+                    [attr.disabled]="isButtonDisabled(element) ||element.approval === 2 || element.approval === 1 ||element.approval===3? true : null"
+                    (click)="isButtonDisabled(element) ||element.approval === 2 || element.approval === 1 ||element.approval===3? null :edituser(element.id)"
+                    width="1em" height="1em" aria-hidden="true">
+                    <path
+                      d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                    </path>
+                  </svg>
+                </div>
+                <div>
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    [attr.stroke]="isButtonDisabled(element)|| element.approval === 1 || element.approval === 2 || element.approval===3 ? 'gray' : 'red' "
+                    [attr.disabled]="isButtonDisabled(element) ||element.approval === 2 ||element.approval === 1 || element.approval===3 ? true : null"
+                    width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"
+                    (click)="isButtonDisabled(element) || element.approval === 1 || element.approval === 2 ||element.approval===3? null :cancel(element.id)">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell text-center py-4" [attr.colspan]="displayedColumns.length">
+              No Data Available
+            </td>
+          </tr>
+        </table>
+      </div>
+      </div>
+      <div class="text-end d-block mb-3 mx-3 mt-4">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>

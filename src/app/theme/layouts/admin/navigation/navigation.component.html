@@ -1,0 +1,21 @@
+<nav>
+  <div class="navbar-wrapper " [class.open]="isMenuOpen">
+    <div class="m-header border-bottom ">
+      <a routerLink="/dashboard" class="d-flex align-items-center b-brand d-flex">
+         <img style="width: 45px" [src]="favicon" alt="">
+        <h5 class="ms-2 my-0" style="font-weight: 600;font-size: 28px;">{{title}}</h5>
+      </a>
+
+      <div class="pc-h-item pc-sidebar-popup custome_search d-lg-none d-block">
+        <a href="javascript:" title="click to menu open" class="pc-head-link ms-0" id="mobile-collapse1"
+          (click)="this.NavCollapsedMob.emit()">
+          <i class="ri-close-line"></i>
+        </a>
+      </div>
+    </div>
+    <app-nav-content (NavCollapsedMob)="navCollapseMob()" class="scroll-div w-100">
+
+    </app-nav-content>
+  </div>
+
+</nav>

@@ -1,0 +1,25 @@
+.confirmation-card {
+  width: 300px; /* Adjust the width as needed */
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.confirmation-message {
+  font-size: 18px;
+  margin: 16px;
+}
+
+.confirmation-button {
+  margin: 8px;
+}
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px; /* Adjust the gap between the buttons as needed */
+}

@@ -1,0 +1,46 @@
+<div class="auth-main login-page">
+    <div class="auth-wrapper v3">
+        <div class="auth-form">
+            <div class="card my-5 py-4 d-flex align-items-center">
+                <div class="card-body">
+                    <div class="d-flex align-items-end mb-3 justify-content-center">
+                        <img style="width: 28px;" [src]="favIcon" alt="">
+                        <h4 class="mb-0 fw-bold ms-3 mt-0" style="font-size: 36px;">{{orgTitle}}</h4>
+                    </div>
+
+                    <div *ngIf="!userId">
+                        <h6 class="w-100 text-center d-block">OTP</h6>
+                        <span class="w-100 text-center d-block">Enter OTP </span>
+                        <form class="universal-form overflow-hidden" [formGroup]="verifyOTPForm" (ngSubmit)="submit()">
+                            <div class="d-flex justify-content-center my-3">
+                                <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" *ngIf="showOtpComponent" [config]="config"
+                                    formControlName="otp"></ng-otp-input>
+                            </div>
+                            <button class="btn btn-primary w-100" type="submit">Verify OTP</button>
+                        </form>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="universal-timer">
+                            <div class="time-btn time-btns">
+                                <button [disabled]="!showButton" class="check-in" *ngIf="checkInStatus==0 || checkInStatus==2"
+                                    (click)="startCountdown(checkInStatus)">Check-In</button>
+                            </div>
+                            <div class="d-inline-block check-out-box" ngbDropdown>
+                                <button [disabled]="!showButton" type="button" class="btn btn-danger check-out" id="dropdown2"
+                                    *ngIf="checkInStatus==1" ngbDropdownToggle>Check-Out
+                                </button>
+                    
+                                <div ngbDropdownMenu aria-labelledby="dropdown1">
+                                    <ng-container *ngFor="let checkOut of checkOutStatus">
+                                        <button (click)="OnCheckOutStatus(checkOut)" ngbDropdownItem>{{checkOut.name}}</button>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

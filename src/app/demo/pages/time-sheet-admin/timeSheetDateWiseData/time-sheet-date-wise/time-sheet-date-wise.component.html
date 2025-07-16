@@ -1,0 +1,66 @@
+<div class="p-2">
+    <div class="pc-component common_table ">
+        <div class="card mb-0">
+            <div class="mat-elevation-z8 shadow-none table-responsive holiday_table">
+                <table class="apply_leave " mat-table [dataSource]="dataSource">
+
+                    <ng-container matColumnDef="Date">
+                        <th mat-header-cell *matHeaderCellDef>Date</th>
+                        <td mat-cell *matCellDef="let entry">
+                            <span> {{entry.timeSheetDate ?? entry.timesheetDate | date:dateFormat}}</span>
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Time">
+                        <th mat-header-cell *matHeaderCellDef>Hours</th>
+                        <td mat-cell *matCellDef="let entry">
+                            <span>{{entry.hours ?? entry?.totalHours}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Comments">
+                        <th mat-header-cell *matHeaderCellDef>Comments</th>
+                        <td mat-cell *matCellDef="let entry">
+                            <span style="text-wrap: wrap;word-break: break-all;">{{entry.comment ??
+                                entry.comments}}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef class="">Action
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="d-flex align-items-center">
+
+                                <div class="icon_width btn_hover me-2" (click)="delete(element.id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="feather feather-x">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <!-- Header Rows -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+
+                    <!-- Data Rows -->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                    <!-- No Record Found -->
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell p-2 text-center" [attr.colspan]="displayedColumns.length">
+                            No Data Available
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Paginator --> 
+            </div>
+        </div>
+    </div>
+    <div class="text-center d-flex align-items-center justify-content-end p-2">
+        <button class="btn btn-primary px-4 py-2 rounded-pill" mat-dialog-close cdkFocusInitial>Ok</button>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="page-top-header mb-0">
+  <h5 class="card-subtitle mt-0">Company Policy</h5>
+</div>
+<div class="row px-3" [ngClass]="{ 'blur-background': loading }">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove">
+
+    <div class="dataTables_filter d-flex justify-content-end py-3 px-4 pb-0">
+      <button type="submit" (click)="downloadPDF()" class="btn btn-primary download-btn rounded-pill">Download
+      </button>
+    </div>
+    <app-loader *ngIf="loading"></app-loader> 
+    <section class="custom-accordian p-4 pt-3" #content>
+      <mat-accordion [multi]="true" #accordion="matAccordion">
+        <mat-expansion-panel *ngFor="let reason of companypolicytypeList; let i = index; let isFirst = first">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="d-flex align-items-center justify-content-between w-100 position-relative">
+                <div class="d-flex align-items-center">
+                  <span><i class="ri-apps-line"></i></span>
+                  <span class="ms-3">{{reason?.name}}</span>
+                </div>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let data of reason.companyPolicy">
+              <h6 class="fw-bold">{{data?.name}}</h6>
+              <div [innerHTML]="data?.description"></div>
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+      <div class="example-section mt-4">
+        <div class="d-flex align-items-center">
+          <mat-checkbox class="example-margin" disabled="true" [checked]="true">I Understand and agree to the Skytus
+            Company Policy</mat-checkbox>
+          <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 ms-3 "
+            *ngIf=" isButtonVisible == false || isButtonVisible == null  " (click)="updatePolicyConcern(true)">
+            Submit</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

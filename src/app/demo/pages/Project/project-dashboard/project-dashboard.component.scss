@@ -1,0 +1,70 @@
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+}
+
+.wrap-set {
+  display: flex;
+  align-items: center;
+
+  i {
+    font-size: 18px;
+    margin: 0 3px;
+  }
+
+  .ri-delete-bin-line {
+    &:hover {
+      color: red;
+      font-size: 25px;
+      transition: 0.5s;
+    }
+
+    color: #8f9498;
+  }
+
+  .ri-edit-box-line {
+    &:hover {
+      color: #1890ff;
+      font-size: 25px;
+      transition: 0.5s;
+    }
+
+    color: #8f9498;
+  }
+
+  .ri-list-view {
+    &:hover {
+      color: #1dd75e;
+      font-size: 25px;
+      transition: 0.5s;
+    }
+
+    color: #8f9498;
+  }
+
+  .ri-shield-user-line {
+
+    color: #8f9498;
+
+    &:hover {
+      color: orange;
+      font-size: 25px;
+      transition: 0.5s;
+    }
+  }
+}
+
+.project_detail_top {
+  .btn-primary {
+    background-color: #3e4095;
+    color: white;
+    border: 1px solid #3e4095;
+
+  }
+
+  .btn-secondary {
+    background-color: white;
+    border: 1px solid #3e4095;
+    color: #3e4095;
+  }
+}

@@ -1,0 +1,121 @@
+.text-truncate {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} 
+ 
+ 
+ 
+.card-box {
+    position: relative;
+}
+
+.card-titme { 
+
+    .count {
+        height: 40px;
+        width: 40px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%; 
+        margin-top: 10px;
+
+        h5 {
+            font-size: 20px;
+            margin: 0;
+            color: #5150f1 !important;
+            font-weight: 600; 
+            border-radius: 50%;
+            width: 114px;
+            height: 61px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .count1 {
+        height: 40px;
+        width: 40px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-top: 10px; 
+
+
+        h5 {
+            font-size: 20px;
+            margin: 0;
+            color: #007dfe !important;
+            font-weight: 600; 
+            border-radius: 50%;
+            width: 114px;
+            height: 61px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .count2 {
+        height: 40px;
+        width: 40px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-top: 10px; 
+
+        h5 {
+            font-size: 20px;
+            margin: 0;
+            color: #fdad00 !important;
+            font-weight: 600; 
+            border-radius: 50%;
+            width: 114px;
+            height: 61px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .count3 {
+        height: 40px;
+        width: 40px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%; 
+        margin-top: 10px;
+
+        h5 {
+            font-size: 20px;
+            margin: 0;
+            color: #8e71ec !important;
+            font-weight: 600; 
+            border-radius: 50%;
+            width: 114px;
+            height: 61px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .name {
+        h6 {
+            color: #000000;
+            font-size: 19px;
+            z-index: 9;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}

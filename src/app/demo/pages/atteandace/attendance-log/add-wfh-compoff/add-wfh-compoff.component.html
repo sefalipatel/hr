@@ -1,0 +1,107 @@
+<div class="regularization overtime">
+    <div class="header d-flex align-items-center justify-content-between p-3 px-4">
+        <h6 class="text-white">Leave Request</h6>
+    </div>
+    <div class="card border-0 mb-0">
+        <div class="card-body">
+            <div class="bg-white p-3">
+                <form [formGroup]="form" class="mx-3">
+
+                    <!-- Leave Type -->
+                    <!-- Leave Type -->
+                    <div class="regularization_time mb-4">
+                        <h6>Leave Type <span class="text-danger">*</span></h6>
+                        <mat-form-field appearance="outline" class="w-100 mt-2">
+                            <mat-select formControlName="LeaveTypeId" placeholder="Select Leave Type">
+                                <!-- Default Placeholder Option (optional) -->
+                                <mat-option [value]="null" disabled>Select Leave Type</mat-option>
+                                <mat-option *ngFor="let leave of leaveTypeList" [value]="leave.id">
+                                    <!-- Render icon if available -->
+                                    <img *ngIf="leave.icon" [src]="imageUrl + leave.icon.replace('wwwroot\\', '')"
+                                        alt="{{ leave.name }}" width="20" height="20" class="me-2" />
+                                    {{ leave.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+
+                        <!-- Validation Error Message -->
+                        <span class="text-danger"
+                            *ngIf="form.get('LeaveTypeId')?.hasError('required') && form.get('LeaveTypeId')?.touched">
+                            Leave Type is required
+                        </span>
+                    </div>
+
+
+                    <!-- Start & End Dates -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Start Date <span class="text-danger">*</span></h6>
+                            <mat-form-field appearance="outline" class="w-100 mt-2">
+                                <input matInput [matDatepicker]="startPicker" formControlName="StartDate"
+                                    placeholder="Start Date" />
+                                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startPicker></mat-datepicker>
+                            </mat-form-field>
+                            <span class="text-danger"
+                                *ngIf="form.get('StartDate')?.hasError('required') && form.get('StartDate')?.touched">
+                                Start Date is required
+                            </span>
+                        </div> 
+                    </div>
+
+                    <!-- Reason -->
+                    <div class="leave_form textarea-input mt-4">
+                        <h6>Reason <span class="text-danger">*</span></h6>
+                        <textarea class="form-control form_textarea mt-2" rows="3" formControlName="Reason"
+                            placeholder="Type Reason" (blur)="trimNameOnBlur()"></textarea>
+                        <span class="text-danger"
+                            *ngIf="form.get('Reason')?.hasError('required') && form.get('Reason')?.touched">
+                            Reason is required
+                        </span>
+                        <span class="text-danger mt-2 d-block"
+                            *ngIf="form.get('Reason')?.touched && form.get('Reason')?.hasError('maxlength')">
+                            Reason cannot exceed 1000 characters.
+                        </span>
+                    </div>
+
+                    <!-- Image Upload (for WFH only) -->
+                    <div class="row align-items-center mb-3 mt-4" *ngIf="isWFHSelected">
+                        <div class="col-sm-6 input-type-file">
+                            <mat-label class="label_name">Upload Image</mat-label>
+                            <div class="image-upload">
+                                <div class="image-upload">
+                                    <input #favIconUploader type="file" (change)="OnSelectedFile($event)"
+                                        [accept]="imageFileOnly" />
+                                    <div class="image-upload border p-3 w-100 mt-3">
+                                        <div class="custom-file-upload">
+                                            <i class="ri-upload-cloud-2-fill mb-0"></i>
+                                        </div>
+                                        <span class="fw-bold d-block">Drag and drop a file to upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 preview org-img" *ngIf="uploadedlogo">
+                            <div class="position-relative d-inline-block border p-2 rounded">
+                                <i class="feather icon-x" role="button" *ngIf="!uploadedlogo?.includes(imageUrl)"
+                                    (click)="resetLogoUploader()">x</i>
+                                <img [src]="uploadedlogo" alt="logo" />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div
+                        class="d-flex align-items-center justify-content-end text-end regularization_btn mt-4 border-top pt-4">
+                        <button class="btn btn-primary py-2 px-4 rounded-pill me-3" (click)="saveData()">Submit</button>
+                        <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill"
+                            (click)="cancelPopup()">Cancel</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

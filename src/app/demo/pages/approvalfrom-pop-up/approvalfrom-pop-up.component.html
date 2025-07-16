@@ -1,0 +1,74 @@
+<div class="regularization">
+  <div class=" header d-flex align-items-center justify-content-between flex-wrap p-3 px-4 ">
+    <h6 class="  text-white ">Regularization Request</h6>
+    <h6 class="text-white"> {{data.date | date: dateFormat}}</h6>
+  </div>
+  <div class="card border-0 mb-0">
+    <div class="card-body ">
+      <h5 class="mt-0 fs-5">Select Time<span class="text-danger">*</span></h5>
+
+      <div class="bg-white p-3">
+        <form [formGroup]="form" class="mx-3">
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="month_year">
+                <div class="year_select_box">
+                  <mat-form-field class="w-100" appearance="outline">
+                    <mat-select formControlName="AttendanceDetailId" matNativeControl style="font-size: 0.875rem;"
+                      placeholder="Select Time" (selectionChange)="onMonthSelected($event)">
+                      <mat-option class="text-muted">Select Time </mat-option>
+                      <mat-option class="text-muted" *ngFor="let type of allSelectTime" [value]="type.id">
+                        <div *ngIf="type.status===1">Intime :{{transform(type.checkInOutTime)}} </div>
+                        <div *ngIf="type.status===2 || type.status===0 ">Outtime :{{transform(type.checkInOutTime)}}
+                        </div>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="row custom-remove">
+              <div class="col-md-6">
+                <div class="month_year mt-3">
+                </div>
+              </div>
+            </div> 
+
+            <form [formGroup]="form">
+              <ng-container>
+                <div class="regularization_time">
+                  <div class="d-flex justify-content-between">
+                    <div class="colss  d-flex  align-items-center   justify-content-between" *ngIf="selectiontype ">
+                      <mat-label class="label_name me-3">Actual Time:<span class="text-danger">*</span></mat-label>
+                      <ngx-timepicker-field formControlName="ActualTime"
+                        (timeChange)="onTimeChange($event)"></ngx-timepicker-field>
+                      <div *ngIf="form.get('ActualTime').touched && form.get('ActualTime').errors?.['required']"
+                        class="text-danger mt-2">
+                        ActualTime is required.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="leave_form textarea-input mt-4">
+                  <h6>Write your reason<span class="text-danger">*</span> </h6>
+                  <textarea class="form-control form_textarea mt-3" id="exampleFormControlTextarea1" rows="3" required
+                    formControlName="Reason" (blur)="trimNameOnBlur()"></textarea>
+                  <div *ngIf="form.get('Reason').touched && form.get('Reason').errors?.['required']"
+                    class="text-danger mt-2">
+                    Reason is required.
+                  </div>
+                </div>
+              </ng-container>
+
+              <div
+                class="d-flex  align-items-center justify-content-end text-end regularization_btn mt-4 border-top pt-4">
+                <button type="submit" class="btn btn-primary py-2 px-4 rounded-pill me-3" (click)="saveData()">
+                  Submit</button>
+                <button type="button" class="btn btn-secondary py-2 px-4 rounded-pill" (click)="cancelPopup()">
+                  Cancel</button>
+              </div>
+            </form>
+
+          </div>
+          <ng-template #noData></ng-template>

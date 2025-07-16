@@ -1,0 +1,145 @@
+<div class="page-top-header d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center">
+
+    <h5 class="m-0 card-subtitle">Time Card</h5>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-sm-12 border rounded bg-white time-card p-3">
+    <div class="">
+
+      <div class="row custom-remove">
+        <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3 mb-3">
+          <div class="month_year">
+            <div class="year_select_box">
+              <form [formGroup]="timeCardForm">
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate placeholder="Start date" formControlName="firstDate" placeholder="DD-MM-YYYY"
+                      name="startDate">
+                    <input matEndDate placeholder="End date" formControlName="lastDate" name="endDate"
+                      placeholder="DD-MM-YYYY">
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3 mb-3">
+          <div class="year_select_box">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Department</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="deptId"
+                (ngModelChange)="onDepartmentChange()">
+                <mat-option class="text-muted" [value]="">Select Deparment </mat-option>
+                <mat-option class="text-muted" *ngFor="let name of DepartmentName" [value]="name.id">{{
+                  name.departmentName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!-- Designation -->
+        <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3 mb-3">
+          <div class="year_select_box">
+            <mat-form-field class="w-100" appearance="outline">
+              <mat-label>Select Designation</mat-label>
+              <mat-select matNativeControl placeholder="Select Designation" [(ngModel)]="designationId"
+                (ngModelChange)="onDesignationChange()">
+                <mat-option class="text-muted" [value]="">Select Designation</mat-option>
+                <mat-option class="text-muted" *ngFor="let designation of Designation" [value]="designation.id">
+                  {{ designation.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3 mb-3">
+          <div class="year_select_box">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Employee</mat-label>
+              <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="PersonID">
+                <mat-option class="text-muted" [value]="">Select Employee </mat-option>
+                <mat-option class="text-muted" *ngFor="let name of PersonName" [value]="name.id">{{ name?.firstName }}
+                  {{ name?.lastName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-4 col-sm-12 col-xl-3 mb-3 d-flex">
+          <div class="mt-1 d-flex align-items-baseline">
+            <div class="btn btn-primary px-4 py-2 rounded-pill" (click)="getAllTimeCard()">Apply</div>
+            <div class="btn btn-secondary px-4 py-2 rounded-pill ms-2" (click)="Reset()">Reset</div>
+          </div>
+        </div>
+      </div> 
+      <div class="pc-component common_table timesheet_tableview mt-3">
+        <div class=" mb-0">
+          <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+            <div class="mat-elevation-z8 shadow-none fixTableHead scrollbox-content holiday_table"> 
+              <table class="apply_leave " mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="employeecode">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Code</th>
+                  <td mat-cell *matCellDef="let element">{{element?.personCode}} </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Name</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.personName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell *matHeaderCellDef>Date</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.date | date: dateFormat }} </td>
+                </ng-container>
+                <ng-container matColumnDef="totalHours">
+                  <th mat-header-cell *matHeaderCellDef>Total Hours</th>
+                  <td mat-cell *matCellDef="let element"> {{element?.totalHours}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                  <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+                  <td mat-cell *matCellDef="let element" class="text-center">
+                    <div>
+                      <svg width="2em" height="2em" viewBox="0 0 24 24" fill="none" matTooltip="View"
+                        (click)="timesheetDateWiseData(element)" xmlns="http://www.w3.org/2000/svg">
+                        <path opacity="0.5" d="M20 6L3 6" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                        <path opacity="0.5" d="M10 11L3 11" stroke="#1C274C" stroke-width="1.5"
+                          stroke-linecap="round" />
+                        <path opacity="0.5" d="M10 16H3" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M14 13.5L16.1 16L20 11" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                      </svg>
+                    </div>
+
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                <!-- Data Rows -->
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+                <!-- No Record Found -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell p-2 text-center" [attr.colspan]="displayedColumns.length">
+                    No Data Available
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="text-end d-block my-3">
+          <div class="pagination-format d-inline-block">
+            <!-- Paginator -->
+            <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+              aria-label="Select page of data"></mat-paginator>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

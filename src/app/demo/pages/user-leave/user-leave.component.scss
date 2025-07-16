@@ -1,0 +1,56 @@
+@media (min-width: 992px) {
+
+    .leave_table .apply_leave td:nth-child(3),
+    .leave_table .apply_leave td:nth-child(4) {
+        min-width: 200px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .leave_table .apply_leave td:nth-child(3),
+    .leave_table .apply_leave td:nth-child(4) {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .leave_table .apply_leave td:nth-child(3),
+    .leave_table .apply_leave td:nth-child(4) {
+        min-width: 200px;
+    }
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.unpaid-btn-disabled {
+    filter: grayscale(100%);
+    /* This will make the image appear gray */
+    opacity: 0.5;
+    /* Reduce opacity to indicate disabled state */
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.status .rounded-circle {
+    font-size: 14px;
+}
+
+.full-screen-modal {
+    padding: 15px;
+}
+
+.leave_status {
+    .comon_bottom {
+        min-height: 58px;
+        border: 1px solid #e3e3e3;
+        margin: 5px 0;
+    }
+}

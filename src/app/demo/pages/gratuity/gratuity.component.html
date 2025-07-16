@@ -1,0 +1,113 @@
+
+<div class="page-top-header mb-3">
+  <h5 class="card-subtitle mt-0">Gratuity</h5>
+</div>
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white px-0 custom-remove">
+
+    <div class="content-box px-3">
+      <div class="pc-component">
+        <div class="row my-3">
+          <div class="col-md-4">
+            <div class="pc-h-item pc-header position-static bg-transparent">
+              <form class="header-search d-block w-100">
+
+                <div class="serachbtn">
+                  <div class="search-btn">
+                    <i class="ti ti-search"></i>
+                  </div>
+                  <input [(ngModel)]="searchDataValue" (input)="searchData(searchDataValue)" type="search"
+                    class="form-control w-100" placeholder="Search..." />
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+
+          <div class="col-md-8">
+            <div class="d-flex justify-content-end h-100 align-items-center">
+              <button type="button" class="btn btn-primary py-2 rounded-pill mt-3 mt-md-0" *ngIf="userRole[0]?.canView"
+                (click)="exportJson()">Export to Excel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-end ">
+
+          <ul class="d-flex align-items-center status pointer employee_block_list">
+
+            <li class="d-flex align-items-center pointer ">
+              <mat-label class="label_name ">Total Employee</mat-label> 
+            </li>
+
+            <li>
+              <div class="d-flex align-items-center">
+                <mat-label class="label_name">Eligible Employee count</mat-label> 
+              </div>
+            </li>
+
+            <li class="d-flex align-items-center">
+              <mat-label class="label_name">Total Count </mat-label> 
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+
+      <div class="card my-3 gratuity_tableview"> 
+            <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="mat-elevation-z8 fixTableHead scrollbox-content  user_request_list  shadow-none "> 
+          <table mat-table [dataSource]="dataSource" (matSortChange)="sortData($event)" class=" apply_leave" matSort>
+
+
+            <ng-container matColumnDef="employeeName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.employeeName }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="gratuityAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> GratuityAmount </th>
+              <td mat-cell *matCellDef="let element">{{element.gratuityAmount}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="joiningDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> JoiningDate </th>
+              <td mat-cell *matCellDef="let element">{{element.joiningDate | date: dateFormat}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="totalAmount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> TotalAmount </th>
+              <td mat-cell *matCellDef="let element">{{element.totalAmount }} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">
+                <div class="text-center d-block border-bottom-0 mt-3">
+                  <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                  <h6 class="no-record my-3">No Data Available</h6>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        </div>
+      </div>
+
+      <div class="text-end d-block mb-3">
+        <div class="pagination-format d-inline-block">
+          <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+          </mat-paginator>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

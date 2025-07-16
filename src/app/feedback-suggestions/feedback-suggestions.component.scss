@@ -1,0 +1,26 @@
+.feedbacksuggestions_tableview { 
+}
+
+.wide-column {
+    width: 260px;
+    max-width: 260px;
+    min-width: 260px;
+    text-wrap: auto;
+}
+
+.wide-columnn {
+    width: 730px;
+    max-width: 730px;
+    min-width: 730px;
+    text-wrap: auto;
+}
+
+.dropdown-menu.show {
+    display: block;
+    height: 104px;
+    overflow-y: scroll;
+}
+
+.dropdown-menu.show {
+    transform: translate(-60px, 24px) !important;
+}

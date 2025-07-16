@@ -1,0 +1,7 @@
+<!-- <app-loader [isLoading]="isLoading"></app-loader> -->
+<app-loader *ngIf="loaderService.loaderState | async"></app-loader>
+<router-outlet></router-outlet>
+
+
+
+<!-- <ngb-toast></ngb-toast> -->

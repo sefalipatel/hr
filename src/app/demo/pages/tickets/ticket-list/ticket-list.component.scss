@@ -1,0 +1,45 @@
+.progress.height-five {
+    height: 5px;
+}
+
+.hidden-input{
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+} 
+
+.pointer {
+    cursor: pointer;
+}
+
+.s-assigned i{
+    color: orange;
+}
+
+.s-inreview i{
+    color:#0088ff3d;
+}
+.s-reopen i{
+    color: brown;
+}
+.s-available i {
+    color: #ff4081;
+}
+.ticket_list_drop{
+    max-height: 150px;
+    overflow-y: scroll;
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+    scrollbar-width: thin;
+    scrollbar-color: transparent white;
+    height: auto;
+    z-index: 6;
+    top: 6px;
+    &:hover {
+        -webkit-mask-position: left top;
+        scrollbar-color: #c1c1c1 transparent;
+    }
+}

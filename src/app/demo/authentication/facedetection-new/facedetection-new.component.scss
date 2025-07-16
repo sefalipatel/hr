@@ -1,0 +1,202 @@
+.header_top {
+    padding: 15px 0;
+    border-bottom: 1px solid #f1f1f1;
+    background-color: white;
+
+    .logo {
+        img {
+            max-width: 180px;
+        }
+    }
+}
+
+.face_detection_main {
+    height: calc(100vh - 93px);
+    // border: 1px solid green;
+
+    .face_detection_inner {
+        height: 100%;
+        // border: 1px solid red;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .face_detection_left {
+            // box-shadow: 0 0 3px 1px gray;
+            border: 2px solid #e3e3e3;
+            height: 100%;
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+
+            .face_block {
+
+
+                border-radius: 10px;
+                display: flex;
+                justify-content: center;
+
+                .image_block {
+
+                    width: auto;
+                    margin: 0.5em;
+                    padding: 0.5em;
+
+                    width: 400px;
+                    height: 400px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        max-width: 350px;
+                    }
+                }
+            }
+
+            .camera_icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                max-width: 69px;
+                width: 100%;
+                margin: 0 auto;
+                box-shadow: 0 0 2px 1px gray;
+                padding: 8px 10px;
+                border-radius: 9px;
+            }
+        }
+
+        .face_detection_right {
+            position: relative;
+            padding: 20px;
+
+            h3 {
+                color: #3e4095;
+                // font-size: 83px;
+                font-weight: 500;
+                margin: 0;
+            }
+
+            p {
+                font-size: 16px;
+                color: gray;
+                text-transform: capitalize;
+            }
+
+
+        }
+    }
+}
+
+.vector_img {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    right: 0;
+
+    img {
+        max-width: 330px;
+
+    }
+}
+
+.box {
+    --b: 5px;
+    --c: #3e4095;
+    --w: 20px;
+
+
+    border: var(--b) solid #0000;
+    --_g: #0000 90deg, var(--c) 0;
+    --_p: var(--w) var(--w) border-box no-repeat;
+    background:
+        conic-gradient(from 90deg at top var(--b) left var(--b), var(--_g)) 0 0 / var(--_p),
+        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) 100% 0 / var(--_p),
+        conic-gradient(from 0deg at bottom var(--b) left var(--b), var(--_g)) 0 100% / var(--_p),
+        conic-gradient(from -90deg at bottom var(--b) right var(--b), var(--_g)) 100% 100% / var(--_p);
+
+    /*Irrelevant code*/
+    width: 200px;
+    height: 100px;
+    box-sizing: border-box;
+    margin: 5px;
+    display: inline-flex;
+    font-size: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 5px
+}
+
+.container_slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+/* Screen 1 */
+.screen-1 {
+    // background-color: #f5f5f5;
+    z-index: 2;
+}
+
+/* Screen 2 */
+.screen-2 {
+    // background-color: #cce5ff;
+    transform: translateX(100%);
+    z-index: 1;
+}
+
+/* Slide animations */
+.slide-out {
+    transform: translateX(-100%);
+}
+
+.slide-in {
+    transform: translateX(0%);
+}
+
+.two_factor_btn {
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    width: fit-content;
+    box-shadow: 0 0 2px 0px gray;
+
+    a {
+        cursor: pointer;
+
+        &.comon_face {
+            min-width: 200px;
+            padding: 8px 20px;
+            font-size: 20px;
+            text-align: center;
+            color: #000;
+            border-radius: 50px;
+
+
+            &.active {
+                background-color: #3e4095;
+                color: white;
+                border: 1px solid #3e4095;
+            }
+        }
+
+
+    }
+}

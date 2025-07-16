@@ -1,0 +1,11 @@
+ table {
+
+     tr {
+         td {
+             &.text_wrap {
+                 text-wrap: wrap;
+             }
+         }
+     }
+
+ }

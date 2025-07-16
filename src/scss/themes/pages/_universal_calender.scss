@@ -1,0 +1,90 @@
+.universal-calender {
+  .fc {
+    .fc-button-primary:disabled {
+      opacity: 1;
+      background-color: #3e4095;
+      border-color: #3e4095;
+    }
+
+    .fc-prev-button.fc-button-primary {
+      margin-right: 10px;
+    }
+
+    .fc-prev-button.fc-button-primary,
+    .fc-next-button.fc-button-primary {
+      background-color: #ffffff;
+      border-color: #dadada;
+      border-radius: 100% !important;
+      padding: 0;
+      height: 40px;
+      width: 40px;
+      display: block;
+    }
+
+    .fc-button-primary {
+      padding: 5px 15px;
+      border-radius: 5px !important;
+    }
+
+    .fc-dayGridMonth-button,
+    .fc-timeGridWeek-button,
+    .fc-timeGridDay-button,
+    .fc-listWeek-button {
+      color: #3e4095 !important;
+      border-color: #3e4095 !important;
+      margin-right: 8px;
+      background: #ffffff !important;
+
+      &.fc-button-active {
+        color: #ffffff !important;
+        background: #3e4095 !important;
+      }
+    }
+
+    .fc-toolbar-title {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      line-height: normal;
+    }
+
+    .fc-col-header-cell-cushion {
+      padding: 20px 10px;
+    }
+
+    .fc-button .fc-icon {
+      color: #555;
+    }
+
+    // .fc-daygrid-day-frame {
+    //   // background: #fbfbfb;
+    //   background: #eff9fb;
+    //   padding: 10px;
+    // }
+
+    .fc-day {
+      padding: 10px;
+    }
+
+    .fc-daygrid-day.fc-day-today {
+      background-color: #e4f6fa;
+
+      .fc-daygrid-day-number {
+        font-weight: 800;
+      }
+    }
+
+    .fc-toolbar-chunk button {
+      text-transform: uppercase;
+    }
+
+    .fc-header-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .fc-toolbar-chunk {
+      margin: 8px;
+    }
+  }
+}

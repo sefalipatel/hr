@@ -1,0 +1,403 @@
+<section class="ink-dashboard admin-dashboard pb-4">
+    <div class="row">
+        <div class="col-xxl-4 col-xl-4 col-md-12">
+            <div class="hello-card">
+                <div class="day-date">
+                    <span> {{ today | date: 'EEEE, d MMMM, y' }}</span>
+                </div>
+                <div class="row" *ngFor="let user of profileData">
+                    <div class="col">
+                        <div class="name-icon mt-4 d-flex align-items-center">
+                            <div class="name">
+                                Hello, <h6>{{user?.employeeName}} !</h6>
+                            </div>
+                            <div class="icon ms-3">
+                                <img src="assets/images/dashboard-2/a-3.png" alt="img" />
+                            </div>
+                        </div>
+                        <div class="p-leaves">
+                            You have <span class="pendingleav">{{this.pendingCount}}</span> Pending & <span
+                                class="pendingleav">{{this.approvedCount}}</span> Approvals Leave Request
+                        </div>
+                        <div class="btn btn-primary py-1 mt-3" (click)="onClicks()">
+                            <span> Leave Management</span> 
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img src="assets/images/dashboard-2/a-2.png" alt="img" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-8 col-xl-8 col-md-12 mt-4 mt-xl-0 mt-xl-0">
+            <div class="custom-space ink-card h-100"> 
+
+                <ul class="list_card_top_main h-100" *ngFor="let Projects of getALLTotalData">
+                    <li class="list_card_top">
+                        <div class="outer-summary-card">
+                            <div class="summary-card">
+                                <div class="icon-name">
+                                    <div class="icon color-1">
+                                        <i class="ri-article-line"></i>
+                                    </div>
+                                    <div class="name mt-3">Total Project</div>
+                                </div>
+                                <div class="number my-2 fw-bold">{{Projects.totalProjects}}</div>
+                                <div class="chart-number d-flex align-items-center">
+                                    <div class="chart-icon">
+                                        <i class="ri-arrow-right-up-line"></i>
+                                    </div>
+                                    <div class="number ms-3"> +2.5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list_card_top">
+                        <div class="outer-summary-card">
+                            <div class="summary-card">
+                                <div class="icon-name">
+                                    <div class="icon color-2">
+                                        <i class="ri-team-line"></i>
+                                    </div>
+                                    <div class="name mt-3">Total Clients</div>
+                                </div>
+                                <div class="number my-2 fw-bold">{{Projects.totalClients}}</div>
+                                <div class="chart-number d-flex align-items-center">
+                                    <div class="chart-icon">
+                                        <i class="ri-arrow-right-up-line"></i>
+                                    </div>
+                                    <div class="number ms-3"> +2.5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li> 
+                    <li class="list_card_top">
+                        <div class="outer-summary-card">
+                            <div class="summary-card">
+                                <div class="icon-name">
+                                    <div class="icon color-3">
+                                        <i class="ri-login-circle-line"></i>
+                                    </div>
+                                    <div class="name mt-3">Check-In</div>
+                                </div>
+                                <div class="number my-2 fw-bold">{{Projects?.checkin ? Projects?.checkin : 0}}</div>
+                                <div class="chart-number d-flex align-items-center">
+                                    <div class="chart-icon">
+                                        <i class="ri-arrow-right-up-line"></i>
+                                    </div>
+                                    <div class="number ms-3"> +2.5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list_card_top">
+                        <div class="outer-summary-card">
+                            <div class="summary-card">
+                                <div class="icon-name">
+                                    <div class="icon color-3">
+                                        <i class="ri-logout-circle-line"></i>
+                                    </div>
+                                    <div class="name mt-3">Check-Out</div>
+                                </div>
+                                <div class="number my-2 fw-bold">{{Projects.checkout}}</div>
+                                <div class="chart-number d-flex align-items-center">
+                                    <div class="chart-icon">
+                                        <i class="ri-arrow-right-up-line"></i>
+                                    </div>
+                                    <div class="number ms-3"> +2.5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list_card_top">
+                        <div class="outer-summary-card">
+                            <div class="summary-card">
+                                <div class="icon-name">
+                                    <div class="icon color-4">
+                                        <i class="ri-user-star-line"></i>
+                                    </div>
+                                    <div class="name mt-3">Total Employees</div>
+                                </div>
+                                <div class="number my-2 fw-bold">{{Projects.totalEmployees}}</div>
+                                <div class="chart-number d-flex align-items-center">
+                                    <div class="chart-icon">
+                                        <i class="ri-arrow-right-up-line"></i>
+                                    </div>
+                                    <div class="number ms-3"> +2.5</div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-12  mt-4">
+            <div class="leave-request-card ink-card h-100">
+                <div class="title-dropdown p-3 border-bottom">
+                    <div class="ink-title">
+                        Leave Requests
+                    </div>
+                    <div class="drop-down date-picker">
+                    </div>
+
+                </div>
+                <div class="p-3">
+
+                    <!-- Approved Leaves Section --> 
+                    <!-- Pending Leaves Section -->
+                    <div class="status-pending border-top mt-3" *ngIf="pendingLeaves.length > 0">
+                        <div class="status-title fw-bold mb-3">Pending</div>
+                        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                            <div class="scrollbox-content">
+                                <ng-container *ngFor="let project of pendingLeaves">
+                                    <div
+                                        class="img-detail-status d-sm-flex flex-wrap align-items-center justify-content-between">
+                                        <div class="img-detail d-flex align-items-center my-sm-0 my-2">
+                                            <div class="img">
+                                                <div *ngIf="project?.profilePicture">
+                                                    <img class="img-fluid"
+                                                        [src]="transformImagePath(project?.profilePicture)"
+                                                        [alt]="project?.employeeName">
+                                                </div>
+                                                <div class="without_img" *ngIf="!project?.profilePicture"
+                                                    [ngStyle]="{'background': stringToColor(project?.employeeName)}">
+                                                    <b class="f-18">{{ generateInitials(project?.employeeName) }}</b>
+                                                </div>
+                                            </div>
+                                            <div class="detail mx-3">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="name fw-bold">{{project.employeeName}}</div>
+                                                    <div class="day ms-2"><ng-container [ngSwitch]="project.leaveDays">
+                                                            <span *ngSwitchCase="0.5">Half Day</span>
+                                                            <span *ngSwitchCase="1">Full Day</span>
+                                                            <span *ngSwitchDefault>{{ project.leaveDays }} Days</span>
+                                                        </ng-container></div>
+                                                </div>
+                                                <div class="date">{{ project.leaveRequestDate | date: dateFormat }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="status my-sm-0 my-2">
+                                            <div class="icon-btn">
+                                                <i class="ri-time-line"></i>
+                                                <div class="btn btn-pending ms-2">{{ project.leaveStatus }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!-- View All Leaves Button -->
+                    <div class="btn btn-grey w-100 mt-3" (click)="leav()">
+                        View All Leaves
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-12  mt-4">
+            <div class="clients-card ink-card h-100">
+                <div class="title-dropdown p-3 border-bottom">
+                    <div class="ink-title">
+                        Clients
+                    </div>
+                    <div class="btn-link" role="button" (click)="onClick()">
+                        View all
+                    </div>
+                </div>
+                <div class="p-3">
+                    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+                        <div class="scrollbox-content fixTableHead thead">
+                            <table style="width: 100%;">
+                                <thead>
+                                    <th>name</th>
+                                    <th>Email</th>
+                                    <!-- <th>action</th> -->
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let client of getUserClient">
+                                        <td>
+                                            <div class="img-name d-flex align-items-center">
+                                                <div class="with_img">
+                                                    <div *ngIf="client?.profilePicture" class="profile-container">
+                                                        <img class="profile-picture img-fluid"
+                                                            [src]="transformImagePath(client?.profilePicture)"
+                                                            [alt]="client?.clientname">
+                                                    </div>
+                                                </div>
+                                                <div class="without_img">
+                                                    <div *ngIf="!client?.profilePicture" class="profile-initials"
+                                                        [ngStyle]="{'background': stringToColor(client?.clientname)}">
+                                                        <b class="f-18">{{generateInitials(client?.clientname)}}</b>
+                                                    </div>
+                                                </div>
+                                                <div class="thead_first">
+                                                    <span>{{client?.clientname}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="email">{{client?.clientemail}}</div>
+                                        </td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xxl-8 col-xl-8 col-lg-12 mt-4">
+            <app-admin-dashboard-projects></app-admin-dashboard-projects>
+        </div>
+
+        <div class="col-xxl-4 col-xl-4 col-lg-12 mb-lg-0 mt-4">
+            <app-admin-dashboard-ticket></app-admin-dashboard-ticket>
+        </div>
+        <div class="col-xxl-4 col-lg-6 col-md-6 mb-lg-0 mb-4" *ngFor="let Projects of getALLTaskStatistics">
+        </div>
+        <div class="col-xxl-4 col-xl-4 col-md-12 mt-4">
+            <app-admin-dashboard-feedback-suggestion></app-admin-dashboard-feedback-suggestion>
+
+        </div>
+
+        <div class="col-xxl-4 col-xl-4 col-md-12 mt-4">
+            <app-admin-dashboard-statistics></app-admin-dashboard-statistics>
+        </div>
+        <div class="col-xxl-4 col-xl-4 col-md-12 mt-4">
+            <app-admin-dashboard-employee></app-admin-dashboard-employee>
+        </div>
+        <div class="col-xxl-5 col-xl-5 col-md-12 mt-4">
+            <div class="four-unique-card h-100">
+                <div class="new_profit h-100">
+                    <div class="row h-100" *ngFor="let Projects of getALLTotalData">
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4">
+                            <div class="card_total second ink-card h-100">
+                                <div class="card_header_top plus">
+                                    <p class="two">
+                                        <i class="ti ti-stats-up"></i>Earnings
+                                    </p>
+                                    <p>{{currentYearEarnings | currencyPipe}}</p>
+                                </div>
+                                <div class="card_content ">
+                                    <p>{{earningsChange}}%</p>
+                                </div>
+                                <div class="earning-graph">
+                                    <apx-chart *ngIf="earningsChartOptions" [series]="earningsChartOptions.series"
+                                        [chart]="earningsChartOptions.chart" [stroke]="earningsChartOptions.stroke"
+                                        [xaxis]="earningsChartOptions.xaxis"
+                                        [dataLabels]="earningsChartOptions.dataLabels"
+                                        [colors]="earningsChartOptions.colors">
+                                    </apx-chart>
+                                </div>
+                                <div class="empdetail d-flex justify-content-between">
+                                    <p>Overall Earnings</p>
+                                    <p>{{Projects.totalEarnings| currencyPipe}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4">
+                            <div class="card_total third ink-card h-100">
+                                <div class="card_header_top minus">
+                                    <p class="three">Expenses</p>
+                                    <p>{{currentYearExpenses | currencyPipe}}</p>
+                                </div>
+                                <div class="card_content">
+                                    <p>{{expensesChange}}%</p>
+                                </div>
+                                <div class="expenses-graph">
+                                    <apx-chart *ngIf="expensesChartOptions" [series]="expensesChartOptions.series"
+                                        [chart]="expensesChartOptions.chart" [xaxis]="expensesChartOptions.xaxis"
+                                        [dataLabels]="expensesChartOptions.dataLabels"
+                                        [colors]="expensesChartOptions.colors"
+                                        [plotOptions]="expensesChartOptions.plotOptions">
+                                    </apx-chart>
+                                </div>
+                                <div class="empdetail d-flex justify-content-between">
+                                    <p>Overall Expenses</p>
+                                    <p>
+                                        {{Projects.totalExpenses| currencyPipe}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card_total first ink-card h-100">
+                                <div class="card_header_top plus">
+                                    <p class="one">New Employees</p>
+                                    <p>$</p>
+                                </div>
+                                <div class="card_content">
+                                    <p class="text-dark fw-normal fs-5">Previous Year</p>
+                                    <p>{{getLeavewidth(Projects.totalNewEmployeesLastThreeMonth,Projects.totalEmployees)}}%
+                                    </p>
+                                </div>
+                                <div class="empdetail overallemployee">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <span>Overall Employees</span>
+                                        <span>{{Projects.totalEmployees}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="card_total fourth ink-card h-100">
+                                <div class="profit-out d-flex justify-content-between">
+                                    <div class="left-p">
+                                        <div class="card_header_top minus">
+                                            <p class="four">Profit</p>
+                                        </div>
+                                        <div class="totalprofit">
+                                            <p>{{currentYearProfit | currencyPipe}}</p>
+                                        </div>
+                                    </div>
+                                    <div class=""><i class="ti ti-stats-up"></i></div>
+                                </div>
+                                <div class="card_content">
+                                    <p>{{profitChange}}%</p>
+                                    <p class="text-dark fw-normal fs-5">This Year Profit</p>
+                                </div>
+
+                                <div class="empdetail">
+                                    <div class="w-100">
+                                        <span>Overall Profit</span>
+                                        <span> {{Projects.totalProfit | currencyPipe}}</span>
+                                    </div>
+                                </div>
+                                <div class="img-section">
+                                    <img class="img-fluid" src="../../assets/images/dashboard-2/profit.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xxl-7 col-xl-7 col-md-12 mt-4">
+            <app-admin-dashboard-invoices></app-admin-dashboard-invoices>
+        </div>
+        <div class="col-xxl-8 col-xl-8 col-md-12 mt-4">
+            <app-admin-dashboard-expences></app-admin-dashboard-expences>
+        </div>
+        <div class="col-xxl-4 col-xl-4 col-md-12 mt-4">
+            <div class="revenue-card ink-card h-100">
+                <div class="title-dropdown p-3 border-bottom">
+                    <div class="ink-title">
+                        Total Revenue
+                    </div>
+                </div>
+                <div class="chart-content">
+                    <apx-chart [series]="graphOptions.cseries" [chart]="graphOptions.chart" [xaxis]="graphOptions.xaxis"
+                        [stroke]="graphOptions.stroke" [tooltip]="graphOptions.tooltip"
+                        [dataLabels]="graphOptions.dataLabels"></apx-chart>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

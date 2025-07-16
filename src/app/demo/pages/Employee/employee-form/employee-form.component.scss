@@ -1,0 +1,42 @@
+.preview img {
+    height: 110px;
+    width: 200px;
+    object-fit: scale-down;
+}
+
+.employee-img {
+
+    img {
+        height: 135px;
+        width: 240px;
+    }
+
+    i {
+        position: absolute;
+        right: 3px;
+        top: auto;
+        font-size: 16px;
+        background: #ff4e4e;
+        width: 30px;
+        height: 30px;
+        line-height: 20px;
+        text-align: center;
+        border-radius: 100%;
+        color: #fff;
+        bottom: 10px;
+        left: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+    }
+}
+
+.profile_image_block {
+    width: 150px;
+    height: 150px;
+
+    img {
+        object-fit: cover;
+    }
+}

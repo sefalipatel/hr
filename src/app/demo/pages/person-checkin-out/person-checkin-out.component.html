@@ -1,0 +1,89 @@
+<div class="page-top-header mb-0">
+    <h5 class="card-subtitle mt-0">Person Check-in/out</h5>
+</div>
+<div class="col-sm-12 person_checkinout p-3">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="pc-h-item  pc-header bg-transparent position-static w-100 mt-3 mt-md-0">
+                <form class="header-search d-block w-100">
+                    <div class="search-btn">
+                        <i class="ti ti-search"></i>
+                    </div>
+                    <input type="search" [(ngModel)]="searchDataValue" (input)="searchData(searchDataValue)"
+                        class="form-control w-100" placeholder="Search..." />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="   scrollbox-content fixTableHead"> 
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table apply_leave  bg-transparent"
+                matSort>
+                <ng-container matColumnDef="empId">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Id</th>
+                    <td mat-cell *matCellDef="let element"> {{element.personCode}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Department">
+                    <th mat-header-cell *matHeaderCellDef>Department</th>
+                    <td mat-cell *matCellDef="let element">{{element.departmentName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="InTime">
+                    <th mat-header-cell *matHeaderCellDef>In Time</th>
+                    <td mat-cell *matCellDef="let element">{{transform(element.firstCheckInOut)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="OutTime">
+                    <th mat-header-cell *matHeaderCellDef>Out Time</th>
+                    <td mat-cell *matCellDef="let element">{{transform(element.lastCheckInOut)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="WorkDurection">
+                    <th mat-header-cell *matHeaderCellDef>Work Duration</th>
+                    <td mat-cell *matCellDef="let element">{{transform(element.workDuration)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="BreakDurection">
+                    <th mat-header-cell *matHeaderCellDef>Break Duration</th>
+                    <td mat-cell *matCellDef="let element">{{transform(element.breakDuration)}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Break">
+                    <th mat-header-cell *matHeaderCellDef>Break</th>
+                    <td mat-cell *matCellDef="let element">{{element.numberOfBreaks}}</td>
+                </ng-container>
+                <ng-container matColumnDef="Action">
+                    <th mat-header-cell *matHeaderCellDef class="text-center">Action</th>
+                    <td mat-cell *matCellDef="let element" class="text-center">
+                        <!-- {{element?.checkedInOutStatus}} -->
+                        <div class="universal-timer">
+                            <div class="time-btn time-btns">
+                                <button [disabled]="!showButton" class="check-in" *ngIf="element?.finalStatus==0"
+                                    (click)="startCountdown(element)">Check-In</button>
+                            </div>
+                            <div class="time-btn time-btns">
+                                <button [disabled]="!showButton" type="button" class="btn btn-danger check-out"
+                                    id="dropdown2" *ngIf="element?.finalStatus==1"
+                                    (click)="OnCheckOutStatus(element)">Check-Out</button> 
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell my-3" colspan="10">
+                        <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                        <h6 class="no-record mt-3">No Data Available</h6>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="text-end d-block mb-3 mt-3">
+        <div class="pagination-format d-inline-block">
+            <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                aria-label="Select page of periodic elements">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

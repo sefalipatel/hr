@@ -1,0 +1,99 @@
+<div class="feedback tab-card ink-card">
+    <div class="height-set">
+        <div class="title-dropdown p-3 border-bottom">
+            <div class="ink-title">
+                Feedback & Suggestion
+            </div>
+            <a class="btn-link" role="button" (click)="onList()">
+                View all
+            </a>
+        </div>
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                    aria-selected="true" >Suggestion</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                    aria-selected="false">Feedback</button>
+            </li>
+        </ul>
+        <div class="tab-content height-set" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                aria-labelledby="pills-home-tab" tabindex="0">
+                <div class="feedback_detail px-3">
+                    <div class="feedback_slider">
+                        <div *ngFor="let Projects of suggestions;let i = index">
+                            <div class="feedback_block d-flex align-items-start my-2" >
+                                <div class="img-block">
+                                    <div *ngIf="Projects?.profilePicture"
+                                        matTooltip="{{Projects?.createdByName}}" matTooltipPosition="above">
+                                        <img *ngIf="Projects?.profilePicture"
+                                            [src]="transformImagePath(Projects?.profilePicture)"
+                                            alt="Profile Picture" class="round_circle me-2">
+                                    </div>
+                                    <div *ngIf="!Projects?.profilePicture"
+                                        matTooltip="{{Projects?.createdByName}}" matTooltipPosition="above"
+                                        class="round_circle me-2"
+                                        [ngStyle]="{'background': stringToColor(Projects?.createdByName)}">
+                                        <b>{{generateInitials(Projects?.createdByName)}}</b>
+                                    </div>
+                                </div>
+                                <div class="feedback_content w-100">
+                                    <div class="w-100 d-block">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="name fw-bold">&nbsp;{{Projects.createdByName}}</div>
+                                            <div class="content_droper">
+                                                <div>{{Projects.createdOn | timeAgo}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment">{{Projects.comment}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                aria-labelledby="pills-profile-tab" tabindex="0">
+                <div class="feedback_detail px-3">
+                    <div class="feedback_slider">
+                        <div *ngFor="let feedback of feedbacks;let i = index">
+                            <div class="feedback_block d-flex align-items-start my-2" >
+                                <div class="img-block">
+                                    <div *ngIf="feedback?.profilePicture"
+                                        matTooltip="{{feedback?.createdByName}}" matTooltipPosition="above">
+                                        <img *ngIf="feedback?.profilePicture"
+                                            [src]="transformImagePath(feedback?.profilePicture)"
+                                            alt="Profile Picture" class="round_circle me-2">
+                                    </div>
+                                    <div *ngIf="!feedback?.profilePicture"
+                                        matTooltip="{{feedback?.createdByName}}" matTooltipPosition="above"
+                                        class="round_circle me-2"
+                                        [ngStyle]="{'background': stringToColor(feedback?.createdByName)}">
+                                        <b>{{generateInitials(feedback?.createdByName)}}</b>
+                                    </div>
+                                </div>
+                                <div class="feedback_content w-100">
+                                    <div class="w-100 d-block">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="name fw-bold">&nbsp;{{feedback.createdByName}}</div>
+                                            <div class="content_droper">
+                                                <div>{{feedback.createdOn | timeAgo}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="comment">{{feedback?.comment}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

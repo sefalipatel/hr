@@ -1,0 +1,32 @@
+<div class="hr-card ink-card h-100">
+    <div class="title-dropdown p-3 border-bottom">
+        <div class="ink-title">
+            Employee / HR
+        </div>
+    </div> 
+    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="scrollbox-content">
+        <div class="w-100 text-center">
+            <img src="assets/images/dashboard-2/a-1.png" alt="img" />
+        </div>
+        <div class="employee_hr_detail ">
+            <div class="fixTableHead employeehr-p pb-0">
+                <div class="border rounded p-2 my-3" *ngFor="let Projects of getALLEmployeeHR">
+                    <div class="d-flex align-items-center">
+                        <div class="name fw-bold">Department/Emp.</div>
+                        <div class="ans ms-3">{{Projects.department}}</div>
+                    </div>
+                    <div class="d-flex my-2 align-items-center">
+                        <div class="name fw-bold">Number of Employee: </div>
+                        <div class="ans ms-3">{{Projects.numberOfEmployees}}</div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="name fw-bold">Hours: </div>
+                        <div class="ans ms-3">{{Projects.hours}} Hr</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>

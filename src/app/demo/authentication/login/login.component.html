@@ -1,0 +1,59 @@
+<div class="auth-main login-page">
+  <div class="auth-wrapper v3">
+    <div class="auth-form">
+      <div class="card my-5 py-4 d-flex align-items-center w-100"> 
+        <div class="card-body w-100" style="padding: 30px;">
+          <div class="d-flex align-items-end mb-2 justify-content-center"> 
+            <img style="width: 42px;" *ngIf="favicon" [src]="favicon" alt="">
+            <h4 class="mb-0 fw-bold ms-3 mt-0" style="font-size: 36px;">{{ title }}</h4>
+          </div>
+          <span class="w-100 text-center d-block" *ngIf="!customAuthList?.isDisplay==true ? '' : 'd-none'" style="font-size: 18px;margin-top: 8px;
+">Log in to
+            continue</span>
+          <form class="universal-form overflow-hidden" [formGroup]="form" (ngSubmit)="customLogin()">
+            <div class="email-box mt-4" *ngIf="!customAuthList?.isDisplay==true ? '' : 'd-none'">
+              <div class="my-3"> 
+                <input type="email" class="form-control w-100" id="exampleFormControlInput1" placeholder="Enter Email"
+                  formControlName="Email">
+                <mat-error *ngIf="form.get('Email').hasError('required') && form.get('Email').touched">
+                  Email is required
+                </mat-error>
+              </div>
+              <div class="mt-3 position-relative">
+                <input [type]="password" class="form-control w-100" id="exampleFormControlInput1"
+                  placeholder=" Enter Password" formControlName="Password">
+                <span class="fas toggle-password" (click)="onNewClick()"
+                  [ngClass]="show?'ri-eye-line' : 'ri-eye-off-line'"></span>
+                <mat-error *ngIf="form.get('Password').hasError('required') && form.get('Password').touched">
+                  Password is required
+                </mat-error>
+              </div>
+              <div class="link-box mb-3 mt-2 text-end">
+                <a class="ms-3 text-primary" style="cursor: pointer;" [routerLink]="['/forgot-password']">Forgot
+                  Password</a>
+                <a class="ms-3 text-primary d-block mt-1 d-none" style="cursor: pointer;"
+                  [routerLink]="['/quick-checkIn']"> Quick Check-In</a>
+              </div>
+              <button class="btn btn-primary w-100" tyoe="submit">Continue</button>
+            </div>
+          </form>
+          <div class="btn-box text-center"
+            *ngIf="!googleAuthList?.isDisplay==true && !microsoftAuthList?.isDisplay==true ? '' : 'd-none'">
+            <span class="d-block my-3">Or continue with :</span> 
+            <button *ngIf="!googleAuthList?.isDisplay==true ? '' : 'd-none'" type="button" style="padding: 15px;"
+              class="btn btn-light-outline bg-light w-100 text-muted" (click)="handleGoogleLogin()">
+              <img style="width:20px;" src="assets/images/authentication/google.png" />
+              <span>Login With Google</span>
+            </button> 
+
+            <button *ngIf="!microsoftAuthList?.isDisplay==true ? '' : 'd-none'" type="button" style="padding: 15px;"
+              class="btn btn-light-outline bg-light w-100 text-muted my-3" (click)="login()">
+              <img style="width:17px;" src="assets/images/authentication/microsoft.png" />
+              <span>Microsoft</span>
+            </button> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.promotionlist_tableview {
+    .table_scroll_block {
+        // overflow: visible;
+    }
+}
+
+.dropdown-menu.show {
+    position: absolute !important;
+    inset: auto auto 0px 0px !important;
+    margin: 0px !important;
+    transform: translate(0px, -44px) !important;
+}

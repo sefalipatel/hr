@@ -1,0 +1,95 @@
+<div class="p-3">
+  <h5 class="card-subtitle mt-0"> Holiday </h5>
+</div>
+
+<div class="row px-3">
+  <div class="col-sm-12 border rounded bg-white px-0 holiday-page"> 
+    <div class="content-box p-3"> 
+
+      <div class="row d-md-flex d-block mb-3 year_select_box">
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="d-flex align-items-center custom-remove w-100">
+            <mat-label class="label_name me-2 mb-0" style="text-wrap:nowrap">Select a Year :</mat-label>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-select matNativeControl style="font-size: 0.875rem;" id="year" placeholder="Select Designation Name"
+                [(ngModel)]="selectedYear" (ngModelChange)="onYearSelected($event)">
+                <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-6 d-flex align-items-center justify-content-end">
+          <button type="button" class="btn btn-primary rounded-pill px-4 py-2" *ngIf="userRole[0]?.canAdd"
+            (click)="onBtnClick()">Add</button>
+        </div>
+      </div>
+
+      <div class="pc-component common_table ">
+        <div class=" mb-0">
+          <div class="mat-elevation-z8 shadow-none table-responsive holiday_table">
+            <table class="apply_leave " mat-table [dataSource]="dataSource">
+              <!-- Description Column -->
+              <ng-container matColumnDef="description">
+                <th mat-header-cell *matHeaderCellDef>Description</th>
+                <td mat-cell *matCellDef="let element"> {{ element.description }} </td>
+              </ng-container>
+
+              <!-- Date Column -->
+              <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef>Date</th>
+                <td mat-cell *matCellDef="let element"> {{ element.date | date: dateFormat}} </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="optional">
+                <th mat-header-cell *matHeaderCellDef>Optional</th>
+                <td mat-cell *matCellDef="let element">
+                  <span *ngIf="element.optional; else noOption">Yes</span>
+                  <ng-template #noOption></ng-template>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="text-center"
+                  [ngClass]="{ 'd-none': !userRole[0]?.canEdit && !userRole[0]?.canDelete }">Action</th>
+                <td mat-cell *matCellDef="let element" class="text-center"
+                  [ngClass]="{ 'd-none': !userRole[0]?.canEdit && !userRole[0]?.canDelete }"> 
+                  <div class="" (click)="deleteItem(element.id)" *ngIf="userRole[0]?.canDelete">
+                    <svg viewBox="64 64 896 896" focusable="false" data-icon="delete" width="1em" height="1em"
+                      fill="#ff4d4f" aria-hidden="true" (click)="deleteItem(element.id)">
+                      <path
+                        d="M360 184h-8c4.4 0 8-3.6 8-8v8h304v-8c0 4.4 3.6 8 8 8h-8v72h72v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80h72v-72zm504 72H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zM731.3 840H292.7l-24.2-512h487l-24.2 512z">
+                      </path>
+                    </svg>
+                  </div>
+
+                </td>
+              </ng-container>
+
+
+              <!-- Header Rows -->
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+              <!-- Data Rows -->
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+              <!-- No Record Found -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell p-2 text-center" [attr.colspan]="displayedColumns.length">
+                  No Data Available
+                </td>
+              </tr>
+            </table>
+
+            <!-- Paginator --> 
+          </div>
+        </div>
+      </div>
+      <p class="fw-normal text-danger fw-bold">
+        <span [ngClass]="isView ? 'd-none' : 'text-danger' ">*</span>
+        Team can select any one optional leave from the list
+      </p>
+    </div>
+
+  </div>
+
+</div>

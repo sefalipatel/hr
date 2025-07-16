@@ -1,0 +1,112 @@
+<div class="col-sm-12  bg-white">
+    <form [formGroup]="basicInfoForm" class="universal-form">
+        <div class="card full-size-card  mb-0">
+            <div class="card-body pb-3">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Status<span class="text-danger">*</span>
+                            </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-select required="required" formControlName="isPublic" placeholder="Select status">
+                                    <mat-option *ngFor="let status of visibility"
+                                        [value]="status?.value">{{status?.name}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="text-danger">
+                                <span class="mt-2 d-block"
+                                    *ngIf="basicInfoForm.controls['isPublic'].touched && basicInfoForm.controls['isPublic'].hasError('required')">
+                                    Please select status
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">First Name<span class="text-danger">*</span>
+                            </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control shadow-none" placeholder="Enter first name"
+                                    formControlName="firstName" (blur)="trimNameOnBlur('firstName')">
+                            </mat-form-field>
+                            <div class="text-danger">
+                                <span class="mt-2 d-block"
+                                    *ngIf="basicInfoForm.controls['firstName'].touched && basicInfoForm.controls['firstName'].hasError('required')">
+                                    Name is required
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Last Name
+                            </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control shadow-none" placeholder="Enter last name"
+                                    formControlName="lastName" (blur)="trimNameOnBlur('lastName')">
+                            </mat-form-field> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Email
+                            </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control shadow-none" placeholder="Enter email"
+                                    formControlName="email" (blur)="trimNameOnBlur('email')">
+                            </mat-form-field>
+                            <span class="text-danger mt-2 d-block"
+                                *ngIf="basicInfoForm.controls['email'].errors?.['pattern']">
+                                Invalid email address
+                            </span> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Contact Number<span class="text-danger">*</span>
+                            </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control shadow-none" placeholder="Enter contact number"
+                                    formControlName="phoneNumber" (blur)="trimNameOnBlur('phoneNumber')">
+                            </mat-form-field>
+                            <div class="text-danger">
+                                <span class="mt-2 d-block"
+                                    *ngIf="basicInfoForm.controls['phoneNumber'].touched && basicInfoForm.controls['phoneNumber'].hasError('required')">
+                                    Contact number is required
+                                </span>
+                                <span class="text-danger mt-2 d-block"
+                                    *ngIf="basicInfoForm.controls['phoneNumber'].errors?.['pattern']">
+                                    Invalid contact number
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Alternative Number </mat-label>
+                            <mat-form-field class="w-100" appearance="outline">
+                                <input matInput class="form-control shadow-none" placeholder="Enter alternative number"
+                                    formControlName="alternateNumber" (blur)="trimNameOnBlur('alternateNumber')">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mb-0">
+                            <mat-label class="label_name">Description </mat-label>
+                            <textarea matInput class="form-control w-100" formControlName="description"
+                                (blur)="trimNameOnBlur('description')" name="Description"
+                                placeholder="Description . . ."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-end py-3">
+                <button type="submit" (click)="submit()" class="btn btn-primary rounded-pill px-4 py-2 me-3">
+                    Submit</button>
+                <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2" (click)="onList()">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

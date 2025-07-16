@@ -1,0 +1,259 @@
+.stickynote_main{
+   
+    .dropmenu_blck{
+        border-bottom: 2px dashed #ada4a4;
+        padding: 15px;
+        h5{
+            color: #000 !important;
+            cursor: context-menu;
+            &.header{
+                margin: 0;
+                font-family:$font-sticky !important;
+                
+            }
+        }
+        p{
+            margin: 0;
+        }
+        .add_icon{
+            cursor: pointer;
+            svg{
+                width: 30px;
+                height: 30px;
+                stroke: #979797;
+            }
+            &:hover{
+                svg{
+                    stroke: $primary;
+                }
+            }
+        }
+    }
+}
+.app {
+    position: absolute;
+    left: 0;
+    top: 200px;
+}
+
+.sticky_content{
+    ul{
+        &.sticky_list{
+            display: block;
+            padding: 0;
+        li{
+            cursor: pointer;
+           padding: 15px 15px 10px;
+           background-color:  #fff7d1;
+           position: relative;
+           margin: 20px;
+           .sticky_list_inn{
+            display: flex;
+            justify-content: space-between;
+             .sticky_description{
+                p{
+                    margin: 0;
+                    padding: 0;
+                    color: #000;
+                    font-size: 16px;
+                    line-height: 24px;
+                    &:nth-child(1){
+                        // display: -webkit-box;
+                        // -webkit-line-clamp: 2;
+                        // -webkit-box-orient: vertical;
+                        // overflow: hidden;
+                        // text-overflow: ellipsis;
+                    }
+                    &:nth-child(2){
+                        color: gray;
+                        font-size: 12px;
+                    }
+                }
+             }
+             .delete{
+                margin-right: 10px;
+                cursor: pointer;
+                svg{
+                    width: 20px;
+                    height: 20px;
+                    stroke: #6c6a6a;
+                }
+                &:hover{
+                    svg{
+                        stroke: $primary;
+                    }
+                }
+             }
+           }
+           &::after{
+            content: "";
+            clip-path: polygon(72% 0%, 0% 100%, 87% 90%);
+            position: absolute;
+            bottom: 0;
+            background-color: #e5debc;
+            right: 0;
+            left: auto;
+            top: auto;
+            width: 20px;
+            height: 20px;
+            transform: rotate(180deg);
+           }
+           &::before{
+            content: "";
+            clip-path: polygon(72% -8%, 18% 100%, 88% 90%);
+            position: absolute;
+            bottom: 0;
+            background-color: white;
+            right: -3px;
+            left: auto;
+            top: auto;
+            width: 20px;
+            height: 20px;
+            transform: rotate(8deg);
+            border:transparent;
+           }
+        }
+    }
+    }
+}
+
+
+.note_main_outer{
+.close_icon{
+    svg{
+        width: 39px;
+        height: 30px;
+    }
+}
+.note_toolbar{
+    background-color: #fff2ab;
+    padding: 4px;
+}
+.form_color{
+   background-color:#fff7d1 ;
+}
+.new_add{
+    svg{
+        width: 20px;
+        height: 20px;
+        fill: #000;
+    }
+    &.save{
+        svg{
+            width: 31px;
+            height: 36px;
+            fill: #000;
+        }
+    }
+}
+.content {
+    padding: 7px;
+    outline: none;
+    height: 200px;
+    background: transparent;
+    border: none;
+    resize: none;
+    width: 100%;
+    overflow-y: auto;
+}
+.note {
+    background-color: rgb(255, 240, 70);
+    position: relative;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1em;
+    border-radius: 0;
+    margin: 0;
+}
+.close {
+top: 5px;
+cursor:pointer;
+color: white;
+position: relative;
+}
+
+.footer{
+text-align: center
+}
+button {
+cursor: pointer;
+background: transparent;
+border: none;
+font-size: x-large;
+outline: none;
+}
+}
+
+//   .toolbar {
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+//     height:55px;
+//     text-align: center;
+//     position: fixed;
+//     width: 100%;
+//     background-color: gold;
+//     border: 10px solid gray;
+//     border-bottom: 0;
+//     color: gray;
+//     font-size: -webkit-xxx-large;
+//     font-weight: bold;
+// }
+
+// button {
+//     cursor: pointer;
+//     background: transparent;
+//     border: none;
+//     padding: 10px;
+//     font-size: xx-large;
+//     outline: none;
+// }
+// .record {
+//   float: right;
+// }
+
+
+// .add {
+//   /* float: left */
+// }
+
+// /* .voice {
+//   display: table-cell;
+//   text-align: center;
+//   vertical-align: middle;
+//   z-index: 1000;
+// } */
+
+// .show {
+//   display: none;
+// }
+
+// .overlay {
+//     position: fixed; /* Sit on top of the page content */
+//     /* display: none; Hidden by default */
+//     width: 100%; /* Full width (cover the whole page) */
+//     height: 100%; /* Full height (cover the whole page) */
+//     top: 0; 
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+//     z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+//     cursor: pointer; /* Add a pointer on hover */
+// }
+
+// img {
+//   /* position: absolute;
+//     top: 50%;
+//     left: 50%;
+//     transform: translate(-50%,-50%);
+//     -ms-transform: translate(-50%,-50%); */
+//     position:absolute;
+//     top:50%;
+//     left:50%;   
+//     cursor:pointer;
+//     max-width:50%;
+//     max-height:50%;
+//     display:table;
+//     transform: translate(-50%,-50%);
+// }
+

@@ -1,0 +1,8 @@
+.salary_earning_tab{
+    .mat-mdc-tab-label-container{
+        flex-grow: 0 !important;
+    }
+    .mat-mdc-tab-body-content{
+        overflow: hidden;
+    }
+}

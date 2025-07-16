@@ -1,0 +1,16 @@
+<li *ngIf="item.children?.length" data-username="skyttus-hr" class="nav-item coded-hasmenu {{item?.isExpanded ? 'coded-trigger' : ''}}" [routerLinkActive]="['active']">
+    <a class="nav-link" [routerLinkActive]="['active']" (click)="navCollapse($event)">
+        <span *ngIf="item.icon" class="coded-micon"><i class="" [ngClass]="item.icon"></i></span>
+        <span class="coded-mtext" *ngIf="item.icon; else directTitle">{{ item.title }}</span>
+        <ng-template #directTitle>
+          {{ item.title }}
+        </ng-template>
+     </a>
+  <ul class="coded-submenu" [routerLinkActive]="['active']" [ngClass]="item.classes!">
+    <ng-container *ngFor="let item of item.children">
+      <app-nav-group *ngIf="item.type === 'group'" [item]="item"></app-nav-group>
+      <app-nav-collapse *ngIf="item.type === 'collapse'" [item]="item"></app-nav-collapse>
+      <app-nav-item *ngIf="item.type === 'item'" [item]="item"></app-nav-item>
+    </ng-container>
+  </ul>
+</li>

@@ -1,0 +1,230 @@
+ 
+<div class="page-top-header mb-0">
+    <h5 class="card-subtitle mt-0">Ticket</h5>
+</div>
+<div class="ticket_main border rounded bg-white p-3">
+
+    <div class="top_bar">
+
+
+        <div class="left">
+            <div class="main_box">
+                <div class="add_new">
+                    <button class="btn " (click)="addTicket()"><mat-icon>add</mat-icon>&nbsp;Create Ticket</button>
+                </div>
+            </div>
+            <div class="main_box" *ngFor="let card of widgetList">
+                <div class="ticket_outer {{card.class}} d-flex">
+                    <p>{{card?.name}}</p>
+                    <p>{{card?.count}}</p>
+                </div>
+            </div>
+
+            <div class="main_box">
+                <form role="search" method="get" class="search-form" action="">
+                    <label>
+                        <input [(ngModel)]="searchDataValue" (input)="searchData(searchDataValue)" type="search"
+                            class="search-field" placeholder="Search..." />
+                      </label>
+                    <input type="submit" class="search-submit" value="Search" />
+                </form>
+            </div>
+        </div> 
+
+        <div class="right">
+            <div class="dropdown">
+                <a class="btn dropdown-toggle d-flex align-items-center" (click)="toggleDropdown()"
+                    style="border: 1px solid gray;">
+                    <mat-icon>filter_alt</mat-icon>&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                <div class="dropdown-panel" *ngIf="dropdownOpen" (click)="$event.stopPropagation()">
+                    <div class="top_main_header">
+                        <div class="left">
+                            <p>Advance Filter<span>&nbsp;Showing all filter data</span></p>
+                        </div>
+                        <div class="right" (click)="onReset()">
+                            <p><i class="ri-filter-off-line"></i>&nbsp;Clear All</p>
+                        </div>
+                    </div>
+                    <form [formGroup]="filterTicketForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="">
+                                    <mat-form-field class="w-100" appearance="outline" appearance="fill">
+                                        <mat-date-range-input [rangePicker]="picker">
+                                            <input matStartDate placeholder="Start Date" formControlName="StartDate"
+                                                name="StartDate" (dateChange)="updateStartDate($event.value)"
+                                                [value]="StartDate ">
+                                            <input matEndDate placeholder="End Date" formControlName="EndDate"
+                                                name="EndDate" (dateChange)="updateEndDate($event.value)"
+                                                [value]="EndDate">
+                                        </mat-date-range-input>
+                                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker #picker></mat-date-range-picker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-select" formControlName="Status" style="padding: 7px 16px;"
+                                    aria-label="Default select example">
+                                    <option value="">Select Status</option>
+                                    <option *ngFor="let status of statusList" [value]="status.value">{{status?.name}}
+                                    </option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4 ">
+                                <select class="form-select" formControlName="Priority" style="padding: 7px 16px;"
+                                    aria-label="Default select example">
+                                    <option value="" selected>Select Priority</option>
+                                    <option *ngFor="let priority of priorityList" [value]="priority.value">
+                                        {{priority?.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="apply_filter" (click)="onApply(); $event.preventDefault()">
+                            <p><a>Apply Filter</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table_main mt-3">
+        <div class="mat-table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 border rounded "
+                style="box-shadow: none;">
+
+                <ng-container matColumnDef="ticketId">
+                    <th mat-header-cell *matHeaderCellDef class="sticky-column"> Ticket Id </th>
+                    <td mat-cell *matCellDef="let element" class="sticky-column ticketid">
+                        <span role="button" (click)="onTicketDetail(element?.id)" class="pointer text-primary">{{
+                            element?.ticketCode }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="subject">
+                    <th mat-header-cell *matHeaderCellDef> Subject </th>
+                    <td mat-cell *matCellDef="let element" [matTooltip]="element?.subject"> {{element.subject}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="assignedName">
+                    <th mat-header-cell *matHeaderCellDef> Assigned Name </th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <span *ngIf="element?.status === StatusEnum.Completed">
+                            {{ element?.assignedName || 'Not Assigned' }}
+                        </span>
+                        <div *ngIf="element?.status !== StatusEnum.Completed">
+                            <span class="assign-trigger" (click)="openSelect(i)">
+                                {{ element?.assignedName || 'Select Employee' }}
+                                <mat-icon class="dropdown-icon ">arrow_drop_down</mat-icon>
+                            </span>
+
+                            <mat-form-field appearance="fill" class="hidden-select">
+                                <mat-select #selectRef [value]="element?.assignedId"
+                                    (selectionChange)="updateAssign(element.id, $event.value)"
+                                    (openedChange)="onSelectOpened()">
+                                    <div>
+                                        <input placeholder="Search..." class="w-100 border" style="height: 50px;"
+                                            [(ngModel)]="searchTerm" (keyup)="filterEmployees()" />
+                                    </div>
+                                    <mat-option [value]="''">Select Employee</mat-option>
+                                    <mat-option *ngFor="let assign of employeeRecords" [value]="assign.id">
+                                        {{ assign.firstName + ' ' + assign.lastName }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdName">
+                    <th mat-header-cell *matHeaderCellDef> Created By </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element?.createdName || '-' }}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="createdDate">
+                    <th mat-header-cell *matHeaderCellDef class="text-nowrap"> Created Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.createdDate | date: dateFormat}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="dueDate">
+                    <th mat-header-cell *matHeaderCellDef> Due Date </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div class=" d-flex align-items-center text-nowrap">
+                            <mat-datepicker-toggle matSuffix [for]="dPicker"
+                                (click)="dPicker.open()"></mat-datepicker-toggle>
+                            <mat-datepicker #dPicker (dateChange)="updateDueDate(row.id,$event)"></mat-datepicker>
+                            <span> {{row?.dueDate?.length ? (row?.dueDate | date: dateFormat) : 'Select Due
+                                Date'}}</span>
+                            <input class="hidden-input" matInput [matDatepicker]="dPicker" required
+                                placeholder="Enter Due Date" (dateChange)="updateDueDate(row.id, $event)" />
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="priority" class="sel ">
+                    <th mat-header-cell *matHeaderCellDef> Priority </th>
+                    <td mat-cell *matCellDef="let element" class="p-0 priorityes">
+                        <mat-form-field class="priority-select" appearance="fill">
+                            <mat-select [(value)]="element.priority"
+                                (selectionChange)="updatePriority(element.id, $event.value)" disableOptionCentering>
+                                <mat-select-trigger>
+                                    <div class="selected-box w-100  " [ngStyle]="getPriorityStyles(element.priority)">
+                                        {{ getPriority(element.priority) }}
+                                    </div>
+                                </mat-select-trigger>
+
+                                <mat-option *ngFor="let priority of priorityList" [value]="priority.value"
+                                    [ngStyle]="getPriorityStyles(priority.value)">
+                                    {{ priority.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let row" class=" text-truncate overflow-visible"
+                        [ngClass]="{'s-complete': (row.status) === 5,'s-inprogress': (row.status) === 2,'s-available':(row.status) === 0,'s-assigned':(row.status) === 1,'s-reopen':(row.status) ===  4,'s-inreview':(row.status) ===  3}">
+                        <i _ngcontent-ng-c1943236421="" class="ri-focus-2-line"></i> {{getStatus(row?.status)}}
+                    </td>
+                </ng-container>
+
+                <!-- Email Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a matTooltip="Edit" [attr.disabled]="element?.status === StatusEnum.Completed ? true : null"
+                            [ngClass]="{'disabled-svg': element?.status === StatusEnum.Completed }"
+                            (click)="element?.status !== StatusEnum.Completed ? editTicket(element?.id) : null"
+                            class="me-3 cursor-pointer"><i class="ri-edit-2-line"></i></a>
+                        <a class="cursor-pointer" *ngIf="personId === element?.createdBy" matTooltip="Delete"
+                            (click)="deleteBtn(element?.id)"><i class="ri-delete-bin-line"></i></a>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="8">
+                        <div class="text-center d-block border-bottom-0 my-3">
+                            <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                            <h6 class="no-record mt-3">No Data Available</h6>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="text-end d-block mt-3">
+                <div class="pagination-format d-inline-block">
+                    <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

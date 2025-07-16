@@ -1,0 +1,167 @@
+<div class="page-top-header d-flex justify-content-between align-items-center">
+    <div>
+        <h5 class="card-subtitle mt-0">Email Setting </h5>
+        <span class="mt-1 text-secondary d-block">Manage Email Setting</span>
+    </div>
+
+</div>
+<div class="row px-3">
+    <div class="col-sm-12 border rounded bg-white p-3 emailsetting_tableview"> 
+        <div class="page-btn" *ngIf="userRole[0]?.canView">
+
+            <div class="card-body d-flex bd-highlight justify-content-end mb-3">
+                <button (click)="addEmail()" class="btn btn-primary px-4 py-2 d-flex align-items-center rounded-pill"> 
+                    <span class="me-2">+</span>
+                    <span>Add email setting</span>
+                </button>
+            </div>
+        </div>
+        <div class=" mb-3" *ngIf="isMailAdd || mailId">
+            <form [formGroup]="emailSettingForm">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label style="font-weight: 600;" class="required mb-2">Email Config <span
+                                        class="text-danger">*</span></label>
+                                <mat-select formControlName="mailType" style="font-size: 14px;"
+                                    class="select form-control" (ngModelChange)="onConfigChange($event)"
+                                    placeholder="Select Email Config"
+                                    [ngClass]="{'is-invalid': ef['mailType'].touched && ef['mailType'].invalid}">
+                                    <mat-option [value]="''" disabled="true"> Select Email Config </mat-option>
+                                    <mat-option *ngFor="let data of emailConfigList" [value]="data.type">
+                                        {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="ef['mailType'].touched && ef['mailType'].invalid"
+                                    class="invalid-feedback mt-2">
+                                    <div *ngIf="ef['mailType'].errors && ef['mailType'].errors['required']">
+                                        Email is required.
+                                    </div>
+                                    <div *ngIf="ef['mailType'].errors && ef['mailType'].errors['pattern']">
+                                        Enter Valid Email.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="dynamicKeys?.length">
+                            <ng-container [formGroup]="configDetailForm">
+                                <div class="col-lg-6 col-sm-12" *ngFor="let control of dynamicKeys">
+                                    <div class="form-group">
+                                        <label style="font-weight: 600;"
+                                            class="text-capitalize required mb-2">{{control.label}} <span
+                                                class="text-danger">*</span></label>
+                                        <input class="form-control" [formControlName]="control.control" type="text"
+                                            (blur)="trimInput(control.control)" [ngClass]="{
+                                    'is-invalid': cf[control.control]['touched'] && cf[control.control]['invalid']
+                                  }">
+                                        <div *ngIf="cf[control.control]?.touched && cf[control.control]?.invalid"
+                                            class="invalid-feedback mt-2 d-block">
+                                            <div class="text-capitalize"
+                                                *ngIf="cf[control.control]?.errors && cf[control.control]?.errors?.['required']">
+                                                {{control.label}} is required.
+                                            </div>
+                                            <div class="text-capitalize"
+                                                *ngIf="cf[control.control]?.errors && cf[control.control]?.errors?.['pattern']">
+                                                Enter Valid {{control.label}}.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 text-end d-flex align-items-center justify-content-end flex-wrap">
+                            <button href="javascript:void(0);" class="btn btn-primary px-4 py-2 rounded-pill m-2"
+                                type="submit" (click)="testConnection()">Test
+                                Connection</button>
+                            <button [disabled]="!emailSettingForm.dirty && !configDetailForm.dirty"
+                                href="javascript:void(0);" class="btn btn-primary px-4 py-2 rounded-pill" type="submit"
+                                (click)="saveConfig()">Save</button>
+                            <button type="reset" (click)="closeFrom()"
+                                class="btn btn-secondary px-4 py-2 ms-2 rounded-pill">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> 
+
+        <!-- start : table -->
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+            <div class=" fixTableHead  scrollbox-content"> 
+                <table class="  table mb-0" (matSortChange)="sortData($event)" matSort>
+                    <thead>
+                        <tr class="border-bottom">
+                            <th mat-sort-header="name">Name</th>
+                            <th>From email</th> 
+                            <th>Is default</th>
+                            <th>Test</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-bottom" *ngFor="let emailData of tableData; let i = index">
+                            <td>{{ emailData?.smtpFromName ? emailData.smtpFromName:
+                                emailData?.sendGridName ? emailData.sendGridName :
+                                emailData?.zeptoFromName ? emailData.zeptoFromName : '' }}
+                            </td>
+                            <td>{{ emailData?.smtpFromEmail ? emailData.smtpFromEmail :
+                                emailData?.sendGridSenderEmail ? emailData.sendGridSenderEmail :
+                                emailData?. zeptoFromEmail ? emailData.zeptoFromEmail :''}}
+                            </td> 
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input toggle-switch"
+                                        (change)="ChangeToggleSwitch(emailData?.id)" type="checkbox" role="switch"
+                                        id="flexSwitchCheckChecked" [(ngModel)]="emailData.isDefault"> 
+                                </div>
+                            </td> 
+                            <td>
+                                <div class="d-flex align-items-center gap-4">
+                                    <div class="icon_width " *ngIf="userRole[0]?.canView">
+                                        <svg viewBox="64 64 896 896" focusable="false" matTooltip="Edit"
+                                            (click)="editRole(emailData?.id,i)" data-icon="edit" width="16" height="16"
+                                            aria-hidden="true">
+                                            <path
+                                                d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                    <div class="icon_width " *ngIf="userRole[0]?.canView"> 
+
+                                        <svg matTooltip="Delete" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg" (click)="deleteBtn(emailData?.id)">
+                                            <path d="M10 12V17" stroke="red" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M14 12V17" stroke="red" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M4 7H20" stroke="red" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path
+                                                d="M6 10V18C6 19.6569 7.34315 21 9 21H15C16.6569 21 18 19.6569 18 18V10"
+                                                stroke="red" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                            <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
+                                                stroke="red" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </div>
+                                    <div><button class="btn btn-primary" (click)="testConnection()"
+                                            type="submit">Test</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="tableData.length === 0">
+                            <td class="text-center pb-0 d-block border-bottom-0" colspan="12">
+                                <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                <h6 class="no-record mt-3">No Data Available</h6>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> 
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+    .save-btn {
+        min-width: 100px;
+        margin-top: 10px;
+    }
+
+    .download-btn {
+        padding: 10px 30px;
+    }
+
+    .custom-payslip-table .second-table tr th {
+        width: 100%;
+    }
+
+    .w-30 {
+        width: 30%;
+    }
+
+    .w-20 {
+        width: 20%;
+    }
+
+    @media screen and (max-width:767px){
+        .custom-payslip-table .second-table {
+            margin-top: 0px;
+        }
+    }

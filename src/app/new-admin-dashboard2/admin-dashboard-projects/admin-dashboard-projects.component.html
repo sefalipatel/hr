@@ -1,0 +1,66 @@
+<div class="recent-project-card ink-card h-100">
+    <div class="title-dropdown p-3 border-bottom">
+        <div class="ink-title " (click)="navigates()" role="button">Recent Project</div>
+    </div>
+    <div class="p-3">
+        <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+        <div class="scrollbox-content">
+            <table class="w-100">
+                <thead>
+                    <th>Project</th>
+                    <th>Project Lead</th>
+                    <th>Progress</th>
+                    <th>Task</th>
+                    <th>Status</th>
+                    <!-- <th>Action</th> -->
+                </thead>
+                <tbody>
+                    <tr *ngFor="let Projects of getALLProjects">
+                        <td (click)="navigates()" role="button">{{Projects.projectname}}</td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="img">
+                                    <div class="with_img">
+                                        <div *ngIf="Projects?.profilePicture" class="profile-container">
+                                            <img class="profile-picture img-fluid"
+                                                [src]="transformImagePath(Projects?.profilePicture)"
+                                                [alt]="Projects?.projectLead">
+                                        </div>
+                                    </div>
+                                    <div class="without_img">
+                                        <div *ngIf="!Projects?.profilePicture" class="profile-initials"
+                                            [ngStyle]="{'background': stringToColor(Projects?.projectLead)}">
+                                            <b class="f-18">{{generateInitials(Projects?.projectLead)}}</b>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="name ms-3">{{Projects.projectLead}}</div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="skill-container">
+                                <div class="skill">
+                                    <div class="progress-bar">
+                                        <div class="progress"
+                                            [ngClass]="{'progress-yellow': (Projects.completedtask / Projects.totaltask) * 100 < 60, 'progress-green': (Projects.completedtask / Projects.totaltask) * 100 >= 60}"
+                                            [style.width.%]="(Projects.completedtask / Projects.totaltask) * 100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            {{Projects.totaltask}}
+                        </td>
+                        <td>
+                            <div class="sta tus-running" *ngIf="Projects.status === 1">running</div>
+                            <div class="sta tus-completed" *ngIf="Projects.status === 2" >completed</div>
+                            <div class="sta tus-pending" *ngIf="Projects.status === 3" >pending</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>

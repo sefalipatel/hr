@@ -1,0 +1,121 @@
+.universal-tab {
+
+  .universal-form {
+    background-image: url('/assets/images/tab-bg-png-2.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    // background-color: red;
+  }
+
+  .mat-mdc-tab {
+    // background: $light-blue;
+    // height: 120px !important;
+    // height: 70px !important;
+    height: 55px !important;
+    background: $white;
+    // border: 1px solid #ddd;
+    margin: 0 6px;
+    // border-radius: 8px;
+
+    .mdc-tab-indicator__content--underline {
+      border: 0 !important;
+    }
+
+    .mdc-tab--active {
+      border-bottom: 1px solid #3e4095 !important;
+    }
+
+    // &.mdc-tab {
+    //   border-right: 1px solid #dddd;
+    // }
+
+    .mdc-tab__ripple::before {
+      background-color: $white;
+    }
+
+    &.mdc-tab--active {
+      // background: $blue;
+
+      // .mdc-tab__text-label {
+      //   color: $blue !important;
+      // }
+      &.mdc-tab--active .mdc-tab__text-label {
+        color: #3e4095 !important;
+      }
+
+      .mdc-tab__text-label {
+        span {
+          svg {
+            fill: #3e4095;
+            width: 26px;
+            height: 29px;
+            margin-right: 10px;
+          }
+        }
+      }
+    }
+
+    .mdc-tab__text-label {
+      // color: $white;
+      text-shadow: none;
+      letter-spacing: normal;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  .mat-mdc-tab-header {
+    border-bottom: 1px solid #e3e2e2;
+    // box-shadow: 0 3px 6px -5px gray;
+  }
+
+  .mat-mdc-tab-labels {
+    .mdc-tab__text-label {
+      span {
+        svg {
+          fill: #00000099;
+          width: 26px;
+          height: 29px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.universal-tab {
+
+  &.tabwith-icon {
+    i.tab-icon {
+      border: 1px solid;
+      height: 36px;
+      width: 36px;
+      border-radius: 100%;
+      line-height: 36px;
+      color: $blue;
+    }
+  }
+
+  &.tabwith-icon {
+    .mdc-tab--active {
+      i {
+        color: $white;
+
+      }
+
+      // border-bottom: 3px solid $blue;
+    }
+
+  }
+
+}
+
+.mdc-tab--active {
+  i {
+    color: $white;
+
+  }
+
+  border-bottom: 1px solid #3e4095 !important;
+}

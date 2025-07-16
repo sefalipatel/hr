@@ -1,0 +1,260 @@
+<div class="inside-page org-presentation-page">
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6">{{isSettings ? 'General Setting Details' : 'Organization
+            Details'}}</h5>
+    </div>
+
+    <div class="row px-3">
+        <div class="col-md-12 bg-white p-3">
+            <div class="back_btn cursor-pointer" *ngIf="!isSettings">
+                <!-- <button mat-mini-fab class="btn btn-primary" (click)="navigate()">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </button> -->
+                <span (click)="navigate()"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z" />
+                    </svg></span>
+            </div>
+
+
+
+            <form [formGroup]="orgForm" class="pt-3 border-top-0 universal-form">
+                <div class="card full-size-card border-0 mb-0">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Code<span class="text-danger">*</span></mat-label>
+                                    <input type="text"
+                                        (blur)="f['code'].setValue(f['code'].value.replace(spaceRegex, ' ').trim())"
+                                        formControlName="code" class="form-control" appTrimOnBlur
+                                        [ngClass]="{ 'is-invalid': f['code'].touched && f['code'].invalid }">
+                                    <div *ngIf="f['code'].touched && f['code'].invalid" class="invalid-feedback">
+                                        <div *ngIf="f['code'].errors && f['code'].errors['required']">
+                                            Code is required.
+                                        </div>
+                                    </div>
+                                    <!-- </mat-form-field> -->
+                                </div>
+                                <div class="form-group">
+                                    <mat-label class="label_name">Name<span class="text-danger">*</span></mat-label>
+                                    <input type="text"
+                                        (blur)="f['name'].setValue(f['name'].value.replace(spaceRegex, ' ').trim())"
+                                        formControlName="name" class="form-control" appTrimOnBlur
+                                        [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }">
+                                    <div *ngIf="f['name'].touched && f['name'].invalid" class="invalid-feedback">
+                                        <div *ngIf="f['name'].errors && f['name'].errors['required']">
+                                            Name is required.
+                                        </div>
+                                        <div *ngIf="f['name'].errors && f['name'].errors?.['pattern']">
+                                            Invalid name.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group px-2">
+                                    <mat-label class="label_name">Is Timer</mat-label>
+                                    <mat-slide-toggle formControlName="isTimer"></mat-slide-toggle>
+                                </div>
+
+                                <div class="form-group px-2">
+                                    <mat-label class="label_name">Is Captured</mat-label>
+                                    <mat-slide-toggle formControlName="isCaptured"></mat-slide-toggle>
+                                </div>
+                                <div class="form-group px-2">
+                                    <mat-label class="label_name">Is 2FA</mat-label>
+                                    <mat-slide-toggle formControlName="is2FA"></mat-slide-toggle>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Title<span class="text-danger">*</span></mat-label>
+                                    <input type="text"
+                                        (blur)="f['title'].setValue(f['title'].value.replace(spaceRegex, ' ').trim())"
+                                        class="form-control" formControlName="title" appTrimOnBlur
+                                        [ngClass]="{ 'is-invalid': f['title'].touched && f['title'].invalid }">
+                                    <div *ngIf="f['title'].touched && f['title'].invalid" class="invalid-feedback">
+                                        <div *ngIf="f['title'].errors && f['title'].errors['required']">
+                                            Title is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <mat-label class="label_name">Email<span class="text-danger">*</span></mat-label>
+                                    <input type="text" (blur)="f['email'].setValue(f['email'].value.trim())"
+                                        class="form-control" formControlName="email" appTrimOnBlur
+                                        [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }">
+                                    <div *ngIf="f['email'].touched && f['email'].invalid" class="invalid-feedback">
+                                        <div *ngIf="f['email'].errors && f['email'].errors['required']">
+                                            Email is required.
+                                        </div>
+                                        <div
+                                            *ngIf="f['email'].dirty && f['email'].errors && f['email'].errors['pattern']">
+                                            Enter Valid Email.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group textarea-input">
+                                    <mat-label class="label_name">Description</mat-label>
+                                    <textarea rows="4" cols="4"
+                                        (blur)="f['description'].setValue(f['description'].value.replace(spaceRegex, ' ').trim())"
+                                        formControlName="description" class="form-control" placeholder="Description"
+                                        appTrimOnBlur></textarea>
+                                </div>
+
+
+                                <!-- Timer Field -->
+
+                                <div class="form-group">
+                                    <mat-label class="label_name">Timer<span class="text-danger">*</span></mat-label>
+                                    <input type="number" formControlName="timer" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f['timer']?.touched && f['timer']?.invalid }">
+                                    <div *ngIf="f['timer']?.touched && f['timer']?.invalid" class="invalid-feedback">
+                                        <div *ngIf="f['timer']?.errors?.['required']">Timer is required.</div>
+                                        <div *ngIf="f['timer']?.errors?.['min']">Timer must be 0 or more.</div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Counter Field -->
+
+                                <div class="form-group">
+                                    <mat-label class="label_name">Counter<span class="text-danger">*</span></mat-label>
+                                    <input type="number" formControlName="counter" class="form-control"
+                                        [ngClass]="{ 'is-invalid': f['counter']?.touched && f['counter']?.invalid }">
+                                    <div *ngIf="f['counter']?.touched && f['counter']?.invalid"
+                                        class="invalid-feedback">
+                                        <div *ngIf="f['counter']?.errors?.['required']">Counter is required.</div>
+                                        <div *ngIf="f['counter']?.errors?.['min']">Counter must be 0 or more.</div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class=" mt-2">
+                                <div class="d-flex flex-wrap">
+                                    <div class="form-group color-picker me-4 mb-3 w-100">
+                                        <mat-label class="w-100 d-block mb-2">Primary color</mat-label>
+                                        <p-colorPicker [(ngModel)]="primaryColor"
+                                            (onChange)="updatePrimaryColor($event)"
+                                            [ngModelOptions]="{standalone: true}"></p-colorPicker>
+                                    </div>
+                                    <div class="form-group w-100 mb-3">
+                                        <mat-label class="label_name">Primary color( # )<span
+                                                class="text-danger">*</span></mat-label>
+                                        <input type="text" formControlName="primaryColorCode"
+                                            (keyup)="updatePrimaryColor($event['target'])" class="form-control"
+                                            appTrimOnBlur
+                                            [ngClass]="{ 'is-invalid': f['primaryColorCode'].touched && f['primaryColorCode'].invalid }">
+                                        <div *ngIf="f['primaryColorCode'].touched && f['primaryColorCode'].invalid"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="f['primaryColorCode'].errors && f['primaryColorCode'].errors['required']">
+                                                Primary Color is required.
+                                            </div>
+                                            <div
+                                                *ngIf="f['primaryColorCode'].errors && f['primaryColorCode'].errors['pattern']">
+                                                Enter Valid Primary Color.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-wrap mt-3">
+                                    <div class="form-group color-picker me-4 w-100 mb-3">
+                                        <label class="d-block mb-2">Secondary color</label>
+                                        <p-colorPicker [(ngModel)]="secondaryColor"
+                                            (onChange)="updateSecondaryColor($event)"
+                                            [ngModelOptions]="{standalone: true}"></p-colorPicker>
+                                    </div>
+                                    <div class="form-group w-100 mb-3">
+                                        <mat-label class="label_name">Secondary color( # )<span
+                                                class="text-danger">*</span></mat-label>
+                                        <input type="text" formControlName="secondaryColorCode"
+                                            (keyup)="updateSecondaryColor($event['target'])" class="form-control"
+                                            appTrimOnBlur
+                                            [ngClass]="{ 'is-invalid': f['secondaryColorCode'].touched && f['secondaryColorCode'].invalid }">
+                                        <div *ngIf="f['secondaryColorCode'].touched && f['secondaryColorCode'].invalid"
+                                            class="invalid-feedback">
+                                            <div
+                                                *ngIf="f['secondaryColorCode'].errors && f['secondaryColorCode'].errors['required']">
+                                                Secondary Color is required.
+                                            </div>
+                                            <div
+                                                *ngIf="f['secondaryColorCode'].errors && f['secondaryColorCode'].errors['pattern']">
+                                                Enter Valid Primary Color.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 input-type-file mb-3">
+                                <div class="form-group ">
+                                    <mat-label class="label_name">Favicon</mat-label>
+                                    <div class="image-upload">
+                                        <input #favIconUploader type="file" (change)="onFaviconSelect($event)"
+                                            [accept]="imageFileOnly">
+                                        <div class="image-upload border p-3 w-100 mt-3">
+                                            <div class="custom-file-upload">
+                                                <i class="ri-upload-cloud-2-fill mb-0"></i>
+                                            </div>
+                                            <span class="fw-bold d-block">Drag and drop a file to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 preview org-img mb-3" *ngIf="uploadedFavIcon">
+                                    <div class="position-relative d-inline-block border p-2 rounded">
+                                        <i class="feather icon-x" role="button"
+                                            *ngIf="!uploadedFavIcon?.includes(imageUrl)"
+                                            (click)="resetFavIconUploader()">x</i>
+                                        <img [src]="uploadedFavIcon" alt="favicon" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 input-type-file mb-3">
+                                <div class="form-group">
+                                    <mat-label class="label_name">Logo<span class="text-danger">*</span></mat-label>
+                                    <div class="image-upload">
+                                        <input #logoUploader type="file" (change)="onLogoSelect($event)"
+                                            [accept]="imageFileOnly">
+                                        <div class="image-uploads border p-3 w-100 mt-3">
+                                            <div class="custom-file-upload">
+                                                <i class="ri-upload-cloud-2-fill mb-0"></i>
+                                            </div>
+                                            <span class="fw-bold d-block">Drag and drop a file to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-3 preview org-img" *ngIf="uploadedlogo">
+                                    <div class="position-relative d-inline-block border p-2 rounded">
+                                        <i class="feather icon-x" role="button"
+                                            *ngIf="!uploadedlogo?.includes(imageUrl)"
+                                            (click)="resetLogoUploader()">x</i>
+                                        <img [src]="uploadedlogo" alt="logo" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <div *ngIf="submitted && !uploadedlogo" class="invalid-feedback"
+                                        [ngClass]="{ 'd-block': submitted && !uploadedlogo }">
+                                        <div *ngIf="submitted && !uploadedlogo">
+                                            Logo is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end py-3">
+                        <button type="submit" (click)="AddOrganization()"
+                            class="btn btn-primary rounded-pill px-4 py-2 me-3"
+                            [ngClass]="{ 'd-none': !userRole[0]?.canEdit && isSettings}"> Save</button>
+                        <button *ngIf="!isSettings" type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2"
+                            (click)="navigate()"> Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

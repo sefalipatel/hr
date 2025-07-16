@@ -1,0 +1,29 @@
+.attendance_view_i {
+    i {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        line-height: 40px;
+        color: #ffffff;
+        border-radius: 8px;
+        background-color: #3e4095;
+        font-weight: 400;
+        padding: 10px 12px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width:489px) {
+    .attedance_btn .download_btn {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .attedance_btn {
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,46 @@
+<div class="inside-page org-presentation-page">
+    <div class="page-top-header mb-0">
+        <h5 class="card-subtitle m-0 text-muted fs-6">{{id ? 'Update' : 'Add'}} User Shift & Schedule</h5>
+    </div>
+    <div class="row px-3">
+        <div class="col-md-12 border rounded p-3 bg-white">
+            <!-- Start : Form -->
+            <form [formGroup]="userShiftScheduleForm" class="border-light-blue border-top-0 universal-form"
+                (ngSubmit)="onSubmit()">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="label_name">Employee Name<span class="text-danger">*</span></label>
+                        <mat-select class="form-control" formControlName="userId" placeholder="Select employee"
+                            multiple>
+                            <mat-option *ngFor="let employee of getAllEmployeeList" [value]="employee.id">
+                                {{employee?.firstName +" "+ employee?.lastName}}
+                            </mat-option>
+                        </mat-select>
+                        <div *ngIf="userShiftScheduleForm.controls['userId'].touched && userShiftScheduleForm.controls['userId'].hasError('required')"
+                            class="text-danger mt-1">
+                            Please select employee name
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label_name">Shift<span class="text-danger">*</span></label>
+                        <mat-select formControlName="shiftId" placeholder="Select shift" class="form-control">
+                            <mat-option *ngFor="let shift of shiftList" [value]="shift?.id">{{shift?.name}}
+                            </mat-option>
+                        </mat-select>
+                        <div *ngIf="userShiftScheduleForm.controls['shiftId'].touched && userShiftScheduleForm.controls['shiftId'].hasError('required')"
+                            class="text-danger mt-1">
+                            Please select shift
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end py-3">
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 py-2 me-3">Submit</button>
+                        <button type="button" class="btn btn-secondary me-3 rounded-pill px-4 py-2"
+                            (click)="onList()">Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- End : Form -->
+        </div>
+    </div>
+</div>

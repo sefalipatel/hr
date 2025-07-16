@@ -1,0 +1,359 @@
+<div class="new_project_detail_page">
+    <div class="back_btn cursor-pointer">
+        <span><svg (click)="onProjectPage()" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM13.92 16.13H9C8.59 16.13 8.25 15.79 8.25 15.38C8.25 14.97 8.59 14.63 9 14.63H13.92C15.2 14.63 16.25 13.59 16.25 12.3C16.25 11.01 15.21 9.97 13.92 9.97H8.85L9.11 10.23C9.4 10.53 9.4 11 9.1 11.3C8.95 11.45 8.76 11.52 8.57 11.52C8.38 11.52 8.19 11.45 8.04 11.3L6.47 9.72C6.18 9.43 6.18 8.95 6.47 8.66L8.04 7.09C8.33 6.8 8.81 6.8 9.1 7.09C9.39 7.38 9.39 7.86 9.1 8.15L8.77 8.48H13.92C16.03 8.48 17.75 10.2 17.75 12.31C17.75 14.42 16.03 16.13 13.92 16.13Z" />
+            </svg></span>
+    </div>
+    <div class="inner_page mt-5">
+        <div class="custom-remove">
+            <div class="pro_detl">
+                <a class="project_name">Project</a>
+                <div class="row">
+                    <div class="col-md-6 col-xl-7 mb-3 mb-md-0">
+                        <div class="Pject_title my-2 d-flex align-items-start">
+                            <div><img src="../../../../../assets/images/project_task/optimization_8934509.png" alt="">
+                            </div>
+                            <div *ngIf="projectName">
+                                <h4>{{projectName}}</h4>
+                                <p>
+                                    {{description}}
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-6 col-xl-5">
+                        <div class="top_hed w-100">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="status">
+                                            <p><span>Status:&nbsp;</span><a class="bg_color">{{statusName}}</a></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="Priority">
+                                            <p><span>Priority:&nbsp;</span><a class="bg_color_text">{{priorityName}}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <p><span>Start Date:&nbsp;</span>{{startDate | date: dateFormat}}</p>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <p><span>End Date:&nbsp;</span>{{endDate | date: dateFormat}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tabing_section">
+                <mat-tab-group [selectedIndex]="selectedIndex" animationDuration="0ms"
+                    (selectedTabChange)="onTabChange($event)" [selectedIndex]="1">
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="ri-global-line"></i>
+                            <span>Project Summary</span>
+                        </ng-template>
+                        <div class="outer_tab" *ngIf="taskStatusCounts">
+                            <div class="four_top_block">
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-3 col-xl-3 col-lg-6 col-12 mb-3 h-100">
+                                        <div class="bg-white boxes bg-white boxes_color">
+                                            <div class="left_block">
+                                                <i class="ri-task-line"></i>
+                                            </div>
+                                            <div class="right_block">
+                                                <p>{{ taskStatusCounts['assigned'] }}</p>
+                                                <p>Assigned</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-3 col-xl-3 col-lg-6 col-12 mb-3 h-100">
+                                        <div class="bg-white boxes bg-white boxes_color_tow">
+                                            <div class="left_block">
+                                                <i class="ri-door-open-line"></i>
+                                            </div>
+                                            <div class="right_block">
+                                                <p>{{ taskStatusCounts['available'] }}</p>
+                                                <p>Available</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-3 col-xl-3 col-lg-6 col-12 mb-3 h-100">
+                                        <div class="bg-white boxes bg-white boxes_color_three">
+                                            <div class="left_block">
+                                                <i class="ri-progress-5-line"></i>
+                                            </div>
+                                            <div class="right_block">
+                                                <p>{{ taskStatusCounts['inProgress'] }}</p>
+                                                <p>In-Progress</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-3 col-xl-3 col-lg-6 col-12 mb-3 h-100">
+                                        <div class="bg-white boxes bg-white boxes_color_four">
+                                            <div class="left_block">
+                                                <i class="ri-check-double-line"></i>
+                                            </div>
+                                            <div class="right_block">
+                                                <p>{{ taskStatusCounts['completed'] }}</p>
+                                                <p>Completed</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team_block common_box bg-white">
+                                <div class="team_member">
+                                    <div class="team_leader">
+                                        <p>Team Leader&nbsp;:&nbsp;</p>
+                                        <ul>
+                                            <li>
+                                                <div [matTooltip]="userDetail?.projectManagerName" class="image_leader"
+                                                    [ngStyle]="{'background': stringToColor(userDetail?.projectManagerName)}">
+                                                    <img *ngIf="userDetail?.projectManagerProfilePicture"
+                                                        [src]="transformImagePath(userDetail?.projectManagerProfilePicture)"
+                                                        class="avatar-img">
+
+                                                    <b *ngIf="!userDetail?.projectManagerProfilePicture"
+                                                        class="f-18">{{generateInitials(userDetail?.projectManagerName)}}</b>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="team_member">
+                                    <div class="team_leader">
+                                        <p>Team Member&nbsp;:&nbsp;</p>
+
+                                        <ul *ngFor="let users of userProfile">
+                                            <li *ngIf="users">
+                                                <div [matTooltip]="users?.personName" class="image_leader"
+                                                    [ngStyle]="{'background': stringToColor(users?.personName)}">
+
+                                                    <img *ngIf="users?.personProfilePicture"
+                                                        [src]="transformImagePath(users?.personProfilePicture)"
+                                                        class="avatar-img">
+
+                                                    <b *ngIf="!users?.personProfilePicture"
+                                                        class="f-18">{{generateInitials(users?.personName)}}</b>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-lg-12 col-xl-6 h-100">
+                                    <div class="common_box h-100 bg-white mb-3">
+                                        <div class="chart_section">
+                                            <div id="chart" style="max-width: 600px;height: 100%; margin: 0 auto;">
+                                                <apx-chart *ngIf="chartOptions" [series]="chartOptions.series"
+                                                    [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+                                                    [legend]="chartOptions.legend" [colors]="chartOptions.colors"
+                                                    [plotOptions]="chartOptions.plotOptions"
+                                                    [responsive]="chartOptions.responsive">
+                                                </apx-chart>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="common_box h-100 bg-white mb-3">
+                                        <div class="project_description">
+                                            <h3>Project Description&nbsp;:&nbsp;</h3>
+                                            <p>{{description}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-xl-6 h-100">
+                                    <div class="row  mb-3">
+                                        <div class="col-md-6    mb-3">
+                                            <div class="common_box h-100 bg-white">
+                                                <div class="project_detail">
+                                                    <h3>Project Name&nbsp;:&nbsp;</h3>
+                                                    <p>&nbsp;{{projectName}}
+                                                </div>
+                                                <div class="project_code">
+                                                    <h3>Project Code&nbsp;:&nbsp;</h3>
+                                                    <p>&nbsp;{{projectCode}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6  mb-3">
+                                            <div class="common_box  h-100 bg-white">
+                                                <div class="project_owner">
+                                                    <h3>Project Owner&nbsp;:&nbsp;</h3>
+                                                    <p>&nbsp;{{projectOwner}}</p>
+                                                </div>
+                                                <div class="project_owner">
+                                                    <h3>Project Manager&nbsp;:&nbsp;</h3>
+                                                    <p>&nbsp;{{projectManager}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-12 ">
+                                            <div class="common_box  h-100 bg-white">
+
+                                                <div class="project_catogory">
+                                                    <h3>Project Category&nbsp;:&nbsp;</h3>
+                                                    <p>&nbsp;{{categoryName}}</p>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="project_pro">
+                                                        <h3>Project Priority&nbsp;:&nbsp;</h3>
+                                                        <p class="bg_color_text">&nbsp;{{priorityName}}
+                                                        </p>
+                                                    </div>
+                                                    <div class="status">
+                                                        <h3>Status&nbsp;:&nbsp;</h3>
+                                                        <p><a class="bg_color">{{statusName}}</a></p>
+                                                    </div>
+                                                </div>
+                                                <div class="date start_end">
+                                                    <p><span>Start Date:&nbsp;</span> {{ startDate | date: dateFormat }}
+                                                    </p>
+                                                    <p><span>End Date:&nbsp;</span>{{ endDate | date: dateFormat}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="common_box h-100 bg-white mb-3">
+                                        <div class="project_description">
+                                            <h3>Technology Specification&nbsp;:&nbsp;</h3>
+                                            <p>{{technologySpecification}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="common_box h-100 bg-white mb-3">
+                                        <div class="project_description">
+                                            <h3>Note / Comment&nbsp;:&nbsp;</h3>
+                                            <p>{{notes}}
+                                            </p>
+                                        </div>
+                                    </div> 
+
+                                    <div class="common_box h-100 bg-white mb-3">
+                                        <div class="project_docuplod">
+                                            <h3>Attachments&nbsp;:&nbsp;</h3>
+                                            <ng-container *ngIf="projectAttachments?.length > 0; else noAttachments">
+                                                <div class="attachment-images">
+                                                    <div *ngFor="let attachment of projectAttachments"
+                                                        class="attachment-item">
+                                                        <ng-container [ngSwitch]="getFileExtension(attachment.path)">
+
+                                                            <!-- Image files (without name below) -->
+                                                            <ng-container *ngSwitchCase="'jpg'">
+                                                                <img [src]="getAttachmentUrl(attachment.path)"
+                                                                    [alt]="attachment.name" />
+                                                            </ng-container>
+                                                            <ng-container *ngSwitchCase="'jpeg'">
+                                                                <img [src]="getAttachmentUrl(attachment.path)"
+                                                                    [alt]="attachment.name" />
+                                                            </ng-container>
+                                                            <ng-container *ngSwitchCase="'png'">
+                                                                <img [src]="getAttachmentUrl(attachment.path)"
+                                                                    [alt]="attachment.name" />
+                                                            </ng-container>
+                                                            <ng-container *ngSwitchCase="'gif'">
+                                                                <img [src]="getAttachmentUrl(attachment.path)"
+                                                                    [alt]="attachment.name" />
+                                                            </ng-container>
+
+                                                            <!-- Document files (with file name below) -->
+                                                            <a *ngSwitchCase="'pdf'"
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <mat-icon class="text-danger">picture_as_pdf</mat-icon>
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+                                                            <a *ngSwitchCase="'doc'"
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <mat-icon class="text-primary">article</mat-icon>
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+                                                            <a *ngSwitchCase="'docx'"
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <mat-icon class="text-primary">article</mat-icon>
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+                                                            <a *ngSwitchCase="'xls'"
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <mat-icon class="text-success">grid_on</mat-icon>
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+                                                            <a *ngSwitchCase="'xlsx'"
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <mat-icon class="text-success">grid_on</mat-icon>
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+
+                                                            <!-- Default file -->
+                                                            <a *ngSwitchDefault
+                                                                [href]="getAttachmentUrl(attachment.path)"
+                                                                target="_blank">
+                                                                <img src="assets/icons/file-icon.png" alt="File" />
+                                                                <p>{{ getFileName(attachment.path) }}</p>
+                                                            </a>
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                            <ng-template #noAttachments>
+                                                <p>No attachments found.</p>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+
+
+                                </div> 
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="ri-file-list-line"></i>
+                            <span>Backlog</span>
+                        </ng-template> 
+                        <ng-container *ngIf="showSprintComponent">
+                            <app-sprint></app-sprint>
+                        </ng-container>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="ri-artboard-line"></i>
+                            <span>Board</span>
+                        </ng-template>
+                        <div class="board_det l">
+                            <div class="board_main">
+                                <div class="outer_main">
+                                    <app-project-taskboard></app-project-taskboard>
+                                </div> 
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template mat-tab-label>
+                            <i class="ri-node-tree"></i>
+                            <span>Tree Structure</span>
+                        </ng-template>
+                        <div class="tree">
+                            <app-project-tree-view></app-project-tree-view>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+</div>

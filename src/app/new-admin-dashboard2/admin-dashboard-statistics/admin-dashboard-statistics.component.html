@@ -1,0 +1,80 @@
+<div class="statistics-card ink-card h-100" *ngFor="let Projects of getALLStatistics">
+    <div class="title-dropdown p-3 border-bottom">
+        <div class="ink-title">
+            Statistics
+        </div>
+    </div>
+    <div class="stastic_detail">
+        <div class="today_leave">
+            <div class="pro_bar">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="5"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': getLeavewidth(Projects.todayOnLeave,Projects.totalEmployee)}">
+                    </div>
+                </div>
+            </div>
+            <div class="numbering d-flex justify-content-between align-items-center">
+                <p>Today Leave</p>
+                <p class="data">{{Projects.todayOnLeave}}/{{Projects.totalEmployee}}</p>
+            </div>
+        </div>
+        <div class="today_leave">
+            <div class="pro_bar">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-info progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': getLeavewidth(Projects.unpaidInvoice,Projects.totalInvoice)}">
+                    </div>
+                </div>
+            </div>
+            <div class="numbering d-flex justify-content-between align-items-center">
+                <p>Pending Invoice</p>
+                <p class="data">{{Projects.unpaidInvoice}}/{{Projects.totalInvoice}}</p>
+            </div>
+        </div>
+        <div class="today_leave">
+            <div class="pro_bar">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': getLeavewidth(Projects.completedProjects,Projects.totalProjects)}">
+                    </div>
+                </div>
+            </div>
+            <div class="numbering d-flex justify-content-between align-items-center">
+                <p>Completed Projects</p>
+                <p class="data">
+                    {{Projects.completedProjects}}/{{Projects.totalProjects}}</p>
+            </div>
+        </div>
+        <div class="today_leave">
+            <div class="pro_bar">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-secondary progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': getLeavewidth(Projects.openTicket,Projects.totalTicket)}">
+                    </div>
+                </div>
+            </div>
+            <div class="numbering d-flex justify-content-between align-items-center">
+                <p>Open Tickets</p>
+                <p class="data">{{Projects.openTicket}}/{{Projects.totalTicket}}</p>
+            </div>
+        </div>
+        <div class="today_leave">
+            <div class="pro_bar">
+                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="50"
+                    aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                        [ngStyle]="{'width.%': getLeavewidth(Projects.closedTicket,Projects.totalTicket)}">
+                    </div>
+                </div>
+            </div>
+            <div class="numbering d-flex justify-content-between align-items-center">
+                <p>Closed Tickets</p>
+                <p class="data">{{Projects.closedTicket}}/{{Projects.totalTicket}}</p>
+            </div>
+        </div>
+    </div>
+</div>

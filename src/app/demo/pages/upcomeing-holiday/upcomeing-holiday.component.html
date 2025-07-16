@@ -1,0 +1,18 @@
+<div class="flex-wrap">
+   
+   
+      <div class="text">
+         <div class="ink-title">Holiday</div>
+         <ng-container *ngFor="let holiday of todayHoliday">
+            <app-loader *ngIf="loading"></app-loader> 
+            <div class="small-text"> <span style="font-weight: 600;">{{holiday?.description}}</span>, {{holiday?.date | date:
+               dateFormat}} </div>
+         </ng-container>
+      
+         <div class="btn-box" (click)="getAllHolidayList()">
+            <div class="btn">
+               View More
+            </div>
+         </div> 
+      </div> 
+</div>

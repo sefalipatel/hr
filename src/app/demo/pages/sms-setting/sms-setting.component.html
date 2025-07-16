@@ -1,0 +1,77 @@
+<div class="page-top-header mb-3">
+    <h5 class="card-subtitle mt-0">SMS Setting</h5>
+    <span class="mt-2 text-secondary d-block">Manage SMS Setting</span>
+</div>
+<div class="row px-3">
+    <div class="col-sm-12 border rounded bg-white px-0">
+
+
+        <!-- /add -->
+        <div class="p-3">
+            <form [formGroup]="smsSettingForm">
+                <div class="">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label style="font-weight: 600;" class="required mb-2">SMS Config </label>
+                                <mat-select formControlName="mailType" style="font-size: 14px;"
+                                    class="select form-control" (ngModelChange)="onConfigChange($event)"
+                                    placeholder="Select SMS Config" [ngClass]="{
+                                'is-invalid': ef['mailType'].touched && ef['mailType'].invalid
+                              }">
+                                    <mat-option [value]="''" disabled="true"> Select SMS Config </mat-option>
+                                    <mat-option *ngFor="let data of smsConfigList" [value]="data.type">
+                                        {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                                <div *ngIf="ef['mailType'].touched && ef['mailType'].invalid"
+                                    class="invalid-feedback mt-2">
+                                    <div *ngIf="ef['mailType'].errors && ef['mailType'].errors['required']">
+                                        SMS Config type is required.
+                                    </div>
+                                    <div *ngIf="ef['mailType'].errors && ef['mailType'].errors['pattern']">
+                                        Enter Valid Email.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="dynamicKeys?.length">
+                            <ng-container [formGroup]="configDetailForm">
+                                <div class="col-lg-6 col-sm-12" *ngFor="let control of dynamicKeys">
+                                    <div class="form-group">
+                                        <label style="font-weight: 600;"
+                                            class="text-capitalize required mb-2">{{control.label}}</label>
+                                        <input class="form-control" [formControlName]="control.control" type="text"
+                                            [ngClass]="{
+                                    'is-invalid': cf[control.control]['touched'] && cf[control.control]['invalid']
+                                  }">
+                                        <div *ngIf="cf[control.control]?.touched && cf[control.control]?.invalid"
+                                            class="invalid-feedback mt-2">
+                                            <div class="text-capitalize"
+                                                *ngIf="cf[control.control]?.errors && cf[control.control]?.errors?.['required']">
+                                                {{control.label}} is required.
+                                            </div>
+                                            <div class="text-capitalize"
+                                                *ngIf="cf[control.control]?.errors && cf[control.control]?.errors?.['pattern']">
+                                                Enter Valid {{control.label}}.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                    <div class="row pe-0" *ngIf="userRole[0]?.canView">
+                        <div class="col-lg-12 text-end pt-3">
+                            <button [disabled]="!smsSettingForm.dirty && !configDetailForm.dirty"
+                                href="javascript:void(0);" class="btn btn-primary px-4 py-2 rounded-pill" type="submit"
+                                (click)="saveConfig()">Save</button>
+                                </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /add -->
+
+    </div>
+</div>

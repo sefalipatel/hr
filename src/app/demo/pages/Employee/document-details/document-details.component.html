@@ -1,0 +1,182 @@
+<form class="leave_form mt-3 universal-form" [formGroup]="form" (ngSubmit)="Save()"
+  [ngClass]="!isForm ? 'd-none' : '' ">
+
+  <div class="card-body">
+    <div class="row g-3">
+      <div class="col-sm-12">
+        <div>
+          <mat-label class="label_name">Document Type <span class="text-danger">*</span></mat-label>
+          <mat-form-field appearance="outline" class="w-100 mt-2">
+
+            <mat-select formControlName="documentType" placeholder="Select document type" required>
+              <mat-option *ngFor="let Document of documentTypeenum" [value]="Document.value">
+                {{Document.label}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="form.get('documentType').hasError('required') && form.get('documentType').touched ">
+            Document type is required
+          </mat-error>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div>
+          <mat-label class="label_name">Document Number <span class="text-danger">*</span></mat-label>
+          <mat-form-field class="w-100 mt-2" appearance="outline">
+            <input matInput placeholder="Enter document number" formControlName="documentNumber" required
+              (blur)="trimNameOnBlur('documentNumber')">
+          </mat-form-field>
+          <mat-error *ngIf="form.get('documentNumber').hasError('required') && form.get('documentNumber').touched ">
+            Document number is required
+          </mat-error>
+          <mat-error *ngIf="form.get('documentNumber').hasError('pattern') && form.get('documentNumber').dirty ">
+            Document number is not valid
+          </mat-error>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <mat-label class="label_name ">Upload Document</mat-label> 
+        <div class="image-upload upload_doc">
+          <input type="file" (change)="onSelectedFile($event)" #fileInput>
+
+          <span *ngIf="File; else showPath">{{ File.name }}</span>
+
+          <ng-template #showPath>
+            <span *ngIf="imagePath">{{ imagePath.split('/').pop() }}</span>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div>
+          <mat-label class="label_name">Expired On</mat-label>
+          <mat-form-field class="w-100 mt-2" appearance="outline">
+            <input matInput [matDatepicker]="EndDatePicker" formControlName="expiryDate"
+              placeholder="Enter expiry date" />
+            <mat-datepicker-toggle matSuffix [for]="EndDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #EndDatePicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div>
+          <mat-label class="label_name">Remark</mat-label>
+          <mat-form-field class="w-100 mt-2" appearance="outline">
+            <input matInput placeholder="Enter remark" formControlName="remarks" (blur)="trimNameOnBlur('remarks')">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex my-3 mx-4 border-top justify-content-end pt-3">
+    <button type="submit" class="btn btn-primary me-3 px-4 py-2 rounded-pill"
+      [ngClass]="userRole[0]?.canAdd ? 'd-block' : 'd-none' "> Save</button>
+    <button type="button" class="btn btn-secondary px-4 py-2 rounded-pill" (click)="cancle()"> Cancel </button>
+  </div>
+
+</form>
+
+<div class="card-body documentdetail_viewtable  rounded" [ngClass]="isForm ? 'd-none' : '' "> 
+  <div class="pc-component">
+    <div class="mb-1 d-none" *ngIf="userRole[0]?.canAdd">
+      <div class="mb-3 d-flex bd-highlight justify-content-end">
+        <button type="button" class="btn btn-primary  px-4 py-2 rounded-pill " (click)="addDocumentDetail()">Add
+          Document Detail</button>
+      </div>
+    </div>
+
+    <div *ngIf="userRole[0]?.canAdd" class="image_section" (click)="addDocumentDetail()">
+      <svg _ngcontent-ng-c1098991612="" _ngcontent-ng-c796196116="" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path _ngcontent-ng-c1098991612="" _ngcontent-ng-c796196116="" fill-rule="evenodd" clip-rule="evenodd"
+          d="M21.1213 2.70705C19.9497 1.53548 18.0503 1.53547 16.8787 2.70705L15.1989 4.38685L7.29289 12.2928C7.16473 12.421 7.07382 12.5816 7.02986 12.7574L6.02986 16.7574C5.94466 17.0982 6.04451 17.4587 6.29289 17.707C6.54127 17.9554 6.90176 18.0553 7.24254 17.9701L11.2425 16.9701C11.4184 16.9261 11.5789 16.8352 11.7071 16.707L19.5556 8.85857L21.2929 7.12126C22.4645 5.94969 22.4645 4.05019 21.2929 2.87862L21.1213 2.70705ZM18.2929 4.12126C18.6834 3.73074 19.3166 3.73074 19.7071 4.12126L19.8787 4.29283C20.2692 4.68336 20.2692 5.31653 19.8787 5.70705L18.8622 6.72357L17.3068 5.10738L18.2929 4.12126ZM15.8923 6.52185L17.4477 8.13804L10.4888 15.097L8.37437 15.6256L8.90296 13.5112L15.8923 6.52185ZM4 7.99994C4 7.44766 4.44772 6.99994 5 6.99994H10C10.5523 6.99994 11 6.55223 11 5.99994C11 5.44766 10.5523 4.99994 10 4.99994H5C3.34315 4.99994 2 6.34309 2 7.99994V18.9999C2 20.6568 3.34315 21.9999 5 21.9999H16C17.6569 21.9999 19 20.6568 19 18.9999V13.9999C19 13.4477 18.5523 12.9999 18 12.9999C17.4477 12.9999 17 13.4477 17 13.9999V18.9999C17 19.5522 16.5523 19.9999 16 19.9999H5C4.44772 19.9999 4 19.5522 4 18.9999V7.99994Z">
+        </path>
+      </svg>
+    </div>
+
+  </div>
+  <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+    <div class="mat-elevation-z8 fixTableHead  scrollbox-content   user_request_list shadow-none ">
+      <table mat-table [dataSource]="dataSource" class="apply_leave">
+
+        <!-- Document Type Column -->
+        <ng-container matColumnDef="documentType">
+          <th mat-header-cell *matHeaderCellDef>Document Type </th>
+          <td mat-cell *matCellDef="let element"> {{getStatusLabel(element.documentType)}} </td>
+        </ng-container>
+
+        <!-- Document Number Column -->
+        <ng-container matColumnDef="documentNumber">
+          <th mat-header-cell *matHeaderCellDef>Document Number</th>
+          <td mat-cell *matCellDef="let element"> {{element.documentNumber}} </td>
+        </ng-container>
+
+        <!-- Expiry Date Column -->
+        <ng-container matColumnDef="expiryDate">
+          <th mat-header-cell *matHeaderCellDef> Expiry Date</th>
+          <td mat-cell *matCellDef="let element">{{element.expiryDate| date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <!-- Remark Column -->
+        <ng-container matColumnDef="remarks">
+          <th mat-header-cell *matHeaderCellDef> Remark </th>
+          <td class="text_wrap" mat-cell *matCellDef="let element">{{element.remarks}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class=""> Action</th>
+          <td mat-cell *matCellDef="let element" class="">
+
+            <div class="d-flex align-items-center btn_hover">
+              <div class="icon_width me-2 px-2" style="width: 18%;" matTooltip="Download">
+                <span mat-raised-button class="d-inline-block reason"
+                  aria-label="Button that displays a tooltip when focused or hovered over">
+                  <div class="ri-file-download-fill icon_width btn_hover me-2" (click)="downloadFile(element)">
+                  </div>
+
+                </span>
+              </div>
+              <div class="icon_width me-2 px-2" *ngIf="userRole[0]?.canEdit" matTooltip="Edit">
+                <svg viewBox="64 64 896 896" focusable="false" (click)="editDocument(element)" data-icon="edit"
+                  width="17" height="17" aria-hidden="true">
+                  <path
+                    d="M257.7 752c2 0 4-.2 6-.5L431.9 722c2-.4 3.9-1.3 5.3-2.8l423.9-423.9a9.96 9.96 0 000-14.1L694.9 114.9c-1.9-1.9-4.4-2.9-7.1-2.9s-5.2 1-7.1 2.9L256.8 538.8c-1.5 1.5-2.4 3.3-2.8 5.3l-29.5 168.2a33.5 33.5 0 009.4 29.8c6.6 6.4 14.9 9.9 23.8 9.9zm67.4-174.4L687.8 215l73.3 73.3-362.7 362.6-88.9 15.7 15.6-89zM880 836H144c-17.7 0-32 14.3-32 32v36c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-36c0-17.7-14.3-32-32-32z">
+                  </path>
+                </svg>
+              </div>
+
+              <div class="icon_width me-2 px-2" *ngIf="userRole[0]?.canDelete" matTooltip="Delete">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" (click)="deleteDocument(element)" height="24"
+                  viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" class="feather feather-x">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="5">
+            <div class="text-center d-block border-bottom-0">
+              <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+              <h6 class="no-record mt-3">No Data Available</h6>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="text-end d-block mb-3 mt-4" *ngIf="!isProfile && !requestId">
+    <div class="pagination-format d-inline-block">
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

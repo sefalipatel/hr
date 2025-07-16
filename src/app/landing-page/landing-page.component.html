@@ -1,0 +1,371 @@
+<div class="landing-page">
+    <!-- header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <div class="logo">
+                            <img width="180px" src="assets/images/default_sky_logo_new.png" alt="img" />
+                        </div>
+                        <div class="links">
+                            <button type="button" class="btn btn-primary px-4 fw-bold" (click)="login()"
+                                style="z-index:99999;">Sign In</button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- header-end -->
+
+    <!-- banner slider -->
+    <section class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 animate-on-scroll fade-up">
+                    <div class="content-side">
+                        <h1>
+                            Empowering People,
+                            <br>Simplifying HR.
+                            <br>
+                            <span class="special-tag">Smarter Workplaces</span>
+                        </h1>
+                        <h6 class="mt-3 mb-4">
+                            <p>
+                                <b>
+                                    Our HRM system is designed to put people
+                                    first—streamlining processes, improving
+                                    communication, and enhancing
+                                    productivity.
+                                </b>
+                            </p>
+                            <p>
+                                From employee onboarding to performance
+                                appraisals, our platform brings everything
+                                under one roof.
+                                Automated workflows, insightful analytics,
+                                and secure access ensure
+                                a seamless experience for HR teams and employees alike.
+                            </p>
+
+                        </h6>
+                        <button type="button" class="main-btn" (click)="login()">Get Started</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-lg-0 mt-5 position-relative">
+                    <div class="img-side animate-on-scroll zoom-in">
+                        <img class="w-100 bounce-image" alt="Floating Image" src="assets/images/landing/hrm-1.png">
+                    </div>
+                    <div class="absolute-set">
+                        <div class="circle-container">
+                            <div class="container">
+                                <div class="rotating-text">
+                                    <!-- Circle text -->
+                                    <svg viewBox="0 0 200 200">
+                                        <defs>
+                                            <path id="circlePath" d="M 100,100
+                                         m -80,0
+                                         a 80,80 0 1,1 160,0
+                                         a 80,80 0 1,1 -160,0" />
+                                        </defs>
+                                        <text>
+                                            <textPath href="#circlePath" startOffset="0%">
+                                                Secure Access * Smart * Digital Access *
+                                            </textPath>
+                                        </text>
+                                    </svg>
+
+                                    <!-- Center yellow circle with arrow -->
+                                    <div class="center-circle">
+                                        <div class="arrow">↑</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner slider end -->
+
+    <!-- service end -->
+    <section class="al-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 animate-on-scroll fade-up text-center">
+                    <div class="title-style">
+                        <h1>
+                            <span>Core Features</span>
+                            Unlock the Power of
+                            <br>
+                            <em class="special-tag"> Smart HR</em>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box  animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-tachometer" aria-hidden="true"></i>
+                        </span>
+                        <h3 class="mt-3"> Dashboard Overview</h3>
+                        <p class="mt-3">Get a complete snapshot of employee activities,
+                            attendance, and key metrics.
+                        </p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </span>
+
+                        <h3 class="mt-3"> Seamless Login</h3>
+                        <p class="mt-3">Secure Login, Register, and Forgot
+                            Password features for easy access. </p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                        </span>
+
+                        <h3 class="mt-3"> Employee Management</h3>
+                        <p class="mt-3">Manage profiles, roles, and departments from one centralized system. </p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        </span>
+
+                        <h3 class="mt-3">Attendance Tracking</h3>
+                        <p class="mt-3">Real-time check-ins, check-outs, and monthly summaries.</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-plane" aria-hidden="true"></i>
+                        </span>
+
+                        <h3 class="mt-3"> Leave Management</h3>
+                        <p class="mt-3">Apply, approve, and monitor leaves with a smooth workflow.</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-6 col-lg-4">
+                    <div class="al-service-box animate-on-scroll fade-up pt-5 pb-4 px-5 text-center">
+                        <span class="al-service-icon">
+                            <i class="fa fa-trophy" aria-hidden="true"></i>
+                        </span>
+
+                        <h3 class="mt-3"> Appraisal System</h3>
+                        <p class="mt-3">Configure and manage employee appraisals during review periods.</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">More info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- service end -->
+
+
+    <!-- about -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row">
+                <!-- Image Column -->
+                <div class="col-lg-6">
+                    <div class="h-100 d-flex align-items-center">
+                        <div class="inner-column animate-on-scroll fade-up">
+                            <img class="vibrate w-100" src="assets/images/landing/hrm-2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="inner-column ps-lg-4 ps-0">
+                        <div class="col-sm-12 animate-on-scroll fade-up">
+                            <div class="title-style">
+                                <h1 class="text-start mb-4">
+                                    <span>All-in-One HRM</span>
+                                    <em class="special-tag">Top Reasons</em>
+                                    <br>to Choose Our HRM
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="text mb-3 animate-on-scroll fade-up">Our HRM system is built to modernize your
+                            employee management experience.
+                            From onboarding new talents to tracking performance and boosting
+                            engagement, we automate the heavy lifting
+                            so you can focus on growth.
+                        </div>
+                        <div class="text animate-on-scroll fade-up">
+                            Empower your organization with a streamlined, efficient, and future-ready HR solution.
+                        </div>
+                        <ul class="list-style-one">
+                            <li class="animate-on-scroll fade-up"> Employee Onboarding & Management</li>
+                            <li class="animate-on-scroll fade-up">Real-time Attendance & Leave Tracking</li>
+                            <li class="animate-on-scroll fade-up">Seamless Appraisals and Performance Reviews</li>
+                        </ul>
+                        <div class="btn-box animate-on-scroll fade-up">
+                            <button class="main-btn" href="#">Contact Us</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- about end -->
+
+    <!--  Where People Management -->
+    <section class="pt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 position-relative text-center">
+                    <div class="title-big mb-5 animate-on-scroll fade-up">
+                        <h4 class="fw-bold mb-3">
+                            Where People Management Meets Innovation.
+                        </h4>
+                        <span>
+                            Empowering smarter decisions and seamless workflows,
+                            where innovation drives people management. Transforming the way you manage your workforce,
+                            where people management meets innovation.
+                        </span>
+                    </div>
+                    <div class="btn-box-2 animate-on-scroll fade-up">
+                        <div class="btn btn-primary">Try Demo</div> 
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="inner-column animate-on-scroll fade-up">
+                        <img class="w-100" src="assets/images/landing/hrm-3.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--  Where People Management end -->
+
+    <!-- faqs -->
+    <section class="faqs">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="animate-on-scroll fade-up">
+                        <div class="title-style">
+                            <h1 class="text-start mb-4">
+                                <span>HRM Support & FAQs</span>
+                                <em class="special-tag">Got Questions?</em>
+                                <br>We’ve Got Answers
+                            </h1>
+                        </div>
+                        <div class="my-4">
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item animate-on-scroll fade-up">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                            What is an HRM system?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse show"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            <strong>An HRM (Human Resource Management)
+                                            </strong>
+                                            system
+                                            is a software solution that automates
+                                            and manages core HR tasks such as
+                                            employee records, attendance, leave,
+                                            payroll, appraisals, and more—helping
+                                            HR teams save time and reduce errors.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item animate-on-scroll fade-up">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                            Is your HRM system cloud-based?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Yes! Our HRM platform is fully cloud-based, allowing secure access anytime,
+                                            anywhere—from desktops, tablets, or mobile devices.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item animate-on-scroll fade-up">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                            Can it handle payroll and compliance?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseThree" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Absolutely. Our HRM system supports payroll processing, tax calculations,
+                                            and ensures your organization stays compliant with labor laws and
+                                            regulations
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item animate-on-scroll fade-up">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="false" aria-controls="collapseFour">
+                                            How secure is employee data?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseFour" class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            We follow industry-standard encryption protocols
+                                            and secure authentication methods to protect all
+                                            user and employee data at every level.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="h-100 d-flex align-items-center animate-on-scroll fade-up">
+                        <img class="vibrate w-100" src="assets/images/landing/hrm-4.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- faqs ends -->
+    <!-- footer -->
+    <div class="footer-copyright bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center text-white">
+                    <p class="my-3">Copyright _skytus©2019. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer ends -->
+</div>

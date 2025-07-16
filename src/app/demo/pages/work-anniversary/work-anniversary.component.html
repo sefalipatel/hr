@@ -1,0 +1,70 @@
+<div class="birthday_list mt-4 d-none">
+    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+    <ul class=" scrollbox-content ">
+        <li class="p-10" *ngFor="let anniversary of getAllDataAnniversary">
+            <div class="birthday_name_list ">
+                <div class="bithday_image">
+                    <img *ngIf="anniversary.profilePicture" class="img-fluid"
+                        [src]="attachmentURL + anniversary.profilePicture?.replace('wwwroot\\', '')" alt="birthday">
+                    <div *ngIf="!anniversary.profilePicture" class="avtar avtar-s rounded-circle"
+                        [ngStyle]="{'background': stringToColor(anniversary?.employeename)}">
+                        <b class="f-14 text-uppercase">{{anniversary?.employeename[0]+ anniversary?.employeename.split('
+                            ')[1][0] }}</b>
+                    </div>
+                </div>
+                <div class="birthday_people_detail">
+                    <div class="left_birthday">
+                        <div class="bit_balon">
+                            <p>{{anniversary?.employeename}}</p>
+                            <span><svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+                                    class="iconify iconify--twemoji" preserveAspectRatio="xMidYMid meet">
+                                    <path fill="#FCAB40"
+                                        d="M27.999 36a1 1 0 0 1-.969-.758c-.036-.136-.926-3.436-4.273-4.272C18.054 29.794 18 23.277 18 23a1 1 0 0 1 .998-.999c.554.034 1 .445 1.002.997c0 .053.054 5.234 3.242 6.032c4.53 1.132 5.682 5.54 5.727 5.728a.998.998 0 0 1-.97 1.242z">
+                                    </path>
+                                    <path fill="#BB1A34"
+                                        d="M18 25c-1.1 0-1.598-.805-1.105-1.789l1.211-2.422c.492-.984 1.297-.984 1.789 0l1.211 2.422C21.598 24.195 21.1 25 20 25h-2z">
+                                    </path>
+                                    <path fill="#BB1A34"
+                                        d="M28 9c0 6-7 12-9 12s-9-6-9-12c0-5.799 4.582-9 9-9s9 3.201 9 9z"></path>
+                                    <path fill="#FCAB40" d="M20 22h-2a1 1 0 1 1 0-2h2a1 1 0 1 1 0 2z"></path>
+                                </svg></span>
+                        </div>
+                        <p>{{anniversary?.dateofjoining | date: dateFormat}}</p>
+
+                    </div>
+                    <div class="right_birthday"> 
+                        <p>Work Year : {{anniversary?.totalYear}}</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    </div>
+</div>
+
+
+
+<div>
+    <div class="d-flex w-100 align-items-center">
+        <div class="ink-title me-3">Work Anniversary </div>
+        <img src="assets/images/dashboard-2/d-6-1.png" alt="img" />
+    </div>
+    <div class="scrollbox scrollbox_delayed mt-3" tabindex="0">
+    <ul class="body-content scrollbox-content eight-set">
+        <li class="year-img-name" *ngFor="let anniversary of getAllDataAnniversary">
+            <div class="year">Work Year : {{anniversary?.totalYear}} </div>
+            <div class="img"> 
+                <div *ngIf="!anniversary.profilePicture" class="avtar avtar-s rounded-circle"
+                    [ngStyle]="{'background': stringToColor(anniversary?.employeename)}">
+                    <b class="f-14 text-uppercase">{{anniversary?.employeename[0]+ anniversary?.employeename.split('
+                        ')[1][0] }}</b> 
+                </div>
+            </div>
+            <div class="name color-1">
+                <div class="dark">{{anniversary?.employeename}}</div>
+                <div class="light">{{anniversary?.dateofjoining | date: dateFormat}}</div>
+            </div> 
+        </li>
+    </ul>
+    </div>

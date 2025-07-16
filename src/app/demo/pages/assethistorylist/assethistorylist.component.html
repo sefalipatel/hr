@@ -1,0 +1,124 @@
+<div class="page-top-header mb-0 assets_carry_detail_list">
+    <h5 class="card-subtitle mt-0">Asset Carry History</h5>
+</div>
+<div class="row px-3"> 
+    <div class="col-sm-12 border rounded bg-white px-0 custom-remove p-3">
+
+        <div class="row align-items-center pb-0 p-3" *ngIf="!isProfile && !personId">
+            <div class="col-md-4 mb-3">
+                <div class="month_year">
+                    <div class="year_select_box">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Select Year</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedYear"
+                                id="year" placeholder="select Year">
+                                <mat-option class="text-muted">Select Year </mat-option>
+                                <mat-option class="text-muted" *ngFor="let year of years" [value]="year">
+                                    {{year}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="month_year">
+                    <div class="year_select_box">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Select Month</mat-label>
+                            <mat-select matNativeControl style="font-size: 0.875rem;" [(ngModel)]="selectedMonth"
+                                placeholder="select Month">
+                                <mat-option class="text-muted" value="">Select Month </mat-option>
+                                <mat-option class="text-muted" *ngFor="let month of months" [value]="month.value">{{
+                                    month.name }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 text-start h-54 mb-3">
+                <div class="button_outer_block d-flex align-items-baseline">
+                    <button class="btn btn-primary rounded-pill px-4  me-2" mat-raised-button color="primary"
+                        (click)="getAssetHistory()">Apply</button>
+                    <button class="btn btn-secondary rounded-pill px-4 " mat-raised-button color="primary"
+                        (click)="resetButton()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-3">
+            <div class="pt-0 assetshistory_tableview " [ngClass]="isProfile || requestId ? '' : '' "
+                *ngIf="!requestpage">
+                <div class="scrollbox scrollbox_delayed" tabindex="0">
+                    <div class="mat-elevation-z8  scrollbox-content user_request_list shadow-none data-simplebar">
+                        <!-- <div *ngIf="loading" class="loader-container">
+                <mat-progress-spinner mode="indeterminate"> </mat-progress-spinner>
+              </div> -->
+
+                        <table mat-table [dataSource]="dataSource" class="apply_leave " matSort>
+
+                            <ng-container matColumnDef="name">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee Name</th>
+                                <td mat-cell *matCellDef="let element">{{element?.personName}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="assetId">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Code</th>
+                                <td mat-cell *matCellDef="let element">{{element?.asset?.assetId}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="category">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+                                <td mat-cell *matCellDef="let element">{{element?.asset?.category?.categoryName
+                                    }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="assetName">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Asset Name</th>
+                                <td mat-cell *matCellDef="let element">{{element?.asset?.assetName
+                                    }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="reason">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Remark</th>
+                                <td mat-cell *matCellDef="let element" class="text-truncate"
+                                    [matTooltip]="element?.reason">
+                                    {{element?.reason
+                                    }}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="startDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+                                <td mat-cell *matCellDef="let element">{{element?.startDate | date: dateFormat}}</td>
+                            </ng-container>
+                            <ng-container matColumnDef="endDate">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+                                <td mat-cell *matCellDef="let element">{{element?.endDate | date: dateFormat}}</td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="7">
+                                    <div class="text-center d-block border-bottom-0">
+                                        <img style="width: 25%;" src="assets/images/no-data.png" alt="img" />
+                                        <h6 class="no-record mt-3">No Data Available</h6>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-end d-block mb-3 mt-3" *ngIf="!isProfile && !personId && !requestpage">
+                <div class="pagination-format d-inline-block">
+                    <mat-paginator [pageSize]="20" [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

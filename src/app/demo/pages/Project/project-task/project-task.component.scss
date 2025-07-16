@@ -1,0 +1,120 @@
+.task .flex-box .add-task-texts{
+    width: 100%;
+    input{ 
+        width: 100%; 
+
+        height: 50px;
+                font-size: 14px !important;
+                border: 1px solid #95ccff !important;
+                background: #f8f8f8;
+                padding: 12px !important;
+                border-radius: 5px;
+        
+        &:focus{
+            border: 1px solid #1890ff;
+        }
+    }
+}
+.pointer {cursor: pointer;}
+.assignname{
+  text-wrap: nowrap;
+}
+ul.task_tbing{
+    height: calc(100vh - 368px);
+
+&.table_scroll_block {
+    overflow-y: scroll;
+    mask-size: 100% 20000px;
+    mask-position: left bottom;
+    -webkit-mask-size: 100% 20000px;
+    -webkit-mask-position: left bottom;
+    transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+    scrollbar-width: thin;
+    scrollbar-color: transparent white;
+
+    &:hover {
+        -webkit-mask-position: left top;
+        scrollbar-color: #c1c1c1 transparent;
+    }
+}
+}
+
+.btn.btn-pending{
+   color: white;
+   background-color: orange;
+   i{
+    color: white;
+   }
+}
+.dropdown-menu.show {
+    transform: translate(-16px, 30px) !important; 
+    border-radius: 5px;
+    color: green;
+    border-bottom: 2px solid green;
+}
+.assign_person{
+    border-radius: 5px;
+    .icon{
+       img{
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 50%;
+       }
+    }
+}
+.date_blc{ 
+
+}
+.date_blc{
+    display: flex;
+    align-items: center;
+}
+.assign_date_blc{
+    width: 65%;
+   
+}
+.text.right{
+    padding: 10px;
+}
+.mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+.assign_name_list{
+.dropdown-menu.show {
+    transform: translate(13px, 70px) !important;
+    width: 100%;
+}
+}
+.assign_name_list{
+    padding: 5px 0;
+    .text-darkd{
+        color: orange !important;
+        font-weight: 600;
+    }
+}
+.priority_section{
+    border: 1px solid #e6ebf1 !important;
+    margin: 0 !important;
+    .text-darkd{
+        font-weight: 600;
+    }
+    .dropdown-menu.show {
+        transform: translate(12px, 66px) !important;
+        border-radius: 5px;
+        color: green;
+        border-bottom: 2px solid green;
+        width: 220px;
+
+    }
+}
+.close_butn i{
+    font-size: 20px;
+}
+
+.date_blc{
+.due-date{
+    color: black !important;
+    font-weight: 600;
+}
+} 

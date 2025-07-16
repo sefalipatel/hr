@@ -1,0 +1,262 @@
+<div class="h-100">
+    <mat-drawer-container class="drawer-container" autosize>
+
+        <!-- 🔸 Sliding Drawer -->
+        <mat-drawer #drawer mode="over" position="end" class="custom-drawer">
+            <div class="drawer-header">
+                <h3>Approve timeline</h3>
+                <div class="close_btn">
+                    <button class="btn" (click)="drawer.close()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div class="drawer_content">
+                <ul class="firstlevel">
+                    <li>
+                        <div class="user_detail">
+                            <div class="iamge_block">
+                                <img class="img-fluid" src="../../../../../assets/images/leave/userimage.jpg"
+                                    alt="User Image">
+                            </div>
+                            <div class="user_content_Detail">
+                                <p>Sky001&nbsp;-&nbsp;Nehal Patel's request has been sent for approval
+                                <p>
+                                <p>25-Jun-2025 <span>06:08 PM</span></p>
+                            </div>
+                        </div>
+
+                        <ul class="secondlevel">
+                            <li>
+                                <div class="status pending">
+                                    <p class="status_leave pending">Pending</p>
+                                </div>
+                                <div class="aproved_detail">
+                                    <div class="user_detail">
+                                        <div class="iamge_block">
+                                            <img class="img-fluid" src="../../../../../assets/images/leave/user2.jpg"
+                                                alt="User Image">
+                                        </div>
+                                        <div class="user_content_Detail">
+                                            <p>01&nbsp;-&nbsp;Ketan Prajapati has been approve your request
+                                            <p>
+                                            <p>26-Jun-2025 <span>10:08 AM</span></p>
+                                        </div>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput placeholder="Write a comment..."></textarea>
+                                    </mat-form-field>
+                                    <div class="btn_status">
+                                        <button class="btn aprove me-3">Aprrove</button>
+                                        <button class="btn reject me-3">Reject</button> 
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="status approve">
+                                    <p class="status_leave approved">Aprroved</p>
+                                </div>
+                                <div class="aproved_detail">
+                                    <div class="user_detail">
+                                        <div class="iamge_block">
+                                            <img class="img-fluid" src="../../../../../assets/images/leave/user2.jpg"
+                                                alt="User Image">
+                                        </div>
+                                        <div class="user_content_Detail">
+                                            <p>02&nbsp;-&nbsp;HR has been approve your request
+                                            <p>
+                                            <p>26-Jun-2025 <span>02:00 PM</span></p>
+                                        </div>
+                                    </div>
+                                    <mat-form-field class="example-full-width">
+                                        <textarea matInput placeholder="Write a comment..."></textarea>
+                                    </mat-form-field>
+                                    <div class="btn_status">
+                                        <button class="btn aprove me-3">Aprrove</button>
+                                        <button class="btn reject me-3">Reject</button> 
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="status reject">
+                                    <p class="status_leave reject">Rejected</p>
+                                </div>
+                                <div class="aproved_detail">
+                                    <div class="user_detail">
+                                        <div class="iamge_block">
+                                            <img class="img-fluid" src="../../../../../assets/images/leave/user2.jpg"
+                                                alt="User Image">
+                                        </div>
+                                        <div class="user_content_Detail">
+                                            <p>02&nbsp;-&nbsp;HR has been approve your request
+                                            <p>
+                                            <p>26-Jun-2025 <span>02:00 PM</span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="status_leave">
+                                        <p>As disccused,Canceled
+                                        <p>
+                                    </div>
+                                    <div class="btn_status">
+                                        <button class="btn aprove me-3">Aprrove</button>
+                                        <button class="btn reject me-3">Reject</button> 
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </mat-drawer>
+        <div mat-dialog-title class="">
+            <div class="leave_Approve_modal_header">
+                <div class="leave_Approve_modal_header_title">
+                    <div class="user_detail">
+                        <img class="img-fluid" src="../../../../../assets/images/leave/userimage.jpg" alt="User Image">
+                        <p>Sky001&nbsp;-&nbsp;</p>
+                        <p>Nehal Patel</p>
+                    </div>
+                    <div class="leave_Approve_modal_header_right">
+                        <div class="status">
+                            <i class="ri-hourglass-fill"></i>&nbsp;<span>Pending</span> 
+                        </div>
+                        <div class="view_btn"> 
+                            <button class="btn btn-primary" (click)="openDrawer()">Approve&nbsp;/&nbsp;Reject</button>
+                        </div>
+                        <div class="close_btn">
+                            <button class=" btn" (click)="closeModal()">
+                                <i class="ri-close-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <mat-dialog-content>
+            <div class="row">
+                <div class="col-xl-9 col-12">
+                    <div class="leave_Approve_modal">
+                        <div class="leave_Approve_modal_content">
+                            <div class="content_header">
+                                <h4>Leave</h4>
+                            </div>
+                            <hr>
+                            <div class="content_body">
+                                <ul>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label">Employee ID</span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value">Sky001</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label">Leave Type</span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value"> Casual Leave</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label"> Date</span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value"> 26-Jun-2025</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label">Duration</span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value">1 Day</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label">Date of request </span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value"> 25-Jun-2025</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="leave_detail">
+                                            <div class="leave_detail_item_left">
+                                                <span class="label">Reason for leave</span>
+                                            </div>
+                                            <div class="leave_detail_item_right">
+                                                <span class="value"> Personal</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-12 mt-3 mt-xl-0">
+                    <div class="right_block">
+                        <div class="top_modal">
+                            <div class="comon">
+                                <p>As on <span class="gray">25-Jun-2025</span></p>
+                                <p class="gray">Day(s)</p>
+                            </div>
+                            <div class="comon">
+                                <p>Available balance</p>
+                                <p class="green_cl">10</p>
+                            </div>
+                            <div class="comon">
+                                <p>Current Booking</p>
+                                <p>1</p>
+                            </div>
+                            <div class="comon">
+                                <p class="blue">Balance after current booking</p>
+                                <p>9</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right_block mt-3">
+                        <div class="top_modal">
+                            <div class="comon">
+                                <p>As on <span class="gray">31-Mar-2026</span></p>
+
+                            </div>
+                            <div class="comon">
+                                <p>Estimated balance</p>
+                                <p class="green_cl">9</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <div class=" footer_lev d-flex align-items-center justify-content-start pt-3 w-100 text-end">
+                <button type="button" class="me-3 btn btn-primary rounded-pill px-4 py-2"
+                    (click)="closeModal()">Close</button>
+                <button type="button" class="btn btn-secondary rounded-pill px-4 py-2" (click)="closeModal()">Cancle
+                    Leave</button>
+            </div>
+        </mat-dialog-actions>
+
+
+
+    </mat-drawer-container>
+</div>
